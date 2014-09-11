@@ -3,7 +3,9 @@
 # The fOOrth Language System implemented via a Ruby gem.
 
 require_relative 'fOOrth/exceptions'
-require_relative 'fOORth/core'
+require_relative 'fOOrth/monkey_patch'
+require_relative 'fOOrth/symbol_map'
+require_relative 'fOOrth/core'
 require_relative 'fOOrth/interpreter'
 require_relative 'fOOrth/compiler'
 require_relative 'fOOrth/main'
@@ -21,6 +23,10 @@ module XfOOrth
 
   #\VirtualMachine - the heart of the fOOrth language system.
   class VirtualMachine
+
+    #Set true for verbose compiler play-by-plays and detailed error reports.
+    attr_accessor :debug
+
     #The descriptive name of this virtual machine.
     attr_reader :name
 

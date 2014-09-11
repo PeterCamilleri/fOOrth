@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
 
   s.files  = ['lib/fOOrth.rb']
   s.files += Dir['lib/fOOrth/*.rb']
+  s.files += Dir['lib/fOOrth/monkey_patch/*.rb']
   s.files += Dir['lib/fOOrth/core/*.rb']
   s.files += Dir['lib/fOOrth/interpreter/*.rb']
   s.files += Dir['lib/fOOrth/compiler/*.rb']
@@ -32,7 +33,10 @@ Gem::Specification.new do |s|
               'reek.txt']
 
   s.extra_rdoc_files = ['license.txt']
-  s.test_files = Dir['tests/*.rb']
+
+  s.test_files  = Dir['tests/*.rb']
+  s.test_files += Dir['tests/monkey_patch/*.rb']
+
   s.license = 'MIT'
   s.has_rdoc = true
   s.require_path = 'lib'

@@ -5,6 +5,7 @@ require 'getoptlong'
 #* main.rb - The entry point for a stand-alone fOOrth session.
 module XfOOrth
 
+  #Has the library been loaded?
   @library_loaded = false
 
   #Has the fOOrth run time library been loaded?
@@ -23,6 +24,8 @@ module XfOOrth
   #* The virtual machine used to run the session.
   #<br>To launch a fOOrth interactive session, simply use:
   # XfOOrth::main
+  #<br>Endemic Code Smells
+  # :reek:TooManyStatements
   def self.main
     vm = VirtualMachine.new('main')
 
@@ -75,7 +78,9 @@ module XfOOrth
   #Process the command line arguments. A string is returned containing
   #fOOrth commands to be executed after the dictionary is loaded.
   #<br>Returns
-  #A string of fOOrth commands to be executed after the dictionary is loaded.
+  #* A string of fOOrth commands to be executed after the dictionary is loaded.
+  #<br>Endemic Code Smells
+  # :reek:TooManyStatements
   def self.process_command_line_options
     begin
       defer, found = "", false

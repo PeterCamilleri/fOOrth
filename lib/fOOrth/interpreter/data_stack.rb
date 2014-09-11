@@ -65,6 +65,7 @@ module XfOOrth
       unless @data_stack.length >= index
         fail XfOOrthError, "Data Stack Underflow: Peek"
       end
+
       @data_stack[-index]
     end
 

@@ -11,11 +11,18 @@ RDoc::Task.new do |rdoc|
   #List out all the files to be documented.
   rdoc.rdoc_files = ["lib/fOOrth.rb",
                      "lib/fOOrth/exceptions.rb",
+                     "lib/fOOrth/symbol_map.rb",
                      "lib/fOOrth/core.rb",
                      "lib/fOOrth/interpreter.rb",
                      "lib/fOOrth/interpreter/data_stack.rb",
+                     "lib/fOOrth/interpreter/ctrl_stack.rb",
                      "lib/fOOrth/compiler.rb",
                      "lib/fOOrth/main.rb",
+                     "lib/fOOrth/monkey_patch/object.rb",
+                     "lib/fOOrth/monkey_patch/numeric.rb",
+                     "lib/fOOrth/monkey_patch/rational.rb",
+                     "lib/fOOrth/monkey_patch/complex.rb",
+                     "lib/fOOrth/monkey_patch/string.rb",
                      "license.txt",
                      "README.txt"]
 
@@ -26,7 +33,15 @@ end
 #Run the fOOrth test suite.
 Rake::TestTask.new do |t|
   #List out all the test files.
-  t.test_files = []
+  t.test_files = ["tests/monkey_patch/object_test.rb",
+                  "tests/monkey_patch/rational_test.rb",
+                  "tests/monkey_patch/numeric_test.rb",
+                  "tests/monkey_patch/complex_test.rb",
+                  "tests/monkey_patch/string_test.rb",
+                  "tests/interpreter/data_stack_tests.rb",
+                  "tests/interpreter/ctrl_stack_tests.rb",
+                  "tests/symbol_map_tests.rb"
+                 ]
 
   t.verbose = false
 end
