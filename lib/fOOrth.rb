@@ -2,6 +2,8 @@
 
 # The fOOrth Language System implemented via a Ruby gem.
 
+require_relative 'fOOrth/exceptions'
+require_relative 'fOORth/core'
 require_relative 'fOOrth/interpreter'
 require_relative 'fOOrth/compiler'
 require_relative 'fOOrth/main'
@@ -13,7 +15,7 @@ module XfOOrth
   #The version of this module.
   #<br>Returns
   #* A version string; <major>.<minor>.<step>
-  def version
+  def self.version
     "00.06.00"
   end
 
@@ -25,7 +27,7 @@ module XfOOrth
     #Create an new instance of a fOOrth virtual machine
     #<br>Parameters:
     #* name - An optional string that describes this virtual machine instance.
-    def initialize(name='----')
+    def initialize(name='-')
       @name = name
 
       #Bring the major sub-systems to a known state.

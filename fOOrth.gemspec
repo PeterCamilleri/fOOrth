@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.files += Dir['tests/*.rb']
 
   s.files += ['rakefile.rb',
+              'sire.rb',
               'license.txt',
               'readme.txt',
               'reek.txt']

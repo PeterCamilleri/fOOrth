@@ -4,6 +4,7 @@
 module XfOOrth
 
   class VirtualMachine
+    attr_accessor :debug
   end
 
 end
