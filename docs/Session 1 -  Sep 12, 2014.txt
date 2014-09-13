@@ -1,0 +1,59 @@
+SIRE>Xfoorth::XClass.all_classes
+{"Class"=>
+  #<#<Class:0x20d36c0>:0x20d3618
+   @children={},
+   @dictionary={},
+   @foorth_parent=
+    #<#<Class:0x20d34f8>:0x20d3468
+     @children={"Class"=>#<#<Class:0x20d36c0>:0x20d3618 ...>},
+     @dictionary=
+      {:init=>#<Proc:0x20d33a8@C:/Sites/foorth/lib/foorth/core.rb:31 (lambda)>},
+     @foorth_parent=nil,
+     @instance_template=#<Class:0x20d3408>,
+     @name="Object">,
+   @instance_template=#<Class:0x20d3588>,
+   @name="Class">,
+ "Object"=>
+  #<#<Class:0x20d34f8>:0x20d3468
+   @children=
+    {"Class"=>
+      #<#<Class:0x20d36c0>:0x20d3618
+       @children={},
+       @dictionary={},
+       @foorth_parent=#<#<Class:0x20d34f8>:0x20d3468 ...>,
+       @instance_template=#<Class:0x20d3588>,
+       @name="Class">},
+   @dictionary=
+    {:init=>#<Proc:0x20d33a8@C:/Sites/foorth/lib/foorth/core.rb:31 (lambda)>},
+   @foorth_parent=nil,
+   @instance_template=#<Class:0x20d3408>,
+   @name="Object">}
+
+SIRE>Xfoorth::XClass.object_class.foorth_class
+#<#<Class:0x20d36c0>:0x20d3618
+ @children={},
+ @dictionary={},
+ @foorth_parent=
+  #<#<Class:0x20d34f8>:0x20d3468
+   @children={"Class"=>#<#<Class:0x20d36c0>:0x20d3618 ...>},
+   @dictionary=
+    {:init=>#<Proc:0x20d33a8@C:/Sites/foorth/lib/foorth/core.rb:31 (lambda)>},
+   @foorth_parent=nil,
+   @instance_template=#<Class:0x20d3408>,
+   @name="Object">,
+ @instance_template=#<Class:0x20d3588>,
+ @name="Class">
+
+SIRE>Xfoorth::SymbolMap.fwd_map
+{"init"=>:init}
+SIRE>Xfoorth::SymbolMap.rev_map
+{:init=>"init"}
+
+SIRE>Xfoorth::XClass.object_class.name
+"Object"
+
+SIRE>Xfoorth::XClass.object_class.foorth_parent
+nil
+
+SIRE>Xfoorth::XClass.class_class.foorth_parent.name
+"Object"

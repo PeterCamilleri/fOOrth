@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#Extensions to the \Complex class required by the fOOrth language system.
+#Extensions to the \Complex class required by the foorth language system.
 class Complex
   #Convert this complex number to a form suitable for embedding in a source string.
   #<br>Returns

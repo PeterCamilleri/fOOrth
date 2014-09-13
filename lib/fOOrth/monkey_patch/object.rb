@@ -1,41 +1,35 @@
 # coding: utf-8
 
-#Extensions to the \Object class required by the fOOrth language system.
+#Extensions to the \Object class required by the foorth language system.
 class Object
-  #Raise a fOOrth language internal exception as this operation is not allowed.
+  #Raise a foorth language internal exception as this operation is not allowed.
   def embed
     error "Can't embed class #{self.class.to_s}"
   end
 
-  #Convert this object to a fOOrth boolean.
-  #<br>Endemic Code Smells
-  # :reek:UncommunicativeMethodName
-  def to_fOOrth_b
+  #Convert this object to a foorth boolean.
+  def to_foorth_b
     self
   end
 
   #Convert this object to a single character string.
-  #<br>Endemic Code Smells
-  # :reek:UncommunicativeMethodName
-  def to_fOOrth_c
+  def to_foorth_c
     "\x00"
   end
 
   #Convert this object to a numeric. Returns nil for fail.
-  #<br>Endemic Code Smells
-  # :reek:UncommunicativeMethodName
-  def to_fOOrth_n
+  def to_foorth_n
     nil
   end
 
-  #Fail with XfOOrthError argument error.
+  #Fail with XfoorthError argument error.
   def error(msg)
-    fail XfOOrth::XfOOrthError, msg, caller
+    fail Xfoorth::XfoorthError, msg, caller
   end
 
   #Raise an abort exception with message.
   def abort(msg)
-    raise XfOOrth::ForceAbort, msg
+    raise Xfoorth::ForceAbort, msg
   end
 
   #An alias for reading instance variables.

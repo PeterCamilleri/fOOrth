@@ -1,8 +1,8 @@
-#Specify the building of the fOOrth gem.
+#Specify the building of the foorth gem.
 
 Gem::Specification.new do |s|
-  s.name = "fOOrth"
-  s.summary = "FNF == fOOrth is Not FORTH."
+  s.name = "foorth"
+  s.summary = "FNF == foorth is Not FORTH."
   s.description = "An Object Oriented ~FORTH~ language gem."
   s.version = '0.6.0'
   s.author = ["Peter Camilleri"]
@@ -17,12 +17,12 @@ Gem::Specification.new do |s|
 
   #s.add_runtime_dependency 'in_array'
 
-  s.files  = ['lib/fOOrth.rb']
-  s.files += Dir['lib/fOOrth/*.rb']
-  s.files += Dir['lib/fOOrth/monkey_patch/*.rb']
-  s.files += Dir['lib/fOOrth/core/*.rb']
-  s.files += Dir['lib/fOOrth/interpreter/*.rb']
-  s.files += Dir['lib/fOOrth/compiler/*.rb']
+  s.files  = ['lib/foorth.rb']
+  s.files += Dir['lib/foorth/*.rb']
+  s.files += Dir['lib/foorth/monkey_patch/*.rb']
+  s.files += Dir['lib/foorth/core/*.rb']
+  s.files += Dir['lib/foorth/interpreter/*.rb']
+  s.files += Dir['lib/foorth/compiler/*.rb']
 
   s.files += Dir['tests/*.rb']
 
@@ -36,6 +36,7 @@ Gem::Specification.new do |s|
 
   s.test_files  = Dir['tests/*.rb']
   s.test_files += Dir['tests/monkey_patch/*.rb']
+  s.test_files += Dir['tests/interpreter/*.rb']
 
   s.license = 'MIT'
   s.has_rdoc = true

@@ -1,7 +1,7 @@
 # coding: utf-8
 
-require_relative '../../lib/fOOrth/exceptions'
-require_relative '../../lib/fOOrth/monkey_patch/object'
+require_relative '../../lib/foorth/exceptions'
+require_relative '../../lib/foorth/monkey_patch/object'
 require          'minitest/autorun'
 
 #A tiny test class used to test access to instance variables.
@@ -31,31 +31,31 @@ class ObjectMonkeyPatchTester < MiniTest::Unit::TestCase
   #Test that it does NOT embed.
   def test_embed
     obj = Object.new
-    assert_raises(XfOOrth::XfOOrthError) { obj.embed }
+    assert_raises(Xfoorth::XfoorthError) { obj.embed }
   end
 
   #Test for conversion to a boolean.
   def test_to_boolean
     obj = Object.new
-    assert(obj == obj.to_fOOrth_b)
+    assert(obj == obj.to_foorth_b)
   end
 
   #Test for conversion to a character.
   def test_to_character
     obj = Object.new
-    assert_equal(obj.to_fOOrth_c, "\x00")
+    assert_equal(obj.to_foorth_c, "\x00")
   end
 
   #Test for conversion to a number.
   def test_to_number
     obj = Object.new
-    assert_equal(obj.to_fOOrth_n, nil)
+    assert_equal(obj.to_foorth_n, nil)
   end
 
-  #Test the quick fail raise in fOOrth.
+  #Test the quick fail raise in foorth.
   def test_that_exceptions_are_easy_to_raise
-    assert_raises(XfOOrth::XfOOrthError) { error('Failure IS an option!') }
-    assert_raises(XfOOrth::ForceAbort)   { abort('Aborting execution!') }
+    assert_raises(Xfoorth::XfoorthError) { error('Failure IS an option!') }
+    assert_raises(Xfoorth::ForceAbort)   { abort('Aborting execution!') }
   end
 
   #Test that the instance variable aliases are correctly defined.

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#Extensions to the \Numeric class required by the fOOrth language system.
+#Extensions to the \Numeric class required by the foorth language system.
 class Numeric
   #Convert this number to a form suitable for embedding in a source string.
   #<br>Returns
@@ -9,17 +9,13 @@ class Numeric
     self.to_s
   end
 
-  #Convert this number to a fOOrth boolean.
-  #<br>Endemic Code Smells
-  # :reek:UncommunicativeMethodName
-  def to_fOOrth_b
+  #Convert this number to a foorth boolean.
+  def to_foorth_b
     self != 0
   end
 
   #Convert this number to a single character string.
-  #<br>Endemic Code Smells
-  # :reek:UncommunicativeMethodName
-  def to_fOOrth_c
+  def to_foorth_c
     as_int = self.to_i
 
     if as_int < 128
@@ -30,9 +26,7 @@ class Numeric
   end
 
   #Convert this numeric to a numeric. Return self.
-  #<br>Endemic Code Smells
-  # :reek:UncommunicativeMethodName
-  def to_fOOrth_n
+  def to_foorth_n
     self
   end
 end

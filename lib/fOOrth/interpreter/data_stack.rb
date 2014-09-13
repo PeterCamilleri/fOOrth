@@ -1,9 +1,9 @@
 # coding: utf-8
 
-#* data_stack.rb - The fOOrth language system data stack.
-module XfOOrth
+#* data_stack.rb - The foorth language system data stack.
+module Xfoorth
   class VirtualMachine
-    #The fOOrth data stack. This is the primary means used to hold data
+    #The foorth data stack. This is the primary means used to hold data
     #for processing.
     attr_reader :data_stack
 
@@ -18,10 +18,10 @@ module XfOOrth
     #<br>Returns:
     #* The "top" element of the data stack.
     #<br>Note:
-    #* If the stack is empty this will raise a XfOOrthError exception.
+    #* If the stack is empty this will raise a XfoorthError exception.
     def pop
       unless @data_stack.length >= 1
-        fail XfOOrthError, "Data Stack Underflow: pop"
+        error "Data Stack Underflow: pop"
       end
 
       @data_stack.pop
@@ -33,10 +33,10 @@ module XfOOrth
     #<br>Returns:
     #* An array containing the "top" count elements of the data stack.
     #<br>Note:
-    #* Raises a XfOOrthError exception if the stack has too few data.
+    #* Raises a XfoorthError exception if the stack has too few data.
     def popm(count)
       unless @data_stack.length >= count
-        fail XfOOrthError, "Data Stack Underflow: popm"
+        error "Data Stack Underflow: popm"
       end
 
       @data_stack.pop(count)
@@ -46,9 +46,9 @@ module XfOOrth
     #<br>Returns:
     #* The "top" element of the data stack as a boolean
     #<br>Note:
-    #* If the stack is empty this will raise a XfOOrthError exception.
+    #* If the stack is empty this will raise a XfoorthError exception.
     def pop?
-      pop.to_fOOrth_b
+      pop.to_foorth_b
     end
 
     #Read an entry from the data stack without modify that stack.
@@ -60,10 +60,10 @@ module XfOOrth
     #* The element specified from the data stack.
     #<br>Note:
     #* Attempting to access an element deeper than the number of elements
-    #  on the stack will fail with an XfOOrthError exception.
+    #  on the stack will fail with an XfoorthError exception.
     def peek(index=1)
       unless @data_stack.length >= index
-        fail XfOOrthError, "Data Stack Underflow: Peek"
+        error "Data Stack Underflow: Peek"
       end
 
       @data_stack[-index]
@@ -77,9 +77,9 @@ module XfOOrth
     #* The element specified from the data stack as a boolean.
     #<br>Note:
     #* Attempting to access an element deeper than the number of elements on
-    #  the stack will fail with an XfOOrthError exception.
+    #  the stack will fail with an XfoorthError exception.
     def peek?(index=1)
-      peek(index).to_fOOrth_b
+      peek(index).to_foorth_b
     end
   end
 end

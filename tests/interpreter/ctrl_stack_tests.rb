@@ -1,7 +1,8 @@
 # coding: utf-8
 
-require_relative '../../lib/fOOrth/exceptions'
-require_relative '../../lib/fOOrth/interpreter.rb'
+require_relative '../../lib/foorth/exceptions'
+require_relative '../../lib/foorth/monkey_patch.rb'
+require_relative '../../lib/foorth/interpreter.rb'
 require          'minitest/autorun'
 
 #Test the monkey patches applied to the Object class.
@@ -22,7 +23,7 @@ class CtrlStackMapTester < MiniTest::Unit::TestCase
 
   #Test control stack functionality.
   def test_control_stack_ops
-    vm = XfOOrth::VirtualMachine.new
+    vm = Xfoorth::VirtualMachine.new
     refute(vm == nil)
 
     vm.interpreter_reset

@@ -1,10 +1,13 @@
-#* class.rb - The generic class class of the fOOrth language system.
-module XfOOrth
+# coding: utf-8
 
-  #The \XClass class is basis for all fOOrth classes.
+#* class.rb - The generic class class of the foorth language system.
+module Xfoorth
+
+  #The \XClass class is basis for all foorth classes.
   class XClass < XObject
     @all_classes  = Hash.new
 
+    #Get the hash of all classes in the foorth system.
     def self.all_classes
       @all_classes
     end
@@ -26,96 +29,79 @@ module XfOOrth
 
     #The base Ruby class for instances of this class.
     def instance_base_class
-      XfOOrthObject
+      XObject
     end
 
     #Delete all class objects. Needed for testing.
-    def XfOOrthClass._clear_all_classes
+    def self._clear_all_classes
       XClass.all_classes.clear
     end
 
-    #Create the initial classes in the fOOrth hierarchy.
-    def XfOOrthClass.initialize_classes
-      class_anon = Class.new(XfOOrthClass) {@fOOrth_class = nil}
-      class_class = class_anon.new('Class', nil)
-      class_anon.fOOrth_class = class_class
-
-      object_anon = Class.new(XfOOrthClass) {@fOOrth_class = class_class}
-      object_class = object_anon.new('Object', nil)
-      object_class.add_shared_method(:init) {|vm| }
-      object_class.children['Class'] = class_class
-
-      class_class.set_fOOrth_parent(object_class)
-    end
-
-    #The name of the fOOrth class.
+    #The name of the foorth class.
     attr_reader :name
 
-    #The parent fOOrth class of this one.
+    #The parent foorth class of this one.
     #<br>Special Cases:
-    #* The \fOOrth_parent of the fOOrth class "Object" is nil.
-    attr_reader :fOOrth_parent
+    #* The \foorth_parent of the foorth class "Object" is nil.
+    attr_reader :foorth_parent
 
     #A hash containing the methods defined for instances of this class.
     #<br>It maps (a symbol) => (a lambda block)
     attr_reader :dictionary
 
     #A hash containing all of the classes derived from this one.
-    #<br>It maps (a class name) => (an object derived from \XfOOrthClass)
+    #<br>It maps (a class name) => (an object derived from \XClass)
     attr_reader :children
 
-    #Create an new instance of a fOOrth class.
+    #Create an new instance of a foorth class.
     #<br>Parameters:
-    #* name - The name of this fOOrth class.
-    #* \fOOrth_parent - The class that is the parent of this class.
-    def initialize(name, fOOrth_parent)
+    #* name - The name of this foorth class.
+    #* \foorth_parent - The class that is the parent of this class.
+    def initialize(name, foorth_parent)
       @name          = name
-      @fOOrth_parent = fOOrth_parent
+      @foorth_parent = foorth_parent
       @dictionary    = Hash.new
       @children      = Hash.new
       klass          = self
 
-      if XClass.all_classes.has_key?(@name)
-        error 'Class #{@name} already exists.'
+      all = XClass.all_classes
+
+      if all.has_key?(@name)
+        error "Class #{@name} already exists."
+      else
+        all[@name]  = self
       end
 
-      XClass.all_classes[@name]  = self
-
       @instance_template = Class.new(self.instance_base_class) do
-        @fOOrth_class = klass
+        @foorth_class = klass
       end
     end
 
     #Set the class's parent class for the case where this can not be done
     #when the class is constructed. The parent may only be set once.
-    def set_fOOrth_parent(fOOrth_parent)
-      error "The class parent is already set" if @fOOrth_parent
-      @fOOrth_parent = fOOrth_parent
+    def set_foorth_parent(foorth_parent)
+      error "The class parent is already set" if @foorth_parent
+      @foorth_parent = foorth_parent
     end
 
-    #Create a new fOOrth subclass of this class.
+    #Create a new foorth subclass of this class.
     #<br>Parameters:
-    #* vm - The current fOOrth virtual machine.
     #* name - The name of the new sub-class.
-    #* block - An optional class initialization block that takes the vm as
-    #  an argument.
     #<br>Note:
     #* If a sub-class with the given name already exists, that class is returned.
-    def create_fOOrth_subclass(vm, name, class_base=XfOOrthClass, &block)
-      anon = Class.new(class_base) {@fOOrth_class = XfOOrthClass.class_class}
+    def create_foorth_subclass(vm, name, class_base=XClass)
+      anon = Class.new(class_base) {@foorth_class = XClass.class_class}
       new_class = anon.new(name, self)
-
       @children[name] = new_class
-      new_class.instance_exec(vm, &block) if block
       new_class
     end
 
-    #Create an instance of this fOOrth class.
+    #Create an instance of this foorth class.
     #<br>Parameters:
-    #* vm - The current fOOrth virtual machine.
-    def create_fOOrth_instance(vm)
+    #* vm - The current foorth virtual machine.
+    def create_foorth_instance(vm)
       obj = @instance_template.new
-      obj.init(vm)  # <<< ????? I'm not sure about this!!!
+      obj.init(vm)
       obj
     end
 
@@ -126,6 +112,8 @@ module XfOOrth
     #* target_class - The class to which the method is added.
     #<br>Returns:
     #* True on success else false if name could not be found.
+    #<br>Endemic Code Smells
+    # :reek:FeatureEnvy
     def link_shared_method(name, target_class)
       current = self
 
@@ -137,13 +125,13 @@ module XfOOrth
           return true
         end
 
-        current = current.fOOrth_parent
+        current = current.foorth_parent
       end
 
       false
     end
 
-    #Add an instance method to this fOOrth class.
+    #Add an instance method to this foorth class.
     #<br>Parameters:
     #* symbol - The method symbol to be added.
     #* block - The block associated with this method.

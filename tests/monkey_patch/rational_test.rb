@@ -1,7 +1,7 @@
 # coding: utf-8
 
-require_relative '../../lib/fOOrth/monkey_patch/numeric'
-require_relative '../../lib/fOOrth/monkey_patch/rational'
+require_relative '../../lib/foorth/monkey_patch/numeric'
+require_relative '../../lib/foorth/monkey_patch/rational'
 require          'minitest/autorun'
 
 #Test the monkey patches applied to the Object class.

@@ -1,18 +1,18 @@
 # coding: utf-8
 
-# The fOOrth Language System implemented via a Ruby gem.
+# The foorth Language System implemented via a Ruby gem.
 
-require_relative 'fOOrth/exceptions'
-require_relative 'fOOrth/monkey_patch'
-require_relative 'fOOrth/symbol_map'
-require_relative 'fOOrth/core'
-require_relative 'fOOrth/interpreter'
-require_relative 'fOOrth/compiler'
-require_relative 'fOOrth/main'
+require_relative 'foorth/exceptions'
+require_relative 'foorth/monkey_patch'
+require_relative 'foorth/symbol_map'
+require_relative 'foorth/core'
+require_relative 'foorth/interpreter'
+require_relative 'foorth/compiler'
+require_relative 'foorth/main'
 
-#\XfOOrth - the module name space of the fOOrth language system.
-#* fOOrth.rb - The root file that gathers up all the system's parts.
-module XfOOrth
+#\Xfoorth - the module name space of the foorth language system.
+#* foorth.rb - The root file that gathers up all the system's parts.
+module Xfoorth
 
   #The version of this module.
   #<br>Returns
@@ -21,7 +21,7 @@ module XfOOrth
     "00.06.00"
   end
 
-  #\VirtualMachine - the heart of the fOOrth language system.
+  #\VirtualMachine - the heart of the foorth language system.
   class VirtualMachine
 
     #Set true for verbose compiler play-by-plays and detailed error reports.
@@ -30,7 +30,7 @@ module XfOOrth
     #The descriptive name of this virtual machine.
     attr_reader :name
 
-    #Create an new instance of a fOOrth virtual machine
+    #Create an new instance of a foorth virtual machine
     #<br>Parameters:
     #* name - An optional string that describes this virtual machine instance.
     def initialize(name='-')

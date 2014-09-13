@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#A collection of standard library monkey patches required by fOOrth.
+#A collection of standard library monkey patches required by foorth.
 
 require_relative 'monkey_patch/object'
 require_relative 'monkey_patch/numeric'

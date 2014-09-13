@@ -1,6 +1,6 @@
 # coding: utf-8
 
-require_relative '../../lib/fOOrth/monkey_patch/string'
+require_relative '../../lib/foorth/monkey_patch/string'
 require          'minitest/autorun'
 
 #Test the monkey patches applied to the Object class.
@@ -28,21 +28,21 @@ class StringMonkeyPatchTester < MiniTest::Unit::TestCase
 
   #Test converting to a boolean.
   def test_to_boolean
-    assert('cat'.to_fOOrth_b)
-    refute(''.to_fOOrth_b)
+    assert('cat'.to_foorth_b)
+    refute(''.to_foorth_b)
   end
 
   #Test converting to a character.
   def test_to_character
-    assert_equal('ABC'.to_fOOrth_c, 'A')
+    assert_equal('ABC'.to_foorth_c, 'A')
   end
 
   #Test converting to a number.
   def test_to_number
-    assert_equal('123'.to_fOOrth_n,   123)
-    assert_equal('123.4'.to_fOOrth_n, 123.4)
-    assert_equal('1/2'.to_fOOrth_n, '1/2'.to_r)
-    assert_equal('1+2i'.to_fOOrth_n, Complex(1,2))
+    assert_equal('123'.to_foorth_n,   123)
+    assert_equal('123.4'.to_foorth_n, 123.4)
+    assert_equal('1/2'.to_foorth_n, '1/2'.to_r)
+    assert_equal('1+2i'.to_foorth_n, Complex(1,2))
   end
 
 end
