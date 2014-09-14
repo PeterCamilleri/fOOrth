@@ -1,13 +1,13 @@
 # coding: utf-8
 
-#Extensions to the \Object class required by the foorth language system.
+#Extensions to the \Object class required by the fOOrth language system.
 class Object
-  #Raise a foorth language internal exception as this operation is not allowed.
+  #Raise a fOOrth language internal exception as this operation is not allowed.
   def embed
     error "Can't embed class #{self.class.to_s}"
   end
 
-  #Convert this object to a foorth boolean.
+  #Convert this object to a fOOrth boolean.
   def to_foorth_b
     self
   end
@@ -22,14 +22,14 @@ class Object
     nil
   end
 
-  #Fail with XfoorthError argument error.
+  #Fail with XfOOrthError argument error.
   def error(msg)
-    fail Xfoorth::XfoorthError, msg, caller
+    fail XfOOrth::XfOOrthError, msg, caller
   end
 
   #Raise an abort exception with message.
   def abort(msg)
-    raise Xfoorth::ForceAbort, msg
+    raise XfOOrth::ForceAbort, msg
   end
 
   #An alias for reading instance variables.

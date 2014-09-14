@@ -3,27 +3,27 @@
 require 'getoptlong'
 
 #* main.rb - The entry point for a stand-alone foorth session.
-module Xfoorth
+module XfOOrth
 
   #Has the library been loaded?
   @library_loaded = false
 
-  #Has the foorth run time library been loaded?
+  #Has the fOOrth run time library been loaded?
   def self.library_loaded?
     @library_loaded
   end
 
-  #The foorth run time library has been loaded!
+  #The fOOrth run time library has been loaded!
   def self.library_loaded
     @library_loaded = true
   end
 
-  #The starting point for an interactive foorth programming session.
+  #The starting point for an interactive fOOrth programming session.
   #This method only returns when the session is closed.
   #<br>Returns:
   #* The virtual machine used to run the session.
-  #<br>To launch a foorth interactive session, simply use:
-  # Xfoorth::main
+  #<br>To launch a fOOrth interactive session, simply use:
+  # XfOOrth::main
   #<br>Endemic Code Smells
   # :reek:TooManyStatements
   def self.main
@@ -43,10 +43,10 @@ module Xfoorth
       end
 
     rescue Interrupt
-      puts "\nProgram interrupted. Exiting foorth."
+      puts "\nProgram interrupted. Exiting fOOrth."
 
     rescue ForceExit
-      puts "\nQuit command received. Exiting foorth."
+      puts "\nQuit command received. Exiting fOOrth."
 
     rescue SilentExit
       puts
@@ -70,15 +70,15 @@ module Xfoorth
 
   #Display the start-up messages for the interactive session.
   def self.announcement
-    puts "foorth Reference Implementation Version: #{Xfoorth.version}"
+    puts "fOOrth Reference Implementation Version: #{XfOOrth.version}"
     fmt = '%Y-%m-%d at %I:%M%P'
     puts "Session began on date: #{Time.now.strftime(fmt)}"
   end
 
   #Process the command line arguments. A string is returned containing
-  #foorth commands to be executed after the dictionary is loaded.
+  #fOOrth commands to be executed after the dictionary is loaded.
   #<br>Returns
-  #* A string of foorth commands to be executed after the dictionary is loaded.
+  #* A string of fOOrth commands to be executed after the dictionary is loaded.
   #<br>Endemic Code Smells
   # :reek:TooManyStatements
   def self.process_command_line_options
@@ -92,7 +92,7 @@ module Xfoorth
         [ "--quit",  "-q",       GetoptLong::NO_ARGUMENT ],
         [ "--words", "-w",       GetoptLong::NO_ARGUMENT ])
 
-      # Translate the parsed options into foorth.
+      # Translate the parsed options into fOOrth.
       opts.each do |opt, arg|
         unless found
           puts; found = true
@@ -116,10 +116,10 @@ module Xfoorth
 
     rescue Exception
       puts
-      puts "foorth available options:"
+      puts "fOOrth available options:"
       puts
       puts "--help  -h  -?          Display this message and exit."
-      puts "--load  -l <filename>   Load the specified foorth source file."
+      puts "--load  -l <filename>   Load the specified fOOrth source file."
       puts "--debug -d              Default to debug ON."
       puts "--quit  -q              Quit after processing the command line."
       puts "--words -w              List the current vocabulary."

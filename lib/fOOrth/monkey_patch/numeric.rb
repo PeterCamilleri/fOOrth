@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#Extensions to the \Numeric class required by the foorth language system.
+#Extensions to the \Numeric class required by the fOOrth language system.
 class Numeric
   #Convert this number to a form suitable for embedding in a source string.
   #<br>Returns
@@ -9,7 +9,7 @@ class Numeric
     self.to_s
   end
 
-  #Convert this number to a foorth boolean.
+  #Convert this number to a fOOrth boolean.
   def to_foorth_b
     self != 0
   end

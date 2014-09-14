@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#Extensions to the \Rational class required by the foorth language system.
+#Extensions to the \Rational class required by the fOOrth language system.
 class Rational
   #Convert this rational number to a form suitable for embedding in a source string.
   #<br>Returns

@@ -1,10 +1,9 @@
 # coding: utf-8
 
-#* compiler.rb - The compiler portion of the fOOrth language system.
+#* core/virtual_machine.rb - The core connection to the virtual machine.
 module XfOOrth
 
   class VirtualMachine
-
 
   end
 

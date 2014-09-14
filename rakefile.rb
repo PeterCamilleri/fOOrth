@@ -9,23 +9,23 @@ RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = "rdoc"
 
   #List out all the files to be documented.
-  rdoc.rdoc_files = ["lib/foorth.rb",
-                     "lib/foorth/exceptions.rb",
-                     "lib/foorth/display_abort.rb",
-                     "lib/foorth/symbol_map.rb",
-                     "lib/foorth/core.rb",
-                     "lib/foorth/core/object.rb",
-                     "lib/foorth/core/class.rb",
-                     "lib/foorth/interpreter.rb",
-                     "lib/foorth/interpreter/data_stack.rb",
-                     "lib/foorth/interpreter/ctrl_stack.rb",
-                     "lib/foorth/compiler.rb",
-                     "lib/foorth/main.rb",
-                     "lib/foorth/monkey_patch/object.rb",
-                     "lib/foorth/monkey_patch/numeric.rb",
-                     "lib/foorth/monkey_patch/rational.rb",
-                     "lib/foorth/monkey_patch/complex.rb",
-                     "lib/foorth/monkey_patch/string.rb",
+  rdoc.rdoc_files = ["lib/fOOrth.rb",
+                     "lib/fOOrth/exceptions.rb",
+                     "lib/fOOrth/display_abort.rb",
+                     "lib/fOOrth/symbol_map.rb",
+                     "lib/fOOrth/core.rb",
+                     "lib/fOOrth/core/object.rb",
+                     "lib/fOOrth/core/class.rb",
+                     "lib/fOOrth/interpreter.rb",
+                     "lib/fOOrth/interpreter/data_stack.rb",
+                     "lib/fOOrth/interpreter/ctrl_stack.rb",
+                     "lib/fOOrth/compiler.rb",
+                     "lib/fOOrth/main.rb",
+                     "lib/fOOrth/monkey_patch/object.rb",
+                     "lib/fOOrth/monkey_patch/numeric.rb",
+                     "lib/fOOrth/monkey_patch/rational.rb",
+                     "lib/fOOrth/monkey_patch/complex.rb",
+                     "lib/fOOrth/monkey_patch/string.rb",
                      "license.txt",
                      "README.txt"]
 
@@ -33,7 +33,7 @@ RDoc::Task.new do |rdoc|
   rdoc.options << '--visibility' << 'private'
 end
 
-#Run the foorth test suite.
+#Run the fOOrth test suite.
 Rake::TestTask.new do |t|
   #List out all the test files.
   t.test_files = ["tests/monkey_patch/object_test.rb",
@@ -55,26 +55,26 @@ task :reek do |t|
   `reek --no-color lib > reek.txt`
 end
 
-#Fire up an IRB session with foorth preloaded.
+#Fire up an IRB session with fOOrth preloaded.
 task :console do
   require 'irb'
   require 'irb/completion'
-  require './lib/foorth'
-  puts "Starting an IRB console for foorth."
+  require './lib/fOOrth'
+  puts "Starting an IRB console for fOOrth."
   ARGV.clear
   IRB.start
 end
 
 #Run the Simple Interactive Ruby Environment.
 task :sire do
-  require './lib/foorth'
+  require './lib/fOOrth'
   require './sire'
   SIRE.new.run_sire
 end
 
-#Run an Interactive foorth Session.
+#Run an Interactive fOOrth Session.
 task :run do
-  require './lib/foorth'
+  require './lib/fOOrth'
   ARGV.clear
-  Xfoorth::main
+  XfOOrth::main
 end

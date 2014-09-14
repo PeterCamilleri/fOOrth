@@ -1,7 +1,7 @@
 # coding: utf-8
 
 #* symbol_map.rb - The name mangler for the foorth Language System.
-module Xfoorth
+module XfOOrth
 
   #A module used to map strings to unique symbols
   module SymbolMap
@@ -48,7 +48,7 @@ module Xfoorth
     #<br>Returns:
     #* The symbol that corresponds to the name.
     #<br>Exceptions:
-    #* Raises a XfoorthError exception if an attempt is made to change a mapping.
+    #* Raises a XfOOrthError exception if an attempt is made to change a mapping.
     def self.add_special(name, symbol)
       sync.synchronize do
         old_symbol = fwd_map[name]

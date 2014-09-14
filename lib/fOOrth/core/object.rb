@@ -1,9 +1,9 @@
 # coding: utf-8
 
-#* object.rb - The generic object class of the foorth language system.
-module Xfoorth
+#* core/object.rb - The generic object class of the fOOrth language system.
+module XfOOrth
 
-  #The \XObject class is basis for all foorth objects.
+  #The \XObject class is basis for all fOOrth objects.
   class XObject
 
     class << self
@@ -23,7 +23,7 @@ module Xfoorth
 
     end
 
-    #Get the foorth_class of this object.
+    #Get the fOOrth class of this object.
     def foorth_class
       self.class.foorth_class
     end
@@ -38,7 +38,7 @@ module Xfoorth
       instance_variable_defined?(:@exclusive)
     end
 
-    #Add an exclusive method to this foorth object.
+    #Add an exclusive method to this fOOrth object.
     #<br>Parameters:
     #* symbol - The method symbol to be added.
     #* block - The block associated with this method.
@@ -86,7 +86,7 @@ module Xfoorth
     rescue NameError
     end
 
-    #The \method_missing hook is at the very heart of the foorth language
+    #The \method_missing hook is at the very heart of the fOOrth language
     #compiler. It is here that code blocks are added for both shared and
     #exclusive methods.
     #<br>Parameters:

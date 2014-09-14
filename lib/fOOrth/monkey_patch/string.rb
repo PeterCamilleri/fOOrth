@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#Extensions to the \String class required by the foorth language system.
+#Extensions to the \String class required by the fOOrth language system.
 class String
   #Convert this String to a form suitable for embedding in a source string.
   #<br>Returns
@@ -12,7 +12,7 @@ class String
     "'#{self.gsub(/\\/, "\\\\").gsub(/'/,  "\\\\'")}'"
   end
 
-  #Convert this string to a foorth boolean.
+  #Convert this string to a fOOrth boolean.
   def to_foorth_b
     self != ''
   end

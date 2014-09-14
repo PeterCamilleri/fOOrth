@@ -1,10 +1,10 @@
 # coding: utf-8
 
-#* ctrl_stack.rb - The foorth language system ctrl stack.
-module Xfoorth
+#* interpreter/ctrl_stack.rb - The fOOrth language system ctrl stack.
+module XfOOrth
 
   class VirtualMachine
-    #The foorth control stack. This is mostly used to hold information
+    #The fOOrth control stack. This is mostly used to hold information
     #relating to control structures during compile and interpretation.
     attr_reader :ctrl_stack
 
@@ -19,7 +19,7 @@ module Xfoorth
     #<br>Returns:
     #* The "top" element of the ctrl stack.
     #<br>Note:
-    #* If the stack is empty this will raise a XfoorthError exception.
+    #* If the stack is empty this will raise a XfOOrthError exception.
     def ctrl_pop
       unless @ctrl_stack.length >= 1
         error "Control Stack Underflow: pop"
@@ -37,7 +37,7 @@ module Xfoorth
     #* The element specified from the ctrl stack.
     #<br>Note:
     #* Attempting to access an element deeper than the number of elements
-    #  on the stack will fail with an XfoorthError exception.
+    #  on the stack will fail with an XfOOrthError exception.
     def ctrl_peek(index=1)
       unless @ctrl_stack.length >= index
         error "Control Stack Underflow: Peek"

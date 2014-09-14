@@ -1,13 +1,13 @@
 # coding: utf-8
 
-#* class.rb - The generic class class of the foorth language system.
-module Xfoorth
+#* core/class.rb - The generic class class of the fOOrth language system.
+module XfOOrth
 
-  #The \XClass class is basis for all foorth classes.
+  #The \XClass class is basis for all fOOrth classes.
   class XClass < XObject
     @all_classes  = Hash.new
 
-    #Get the hash of all classes in the foorth system.
+    #Get the hash of all classes in the fOOrth system.
     def self.all_classes
       @all_classes
     end
@@ -37,12 +37,12 @@ module Xfoorth
       XClass.all_classes.clear
     end
 
-    #The name of the foorth class.
+    #The name of the fOOrth class.
     attr_reader :name
 
-    #The parent foorth class of this one.
+    #The parent fOOrth class of this one.
     #<br>Special Cases:
-    #* The \foorth_parent of the foorth class "Object" is nil.
+    #* The \foorth_parent of the fOOrth class "Object" is nil.
     attr_reader :foorth_parent
 
     #A hash containing the methods defined for instances of this class.
@@ -53,9 +53,9 @@ module Xfoorth
     #<br>It maps (a class name) => (an object derived from \XClass)
     attr_reader :children
 
-    #Create an new instance of a foorth class.
+    #Create an new instance of a fOOrth class.
     #<br>Parameters:
-    #* name - The name of this foorth class.
+    #* name - The name of this fOOrth class.
     #* \foorth_parent - The class that is the parent of this class.
     def initialize(name, foorth_parent)
       @name          = name
@@ -84,7 +84,7 @@ module Xfoorth
       @foorth_parent = foorth_parent
     end
 
-    #Create a new foorth subclass of this class.
+    #Create a new fOOrth subclass of this class.
     #<br>Parameters:
     #* name - The name of the new sub-class.
     #<br>Note:
@@ -96,9 +96,9 @@ module Xfoorth
       new_class
     end
 
-    #Create an instance of this foorth class.
+    #Create an instance of this fOOrth class.
     #<br>Parameters:
-    #* vm - The current foorth virtual machine.
+    #* vm - The current fOOrth virtual machine.
     def create_foorth_instance(vm)
       obj = @instance_template.new
       obj.init(vm)
@@ -131,7 +131,7 @@ module Xfoorth
       false
     end
 
-    #Add an instance method to this foorth class.
+    #Add an instance method to this fOOrth class.
     #<br>Parameters:
     #* symbol - The method symbol to be added.
     #* block - The block associated with this method.

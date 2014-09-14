@@ -1,7 +1,7 @@
 # coding: utf-8
 
 #* display_abort.rb - Display diagnostic information on an error.
-module Xfoorth
+module XfOOrth
 
   class VirtualMachine
 

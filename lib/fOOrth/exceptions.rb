@@ -1,16 +1,16 @@
 # coding: utf-8
 
-#* exceptions.rb - Exception classes for the foorth language interpreter.
-module Xfoorth
-  #The generalize exception used by all foorth specific exceptions.
-  class XfoorthError < StandardError; end
+#* exceptions.rb - Exception classes for the fOOrth language interpreter.
+module XfOOrth
+  #The generalize exception used by all fOOrth specific exceptions.
+  class XfOOrthError < StandardError; end
 
-  #The exception raised to force the foorth language system to exit.
+  #The exception raised to force the fOOrth language system to exit.
   class ForceExit    < StandardError; end
 
-  #The exception raised to silently force the foorth language system to exit.
+  #The exception raised to silently force the fOOrth language system to exit.
   class SilentExit    < StandardError; end
 
-  #The exception raised to force the foorth language system to abort execution.
+  #The exception raised to force the fOOrth language system to abort execution.
   class ForceAbort   < StandardError; end
 end
