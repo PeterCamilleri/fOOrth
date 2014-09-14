@@ -1,8 +1,6 @@
 # coding: utf-8
 
-require_relative '../../lib/fOOrth/exceptions'
-require_relative '../../lib/fOOrth/monkey_patch.rb'
-require_relative '../../lib/fOOrth/interpreter.rb'
+require_relative '../../lib/fOOrth'
 require          'minitest/autorun'
 
 #Test the monkey patches applied to the Object class.
@@ -23,7 +21,7 @@ class DataStackMapTester < MiniTest::Unit::TestCase
 
   #Test data stack functionality.
   def test_data_stack_ops
-    vm = XfOOrth::VirtualMachine.new
+    vm = XfOOrth.virtual_machine
     refute(vm == nil)
 
     vm.interpreter_reset
@@ -44,7 +42,7 @@ class DataStackMapTester < MiniTest::Unit::TestCase
 
   #Test data stack boolean operations
   def test_boolean_stack_data
-    vm = XfOOrth::VirtualMachine.new
+    vm = XfOOrth.virtual_machine
     refute(vm == nil)
 
     vm.interpreter_reset
@@ -73,7 +71,7 @@ class DataStackMapTester < MiniTest::Unit::TestCase
 
   #Test data stack pop multiple operations
   def test_pop_multiple
-    vm = XfOOrth::VirtualMachine.new
+    vm = XfOOrth.virtual_machine
     refute(vm == nil)
 
     vm.interpreter_reset

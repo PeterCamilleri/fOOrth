@@ -4,7 +4,6 @@ require_relative 'core/object'
 require_relative 'core/class'
 require_relative 'core/virtual_machine'
 
-
 #* core.rb - The fOOrth language OO core.
 module XfOOrth
 
@@ -21,6 +20,10 @@ module XfOOrth
   #A short-cut for getting the fOOrth Class class.
   def self.class_class
     @class_class
+  end
+
+  def self.virtual_machine
+    Thread.current[:vm]
   end
 
   #There is no short cut for getting the fOOrth VitualMachine class because
@@ -63,5 +66,11 @@ module XfOOrth
   #Set up fOOrth Object as the parent of fOOrth Class.
   @object_class.children['Class'] = @class_class
   @class_class.set_foorth_parent(@object_class)
+
+  #Add the VirtualMachine class to all classes
+  all_classes['VirtualMachine'] = VirtualMachine
+
+  #Create a virtual machine for the main thread.
+  VirtualMachine.new('main')
 
 end

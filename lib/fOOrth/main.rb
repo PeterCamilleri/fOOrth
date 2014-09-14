@@ -27,14 +27,14 @@ module XfOOrth
   #<br>Endemic Code Smells
   # :reek:TooManyStatements
   def self.main
-    vm = VirtualMachine.new('main')
+    vm = XfOOrth.virtual_machine
 
     begin
 
       loop do
         begin
           running ||= start_up(vm)
-          vm.eceute_console
+          vm.execute_console
 
         rescue ForceAbort => forced_abort
           vm.display_abort(forced_abort)

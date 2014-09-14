@@ -1,8 +1,6 @@
 # coding: utf-8
 
-require_relative '../lib/fOOrth/exceptions'
-require_relative '../lib/fOOrth/symbol_map'
-require_relative '../lib/fOOrth/core'
+require_relative '../lib/fOOrth'
 require          'minitest/autorun'
 
 #Test the monkey patches applied to the Object class.
