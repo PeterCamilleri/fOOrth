@@ -34,7 +34,10 @@ module XfOOrth
     #Create an new instance of a fOOrth virtual machine
     #<br>Parameters:
     #* name - An optional string that describes this virtual machine instance.
-    #* source - The dictionary used as a source template for the new one.
+    #* source - The dictionary used as a source template for the new one. By
+    #  default an empty dictionary is used.
+    #<br>Note
+    #* A 
     def initialize(name='-', source={})
       @name       = name
       @dictionary = source

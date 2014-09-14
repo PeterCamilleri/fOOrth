@@ -5,36 +5,10 @@ module XfOOrth
 
   #The \XClass class is basis for all fOOrth classes.
   class XClass < XObject
-    @all_classes  = Hash.new
-
-    #Get the hash of all classes in the fOOrth system.
-    def self.all_classes
-      @all_classes
-    end
-
-    #Get the object class.
-    def self.object_class
-      @all_classes['Object']
-    end
-
-    #Get the class class.
-    def self.class_class
-      @all_classes['Class']
-    end
-
-    #Get the virtual machine class.
-    def self.vm_class
-      @all_classes['VirtualMachine']
-    end
 
     #The base Ruby class for instances of this class.
     def instance_base_class
       XObject
-    end
-
-    #Delete all class objects. Needed for testing.
-    def self._clear_all_classes
-      XClass.all_classes.clear
     end
 
     #The name of the fOOrth class.
@@ -64,7 +38,7 @@ module XfOOrth
       @children      = Hash.new
       klass          = self
 
-      all = XClass.all_classes
+      all = XfOOrth.all_classes
 
       if all.has_key?(@name)
         error "Class #{@name} already exists."

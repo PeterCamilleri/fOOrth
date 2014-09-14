@@ -62,14 +62,14 @@ module XfOOrth
 
   #Perform one time start-up actions.
   def self.start_up(vm)
-    announcement
+    announcements
     vm.debug = false
     vm.exec_str.process_command_line_options
     true
   end
 
   #Display the start-up messages for the interactive session.
-  def self.announcement
+  def self.announcements
     puts "fOOrth Reference Implementation Version: #{XfOOrth.version}"
     fmt = '%Y-%m-%d at %I:%M%P'
     puts "Session began on date: #{Time.now.strftime(fmt)}"
