@@ -3,6 +3,7 @@
 #* interpreter/ctrl_stack.rb - The fOOrth language system ctrl stack.
 module XfOOrth
 
+  #* interpreter/ctrl_stack.rb - The fOOrth language system ctrl stack.
   class VirtualMachine
     #The fOOrth control stack. This is mostly used to hold information
     #relating to control structures during compile and interpretation.

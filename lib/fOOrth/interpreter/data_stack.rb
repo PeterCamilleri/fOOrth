@@ -2,6 +2,8 @@
 
 #* interpreter/data_stack.rb - The fOOrth language system data stack.
 module XfOOrth
+
+  #* interpreter/data_stack.rb - The fOOrth language system data stack.
   class VirtualMachine
     #The fOOrth data stack. This is the primary means used to hold data
     #for processing.

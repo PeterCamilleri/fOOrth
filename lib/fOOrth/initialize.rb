@@ -3,6 +3,7 @@
 #* initialize.rb - The initialize method for the virtual machine
 module XfOOrth
 
+  #* initialize.rb - The initialize method for the virtual machine
   class VirtualMachine
 
     #Set true for verbose compiler play-by-plays and detailed error reports.
@@ -29,10 +30,11 @@ module XfOOrth
       self.compiler_reset
 
       #Check for duplicates.
-      error "Only one virtual machine allowed per thread" if Thread.current[:vm]
+      current = Thread.current
+      error "Only one virtual machine allowed per thread" if current[:vm]
 
       #This virtual machine is associated with this thread.
-      Thread.current[:vm] = self
+      current[:vm] = self
     end
 
   end

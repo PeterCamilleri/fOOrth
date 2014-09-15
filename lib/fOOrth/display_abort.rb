@@ -3,6 +3,7 @@
 #* display_abort.rb - Display diagnostic information on an error.
 module XfOOrth
 
+  #* display_abort.rb - Display diagnostic information on an error.
   class VirtualMachine
 
     #Display the diagnostic data required for a language abort error.

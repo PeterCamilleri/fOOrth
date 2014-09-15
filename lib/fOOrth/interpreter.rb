@@ -6,6 +6,7 @@ require_relative 'interpreter/ctrl_stack'
 #* interpreter.rb - The run time interpreter portion of the fOOrth language system.
 module XfOOrth
 
+  #* interpreter.rb - The run time interpreter portion of the fOOrth language system.
   class VirtualMachine
 
     #Reset the state of the fOOrth inner interpreter.

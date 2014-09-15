@@ -61,9 +61,11 @@ module XfOOrth
     #Create a new fOOrth subclass of this class.
     #<br>Parameters:
     #* name - The name of the new sub-class.
+    #* class_base - The Ruby class used as the basis for fOOrth subclass. By
+    #  default this is XClass.
     #<br>Note:
     #* If a sub-class with the given name already exists, that class is returned.
-    def create_foorth_subclass(vm, name, class_base=XClass)
+    def create_foorth_subclass(name, class_base=XClass)
       anon = Class.new(class_base) {@foorth_class = XClass.class_class}
       new_class = anon.new(name, self)
       @children[name] = new_class

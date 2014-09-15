@@ -22,6 +22,7 @@ module XfOOrth
     @class_class
   end
 
+  #A short-cut for getting the virtual machine of the current thread.
   def self.virtual_machine
     Thread.current[:vm]
   end
@@ -30,8 +31,8 @@ module XfOOrth
   #it also happens to be the Ruby VirtualMachine class.
 
   #==========================================================================
-  #Core initialization code block. This code weaves the core of the fOOrth
-  #OO system. This is done explicitly since Ruby cannot do this for us.
+  # The Core initialization code block. This code weaves the core of the
+  # fOOrth OO system. This is done explicitly since Ruby can't do it for us.
   #==========================================================================
 
   #Set up a hash for all fOOrth class objects.

@@ -23,5 +23,17 @@ module XfOOrth
     "00.06.00"
   end
 
+  #The virtual machine is the heart of the fOOrth language system that is
+  #used to facilitate the stack oriented processing of data and language
+  #elements.
+  #* fOOrth.rb - Version info lives here.
+  class VirtualMachine
+
+    #Get the version string for this virtual machine.
+    def version
+      XfOOrth.version
+    end
+  end
+
 end
 

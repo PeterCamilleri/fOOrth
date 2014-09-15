@@ -3,13 +3,31 @@
 #* core/virtual_machine.rb - The core connection to the virtual machine.
 module XfOOrth
 
+  #* core/virtual_machine.rb - The core connection to the virtual machine.
   class VirtualMachine
+    @dictionary = Hash.new
 
+    #Class definitions stand in for the fOOrth virtual machine class.
     class << self
+      #A hash containing the methods defined for instances of this class.
+      #<br>It maps (a symbol) => (a lambda block)
+      attr_reader :dictionary
 
       #The fOOrth parent class of VirtualMachine is Object.
       def foorth_parent
         XfOOrth.object_class
+      end
+
+      #What foorth class is the virtual machine's class? For now we maintain
+      #the illusion of normalcy by saying that it is the fOOrth Class class.
+      def foorth_class
+        XfOOrth.class_class
+      end
+
+      #The name of the virtual machine fOOrth class. We don't care if we
+      #clobber the Ruby name.
+      def name
+        "VirtualMachine"
       end
 
     end
