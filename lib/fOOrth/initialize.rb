@@ -18,7 +18,8 @@ module XfOOrth
     #* source - The dictionary used as a source template for the new one. By
     #  default an empty dictionary is used.
     #<br>Note
-    #* A
+    #* A XfOOrthError will be raised if an attempt is made to create more than
+    #  one virtual machine on a thread.
     def initialize(name='-', source={})
       @name          = name
       @dictionary    = source
