@@ -69,6 +69,8 @@ class CoreTester < MiniTest::Unit::TestCase
 
     #Construct the source code for our code block.
     cs = XfOOrth::SymbolMap.map('class')
+
+    # In fOOrth ==> Object class
     src = "lambda \{|vm| vm.push(XfOOrth.object_class); vm.pop.#{cs}(vm); \}"
 
     #Create the block
@@ -88,6 +90,8 @@ class CoreTester < MiniTest::Unit::TestCase
 
     #Construct the source code for our code block.
     cs = XfOOrth::SymbolMap.map('class')
+
+    # In fOOrth ==> vm class
     src = "lambda \{|vm| vm.push(vm); vm.pop.#{cs}(vm); \}"
 
     #Create the block

@@ -30,6 +30,69 @@ module XfOOrth
         "VirtualMachine"
       end
 
+      #Remove the specified method from this class. The method is still
+      #accessible if defined in a super class or mixin.
+      #<br>Parameters:
+      #* symbol - The symbol of the method to be purged.
+      def purge_method(symbol)
+        remove_method(symbol)
+      rescue NameError
+      end
+
+      #Search the object class dictionaries for the named instance method and add
+      #it to the target class.
+      #<br>Parameters:
+      #* name - The symbol of the method name to be added.
+      #* target_class - The class to which the method is added.
+      #<br>Returns:
+      #* True on success else false if name could not be found.
+      #<br>Endemic Code Smells
+      # :reek:FeatureEnvy
+      def link_shared_method(name)
+        current = self
+
+        while current
+          dictionary = current.dictionary
+
+          if dictionary.has_key?(name)
+            self.cache_shared_method(name, &dictionary[name])
+            return true
+          end
+
+          current = current.foorth_parent
+        end
+
+        false
+      end
+
+      #Add an instance method to this fOOrth class.
+      #<br>Parameters:
+      #* symbol - The method symbol to be added.
+      #* block - The block associated with this method.
+      #<br>Note:
+      #* The method cache for this symbol is purged for this class and all child
+      #  classes except where the child classes already have there own method.
+      def add_shared_method(symbol, &block)
+        @dictionary.delete(symbol)
+        purge_shared_method(symbol)
+        @dictionary[symbol] = block
+      end
+
+      #Cache the specified code block by adding it as a method on the
+      #receiver's class. Thus this method is available to all instances of
+      #the foorth class of this object.
+      #<br>Parameters:
+      #* symbol - The symbol that names the method.
+      #* block - The code block to be executed.
+      def cache_shared_method(symbol, &block)
+        define_method(symbol, &block)
+      end
+
+      #Purge the instance method cache for the specified symbol.
+      def purge_shared_method(symbol)
+        purge_method(symbol) unless @dictionary.has_key?(symbol)
+      end
+
     end
 
     #Get the fOOrth class of this virtual machine
@@ -39,7 +102,7 @@ module XfOOrth
 
     #Does this object have exclusive methods defined on it?
     def has_exclusive?
-      true
+      !@dictionary.empty?
     end
 
     #Add an exclusive method to this fOOrth object.
@@ -80,17 +143,6 @@ module XfOOrth
       define_singleton_method(symbol, &block)
     end
 
-    alias :cache_shared_method :cache_exclusive_method
-
-    #Remove the specified method from this class. The method is still
-    #accessible if defined in a super class or mixin.
-    #<br>Parameters:
-    #* symbol - The symbol of the method to be purged.
-    def self.purge_method(symbol)
-      remove_method(symbol)
-    rescue NameError
-    end
-
     #The \method_missing hook is at the very heart of the fOOrth language
     #compiler. It is here that code blocks are added for both shared and
     #exclusive methods.
@@ -99,13 +151,12 @@ module XfOOrth
     #* args - Any arguments that were passed to that method.
     #* block - Any block that might have passed to the method.
     def method_missing(name, *args, &block)
-      if link_exclusive_method(name) || @foorth_parent.link_shared_method(name, self)
+      if link_exclusive_method(name) || VirtualMachine.link_shared_method(name)
         send(name, *args, &block)
       else
         super
       end
     end
-
 
   end
 
