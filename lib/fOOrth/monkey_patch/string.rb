@@ -5,11 +5,9 @@ class String
   #Convert this String to a form suitable for embedding in a source string.
   #<br>Returns
   #* An embeddable form of this string as a string.
-  #<br>Note:
-  #* The strings involved go through several layers of quote processing. The
-  #  resulting code is most entertaining!
   def embed
-    "'#{self.gsub(/\\/, "\\\\").gsub(/'/,  "\\\\'")}'"
+    temp = self.gsub(/'/) {|_v| "\\'"}
+    "'#{temp}'"
   end
 
   #Convert this string to a fOOrth boolean.
