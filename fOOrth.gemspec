@@ -25,6 +25,9 @@ Gem::Specification.new do |s|
   s.files += Dir['lib/foorth/compiler/*.rb']
 
   s.files += Dir['tests/*.rb']
+  s.files += Dir['tests/monkey_patch/*.rb']
+  s.files += Dir['tests/interpreter/*.rb']
+  s.files += Dir['tests/compiler/*.rb']
 
   s.files += ['rakefile.rb',
               'sire.rb',

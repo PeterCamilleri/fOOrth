@@ -22,6 +22,8 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/interpreter/data_stack.rb",
                      "lib/fOOrth/interpreter/ctrl_stack.rb",
                      "lib/fOOrth/compiler.rb",
+                     "lib/fOOrth/compiler/read_point.rb",
+                     "lib/fOOrth/compiler/console.rb",
                      "lib/fOOrth/main.rb",
                      "lib/fOOrth/monkey_patch.rb",
                      "lib/fOOrth/monkey_patch/object.rb",
