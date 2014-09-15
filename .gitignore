@@ -1,4 +1,5 @@
 rdoc/
+*.bat
 *.gem
 *.zip
 *.tmp
