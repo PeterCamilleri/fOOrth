@@ -66,7 +66,7 @@ module XfOOrth
     #<br>Note:
     #* If a sub-class with the given name already exists, that class is returned.
     def create_foorth_subclass(name, class_base=XClass)
-      anon = Class.new(class_base) {@foorth_class = XClass.class_class}
+      anon = Class.new(class_base) {@foorth_class = XfOOrth.class_class}
       new_class = anon.new(name, self)
       @children[name] = new_class
       new_class

@@ -47,7 +47,7 @@ module XfOOrth
       @exclusive[symbol] = block
 
       #If already cached, override it!
-      if responds_to?(symbol)
+      if respond_to?(symbol)
         cache_exclusive_method(symbol, &block)
       end
     end

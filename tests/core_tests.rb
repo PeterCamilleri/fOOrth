@@ -61,6 +61,43 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal(inst1.foorth_class, inst2.foorth_class)
   end
 
+  #Testing sub-classing
+  def test_creating_subclasses
+    #Get the virtual machine.
+    vm = XfOOrth.virtual_machine
+
+    # In fOOrth ==> class: MyClass
+    #        or ==> Object subclass: MyClass
+    my_class = XfOOrth.object_class.create_foorth_subclass("MyClass")
+
+    assert_equal(XfOOrth.object_class.children["MyClass"], my_class)
+    assert_equal(my_class, XfOOrth.all_classes["MyClass"])
+    assert_equal(my_class.name, "MyClass")
+    assert_equal(my_class.foorth_class, XfOOrth.class_class)
+    assert_equal(my_class.foorth_parent, XfOOrth.object_class)
+
+    # In fOOrth ==> MyClass .new inst1 !
+    inst1 = my_class.create_foorth_instance(vm)
+    assert_equal(inst1.foorth_class.name, 'MyClass')
+    assert_equal(inst1.name, 'MyClass instance.')
+
+    # In fOOrth ==> MyClass subclass: Other
+    other = my_class.create_foorth_subclass("Other")
+
+    assert_equal(my_class.children["Other"], other)
+    assert_equal(other, XfOOrth.all_classes["Other"])
+    assert_equal(other.name, "Other")
+    assert_equal(other.foorth_class, XfOOrth.class_class)
+    assert_equal(other.foorth_parent, my_class)
+
+    # In fOOrth ==> Other .new inst2 !
+    inst2 = other.create_foorth_instance(vm)
+
+    assert(inst1 != inst2)
+    assert_equal(inst2.foorth_class.name, 'Other')
+    assert_equal(inst2.name, 'Other instance.')
+  end
+
   #Test sending a method to an object. Namely the class method to the
   #fOOrth Object class.
   def test_sending_a_method_to_a_class
@@ -70,7 +107,7 @@ class CoreTester < MiniTest::Unit::TestCase
     #Construct the source code for our code block.
     cs = XfOOrth::SymbolMap.map('class')
 
-    # In fOOrth ==> Object class
+    # In fOOrth ==> Object .class
     src = "lambda \{|vm| vm.push(XfOOrth.object_class); vm.pop.#{cs}(vm); \}"
 
     #Create the block
@@ -91,7 +128,7 @@ class CoreTester < MiniTest::Unit::TestCase
     #Construct the source code for our code block.
     cs = XfOOrth::SymbolMap.map('class')
 
-    # In fOOrth ==> vm class
+    # In fOOrth ==> vm .class
     src = "lambda \{|vm| vm.push(vm); vm.pop.#{cs}(vm); \}"
 
     #Create the block
@@ -102,6 +139,121 @@ class CoreTester < MiniTest::Unit::TestCase
 
     #Test the results.
     assert_equal(XfOOrth::VirtualMachine, vm.pop)
+  end
+
+  #Testing method redefinition
+  def test_method_redefining
+    #Get the virtual machine.
+    vm = XfOOrth.virtual_machine
+
+    # In fOOrth ==> class: TestClass
+    #        or ==> Object subclass: TestClass
+    test_class = XfOOrth.object_class.create_foorth_subclass("TestClass")
+
+    # In fOOrth ==> Object .new inst1 !
+    inst1 = XfOOrth.object_class.create_foorth_instance(vm)
+
+    # In fOOrth ==> TestClass .new inst2 !
+    inst2 = test_class.create_foorth_instance(vm)
+
+    #A lambda block used for all of the following tests.
+    blk = lambda {|vm| vm.pop.foo(vm) }
+
+    # In fOOrth ==> Object :: foo 4 ;
+    XfOOrth.object_class.add_shared_method(:foo, &lambda{|vm| vm.push(4)})
+
+    vm.push(inst1)
+    blk.call(vm)
+    assert_equal(4, vm.pop)
+
+    vm.push(inst2)
+    blk.call(vm)
+    assert_equal(4, vm.pop)
+
+    # In fOOrth ==> Object :: foo 5 ;
+    XfOOrth.object_class.add_shared_method(:foo, &lambda{|vm| vm.push(5)})
+
+    vm.push(inst1)
+    blk.call(vm)
+    assert_equal(5, vm.pop)
+
+    vm.push(inst2)
+    blk.call(vm)
+    assert_equal(5, vm.pop)
+
+    # In fOOrth ==> TestClass :: foo 6 ;
+    test_class.add_shared_method(:foo, &lambda{|vm| vm.push(6)})
+
+    blk = lambda {|vm| vm.pop.foo(vm) }
+
+    vm.push(inst1)
+    blk.call(vm)
+    assert_equal(5, vm.pop)
+
+    vm.push(inst2)
+    blk.call(vm)
+    assert_equal(6, vm.pop)
+
+    # In fOOrth ==> Object :: foo 7 ;
+    XfOOrth.object_class.add_shared_method(:foo, &lambda{|vm| vm.push(7)})
+
+    blk = lambda {|vm| vm.pop.foo(vm) }
+
+    vm.push(inst1)
+    blk.call(vm)
+    assert_equal(7, vm.pop)
+
+    vm.push(inst2)
+    blk.call(vm)
+    assert_equal(6, vm.pop)
+  end
+
+  #Testing exclusive methods
+  def test_exclusive_methods
+    #Get the virtual machine.
+    vm = XfOOrth.virtual_machine
+
+    # In fOOrth ==> Object .new inst1 !
+    inst1 = XfOOrth.object_class.create_foorth_instance(vm)
+
+    # In fOOrth ==> Object .new inst2 !
+    inst2 = XfOOrth.object_class.create_foorth_instance(vm)
+
+    #A lambda block used for all of the following tests.
+    blk = lambda {|vm| vm.pop.bar(vm) }
+
+    # In fOOrth ==> Object :: bar 11 ;
+    XfOOrth.object_class.add_shared_method(:bar, &lambda{|vm| vm.push(11)})
+
+    vm.push(inst1)
+    blk.call(vm)
+    assert_equal(11, vm.pop)
+
+    vm.push(inst2)
+    blk.call(vm)
+    assert_equal(11, vm.pop)
+
+    # In fOOrth ==> inst2 @ ::: bar 22 ;
+    inst2.add_exclusive_method(:bar, &lambda{|vm| vm.push(22)})
+
+    vm.push(inst1)
+    blk.call(vm)
+    assert_equal(11, vm.pop)
+
+    vm.push(inst2)
+    blk.call(vm)
+    assert_equal(22, vm.pop)
+
+    # In fOOrth ==> Object :: bar 33 ;
+    XfOOrth.object_class.add_shared_method(:bar, &lambda{|vm| vm.push(33)})
+
+    vm.push(inst1)
+    blk.call(vm)
+    assert_equal(33, vm.pop)
+
+    vm.push(inst2)
+    blk.call(vm)
+    assert_equal(22, vm.pop)
   end
 
 end
