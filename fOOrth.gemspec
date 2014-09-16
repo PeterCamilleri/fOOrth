@@ -1,9 +1,9 @@
-#Specify the building of the foorth gem.
+#Specify the building of the fOOrth gem.
 
 Gem::Specification.new do |s|
-  s.name = "foorth"
-  s.summary = "FNF == foorth is Not FORTH."
-  s.description = "An Object Oriented ~FORTH~ language gem."
+  s.name = "fOOrth"
+  s.summary = "FNF == fOOrth is Not FORTH."
+  s.description = "An Object Oriented FORTHesque language gem."
   s.version = '0.6.0'
   s.author = ["Peter Camilleri"]
   s.email = "peter.c.camilleri@gmail.com"
@@ -15,9 +15,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'reek'
   s.add_development_dependency 'minitest'
 
-  #s.add_runtime_dependency 'in_array'
-
-  s.files  = ['lib/foorth.rb']
+  s.files  =    ['lib/foorth.rb']
   s.files += Dir['lib/foorth/*.rb']
   s.files += Dir['lib/foorth/monkey_patch/*.rb']
   s.files += Dir['lib/foorth/core/*.rb']

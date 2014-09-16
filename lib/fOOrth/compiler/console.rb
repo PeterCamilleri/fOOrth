@@ -1,6 +1,8 @@
+require_relative 'read_point'
+require 'readline' #It sucks, but it will do for now.
+
 #* console.rb - The fOOrth console support file.
 module XfOOrth
-  require 'readline' #It sucks, but it will do for now.
 
   #The console class enables the use of the command line console as a source
   #for fOOrth commands and source code. The readline facility is used to enable
@@ -11,6 +13,11 @@ module XfOOrth
 
     #Initialize a new console command source.
     def initialize
+      reset_read_point
+    end
+
+    #Consoles don;t really close, they just fake it.
+    def close
       reset_read_point
     end
 
@@ -36,7 +43,7 @@ module XfOOrth
     #Build the command prompt for the user based on the state
     #of the virtual machine.
     #<br>Returns
-    #A prompt string.
+    #* A prompt string.
     #<br> Endemic Code Smells
     # :reek:UtilityFunction
     # :reek:FeatureEnvy

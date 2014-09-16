@@ -64,7 +64,7 @@ module XfOOrth
   def self.start_up(vm)
     announcements
     vm.debug = false
-    vm.exec_str.process_command_line_options
+    vm.execute_string(process_command_line_options)
     true
   end
 
