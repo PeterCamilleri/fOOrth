@@ -27,6 +27,8 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/compiler/source.rb",
                      "lib/fOOrth/compiler/string_source.rb",
                      "lib/fOOrth/compiler/file_source.rb",
+                     "lib/fOOrth/compiler/process.rb",
+                     "lib/fOOrth/compiler/parser.rb",
                      "lib/fOOrth/main.rb",
                      "lib/fOOrth/monkey_patch.rb",
                      "lib/fOOrth/monkey_patch/object.rb",
@@ -51,6 +53,8 @@ Rake::TestTask.new do |t|
                   "tests/monkey_patch/string_test.rb",
                   "tests/interpreter/data_stack_tests.rb",
                   "tests/interpreter/ctrl_stack_tests.rb",
+                  "tests/compiler/string_source_tests.rb",
+                  "tests/compiler/file_source_tests.rb",
                   "tests/symbol_map_tests.rb",
                   "tests/core_tests.rb"
                  ]

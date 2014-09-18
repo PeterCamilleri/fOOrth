@@ -3,6 +3,8 @@
 require_relative 'compiler/console'
 require_relative 'compiler/string_source'
 require_relative 'compiler/file_source'
+require_relative 'compiler/parser'
+require_relative 'compiler/process'
 
 #* compiler.rb - The compiler portion of the fOOrth language system.
 module XfOOrth
@@ -10,8 +12,13 @@ module XfOOrth
   #* compiler.rb - The compiler service of the virtual machine.
   class VirtualMachine
 
-    #The current system console object.
-    attr_reader :console
+    #The current system console object. Gets the current console object
+    #only creating one if somebody asks for one.
+    #<br>Note
+    #* This is to be the sole occurrence of @_private_console
+    def console
+      @_private_console ||= Console.new
+    end
 
     #The current compiler code text source.
     attr_reader :source
@@ -28,29 +35,32 @@ module XfOOrth
       @level  = 0
       @quotes = 0
       @buffer = nil
-      @force_compile = false
+      @force  = false
     end
 
     #Execute code from the interactive console.
-    def execute_console
+    def process_console
       #Work in progress.
       #Rubbish code for now.
-      @level   = 1
-      @console = Console.new
+      @level = 1
 
-      until @console.get == 'q'
+      self.console.flush
+
+      until (c = self.console.get) == 'q'
+        print c
+        puts if self.console.eoln?
       end
 
       raise SilentExit
     end
 
     #Execute a string of code.
-    def execute_string(str)
+    def process_string(str)
       #Work in progress!!!
     end
 
     #Execute a file of code.
-    def execute_file(name)
+    def process_file(name)
       #Work in progress!!!
     end
 

@@ -21,11 +21,6 @@ module XfOOrth
       reset_read_point
     end
 
-    #Discard any unused input and resume.
-    def flush
-      reset_read_point
-    end
-
     #Get the next character of command text from the user.
     #<br>Returns
     #* The next character of user input as a string.

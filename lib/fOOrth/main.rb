@@ -34,7 +34,7 @@ module XfOOrth
       loop do
         begin
           running ||= start_up(vm)
-          vm.execute_console
+          vm.process_console
 
         rescue ForceAbort => forced_abort
           vm.display_abort(forced_abort)
@@ -64,15 +64,15 @@ module XfOOrth
   def self.start_up(vm)
     announcements
     vm.debug = false
-    vm.execute_string(process_command_line_options)
+    vm.process_string(process_command_line_options)
     true
   end
 
   #Display the start-up messages for the interactive session.
   def self.announcements
-    puts "fOOrth Reference Implementation Version: #{XfOOrth.version}"
-    fmt = '%Y-%m-%d at %I:%M%P'
-    puts "Session began on date: #{Time.now.strftime(fmt)}"
+    puts "Welcome to fOOrth: fO(bject)O(riented)rth."
+    puts "\nfOOrth Reference Implementation Version: #{XfOOrth.version}"
+    puts "\nSession began on date: #{Time.now.strftime('%Y-%m-%d at %I:%M%P')}"
   end
 
   #Process the command line arguments. A string is returned containing

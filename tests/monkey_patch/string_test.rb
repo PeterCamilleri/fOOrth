@@ -36,6 +36,8 @@ class StringMonkeyPatchTester < MiniTest::Unit::TestCase
   #Test converting to a character.
   def test_to_character
     assert_equal('ABC'.to_foorth_c, 'A')
+    assert_equal('A'.to_foorth_c,   'A')
+    assert_equal(''.to_foorth_c,    nil)
   end
 
   #Test converting to a number.
@@ -44,6 +46,10 @@ class StringMonkeyPatchTester < MiniTest::Unit::TestCase
     assert_equal('123.4'.to_foorth_n, 123.4)
     assert_equal('1/2'.to_foorth_n, '1/2'.to_r)
     assert_equal('1+2i'.to_foorth_n, Complex(1,2))
+    assert_equal('2i'.to_foorth_n, Complex(0,2))
+
+    assert_equal('fubar'.to_foorth_n, nil)
+    assert_equal('2cats'.to_foorth_n, nil)
   end
 
 end

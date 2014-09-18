@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.files += Dir['tests/monkey_patch/*.rb']
   s.files += Dir['tests/interpreter/*.rb']
   s.files += Dir['tests/compiler/*.rb']
+  s.files += Dir['tests/compiler/*.txt']
 
   s.files += ['rakefile.rb',
               'sire.rb',
@@ -38,6 +39,8 @@ Gem::Specification.new do |s|
   s.test_files  = Dir['tests/*.rb']
   s.test_files += Dir['tests/monkey_patch/*.rb']
   s.test_files += Dir['tests/interpreter/*.rb']
+  s.test_files += Dir['tests/compiler/*.rb']
+  s.test_files += Dir['tests/compiler/*.txt']
 
   s.license = 'MIT'
   s.has_rdoc = true

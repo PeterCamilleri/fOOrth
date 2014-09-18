@@ -15,11 +15,7 @@ module XfOOrth
 
     #Close the source.
     def close
-      @eof = true
-    end
-
-    #Skip over all remaining data in the buffers.
-    def flush
+      @eoln = true
       @eof = true
     end
 
