@@ -55,6 +55,7 @@ Rake::TestTask.new do |t|
                   "tests/interpreter/ctrl_stack_tests.rb",
                   "tests/compiler/string_source_tests.rb",
                   "tests/compiler/file_source_tests.rb",
+                  "tests/compiler/parser_tests.rb",
                   "tests/symbol_map_tests.rb",
                   "tests/core_tests.rb"
                  ]

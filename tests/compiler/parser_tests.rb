@@ -1,0 +1,112 @@
+# coding: utf-8
+
+require_relative '../../lib/fOOrth/exceptions'
+require_relative '../../lib/fOOrth/compiler/string_source'
+require_relative '../../lib/fOOrth/compiler/parser'
+require          'minitest/autorun'
+
+#Test the monkey patches applied to the Object class.
+class ParserTester < MiniTest::Unit::TestCase
+
+  #Special initialize to track rake progress.
+  def initialize(*all)
+    $do_this_only_one_time = "" unless defined? $do_this_only_one_time
+
+    if $do_this_only_one_time != __FILE__
+      puts
+      puts "Running test file: #{File.split(__FILE__)[1]}"
+      $do_this_only_one_time = __FILE__
+    end
+
+    super(*all)
+  end
+
+  #Test simple parsing into words.
+  def test_parsing_words
+    test_string = '2 3 + .'
+    source = XfOOrth::StringSource.new(test_string)
+    parser = XfOOrth::Parser.new(source)
+
+    assert_equal(parser.get_word, '2')
+    assert_equal(parser.get_word, '3')
+    assert_equal(parser.get_word, '+')
+    assert_equal(parser.get_word, '.')
+    assert_equal(parser.get_word, nil)
+  end
+
+  #Test parsing strings.
+  def test_parsing_strings
+    test_string = '."Testing 1 2 3"'
+    source = XfOOrth::StringSource.new(test_string)
+    parser = XfOOrth::Parser.new(source)
+
+    assert_equal(parser.get_word, '."')
+    assert_equal(parser.get_string, 'Testing 1 2 3')
+  end
+
+  #Test parsing open ended strings.
+  def test_parsing_open_ended_strings
+    test_string = '."Testing 1 2 3' + "\n"
+    source = XfOOrth::StringSource.new(test_string)
+    parser = XfOOrth::Parser.new(source)
+
+    assert_equal(parser.get_word, '."')
+    assert_equal(parser.get_string, 'Testing 1 2 3')
+  end
+
+  #Test parsing strings some more.
+  def test_parsing_strings_breaks
+    test_string = '."Testing 1 ' + "\\" + "\n" + '2 3"'
+    source = XfOOrth::StringSource.new(test_string)
+    parser = XfOOrth::Parser.new(source)
+
+    assert_equal(parser.get_word, '."')
+    assert_equal(parser.get_string, 'Testing 1 2 3')
+  end
+
+  #Test parsing nested comments.
+  def test_parsing_comments
+    test_string = '1 2 (Now we add them!) + .'
+    source = XfOOrth::StringSource.new(test_string)
+    parser = XfOOrth::Parser.new(source)
+
+    assert_equal(parser.get_word, '1')
+    assert_equal(parser.get_word, '2')
+    assert_equal(parser.get_word, '(')
+    parser.skip_over_comment
+    assert_equal(parser.get_word, '+')
+    assert_equal(parser.get_word, '.')
+    assert_equal(parser.get_word, nil)
+  end
+
+  #Test parsing ill-nested comments.
+  def test_parsing_bad_comments
+    test_string = '1 2 (Now we add them! + .'
+    source = XfOOrth::StringSource.new(test_string)
+    parser = XfOOrth::Parser.new(source)
+
+    assert_equal(parser.get_word, '1')
+    assert_equal(parser.get_word, '2')
+    assert_equal(parser.get_word, '(')
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      parser.skip_over_comment
+    end
+  end
+
+  #Test parsing C++ style comments.
+  def test_parsing_cpp_comments
+    test_string = '1 2 //Now we add them!' + "\n" + '+ .'
+    source = XfOOrth::StringSource.new(test_string)
+    parser = XfOOrth::Parser.new(source)
+
+    assert_equal(parser.get_word, '1')
+    assert_equal(parser.get_word, '2')
+    assert_equal(parser.get_word, '//')
+    parser.skip_to_eoln
+    assert_equal(parser.get_word, '+')
+    assert_equal(parser.get_word, '.')
+    assert_equal(parser.get_word, nil)
+  end
+
+end

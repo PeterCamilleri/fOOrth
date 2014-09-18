@@ -1,6 +1,5 @@
 # coding: utf-8
 
-require_relative '../../lib/fOOrth/exceptions'
 require_relative '../../lib/fOOrth/compiler/string_source'
 require_relative '../../lib/fOOrth/compiler/file_source'
 require          'minitest/autorun'
