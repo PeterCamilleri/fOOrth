@@ -10,7 +10,14 @@ Adding fOOrth can be as simple as:
  require 'fOOrth'
  XfOOrth.main
 
-This will launch an interactive fOOrth session.
+This will launch an interactive fOOrth session. Alternatively this can be
+done with:
+
+ rake run
+
+Be sure to be in the folder that contains the rakefile in order for this
+command to work.
+
 <br>If, instead, a non-interactive facility is required, use:
 
  require 'fOOrth'

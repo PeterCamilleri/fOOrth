@@ -43,7 +43,8 @@ RDoc::Task.new do |rdoc|
   #Make all access levels visible.
   rdoc.options << '--visibility' << 'private'
 
-  rdoc.options << '--title' << 'fOOrth Internals'
+  #Set a title.
+  rdoc.options << '--title' << 'fOOrth Language Internals'
 
 end
 

@@ -23,6 +23,9 @@ module XfOOrth
     #The current compiler code text source.
     attr_reader :source
 
+    #The current compiler parser.
+    attr_reader :parser
+
     #The level of lexical nesting.
     attr_reader :level
 
