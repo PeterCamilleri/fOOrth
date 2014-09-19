@@ -56,6 +56,7 @@ module XfOOrth
             token_buffer << "self.#{sym}(vm); "
           else
             token_buffer << "vm.#{sym}(vm); "
+            tag = :immediate if false  #Clearly a work in progress.
           end
         elsif (value = word.to_foorth_n)
           token_buffer = "vm.push(#{value.embedd}); "
