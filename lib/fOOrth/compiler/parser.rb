@@ -1,5 +1,7 @@
 # coding: utf-8
 
+require_relative 'token'
+
 #* parser.rb - Parse source code from a code source.
 module XfOOrth
 

@@ -29,6 +29,7 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/compiler/file_source.rb",
                      "lib/fOOrth/compiler/process.rb",
                      "lib/fOOrth/compiler/parser.rb",
+                     "lib/fOOrth/compiler/token.rb",
                      "lib/fOOrth/main.rb",
                      "lib/fOOrth/monkey_patch.rb",
                      "lib/fOOrth/monkey_patch/object.rb",
@@ -37,10 +38,13 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/monkey_patch/complex.rb",
                      "lib/fOOrth/monkey_patch/string.rb",
                      "license.txt",
-                     "README.txt"]
+                     "readme.txt"]
 
   #Make all access levels visible.
   rdoc.options << '--visibility' << 'private'
+
+  rdoc.options << '--title' << 'fOOrth Internals'
+
 end
 
 #Run the fOOrth test suite.

@@ -4,7 +4,7 @@ static_path: []
 rdoc_include:
 - .
 charset: UTF-8
-exclude: !ruby/regexp /(?-mix:doc)|(?-mix:sire.rb)|(?-mix:.*\.4th)|(?-mix:.*\.odt)|(?-mix:.*txt)|(?-mix:.*bat)|(?-mix:.*dll)|(?-mix:.*exe)/
+exclude: !ruby/regexp /(?-mix:doc)|(?-mix:sire.rb)|(?-mix:.*\.4th)|(?-mix:.*\.odt)|(?-mix:.*bat)/
 hyperlink_all: false
 line_numbers: false
 main_page:
