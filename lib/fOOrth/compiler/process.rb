@@ -22,27 +22,21 @@ module XfOOrth
     #* A Token structure or nil.
     def get_token
       #Get a non-comment word.
-      loop do
-        return nil unless (word = parser.get_word)
+      return nil unless (word = parser.get_word)
 
-        if word == '('
-          parser.skip_over_comment
-        elsif word == '//'
-          parser.skip_to_eoln
-        else
-          break
-        end
-      end
+      token = Token.new
+      string_parms(token, word)
+      generate_code(token, word)
+      token
+    end
 
-      #Process optional string parameters.
-      if word[-1] == '"'
-        token_buffer = "vm.push(#{parser.get_string.embedd}); "
-      else
-        token_buffer = ''
-      end
+    #Process optional string parameters.
+    def string_parms(token, word)
+      token << "vm.push(#{parser.get_string.embedd}); " if word[-1]
+    end
 
-      #Finally, generate some code!
-      tag = :none
+    #Finally generate some code! This method is rubbish!
+    def generate_code(token, word)
       unless word == '"'
 
         #Try to map the word to a symbol.
@@ -51,22 +45,18 @@ module XfOOrth
 
         if sym
           if head == '.'
-            token_buffer << "vm.pop.#{sym}(vm); "
+            token << "vm.pop.#{sym}(vm); "
           elsif head == '~'
-            token_buffer << "self.#{sym}(vm); "
+            token << "self.#{sym}(vm); "
           else
-            token_buffer << "vm.#{sym}(vm); "
-            tag = :immediate if false  #Clearly a work in progress.
+            token << "vm.#{sym}(vm); "
           end
         elsif (value = word.to_foorth_n)
-          token_buffer = "vm.push(#{value.embedd}); "
+          token << "vm.push(#{value.embedd}); "
         else
           abort("?#{word}?")
         end
       end
-
-      #Generate the Token structure result.
-      Token.new(token_buffer, tag)
     end
 
   end

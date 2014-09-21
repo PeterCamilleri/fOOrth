@@ -22,16 +22,16 @@ class ParserTester < MiniTest::Unit::TestCase
   end
 
   #Test simple parsing into words.
-  def test_parsing_words
+  def test_parsing_words_raw
     test_string = '2 3 + .'
     source = XfOOrth::StringSource.new(test_string)
     parser = XfOOrth::Parser.new(source)
 
-    assert_equal(parser.get_word, '2')
-    assert_equal(parser.get_word, '3')
-    assert_equal(parser.get_word, '+')
-    assert_equal(parser.get_word, '.')
-    assert_equal(parser.get_word, nil)
+    assert_equal(parser.get_word_raw, '2')
+    assert_equal(parser.get_word_raw, '3')
+    assert_equal(parser.get_word_raw, '+')
+    assert_equal(parser.get_word_raw, '.')
+    assert_equal(parser.get_word_raw, nil)
   end
 
   #Test parsing strings.
@@ -40,7 +40,7 @@ class ParserTester < MiniTest::Unit::TestCase
     source = XfOOrth::StringSource.new(test_string)
     parser = XfOOrth::Parser.new(source)
 
-    assert_equal(parser.get_word, '."')
+    assert_equal(parser.get_word_raw, '."')
     assert_equal(parser.get_string, 'Testing 1 2 3')
   end
 
@@ -50,7 +50,7 @@ class ParserTester < MiniTest::Unit::TestCase
     source = XfOOrth::StringSource.new(test_string)
     parser = XfOOrth::Parser.new(source)
 
-    assert_equal(parser.get_word, '."')
+    assert_equal(parser.get_word_raw, '."')
     assert_equal(parser.get_string, 'Testing 1 2 3')
   end
 
@@ -60,7 +60,7 @@ class ParserTester < MiniTest::Unit::TestCase
     source = XfOOrth::StringSource.new(test_string)
     parser = XfOOrth::Parser.new(source)
 
-    assert_equal(parser.get_word, '."')
+    assert_equal(parser.get_word_raw, '."')
     assert_equal(parser.get_string, 'Testing 1 2 3')
   end
 
@@ -70,13 +70,13 @@ class ParserTester < MiniTest::Unit::TestCase
     source = XfOOrth::StringSource.new(test_string)
     parser = XfOOrth::Parser.new(source)
 
-    assert_equal(parser.get_word, '1')
-    assert_equal(parser.get_word, '2')
-    assert_equal(parser.get_word, '(')
+    assert_equal(parser.get_word_raw, '1')
+    assert_equal(parser.get_word_raw, '2')
+    assert_equal(parser.get_word_raw, '(')
     parser.skip_over_comment
-    assert_equal(parser.get_word, '+')
-    assert_equal(parser.get_word, '.')
-    assert_equal(parser.get_word, nil)
+    assert_equal(parser.get_word_raw, '+')
+    assert_equal(parser.get_word_raw, '.')
+    assert_equal(parser.get_word_raw, nil)
   end
 
   #Test parsing ill-nested comments.
@@ -85,9 +85,9 @@ class ParserTester < MiniTest::Unit::TestCase
     source = XfOOrth::StringSource.new(test_string)
     parser = XfOOrth::Parser.new(source)
 
-    assert_equal(parser.get_word, '1')
-    assert_equal(parser.get_word, '2')
-    assert_equal(parser.get_word, '(')
+    assert_equal(parser.get_word_raw, '1')
+    assert_equal(parser.get_word_raw, '2')
+    assert_equal(parser.get_word_raw, '(')
 
     assert_raises(XfOOrth::XfOOrthError) do
       parser.skip_over_comment
@@ -100,10 +100,23 @@ class ParserTester < MiniTest::Unit::TestCase
     source = XfOOrth::StringSource.new(test_string)
     parser = XfOOrth::Parser.new(source)
 
+    assert_equal(parser.get_word_raw, '1')
+    assert_equal(parser.get_word_raw, '2')
+    assert_equal(parser.get_word_raw, '//')
+    parser.skip_to_eoln
+    assert_equal(parser.get_word_raw, '+')
+    assert_equal(parser.get_word_raw, '.')
+    assert_equal(parser.get_word_raw, nil)
+  end
+
+  #Test parsing of words.
+  def test_parse_word
+    test_string = '1 2 //Now we add them!' + "\n" + '(Now add!) + (Now print!) .'
+    source = XfOOrth::StringSource.new(test_string)
+    parser = XfOOrth::Parser.new(source)
+
     assert_equal(parser.get_word, '1')
     assert_equal(parser.get_word, '2')
-    assert_equal(parser.get_word, '//')
-    parser.skip_to_eoln
     assert_equal(parser.get_word, '+')
     assert_equal(parser.get_word, '.')
     assert_equal(parser.get_word, nil)

@@ -5,6 +5,7 @@ require_relative 'compiler/string_source'
 require_relative 'compiler/file_source'
 require_relative 'compiler/parser'
 require_relative 'compiler/process'
+require_relative 'compiler/token'
 
 #* compiler.rb - The compiler portion of the fOOrth language system.
 module XfOOrth
