@@ -28,16 +28,18 @@ module XfOOrth
     #existing symbols.
     #<br>Parameters:
     #* name - The string to be mapped.
+    #* action - The compiler action associated with this name.
     #<br>Returns:
     #* The symbol that corresponds to the name.
-    def self.add_entry(name)
+    def self.add_entry(name, action)
       sync.synchronize do
-        if symbol = fwd_map[name]
-          symbol
+        if (entry = fwd_map[name])
+          error "Attempt to redefine #{name}." unless entry[1] == action
+          entry
         else
           symbol = (incrementer.succ!).to_sym
           rev_map[symbol] = name
-          fwd_map[name]   = symbol
+          fwd_map[name]   = [symbol, action]
         end
       end
     end
@@ -45,20 +47,20 @@ module XfOOrth
     #Add a special mapping for a string to the specified symbol
     #<br>Parameters:
     #* name - The string to be mapped.
+    #* symbol - The symbol the name is to be mapped to.
+    #* action - The compiler action associated with this name.
     #<br>Returns:
     #* The symbol that corresponds to the name.
     #<br>Exceptions:
     #* Raises a XfOOrthError exception if an attempt is made to change a mapping.
-    def self.add_special(name, symbol)
+    def self.add_special(name, symbol, action)
       sync.synchronize do
-        old_symbol = fwd_map[name]
-
-        if old_symbol
-          error "Attempt to redefine #{name}." unless old_symbol == symbol
-          symbol
+        if (entry = fwd_map[name])
+          error "Attempt to redefine #{name}." unless entry == [symbol, action]
+          entry
         else
           rev_map[symbol] = name
-          fwd_map[name]   = symbol
+          fwd_map[name]   = [symbol, action]
         end
       end
     end
@@ -67,7 +69,7 @@ module XfOOrth
     #<br>Parameters:
     #* name - The string to be looked up.
     #<br>Returns:
-    #* A symbol or nil if the symbol is not in the map.
+    #* A symbol, action or nil if the symbol is not in the map.
     def self.map(name)
       fwd_map[name]
     end
@@ -77,9 +79,6 @@ module XfOOrth
     #* mapped - The mapping of the desired symbol.
     #<br>Returns:
     #* A symbol or nil if the symbol is not in the map.
-    #<br>Note:
-    #* If multiple symbols share the same mapping, the symbol returned is that
-    #  of the one defined first.
     def self.unmap(mapped)
       rev_map[mapped]
     end

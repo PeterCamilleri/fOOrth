@@ -31,7 +31,7 @@ module XfOOrth
   #it also happens to be the Ruby VirtualMachine class.
 
   #==========================================================================
-  # The Core initialization code block. This code weaves the core of the
+  # The Core Initialization Code Block. This code weaves the core of the
   # fOOrth OO system. This is done explicitly since Ruby can't do it for us.
   #==========================================================================
 
@@ -39,33 +39,44 @@ module XfOOrth
   @all_classes = Hash.new
 
   #Predefine some essential name mappings
-  SymbolMap.add_special('init', :init)
-  cs = SymbolMap.add_entry('class')
+  SymbolMap.add_special('.init', :init, :public_method)
+  cs = SymbolMap.add_entry('.class', :public_method)[0]
 
-  #Create the anonymous template class for the fOOrth class class.
+  #Create the anonymous template class for the fOOrth class class. Each
+  #instance of fOOrth class will be wrapped in one of these anonymous classes
+  #to allow it to define methods independently. The fOOrth class of this
+  #class is set to nil as a stand in.
   class_anon = Class.new(XClass, &lambda {|vm| @foorth_class = nil})
 
-  #Create the instance of fOOrth class for fOOrth class class.
+  #Create the instance of fOOrth class for fOOrth class class. At this point
+  #there is no way to set the foorth_parent because it does not yet exist. So
+  #the value nil is used as a temporary stand in.
   @class_class = class_anon.new('Class', nil)
 
-  #fOOrth class is an instance of fOOrth class!
+  #Now that class of fOOrth class exists, as @class_class, it can be set.
+  #This means that fOOrth class is an instance of fOOrth class!
   class_anon.foorth_class = @class_class
 
   #Create the anonymous template class for the fOOrth object class.
   #Note that it is also an instance of fOOrth class.
   object_anon = Class.new(XClass, &lambda {|vm| @foorth_class = XfOOrth.class_class})
 
-  #Create the instance of fOOrth class for fOOrth object class.
+  #Create the instance of fOOrth class for fOOrth object class. The fOOrth
+  #Object class has no parent, so nil is the actual parent, not a stand in.
   @object_class = object_anon.new('Object', nil)
 
-  #Predefine the default implementation of the init method.
+  #Predefine the default implementation of the init method. All classes
+  #inherit this simple method.
   @object_class.add_shared_method(:init, &lambda {|vm| })
 
-  #Predefine some essential methods.
+  #Predefine some essential methods. This one allows the class of any object
+  #to be determined.
   @object_class.add_shared_method(cs, &lambda {|vm| vm.push(self.foorth_class)})
 
-  #Set up fOOrth Object as the parent of fOOrth Class.
   @object_class.children['Class'] = @class_class
+
+  #Set up fOOrth Object as the parent of fOOrth Class. Now that the parent of
+  #the Class class exists, set it!
   @class_class.set_foorth_parent(@object_class)
 
   #Add the VirtualMachine class to all classes
@@ -73,5 +84,14 @@ module XfOOrth
 
   #Create a virtual machine for the main thread.
   VirtualMachine.new('main')
+
+  #Create the symbol table entries for the core classes.
+  SymbolMap.add_special('Object', nil, :class_value)
+  SymbolMap.add_special('Class', nil, :class_value)
+  SymbolMap.add_special('VirtualMachine', nil, :class_value)
+
+  #==========================================================================
+  # The end of the Core Initialization Code Block.
+  #==========================================================================
 
 end

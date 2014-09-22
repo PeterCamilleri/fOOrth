@@ -21,7 +21,6 @@ module XfOOrth
     #<br>Returns
     #* A Token structure or nil.
     def get_token
-      #Get a non-comment word.
       return nil unless (word = parser.get_word)
 
       token = Token.new
@@ -31,32 +30,97 @@ module XfOOrth
     end
 
     #Process optional string parameters.
+    #<br>Parameters:
+    #* token - the token to receive the generated code.
+    #* word  - the text of the word.
     def string_parms(token, word)
-      token << "vm.push(#{parser.get_string.embedd}); " if word[-1]
+      token << "vm.push(#{parser.get_string.embedd}); " if word[-1] == '"'
     end
 
-    #Finally generate some code! This method is rubbish!
+    #Finally generate some code!
+    #<br>Parameters:
+    #* token - the token to receive the generated code.
+    #* word  - the text of the word.
     def generate_code(token, word)
       unless word == '"'
+        entry = SymbolMap.map(word) || word[0] == '~' && SymbolMap.map('.' + word[1..-1])
 
-        #Try to map the word to a symbol.
-        head = word[0]
-        sym = SymbolMap.map(word) || head == '~' && SymbolMap.map('.' + word[1..-1])
-
-        if sym
-          if head == '.'
-            token << "vm.pop.#{sym}(vm); "
-          elsif head == '~'
-            token << "self.#{sym}(vm); "
-          else
-            token << "vm.#{sym}(vm); "
-          end
+        if entry
+          self.send(entry[1], token, entry[0], word)
         elsif (value = word.to_foorth_n)
           token << "vm.push(#{value.embedd}); "
         else
           abort("?#{word}?")
         end
       end
+    end
+
+    #Generate the code for a virtual machine method.
+    #<br>Parameters:
+    #* token - the token to receive the generated code.
+    #* symbol - the symbol mapped for the word.
+    #* word  - the text of the word.
+    def vm_method(token, symbol, _word)
+      token << "vm.#{symbol}(vm); "
+    end
+
+    #Generate the code for a virtual machine method.
+    #<br>Parameters:
+    #* token - the token to receive the generated code.
+    #* symbol - the symbol mapped for the word.
+    #* word  - the text of the word.
+    def vm_immediate(token, symbol, _word)
+      vm_method(token, symbol, _word)
+      token.add_tag(:immediate)
+    end
+
+    #Generate the code for a public method.
+    #<br>Parameters:
+    #* token - the token to receive the generated code.
+    #* symbol - the symbol mapped for the word.
+    #* word  - the text of the word.
+    def public_method(token, symbol, word)
+      if word[0] == '~'
+        token << "self.#{symbol}(vm); "
+      else
+        token << "vm.pop.#{symbol}(vm); "
+      end
+    end
+
+    #Generate the code for a dyadic operator.
+    #<br>Parameters:
+    #* token - the token to receive the generated code.
+    #* symbol - the symbol mapped for the word.
+    #* word  - the text of the word.
+    def dyadic_method(token, symbol, _word)
+      token << "vm.swap_pop.#{symbol}(vm); "
+    end
+
+    #Generate the code for a private method.
+    #<br>Parameters:
+    #* token - the token to receive the generated code.
+    #* symbol - the symbol mapped for the word.
+    #* word  - the text of the word.
+    def private_method(token, entry, _word)
+      token << "self.#{symbol}(vm); "
+    end
+
+    #Generate the code for a fOOrth class reference.
+    #<br>Parameters:
+    #* token - the token to receive the generated code.
+    #* symbol - the symbol mapped for the word.
+    #* word  - the text of the word.
+    def class_value(token, _symbol, word)
+      token << "vm.push(XfOOrth.all_classes[#{word.embedd}]); "
+    end
+
+    #Include the code for a macro.
+    #<br>Parameters:
+    #* token - the token to receive the generated code.
+    #* string - the string mapped for the word.
+    #* word  - the text of the word.
+    def macro(token, string, _word)
+      token << string
     end
 
   end

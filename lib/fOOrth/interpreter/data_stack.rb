@@ -65,7 +65,7 @@ module XfOOrth
     #  on the stack will fail with an XfOOrthError exception.
     def peek(index=1)
       unless @data_stack.length >= index
-        error "Data Stack Underflow: Peek"
+        error "Data Stack Underflow: peek"
       end
 
       @data_stack[-index]
@@ -83,5 +83,22 @@ module XfOOrth
     def peek?(index=1)
       peek(index).to_foorth_b
     end
+
+    #A special operation to support dyadic operators. Swap then pop.
+    #<br>Returns:
+    #* The second element from the data stack.
+    #<br>Note:
+    #* If the stack has less than 2 elements, this will raise an
+    #  XfOOrthError exception.
+    def swap_pop
+      unless @data_stack.length >= 2
+        error "Data Stack Underflow: swap_pop"
+      end
+
+      nos, tos = @data_stack.pop(2)
+      @data_stack << tos
+      nos
+    end
+
   end
 end

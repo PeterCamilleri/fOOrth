@@ -89,4 +89,18 @@ class DataStackMapTester < MiniTest::Unit::TestCase
     assert_equal(vm.data_stack, [])
   end
 
+  #Test dyadic operator support.
+  def test_swap_pop
+    vm = XfOOrth.virtual_machine
+    refute(vm == nil)
+
+    vm.interpreter_reset
+
+    vm.push(16)
+    vm.push(99)
+    assert_equal(vm.swap_pop, 16)
+    assert_equal(vm.pop, 99)
+    assert_equal(vm.data_stack, [])
+  end
+
 end

@@ -105,7 +105,7 @@ class CoreTester < MiniTest::Unit::TestCase
     vm = XfOOrth.virtual_machine
 
     #Construct the source code for our code block.
-    cs = XfOOrth::SymbolMap.map('class')
+    cs = XfOOrth::SymbolMap.map('.class')[0]
 
     # In fOOrth ==> Object .class
     src = "lambda \{|vm| vm.push(XfOOrth.object_class); vm.pop.#{cs}(vm); \}"
@@ -126,7 +126,7 @@ class CoreTester < MiniTest::Unit::TestCase
     vm = XfOOrth.virtual_machine
 
     #Construct the source code for our code block.
-    cs = XfOOrth::SymbolMap.map('class')
+    cs = XfOOrth::SymbolMap.map('.class')[0]
 
     # In fOOrth ==> vm .class
     src = "lambda \{|vm| vm.push(vm); vm.pop.#{cs}(vm); \}"
