@@ -256,4 +256,12 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal(22, vm.pop)
   end
 
+  #Test that the children of Object class are set up correctly.
+  def test_object_children
+    children = XfOOrth.object_class.children
+
+    assert_equal(children['Class'], XfOOrth.class_class)
+    assert_equal(children['VirtualMachine'], XfOOrth::VirtualMachine)
+  end
+
 end

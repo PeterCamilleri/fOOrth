@@ -53,8 +53,9 @@ module XfOOrth
   #the value nil is used as a temporary stand in.
   @class_class = class_anon.new('Class', nil)
 
-  #Now that class of fOOrth class exists, as @class_class, it can be set.
-  #This means that fOOrth class is an instance of fOOrth class!
+  #Set the class of the fOOrth class to be the newly created fOOrth class.
+  #This means that fOOrth class is an instance of itself! Of all the fOOrth
+  #classes, it is unique in this respect.
   class_anon.foorth_class = @class_class
 
   #Create the anonymous template class for the fOOrth object class.
@@ -69,17 +70,21 @@ module XfOOrth
   #inherit this simple method.
   @object_class.add_shared_method(:init, &lambda {|vm| })
 
-  #Predefine some essential methods. This one allows the class of any object
+  #Predefine the .class method. This one allows the class of any object
   #to be determined.
   @object_class.add_shared_method(cs, &lambda {|vm| vm.push(self.foorth_class)})
 
+  #The Class class is a child of the Object class.
   @object_class.children['Class'] = @class_class
 
   #Set up fOOrth Object as the parent of fOOrth Class. Now that the parent of
   #the Class class exists, set it!
   @class_class.set_foorth_parent(@object_class)
 
-  #Add the VirtualMachine class to all classes
+  #The VirtualMachine class is a child of the Object class.
+  @object_class.children['VirtualMachine'] = VirtualMachine
+
+  #Explicitly add the VirtualMachine class to the hash of all classes
   all_classes['VirtualMachine'] = VirtualMachine
 
   #Create a virtual machine for the main thread.
