@@ -40,8 +40,8 @@ class SymbolMapTester < MiniTest::Unit::TestCase
 
   #Test the special mappings facility
   def test_special_mappings
-    assert_equal(XfOOrth::SymbolMap.add_special('init', :init, :public_method), [:init, :public_method])
-    assert_equal(XfOOrth::SymbolMap.add_special('init', :init, :public_method), [:init, :public_method])
+    assert_equal(XfOOrth::SymbolMap.add_special('init', :public_method, :init), [:init, :public_method])
+    assert_equal(XfOOrth::SymbolMap.add_special('init', :public_method, :init), [:init, :public_method])
     assert_equal(XfOOrth::SymbolMap.map('init'), [:init, :public_method])
     assert_equal(XfOOrth::SymbolMap.unmap(:init), 'init')
 

@@ -47,13 +47,13 @@ module XfOOrth
     #Add a special mapping for a string to the specified symbol
     #<br>Parameters:
     #* name - The string to be mapped.
-    #* symbol - The symbol the name is to be mapped to.
     #* action - The compiler action associated with this name.
+    #* symbol - The symbol the name is to be mapped to.
     #<br>Returns:
     #* The symbol that corresponds to the name.
     #<br>Exceptions:
     #* Raises a XfOOrthError exception if an attempt is made to change a mapping.
-    def self.add_special(name, symbol, action)
+    def self.add_special(name, action, symbol)
       sync.synchronize do
         if (entry = fwd_map[name])
           error "Attempt to redefine #{name}." unless entry == [symbol, action]

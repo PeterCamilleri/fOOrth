@@ -39,7 +39,7 @@ module XfOOrth
   @all_classes = Hash.new
 
   #Predefine some essential name mappings
-  SymbolMap.add_special('.init', :init, :public_method)
+  SymbolMap.add_special('.init', :public_method, :init)
   cs = SymbolMap.add_entry('.class', :public_method)[0]
 
   #Create the anonymous template class for the fOOrth class class. Each
