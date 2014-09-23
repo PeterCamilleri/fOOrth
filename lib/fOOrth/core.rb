@@ -91,9 +91,9 @@ module XfOOrth
   VirtualMachine.new('main')
 
   #Create the symbol table entries for the core classes.
-  SymbolMap.add_special('Object', nil, :class_value)
-  SymbolMap.add_special('Class', nil, :class_value)
-  SymbolMap.add_special('VirtualMachine', nil, :class_value)
+  SymbolMap.add_special('Object', :class_value, nil)
+  SymbolMap.add_special('Class', :class_value, nil)
+  SymbolMap.add_special('VirtualMachine', :class_value, nil)
 
   #==========================================================================
   # The end of the Core Initialization Code Block.

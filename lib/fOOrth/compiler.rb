@@ -4,8 +4,9 @@ require_relative 'compiler/console'
 require_relative 'compiler/string_source'
 require_relative 'compiler/file_source'
 require_relative 'compiler/parser'
-require_relative 'compiler/process'
 require_relative 'compiler/token'
+require_relative 'compiler/modes'
+require_relative 'compiler/process'
 
 #* compiler.rb - The compiler portion of the fOOrth language system.
 module XfOOrth
@@ -60,12 +61,12 @@ module XfOOrth
 
     #Execute a string of code.
     def process_string(str)
-      #Work in progress!!!
+      process(StringSource.new(str))
     end
 
     #Execute a file of code.
     def process_file(name)
-      #Work in progress!!!
+      process(FileSource.new(name))
     end
 
   end
