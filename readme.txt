@@ -21,12 +21,12 @@ command to work.
 <br>If, instead, a non-interactive facility is required, use:
 
  require 'fOOrth'
- XfOOrth.process_string '1 2 +'
+ XfOOrth.virtual_machine.process_string '1 2 +'
 
 where the string is fOOrth code to be executed, or for a file of code, use:
 
  require 'fOOrth'
- XfOOrth.process_file 'my_file.4th'
+ XfOOrth.virtual_machine.process_file 'my_file.4th'
 
 
 == Notes
