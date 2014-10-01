@@ -49,11 +49,11 @@ module XfOOrth
       #Rubbish code for now.
       @level = 1
 
-      self.console.flush
+      console.flush
 
-      until (c = self.console.get) == 'q'
-        print c
-        puts if self.console.eoln?
+      until (next_char = console.get) == 'q'
+        print next_char
+        puts if console.eoln?
       end
 
       raise SilentExit

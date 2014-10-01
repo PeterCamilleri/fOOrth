@@ -29,38 +29,25 @@ module XfOOrth
     #<br>Parameters:
     #* name - The string to be mapped.
     #* action - The compiler action associated with this name.
+    #* old_symbol - The symbol the name is to be mapped to or nil if a new
+    #  symbol is to be created.
     #<br>Returns:
-    #* The symbol that corresponds to the name.
-    def self.add_entry(name, action)
+    #* The [symbol, action] that corresponds to the name.
+    def self.add_global_entry(name, action, old_symbol=nil)
       sync.synchronize do
         if (entry = fwd_map[name])
           error "Attempt to redefine #{name}." unless entry[1] == action
           entry
         else
-          symbol = (incrementer.succ!).to_sym
-          rev_map[symbol] = name
-          fwd_map[name]   = [symbol, action]
-        end
-      end
-    end
+          new_symbol = old_symbol || (incrementer.succ!).to_sym
 
-    #Add a special mapping for a string to the specified symbol
-    #<br>Parameters:
-    #* name - The string to be mapped.
-    #* action - The compiler action associated with this name.
-    #* symbol - The symbol the name is to be mapped to.
-    #<br>Returns:
-    #* The symbol that corresponds to the name.
-    #<br>Exceptions:
-    #* Raises a XfOOrthError exception if an attempt is made to change a mapping.
-    def self.add_special(name, action, symbol)
-      sync.synchronize do
-        if (entry = fwd_map[name])
-          error "Attempt to redefine #{name}." unless entry == [symbol, action]
-          entry
-        else
-          rev_map[symbol] = name
-          fwd_map[name]   = [symbol, action]
+          if (rev_entry = rev_map[new_symbol])
+            rev_entry << name
+          else
+            rev_map[new_symbol] = [name]
+          end
+
+          fwd_map[name] = [new_symbol, action]
         end
       end
     end
@@ -78,7 +65,7 @@ module XfOOrth
     #<br>Parameters:
     #* mapped - The mapping of the desired symbol.
     #<br>Returns:
-    #* A symbol or nil if the symbol is not in the map.
+    #* A [names] or nil if the symbol is not in the map.
     def self.unmap(mapped)
       rev_map[mapped]
     end

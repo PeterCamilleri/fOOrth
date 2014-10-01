@@ -16,7 +16,6 @@ module XfOOrth
       @source = source
     end
 
-
     #Get the next forth word from the source code source. This method
     #recognizes and skips over comments in the source code.
     #<br>Returns:
@@ -42,9 +41,7 @@ module XfOOrth
     #* A string with the next language element or nil if none could be found.
     def get_word_raw
       #Skip white space.
-      begin
-        return nil unless (next_char = @source.get)
-      end while next_char <= ' '
+      return nil unless (next_char = skip_white_space)
 
       #Gather the word token.
       word = ''
@@ -59,6 +56,17 @@ module XfOOrth
       end while next_char && next_char > ' '
 
       word
+    end
+
+    #Skip over any white space.
+    #<br>Returns:
+    #* The first non-white space character or nil if none were found.
+    def skip_white_space
+      begin
+        return nil unless (next_char = @source.get)
+      end while next_char <= ' '
+
+      next_char
     end
 
     #Get the balance of a string from the source code source.

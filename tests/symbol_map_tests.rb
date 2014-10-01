@@ -24,33 +24,33 @@ class SymbolMapTester < MiniTest::Unit::TestCase
   #Test that we can add, map, and un-map names.
   def test_adding_mappings
     XfOOrth::SymbolMap.restart('test_10')
-    assert_equal(XfOOrth::SymbolMap.add_entry('foo', :vm_method), [:test_11, :vm_method])
-    assert_equal(XfOOrth::SymbolMap.add_entry('bar', :vm_method), [:test_12, :vm_method])
-    assert_equal(XfOOrth::SymbolMap.add_entry('foo', :vm_method), [:test_11, :vm_method])
+    assert_equal(XfOOrth::SymbolMap.add_global_entry('foo', :vm_method), [:test_11, :vm_method])
+    assert_equal(XfOOrth::SymbolMap.add_global_entry('bar', :vm_method), [:test_12, :vm_method])
+    assert_equal(XfOOrth::SymbolMap.add_global_entry('foo', :vm_method), [:test_11, :vm_method])
     assert_equal(XfOOrth::SymbolMap.map('foo'), [:test_11, :vm_method])
     assert_equal(XfOOrth::SymbolMap.map('goo'), nil)
-    assert_equal(XfOOrth::SymbolMap.unmap(:test_11), 'foo')
-    assert_equal(XfOOrth::SymbolMap.unmap(:test_12), 'bar')
+    assert_equal(XfOOrth::SymbolMap.unmap(:test_11), ['foo'])
+    assert_equal(XfOOrth::SymbolMap.unmap(:test_12), ['bar'])
     assert_equal(XfOOrth::SymbolMap.unmap(:test_ikle), nil)
 
     assert_raises(XfOOrth::XfOOrthError) do
-      XfOOrth::SymbolMap.add_entry('foo', :evil_method)
+      XfOOrth::SymbolMap.add_global_entry('foo', :evil_method)
     end
   end
 
   #Test the special mappings facility
   def test_special_mappings
-    assert_equal(XfOOrth::SymbolMap.add_special('init', :public_method, :init), [:init, :public_method])
-    assert_equal(XfOOrth::SymbolMap.add_special('init', :public_method, :init), [:init, :public_method])
-    assert_equal(XfOOrth::SymbolMap.map('init'), [:init, :public_method])
-    assert_equal(XfOOrth::SymbolMap.unmap(:init), 'init')
+    assert_equal(XfOOrth::SymbolMap.add_global_entry('.init', :public_method, :init), [:init, :public_method])
+    assert_equal(XfOOrth::SymbolMap.add_global_entry('.init', :public_method, :init), [:init, :public_method])
+    assert_equal(XfOOrth::SymbolMap.map('.init'), [:init, :public_method])
+    assert_equal(XfOOrth::SymbolMap.unmap(:init), ['.init'])
 
     assert_raises(XfOOrth::XfOOrthError) do
-      XfOOrth::SymbolMap.add_special('init', :evil, :public_method)
+      XfOOrth::SymbolMap.add_global_entry('.init', :evil, :public_method)
     end
 
     assert_raises(XfOOrth::XfOOrthError) do
-      XfOOrth::SymbolMap.add_special('init', :init, :evil_method)
+      XfOOrth::SymbolMap.add_global_entry('.init', :init, :evil_method)
     end
   end
 

@@ -1,2 +1,21 @@
-
-0 total warnings
+lib/fOOrth/compiler/modes.rb -- 1 warning:
+  [71]:XfOOrth::VirtualMachine#resume_execute_mode has approx 11 statements (TooManyStatements)
+lib/fOOrth/compiler/parser.rb -- 4 warnings:
+  [73]:XfOOrth::Parser#get_string has approx 8 statements (TooManyStatements)
+  [42]:XfOOrth::Parser#get_word_raw refers to word more than self (FeatureEnvy)
+  [98, 100]:XfOOrth::Parser#process_backslash calls @source.eoln? twice (DuplicateMethodCall)
+  [96, 99, 100]:XfOOrth::Parser#process_backslash calls @source.get 3 times (DuplicateMethodCall)
+lib/fOOrth/compiler/process.rb -- 12 warnings:
+  [63, 72, 82, 95]:XfOOrth::VirtualMachine takes parameters [symbol, token] to 4 methods (DataClump)
+  [113]:XfOOrth::VirtualMachine#class_value doesn't depend on instance state (UtilityFunction)
+  [113]:XfOOrth::VirtualMachine#class_value refers to token more than self (FeatureEnvy)
+  [113]:XfOOrth::VirtualMachine#class_value refers to word more than self (FeatureEnvy)
+  [95]:XfOOrth::VirtualMachine#dyadic_method refers to token more than self (FeatureEnvy)
+  [44]:XfOOrth::VirtualMachine#generate_code refers to word more than self (FeatureEnvy)
+  [122]:XfOOrth::VirtualMachine#macro refers to token more than self (FeatureEnvy)
+  [104]:XfOOrth::VirtualMachine#private_method has unused parameter 'entry' (UnusedParameters)
+  [15]:XfOOrth::VirtualMachine#process has unused parameter 'source' (UnusedParameters)
+  [82]:XfOOrth::VirtualMachine#public_method doesn't depend on instance state (UtilityFunction)
+  [82]:XfOOrth::VirtualMachine#public_method refers to token more than self (FeatureEnvy)
+  [63]:XfOOrth::VirtualMachine#vm_method refers to token more than self (FeatureEnvy)
+17 total warnings

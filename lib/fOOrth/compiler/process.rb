@@ -59,7 +59,7 @@ module XfOOrth
     #<br>Parameters:
     #* token - the token to receive the generated code.
     #* symbol - the symbol mapped for the word.
-    #* word  - the text of the word.
+    #* _word  - the unused text of the word.
     def vm_method(token, symbol, _word)
       token << "vm.#{symbol}(vm); "
     end
@@ -68,9 +68,9 @@ module XfOOrth
     #<br>Parameters:
     #* token - the token to receive the generated code.
     #* symbol - the symbol mapped for the word.
-    #* word  - the text of the word.
-    def vm_immediate(token, symbol, _word)
-      vm_method(token, symbol, _word)
+    #* word - the text of the word.
+    def vm_immediate(token, symbol, word)
+      vm_method(token, symbol, word)
       token.add_tag(:immediate)
     end
 
@@ -91,7 +91,7 @@ module XfOOrth
     #<br>Parameters:
     #* token - the token to receive the generated code.
     #* symbol - the symbol mapped for the word.
-    #* word  - the text of the word.
+    #* _word  - the unused text of the word.
     def dyadic_method(token, symbol, _word)
       token << "vm.swap_pop.#{symbol}(vm); "
     end
@@ -100,7 +100,7 @@ module XfOOrth
     #<br>Parameters:
     #* token - the token to receive the generated code.
     #* symbol - the symbol mapped for the word.
-    #* word  - the text of the word.
+    #* _word  - the unused text of the word.
     def private_method(token, entry, _word)
       token << "self.#{symbol}(vm); "
     end
@@ -118,7 +118,7 @@ module XfOOrth
     #<br>Parameters:
     #* token - the token to receive the generated code.
     #* string - the string mapped for the word.
-    #* word  - the text of the word.
+    #* _word  - the unused text of the word.
     def macro(token, string, _word)
       token << string
     end
