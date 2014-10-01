@@ -30,6 +30,7 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/compiler/process.rb",
                      "lib/fOOrth/compiler/parser.rb",
                      "lib/fOOrth/compiler/token.rb",
+                     "lib/fOOrth/compiler/modes.rb",
                      "lib/fOOrth/main.rb",
                      "lib/fOOrth/monkey_patch.rb",
                      "lib/fOOrth/monkey_patch/object.rb",
