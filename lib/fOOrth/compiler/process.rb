@@ -101,7 +101,7 @@ module XfOOrth
     #* token - the token to receive the generated code.
     #* symbol - the symbol mapped for the word.
     #* _word  - the unused text of the word.
-    def private_method(token, entry, _word)
+    def private_method(token, symbol, _word)
       token << "self.#{symbol}(vm); "
     end
 

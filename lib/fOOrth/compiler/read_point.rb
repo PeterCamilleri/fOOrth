@@ -17,25 +17,16 @@ module XfOOrth
     #<br>Parameters
     #* block - A block of code that retrieves the next line of
     #  source code to be processed.
-    #<br> Endemic Code Smells
-    # :reek:TooManyStatements
-    # :reek:NilCheck
     def read(&block)
-      if @read_point.nil?
-        @read_buffer = block.call
-
-        return nil if @read_buffer.nil?
-
+      unless @read_point
+        return nil unless (@read_buffer = block.call)
         @read_point = @read_buffer.each_char
       end
 
       begin
-        result = @read_point.next
-        @eoln = false
+        result, @eoln = @read_point.next, false
       rescue StopIteration
-        result = ' '
-        @read_point = nil
-        @eoln = true
+        result, @read_point, @eoln = ' ', nil, true
       end
 
       result

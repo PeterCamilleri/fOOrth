@@ -10,44 +10,33 @@ module XfOOrth
     @fwd_map = Hash.new
     @rev_map = Hash.new
 
-    class << self
-      #The synchronization semaphore.
-      attr_reader :sync
-
-      #The next symbol string in line for assigning.
-      attr_reader :incrementer
-
-      #The map from name to symbol.
-      attr_reader :fwd_map
-
-      #The map from symbol to name.
-      attr_reader :rev_map
-    end
-
-    #Add a mapping for a string to a symbol that will not collide with
+    #Add a global mapping for a string to a symbol that will not collide with
     #existing symbols.
     #<br>Parameters:
     #* name - The string to be mapped.
-    #* action - The compiler action associated with this name.
-    #* old_symbol - The symbol the name is to be mapped to or nil if a new
-    #  symbol is to be created.
+    #* option - A hash for options.
+    #<br>These may include:
+    #* :prefix - A prefix string for the generated symbol. Typically '$' for
+    #  global variables and '@' for instance variables.
+    #* :symbol - A symbol to used for the mapping. No new symbol is created.
     #<br>Returns:
-    #* The [symbol, action] that corresponds to the name.
-    def self.add_global_entry(name, action, old_symbol=nil)
-      sync.synchronize do
-        if (entry = fwd_map[name])
-          error "Attempt to redefine #{name}." unless entry[1] == action
-          entry
-        else
-          new_symbol = old_symbol || (incrementer.succ!).to_sym
+    #* The symbol that corresponds to the name.
+    def self.add_entry(name, option = {})
+      presym, prefix = option[:symbol], (option[:prefix] || '')
 
-          if (rev_entry = rev_map[new_symbol])
-            rev_entry << name
+      @sync.synchronize do
+        unless (@fwd_map[name])
+          symbol = presym || (prefix + (@incrementer.succ!)).to_sym
+
+          if (rev_entry = @rev_map[symbol])
+            rev_entry << name unless rev_entry.includes?(name)
           else
-            rev_map[new_symbol] = [name]
+            @rev_map[symbol] = [name]
           end
 
-          fwd_map[name] = [new_symbol, action]
+          @fwd_map[name] = symbol
+        else
+          error "Attempt to redefine #{name}."
         end
       end
     end
@@ -56,9 +45,9 @@ module XfOOrth
     #<br>Parameters:
     #* name - The string to be looked up.
     #<br>Returns:
-    #* A symbol, action or nil if the symbol is not in the map.
+    #* A symbol or nil if the symbol is not in the map.
     def self.map(name)
-      fwd_map[name]
+      @fwd_map[name]
     end
 
     #Get the entry for the mapping symbol. Return nil if there is no entry.
@@ -67,18 +56,16 @@ module XfOOrth
     #<br>Returns:
     #* A [names] or nil if the symbol is not in the map.
     def self.unmap(mapped)
-      rev_map[mapped]
+      @rev_map[mapped]
     end
 
     #Reset the incrementer to the given string. This used for testing only.
     #<br>Parameters:
-    #* The starting point of the generated symbols.
+    #* start - The new starting point of the generated symbols.
     #<br>Note:
     #* FOR TESTING ONLY.
     def self.restart(start)
       @incrementer = start
     end
-
   end
-
 end

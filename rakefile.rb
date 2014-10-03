@@ -30,6 +30,7 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/compiler/process.rb",
                      "lib/fOOrth/compiler/parser.rb",
                      "lib/fOOrth/compiler/token.rb",
+                     "lib/fOOrth/compiler/context.rb",
                      "lib/fOOrth/compiler/modes.rb",
                      "lib/fOOrth/main.rb",
                      "lib/fOOrth/monkey_patch.rb",
@@ -62,6 +63,7 @@ Rake::TestTask.new do |t|
                   "tests/compiler/string_source_tests.rb",
                   "tests/compiler/file_source_tests.rb",
                   "tests/compiler/parser_tests.rb",
+                  "tests/compiler/context_tests.rb",
                   "tests/symbol_map_tests.rb",
                   "tests/core_tests.rb"
                  ]

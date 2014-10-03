@@ -39,7 +39,7 @@ module XfOOrth
   @all_classes = Hash.new
 
   #Predefine some essential name mappings
-  SymbolMap.add_global_entry('.init', :public_method, :init)
+  SymbolMap.add_entry('.init', symbol: :init)
 
   #Create the anonymous template class for the fOOrth class class. Each
   #instance of fOOrth class will be wrapped in one of these anonymous classes
@@ -86,24 +86,24 @@ module XfOOrth
   VirtualMachine.new('main')
 
   #Create the symbol table entries for the core classes.
-  SymbolMap.add_global_entry('Object', :class_value, nil)
-  SymbolMap.add_global_entry('Class', :class_value, nil)
-  SymbolMap.add_global_entry('VirtualMachine', :class_value, nil)
+  SymbolMap.add_entry('Object')
+  SymbolMap.add_entry('Class')
+  SymbolMap.add_entry('VirtualMachine')
 
   #==========================================================================
   # Define some core methods.
   #==========================================================================
 
   #The .class method. This allows the class of any object to be determined.
-  sym = SymbolMap.add_global_entry('.class', :public_method)[0]
+  sym = SymbolMap.add_entry('.class')
   @object_class.add_shared_method(sym, &lambda {|vm| vm.push(self.foorth_class)})
 
   #The .parent_class method. Retrieves the parent class of a class.
-  sym = SymbolMap.add_global_entry('.parent_class', :public_method)[0]
+  sym = SymbolMap.add_entry('.parent_class')
   @class_class.add_shared_method(sym, &lambda {|vm| vm.push(self.foorth_parent)})
 
   #The .is_class? method. Is the object a class object?
-  sym = SymbolMap.add_global_entry('.is_class?', :public_method)[0]
+  sym = SymbolMap.add_entry('.is_class?')
   @object_class.add_shared_method(sym, &lambda {|vm| vm.push(false)})
   @class_class.add_shared_method(sym, &lambda {|vm| vm.push(true)})
 

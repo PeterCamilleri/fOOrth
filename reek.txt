@@ -1,3 +1,7 @@
+lib/fOOrth/compiler/context.rb -- 3 warnings:
+  [65]:XfOOrth::Context#map_default has unused parameter 'name' (UnusedParameters)
+  [47]:XfOOrth::Context#map_instance has unused parameter 'name' (UnusedParameters)
+  [33]:XfOOrth::Context#map_local has unused parameter 'name' (UnusedParameters)
 lib/fOOrth/compiler/modes.rb -- 1 warning:
   [71]:XfOOrth::VirtualMachine#resume_execute_mode has approx 11 statements (TooManyStatements)
 lib/fOOrth/compiler/parser.rb -- 4 warnings:
@@ -6,16 +10,16 @@ lib/fOOrth/compiler/parser.rb -- 4 warnings:
   [98, 100]:XfOOrth::Parser#process_backslash calls @source.eoln? twice (DuplicateMethodCall)
   [96, 99, 100]:XfOOrth::Parser#process_backslash calls @source.get 3 times (DuplicateMethodCall)
 lib/fOOrth/compiler/process.rb -- 12 warnings:
-  [63, 72, 82, 95]:XfOOrth::VirtualMachine takes parameters [symbol, token] to 4 methods (DataClump)
+  [63, 72, 82, 95, 104]:XfOOrth::VirtualMachine takes parameters [symbol, token] to 5 methods (DataClump)
   [113]:XfOOrth::VirtualMachine#class_value doesn't depend on instance state (UtilityFunction)
   [113]:XfOOrth::VirtualMachine#class_value refers to token more than self (FeatureEnvy)
   [113]:XfOOrth::VirtualMachine#class_value refers to word more than self (FeatureEnvy)
   [95]:XfOOrth::VirtualMachine#dyadic_method refers to token more than self (FeatureEnvy)
   [44]:XfOOrth::VirtualMachine#generate_code refers to word more than self (FeatureEnvy)
   [122]:XfOOrth::VirtualMachine#macro refers to token more than self (FeatureEnvy)
-  [104]:XfOOrth::VirtualMachine#private_method has unused parameter 'entry' (UnusedParameters)
+  [104]:XfOOrth::VirtualMachine#private_method refers to token more than self (FeatureEnvy)
   [15]:XfOOrth::VirtualMachine#process has unused parameter 'source' (UnusedParameters)
   [82]:XfOOrth::VirtualMachine#public_method doesn't depend on instance state (UtilityFunction)
   [82]:XfOOrth::VirtualMachine#public_method refers to token more than self (FeatureEnvy)
   [63]:XfOOrth::VirtualMachine#vm_method refers to token more than self (FeatureEnvy)
-17 total warnings
+20 total warnings
