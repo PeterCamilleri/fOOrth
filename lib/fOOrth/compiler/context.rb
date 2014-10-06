@@ -12,57 +12,48 @@ module XfOOrth
     #* klass - the fOOrth class that is the leaf of the instance search tree.
     def initialize(previous, klass, mode, ctrl)
       @previous, @klass, @mode, @ctrl = previous, klass, mode, ctrl
-      @fwd = {}
-
+      @fwd_map = {}
     end
 
     #Map a name to an [symbol, action]
     #<br>Parameters:
     #* name - The string to be mapped.
     #<br>Returns:
-    #* The [symbol, action] that corresponds to the name or nil if none found.
+    #* The specification that corresponds to the name or nil if none found.
     def map(name)
-      map_local(name) || map_instance(name) || map_global(name) || map_default(name)
-    end
-
-    #Map a name to an [symbol, action] via the locally defined contexts.
-    #<br>Parameters:
-    #* name - The string to be mapped.
-    #<br>Returns:
-    #* The [symbol, action] that corresponds to the name or nil if none found.
-    def map_local(name)
-      @locals.each do |local|
-        if (entry = local.map)
-          return entry
-        end
+      if (symbol = SymbolMap.map(name))
+        map_local(symbol) ||
+        map_instance(symbol) ||
+        map_default(name, symbol)
       end
     end
 
-    #Map a name to an [symbol, action] via the maps in the current class
-    #hierarchy.
+    #Map a symbol to a specification via the locally defined contexts.
     #<br>Parameters:
-    #* name - The string to be mapped.
+    #* symbol - The symbol to be mapped.
     #<br>Returns:
-    #* The [symbol, action] that corresponds to the name or nil if none found.
-    def map_instance(name)
-
+    #* The specification that corresponds to the symbol or nil if none found.
+    def map_local(symbol)
+      @fwd_map[symbol] || (@previous && @previous.map_local(symbol))
     end
 
-    #Map a name to an [symbol, action] via a global entry in the SymbolMap.
+    #Map a symbol to a specification via the class hierarchy.
     #<br>Parameters:
-    #* name - The string to be mapped.
+    #* symbol - The symbol to be mapped.
     #<br>Returns:
-    #* The [symbol, action] that corresponds to the name or nil if none found.
-    def map_global(name)
-      SymbolMap.map(name)
+    #* The specification that corresponds to the symbol or nil if none found.
+    def map_instance(symbol)
+      (@klass && @klass.map_instance(symbol)) ||
+      (@previous && @previous.map_local(symbol))
     end
 
-    #Map a name to an [symbol, action] based on the text of the name.
+    #Map a name to an specification based on the text of the name.
     #<br>Parameters:
-    #* name - The string to be mapped.
+    #* name - The name to be mapped.
+    #* symbol - The symbol to be mapped.
     #<br>Returns:
     #* The [symbol, action] that corresponds to the name or nil if none found.
-    def map_default(name)
+    def map_default(_name, _symbol)
 
     end
 
