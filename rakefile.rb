@@ -31,6 +31,7 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/compiler/parser.rb",
                      "lib/fOOrth/compiler/token.rb",
                      "lib/fOOrth/compiler/context.rb",
+                     "lib/fOOrth/compiler/word_specs.rb",
                      "lib/fOOrth/compiler/modes.rb",
                      "lib/fOOrth/main.rb",
                      "lib/fOOrth/monkey_patch.rb",

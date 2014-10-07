@@ -26,6 +26,7 @@ class SymbolMapTester < MiniTest::Unit::TestCase
     XfOOrth::SymbolMap.restart('test_10')
     assert_equal(XfOOrth::SymbolMap.add_entry('foo'), :test_11)
     assert_equal(XfOOrth::SymbolMap.add_entry('bar'), :test_12)
+    assert_equal(XfOOrth::SymbolMap.add_entry('foo'), :test_11)
     assert_equal(XfOOrth::SymbolMap.map('foo'), :test_11)
     assert_equal(XfOOrth::SymbolMap.map('goo'), nil)
     assert_equal(XfOOrth::SymbolMap.unmap(:test_11), ['foo'])
@@ -33,11 +34,7 @@ class SymbolMapTester < MiniTest::Unit::TestCase
     assert_equal(XfOOrth::SymbolMap.unmap(:test_ikle), nil)
 
     assert_raises(XfOOrth::XfOOrthError) do
-      XfOOrth::SymbolMap.add_entry('foo', symbol: :test_11)
-    end
-
-    assert_raises(XfOOrth::XfOOrthError) do
-      XfOOrth::SymbolMap.add_entry('foo', symbol: :evil_method)
+      XfOOrth::SymbolMap.add_entry('foo', :evil_method)
     end
 
   end
@@ -48,7 +45,7 @@ class SymbolMapTester < MiniTest::Unit::TestCase
     assert_equal(XfOOrth::SymbolMap.unmap(:init), ['.init'])
 
     assert_raises(XfOOrth::XfOOrthError) do
-      XfOOrth::SymbolMap.add_entry('.init', symbol: :evil_method)
+      XfOOrth::SymbolMap.add_entry('.init', :evil_method)
     end
   end
 

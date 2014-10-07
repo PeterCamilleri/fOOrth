@@ -31,18 +31,20 @@ module XfOOrth
 
     #Process optional string parameters.
     #<br>Parameters:
-    #* token - the token to receive the generated code.
-    #* word  - the text of the word.
+    #* token - The token to receive the generated code.
+    #* word  - The text of the word.
     def string_parms(token, word)
       token << "vm.push(#{parser.get_string.embedd}); " if word[-1] == '"'
     end
 
     #Finally generate some code!
     #<br>Parameters:
-    #* token - the token to receive the generated code.
-    #* word  - the text of the word.
+    #* token - The token to receive the generated code.
+    #* word  - The text of the word.
     def generate_code(token, word)
       unless word == '"'
+        #This is all rubbish!!!
+
         entry = SymbolMap.map(word) || word[0] == '~' && SymbolMap.map('.' + word[1..-1])
 
         if entry
@@ -54,7 +56,5 @@ module XfOOrth
         end
       end
     end
-
   end
-
 end

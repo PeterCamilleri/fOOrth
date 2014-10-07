@@ -14,30 +14,22 @@ module XfOOrth
     #existing symbols.
     #<br>Parameters:
     #* name - The string to be mapped.
-    #* option - A hash for options.
-    #<br>These may include:
-    #* :prefix - A prefix string for the generated symbol. Typically '$' for
-    #  global variables and '@' for instance variables.
-    #* :symbol - A symbol to used for the mapping. No new symbol is created.
+    #* presym - A pre-assigned symbol value.
     #<br>Returns:
     #* The symbol that corresponds to the name.
-    def self.add_entry(name, option = {})
-      presym, prefix = option[:symbol], (option[:prefix] || '')
+    def self.add_entry(name, presym=nil)
+      prefix = name[0]
+      prefix = '' unless ['@', '$'].include?(prefix)
 
       @sync.synchronize do
-        unless (@fwd_map[name])
+        unless (symbol = @fwd_map[name])
           symbol = presym || (prefix + (@incrementer.succ!)).to_sym
-
-          if (rev_entry = @rev_map[symbol])
-            rev_entry << name unless rev_entry.includes?(name)
-          else
-            @rev_map[symbol] = [name]
-          end
-
-          @fwd_map[name] = symbol
+          connect(name, symbol)
         else
-          error "Attempt to redefine #{name}."
+          error "Attempt to redefine #{name}." if presym && presym != symbol
         end
+
+        symbol
       end
     end
 
@@ -66,6 +58,18 @@ module XfOOrth
     #* FOR TESTING ONLY.
     def self.restart(start)
       @incrementer = start
+    end
+
+    #Set up the internal workings of the mapping hashes.
+    private
+    def self.connect(name, symbol)
+      if (rev_entry = @rev_map[symbol])
+        rev_entry << name
+      else
+        @rev_map[symbol] = [name]
+      end
+
+      @fwd_map[name] = symbol
     end
   end
 end

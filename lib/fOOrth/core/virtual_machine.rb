@@ -47,7 +47,7 @@ module XfOOrth
       #<br>Returns:
       #* True on success else false if name could not be found.
       #<br>Endemic Code Smells
-      # :reek:FeatureEnvy
+      #* :reek:FeatureEnvy
       def link_shared_method(name)
         current = self
 
@@ -55,7 +55,7 @@ module XfOOrth
           dictionary = current.dictionary
 
           if dictionary.has_key?(name)
-            self.cache_shared_method(name, &dictionary[name])
+            self.cache_shared_method(name, &dictionary[name].does)
             return true
           end
 
@@ -68,14 +68,14 @@ module XfOOrth
       #Add an instance method to this fOOrth class.
       #<br>Parameters:
       #* symbol - The method symbol to be added.
-      #* block - The block associated with this method.
+      #* spec - The specification associated with this method.
       #<br>Note:
       #* The method cache for this symbol is purged for this class and all child
       #  classes except where the child classes already have there own method.
-      def add_shared_method(symbol, &block)
+      def add_shared_method(symbol, spec)
         @dictionary.delete(symbol)
         purge_shared_method(symbol)
-        @dictionary[symbol] = block
+        @dictionary[symbol] = spec
       end
 
       #Cache the specified code block by adding it as a method on the
@@ -127,9 +127,6 @@ module XfOOrth
     def link_exclusive_method(symbol)
       if @dictionary.has_key?(symbol)
         cache_exclusive_method(symbol, &@dictionary[symbol])
-        true
-      else
-        false
       end
     end
 

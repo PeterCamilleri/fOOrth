@@ -41,14 +41,14 @@ module XfOOrth
     #Add an exclusive method to this fOOrth object.
     #<br>Parameters:
     #* symbol - The method symbol to be added.
-    #* block - The block associated with this method.
-    def add_exclusive_method(symbol, &block)
+    #* spec - The specification associated with this method.
+    def add_exclusive_method(symbol, spec)
       @exclusive ||= Hash.new
-      @exclusive[symbol] = block
+      @exclusive[symbol] = spec
 
       #If already cached, override it!
       if respond_to?(symbol)
-        cache_exclusive_method(symbol, &block)
+        cache_exclusive_method(symbol, &spec.does)
       end
     end
 

@@ -7,6 +7,7 @@ require_relative 'compiler/parser'
 require_relative 'compiler/token'
 require_relative 'compiler/modes'
 require_relative 'compiler/word_specs'
+require_relative 'compiler/context'
 require_relative 'compiler/process'
 
 #* compiler.rb - The compiler portion of the fOOrth language system.
@@ -29,6 +30,9 @@ module XfOOrth
     #The current compiler parser.
     attr_reader :parser
 
+    #The current execution/compile context.
+    attr_accessor :context
+
     #The level of lexical nesting.
     attr_reader :level
 
@@ -37,27 +41,17 @@ module XfOOrth
 
     #Return the compiler to a known state.
     def compiler_reset
-      @mode   = :Execute
+      @mode   = :Execute  #deprecated!
       @level  = 0
       @quotes = 0
       @buffer = nil
       @force  = false
+      @context = Context.new(nil, VirtualMachine, :Execute, nil)
     end
 
     #Execute code from the interactive console.
     def process_console
-      #Work in progress.
-      #Rubbish code for now.
-      @level = 1
-
-      console.flush
-
-      until (next_char = console.get) == 'q'
-        print next_char
-        puts if console.eoln?
-      end
-
-      raise SilentExit
+      process(console)
     end
 
     #Execute a string of code.

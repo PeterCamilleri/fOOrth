@@ -25,7 +25,7 @@ module XfOOrth
   #<br>To launch a fOOrth interactive session, simply use:
   # XfOOrth::main
   #<br>Endemic Code Smells
-  # :reek:TooManyStatements
+  #* :reek:TooManyStatements
   def self.main
     vm = XfOOrth.virtual_machine
 
@@ -80,7 +80,7 @@ module XfOOrth
   #<br>Returns
   #* A string of fOOrth commands to be executed after the dictionary is loaded.
   #<br>Endemic Code Smells
-  # :reek:TooManyStatements
+  #* :reek:TooManyStatements
   def self.process_command_line_options
     begin
       defer, found = "", false

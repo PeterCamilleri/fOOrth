@@ -35,7 +35,7 @@ module XfOOrth
 
     #A place holder that should never be called.
     def build_builds_string(_name, _symbol)
-      error "Should never call abstract build_builds_string."
+      error "Should never call the abstract build_builds_string method."
     end
 
   end
@@ -121,9 +121,11 @@ module XfOOrth
     #  with the text of the command macro. Further, this string is evaluated
     #  in order to get the string desired, so it must contain all the Ruby
     #  trappings of a string, like quotes etc. If it contains double quotes,
-    #  then it may also insert any available pseudo-closure data like the
-    #  _name, _symbol or even global data.
-    def build_builds_string(_name, _symbol)
+    #  then it may also insert any available pseudo-closure #{} data like
+    #  the name, symbol, an expression, or global data.
+    #<br>Endemic Code Smells
+    #* :reek:UnusedParameters
+    def build_builds_string(name, symbol)
       @builds = eval(@attributes[-1])
     end
 

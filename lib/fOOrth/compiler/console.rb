@@ -40,8 +40,8 @@ module XfOOrth
     #<br>Returns
     #* A prompt string.
     #<br> Endemic Code Smells
-    # :reek:UtilityFunction
-    # :reek:FeatureEnvy
+    #* :reek:UtilityFunction
+    #* :reek:FeatureEnvy
     def prompt
       vm = XfOOrth.virtual_machine
       '>' * vm.level + '"' * vm.quotes
