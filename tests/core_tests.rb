@@ -36,10 +36,8 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal(XfOOrth.object_class.children["Class"].name, "Class")
     assert_equal(XfOOrth.class_class.children["Object"], nil)
 
-    #This is not supported! Since virtual machines are associated with threads,
-    #keeping track of them in a hash could serve as the source of a massive,
-    #evil, nasty memory leak of DEATH!!!!
-    assert_raises(NoMethodError) {XfOOrth::VirtualMachine.children}
+    #The VirtualMachine class must be childfree!
+    assert_equal(XfOOrth::VirtualMachine.children, {})
 
     #This really should raise an exception, and it does!
     assert_raises(XfOOrth::XfOOrthError) do
@@ -98,6 +96,13 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal(inst2.name, 'Other instance.')
   end
 
+  #Test the the VM class does NOT sub-class
+  def test_that_the_VM_class_does_not_subclass
+    assert_raises(XfOOrth::XfOOrthError) do
+      XfOOrth::VirtualMachine.create_foorth_subclass("MyClass")
+    end
+  end
+
   #Test sending a method to an object. Namely the class method to the
   #fOOrth Object class.
   def test_sending_a_method_to_a_class
@@ -108,7 +113,7 @@ class CoreTester < MiniTest::Unit::TestCase
     cs = XfOOrth::SymbolMap.map('.class')
 
     # In fOOrth ==> Object .class
-    src = "lambda \{|vm| vm.push(XfOOrth.object_class); vm.pop.#{cs}(vm); \}"
+    src = "lambda {|vm| vm.push(XfOOrth.object_class); vm.pop.#{cs}(vm); }"
 
     #Create the block
     blk = eval src
@@ -129,7 +134,7 @@ class CoreTester < MiniTest::Unit::TestCase
     cs = XfOOrth::SymbolMap.map('.class')
 
     # In fOOrth ==> vm .class
-    src = "lambda \{|vm| vm.push(vm); vm.pop.#{cs}(vm); \}"
+    src = "lambda {|vm| vm.push(vm); vm.pop.#{cs}(vm); }"
 
     #Create the block
     blk = eval src
@@ -164,11 +169,11 @@ class CoreTester < MiniTest::Unit::TestCase
     XfOOrth.object_class.add_shared_method(:foo, spec_4)
 
     vm.push(inst1)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(4, vm.pop)
 
     vm.push(inst2)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(4, vm.pop)
 
     # In fOOrth ==> Object :: foo 5 ;
@@ -176,11 +181,11 @@ class CoreTester < MiniTest::Unit::TestCase
     XfOOrth.object_class.add_shared_method(:foo, spec_5)
 
     vm.push(inst1)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(5, vm.pop)
 
     vm.push(inst2)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(5, vm.pop)
 
     # In fOOrth ==> TestClass :: foo 6 ;
@@ -190,11 +195,11 @@ class CoreTester < MiniTest::Unit::TestCase
     blk = lambda {|vm| vm.pop.foo(vm) }
 
     vm.push(inst1)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(5, vm.pop)
 
     vm.push(inst2)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(6, vm.pop)
 
     # In fOOrth ==> Object :: foo 7 ;
@@ -204,11 +209,11 @@ class CoreTester < MiniTest::Unit::TestCase
     blk = lambda {|vm| vm.pop.foo(vm) }
 
     vm.push(inst1)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(7, vm.pop)
 
     vm.push(inst2)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(6, vm.pop)
   end
 
@@ -231,11 +236,11 @@ class CoreTester < MiniTest::Unit::TestCase
     XfOOrth.object_class.add_shared_method(:bar, spec_11)
 
     vm.push(inst1)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(11, vm.pop)
 
     vm.push(inst2)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(11, vm.pop)
 
     # In fOOrth ==> inst2 @ ::: bar 22 ;
@@ -243,11 +248,11 @@ class CoreTester < MiniTest::Unit::TestCase
     inst2.add_exclusive_method(:bar, spec_22)
 
     vm.push(inst1)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(11, vm.pop)
 
     vm.push(inst2)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(22, vm.pop)
 
     # In fOOrth ==> Object :: bar 33 ;
@@ -255,11 +260,11 @@ class CoreTester < MiniTest::Unit::TestCase
     XfOOrth.object_class.add_shared_method(:bar, spec_33)
 
     vm.push(inst1)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(33, vm.pop)
 
     vm.push(inst2)
-    blk.call(vm)
+    vm.instance_exec(vm, &blk)
     assert_equal(22, vm.pop)
   end
 
@@ -269,6 +274,72 @@ class CoreTester < MiniTest::Unit::TestCase
 
     assert_equal(children['Class'], XfOOrth.class_class)
     assert_equal(children['VirtualMachine'], XfOOrth::VirtualMachine)
+  end
+
+  #Test the core method .is_class?
+  def test_the_dot_is_class_qm_method
+    #Get the virtual machine.
+    vm = XfOOrth.virtual_machine
+
+    # In fOOrth ==> Object .new inst1 !
+    inst1 = XfOOrth.object_class.create_foorth_instance(vm)
+
+    #Test the fOOrth code: Object .is_class?  ==> true
+    src = "lambda {|vm| "
+    sym = XfOOrth::SymbolMap.map("Object")
+    spec = XfOOrth.object_class.map_shared(sym)
+    src << spec.builds
+    sym = XfOOrth::SymbolMap.map(".is_class?")
+    spec = XfOOrth.object_class.map_shared(sym)
+    src << spec.builds
+    src << "}"
+    blk = eval src
+
+    vm.instance_exec(vm, &blk)
+    assert(vm.pop?) #Yup!
+
+    #Test the fOOrth code: inst1 @ .is_class?  ==> false
+    src = "lambda {|vm| "
+    src << "vm.push(inst1); "  #Punt for now.
+    sym = XfOOrth::SymbolMap.map(".is_class?")
+    spec = XfOOrth.object_class.map_shared(sym)
+    src << spec.builds
+    src << "}"
+    blk = eval src
+
+    vm.instance_exec(vm, &blk)
+    refute(vm.pop?) #Nope!
+  end
+
+  #Testing virtual machine method redefinition
+  def test_vm_method_redefining
+    #Get the virtual machine.
+    vm = XfOOrth.virtual_machine
+
+    XfOOrth.object_class.create_shared_method('.test', XfOOrth::MethodWordSpec, [],
+      &lambda {|vm| vm.push(42)})
+
+    src = "lambda {|vm| vm.push(vm); "
+    sym = XfOOrth::SymbolMap.map(".test")
+    spec = XfOOrth::VirtualMachine.map_shared(sym)
+    src << spec.builds
+    src << "}"
+    blk = eval src
+
+    vm.instance_exec(vm, &blk)
+    assert_equal(vm.pop, 42)
+
+    XfOOrth::VirtualMachine.create_shared_method('.test', XfOOrth::MethodWordSpec, [],
+      &lambda {|vm| vm.push(69)})
+
+    vm.instance_exec(vm, &blk)
+    assert_equal(vm.pop, 69)
+
+    vm.create_exclusive_method('.test', XfOOrth::MethodWordSpec, [],
+      &lambda {|vm| vm.push(109)})
+
+    vm.instance_exec(vm, &blk)
+    assert_equal(vm.pop, 109)
   end
 
 end

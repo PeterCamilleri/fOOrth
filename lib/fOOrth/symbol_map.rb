@@ -14,12 +14,11 @@ module XfOOrth
     #existing symbols.
     #<br>Parameters:
     #* name - The string to be mapped.
-    #* presym - A pre-assigned symbol value.
+    #* presym - A pre-assigned symbol value or nil to generate a symbol.
     #<br>Returns:
     #* The symbol that corresponds to the name.
     def self.add_entry(name, presym=nil)
-      prefix = name[0]
-      prefix = '' unless ['@', '$'].include?(prefix)
+      prefix = '' unless ['@', '$'].include?(prefix = name[0])
 
       @sync.synchronize do
         unless (symbol = @fwd_map[name])

@@ -83,33 +83,28 @@ module XfOOrth
   VirtualMachine.new('main')
 
   #Create the symbol table entries for the core classes.
-  SymbolMap.add_entry('Object')
-  SymbolMap.add_entry('Class')
-  SymbolMap.add_entry('VirtualMachine')
+  @object_class.create_shared_method('Object', ClassWordSpec, [])
+  @object_class.create_shared_method('Class', ClassWordSpec, [])
+  @object_class.create_shared_method('VirtualMachine', ClassWordSpec, [])
 
   #==========================================================================
   # Define some core methods.
   #==========================================================================
 
   #The .class method. This allows the class of any object to be determined.
-  name = '.class'
-  sym = SymbolMap.add_entry(name)
-  spec = MethodWordSpec.new(name, sym, [], &lambda {|vm| vm.push(self.foorth_class)})
-  @object_class.add_shared_method(sym, spec)
+  @object_class.create_shared_method('.class', MethodWordSpec, [],
+    &lambda {|vm| vm.push(self.foorth_class)})
 
   #The .parent_class method. Retrieves the parent class of a class.
-  name = '.parent_class'
-  sym = SymbolMap.add_entry(name)
-  spec = MethodWordSpec.new(name, sym, [], &lambda {|vm| vm.push(self.foorth_parent)})
-  @class_class.add_shared_method(sym, spec)
+  @class_class.create_shared_method('.parent_class', MethodWordSpec, [],
+    &lambda {|vm| vm.push(self.foorth_parent)})
 
   #The .is_class? method. Is the object a class object?
-  name = '.is_class'
-  sym = SymbolMap.add_entry(name)
-  spec = MethodWordSpec.new(name, sym, [], &lambda {|vm| vm.push(false)})
-  @object_class.add_shared_method(sym, spec)
-  spec = MethodWordSpec.new(name, sym, [], &lambda {|vm| vm.push(true)})
-  @class_class.add_shared_method(sym, spec)
+  @object_class.create_shared_method('.is_class?', MethodWordSpec, [],
+    &lambda {|vm| vm.push(false)})
+
+  @class_class.create_shared_method('.is_class?', MethodWordSpec, [],
+    &lambda {|vm| vm.push(true)})
 
   #==========================================================================
   # The end of the Core Initialization Code Block.

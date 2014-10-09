@@ -19,9 +19,9 @@ module XfOOrth
     #* The \foorth_parent of the fOOrth class "Object" is nil.
     attr_reader :foorth_parent
 
-    #A hash containing the methods defined for instances of this class.
-    #<br>It maps (a symbol) => (a lambda block)
-    attr_reader :dictionary
+    #A hash containing the methods shared by instances of this class.
+    #<br>It maps (a symbol) => (a word specification object)
+    attr_reader :shared
 
     #A hash containing all of the classes derived from this one.
     #<br>It maps (a class name) => (an object derived from \XClass)
@@ -34,7 +34,7 @@ module XfOOrth
     def initialize(name, foorth_parent)
       @name          = name
       @foorth_parent = foorth_parent
-      @dictionary    = Hash.new
+      @shared        = Hash.new
       @children      = Hash.new
       klass          = self
 
@@ -81,6 +81,18 @@ module XfOOrth
       obj
     end
 
+    #Create a shared method on this fOOrth class.
+    #<br>Parameters:
+    #* The name of the method to create.
+    #* The specification class to use.
+    #* An array of options.
+    #* A block to associate with the name.
+    def create_shared_method(name, spec_class, options, &block)
+      sym = SymbolMap.add_entry(name)
+      spec = spec_class.new(name, sym, options, &block)
+      add_shared_method(sym, spec)
+    end
+
     #Search the object class dictionaries for the named instance method and add
     #it to the target class.
     #<br>Parameters:
@@ -94,7 +106,7 @@ module XfOOrth
       current = self
 
       while current
-        dictionary = current.dictionary
+        dictionary = current.shared
 
         if dictionary.has_key?(name)
           target_class.cache_shared_method(name, &dictionary[name].does)
@@ -107,6 +119,11 @@ module XfOOrth
       false
     end
 
+    #Map the symbol to a specification or nil if there is no mapping.
+    def map_shared(symbol)
+      shared[symbol] || (foorth_parent && foorth_parent.map_shared(symbol))
+    end
+
     #Add an instance method to this fOOrth class.
     #<br>Parameters:
     #* symbol - The method symbol to be added.
@@ -115,17 +132,19 @@ module XfOOrth
     #* The method cache for this symbol is purged for this class and all child
     #  classes except where the child classes already have there own method.
     def add_shared_method(symbol, spec)
-      @dictionary.delete(symbol)
+      @shared.delete(symbol)
       purge_shared_method(symbol)
-      @dictionary[symbol] = spec
+      @shared[symbol] = spec
     end
 
     #Purge the instance method cache for the specified symbol.
     def purge_shared_method(symbol)
-      unless @dictionary.has_key?(symbol)
+      unless @shared.has_key?(symbol)
         @instance_template.purge_method(symbol)
         @children.each {|name, child| child.purge_shared_method(symbol)}
       end
     end
+
+
   end
 end

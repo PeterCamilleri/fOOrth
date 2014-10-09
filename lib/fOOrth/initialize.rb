@@ -22,7 +22,7 @@ module XfOOrth
     #  one virtual machine on a thread.
     def initialize(name='-', source={})
       @name          = name
-      @dictionary    = source
+      @exclusive     = source
       @debug         = false
       @foorth_parent = XfOOrth.object_class
 

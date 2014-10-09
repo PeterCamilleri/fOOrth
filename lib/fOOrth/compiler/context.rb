@@ -35,7 +35,7 @@ module XfOOrth
     def map(name)
       if (symbol = SymbolMap.map(name))
         map_local(symbol)         ||
-        klass.map(symbol)         ||
+        klass.map_shared(symbol)  ||
         map_default(name, symbol)
       end
     end
