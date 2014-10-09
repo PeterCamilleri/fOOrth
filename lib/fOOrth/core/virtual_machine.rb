@@ -3,6 +3,7 @@
 require_relative 'exclusive'
 require_relative 'shared_cache'
 require_relative 'method_missing'
+require_relative 'shared'
 
 #* core/virtual_machine.rb - The core connection to the virtual machine.
 module XfOOrth
