@@ -1,6 +1,6 @@
 require_relative 'source'
 
-#* file_source.rb - Uses a file as a source of fOOrth source code.
+#* compiler/file_source.rb - Uses a file as a source of fOOrth source code.
 module XfOOrth
 
   #The FileSource class used to extract fOOrth source code

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* token.rb - A little bit of object code compiled from the source.
+#* compiler/token.rb - A little bit of object code compiled from the source.
 module XfOOrth
 
   #A class used to hold vital info extracted from the source code.

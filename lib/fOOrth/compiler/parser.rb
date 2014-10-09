@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* parser.rb - Parse source code from a code source.
+#* compiler/parser.rb - Parse source code from a code source.
 module XfOOrth
 
   #* parser.rb - Parse source code from a code source.

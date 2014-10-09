@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* method_missing.rb - A mixin to support for shared methods.
+#* core/shared.rb - A mixin to support for shared methods.
 module XfOOrth
   #* \Shared - A mixin to support for shared methods.
   module Shared

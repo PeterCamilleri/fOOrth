@@ -1,7 +1,7 @@
 # coding: utf-8
 
-#* word_specs.rb - The classes that support the specification of the compile
-#  and run-time behaviors of fOOrth definitions of all sorts.
+#* compiler/word_specs.rb - The classes that support the specification of the
+#  compile and run-time behaviors of fOOrth definitions of all sorts.
 module XfOOrth
 
   #The abstract base class for all of the different sorts of word specs.

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* method_missing.rb - Support for caching and purging shared methods.
+#* core/method_missing.rb - Support for caching and purging shared methods.
 module XfOOrth
   #* \MethodMissing - Support for the dynamic linking and caching of shared methods.
   module MethodMissing

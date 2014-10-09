@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* modes.rb - The control of the various compiler modes.
+#* compiler/modes.rb - The control of the various compiler modes.
 module XfOOrth
 
   #* modes.rb - The control of the various compiler modes.

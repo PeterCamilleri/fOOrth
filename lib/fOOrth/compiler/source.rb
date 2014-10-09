@@ -1,6 +1,8 @@
+# coding: utf-8
+
 require_relative 'read_point'
 
-#* source.rb - The abstract source class shared by many code sources.
+#* compiler/source.rb - The abstract source class shared by many code sources.
 module XfOOrth
 
   #The Source class used to contain code common to most sources.

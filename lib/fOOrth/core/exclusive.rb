@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* exclusive.rb - The exclusive method support mixin module.
+#* core/exclusive.rb - The exclusive method support mixin module.
 module XfOOrth
 
   #* \Exclusive - The exclusive method support mixin module.

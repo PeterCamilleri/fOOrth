@@ -1,7 +1,7 @@
 require_relative 'read_point'
 require 'readline' #It sucks, but it will do for now.
 
-#* console.rb - The fOOrth console support file.
+#* compiler/console.rb - The fOOrth console support file.
 module XfOOrth
 
   #The console class enables the use of the command line console as a source

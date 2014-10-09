@@ -1,4 +1,6 @@
-#* read_point.rb - A module used to read source code text from a buffer.
+# coding: utf-8
+
+#* compiler/read_point.rb - A module used to read source code text from a buffer.
 module XfOOrth
 
   #This module is used to facilitate the reading

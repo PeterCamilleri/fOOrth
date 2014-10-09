@@ -21,30 +21,22 @@ module XfOOrth
     #Class definitions stand in for the fOOrth virtual machine class.
     class << self
       #A hash containing the methods defined for instances of this class.
-      #<br>It maps (a symbol) => (a lambda block)
+      #<br>It maps (a symbol) => (a specification object)
       attr_reader :shared
 
       #The fOOrth parent class of VirtualMachine is Object.
-      def foorth_parent
-        XfOOrth.object_class
-      end
+      def foorth_parent; XfOOrth.object_class; end
 
       #Return a hash of the child classes of VirtualMachine. Always empty.
-      def children
-        {}
-      end
+      def children; {}; end
 
       #What foorth class is the virtual machine's class? For now we maintain
       #the illusion of normalcy by saying that it is the fOOrth Class class.
-      def foorth_class
-        XfOOrth.class_class
-      end
+      def foorth_class; XfOOrth.class_class; end
 
       #The name of the virtual machine fOOrth class. We don't care if we
       #clobber the Ruby name.
-      def name
-        "VirtualMachine"
-      end
+      def name; "VirtualMachine"; end
 
       #Create a new fOOrth subclass of this class. This is not allowed for the
       #VirtualMachine class so this stub merely raises an exception.
@@ -54,8 +46,9 @@ module XfOOrth
     end
 
     #Get the fOOrth class of this virtual machine
-    def foorth_class
-      VirtualMachine
-    end
+    def foorth_class; VirtualMachine; end
+
+    #The name of the virtual machine instance
+    def name; "#{foorth_class.name} instance."; end
   end
 end

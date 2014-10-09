@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* process.rb - Process source code from a code source.
+#* compiler/process.rb - Process source code from a code source.
 module XfOOrth
 
   #* process.rb - Process source code from a code source.

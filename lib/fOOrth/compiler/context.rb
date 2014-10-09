@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* context.rb - The compile progress context manager of the fOOrth language system.
+#* compiler/context.rb - The compile progress context manager of the fOOrth language system.
 module XfOOrth
 
   #A class for the management of global, hierarchical, and nested compile

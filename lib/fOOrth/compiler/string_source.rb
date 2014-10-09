@@ -1,6 +1,8 @@
+# coding: utf-8
+
 require_relative 'source'
 
-#* string_source.rb - Uses a string as a source of fOOrth source code.
+#* compiler/string_source.rb - Uses a string as a source of fOOrth source code.
 module XfOOrth
 
   #The StringSource class used to extract fOOrth source code

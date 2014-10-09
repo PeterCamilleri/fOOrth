@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* shared_cache.rb - Support for caching and purging shared methods.
+#* core/shared_cache.rb - Support for caching and purging shared methods.
 module XfOOrth
   #* \SharedCache - Support for caching and purging shared methods.
   module SharedCache
