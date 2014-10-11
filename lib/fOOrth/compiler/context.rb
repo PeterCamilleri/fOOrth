@@ -16,7 +16,7 @@ module XfOOrth
     #<br>Parameters:
     #* previous - The previous context object or nil if there is none.
     #* data - A hash of context data.
-    def initialize(previous, data)
+    def initialize(previous, data={})
       @previous, @data = previous, data
     end
 
@@ -39,7 +39,7 @@ module XfOOrth
       if (symbol = SymbolMap.map(name))
         self[symbol]                                         ||
         ((tgt = self[:object]) && tgt.map_exclusive(symbol)) ||
-        self[:class].map_shared(symbol)                      ||
+        ((tgt = self[:class])  && tgt.map_shared(symbol))    ||
         map_default(name, symbol)
       end
     end
@@ -79,11 +79,13 @@ module XfOOrth
       unless expect.include?(current)
         error "Invalid value for #{symbol}: #{current.inspect} not #{expect}"
       end
+
+      true
     end
 
     #How many levels of nested context are there?
     def depth
-      1 + (@previous ? @previous.depth : 0)
+      1 + (previous ? previous.depth : 0)
     end
   end
 end
