@@ -46,7 +46,7 @@ module XfOOrth
       @quotes = 0
       @buffer = nil
       @force  = false
-      @context = Context.new(nil, VirtualMachine, :Execute, nil)
+      @context = Context.new(nil, class: VirtualMachine, mode: :Execute)
     end
 
     #Execute code from the interactive console.

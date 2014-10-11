@@ -2,6 +2,8 @@
 
 #* compiler/modes.rb - The control of the various compiler modes.
 module XfOOrth
+  # MASSIVE WIP FOR THIS WHOLE FILE ! ! !
+  # most of what was done here is handled better in context.rb
 
   #* modes.rb - The control of the various compiler modes.
   class VirtualMachine
@@ -119,7 +121,5 @@ module XfOOrth
     def check_level(level)
       error "Nesting Error: #{@level} vs #{level}" if level != @level
     end
-
   end
-
 end
