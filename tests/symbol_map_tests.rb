@@ -28,10 +28,10 @@ class SymbolMapTester < MiniTest::Unit::TestCase
     assert_equal(XfOOrth::SymbolMap.add_entry('bar'), :test_12)
     assert_equal(XfOOrth::SymbolMap.add_entry('foo'), :test_11)
     assert_equal(XfOOrth::SymbolMap.map('foo'), :test_11)
-    assert_equal(XfOOrth::SymbolMap.map('goo'), nil)
+    refute(XfOOrth::SymbolMap.map('goo'))
     assert_equal(XfOOrth::SymbolMap.unmap(:test_11), ['foo'])
     assert_equal(XfOOrth::SymbolMap.unmap(:test_12), ['bar'])
-    assert_equal(XfOOrth::SymbolMap.unmap(:test_ikle), nil)
+    refute(XfOOrth::SymbolMap.unmap(:test_ikle))
 
     assert_raises(XfOOrth::XfOOrthError) do
       XfOOrth::SymbolMap.add_entry('foo', :evil_method)
@@ -49,4 +49,11 @@ class SymbolMapTester < MiniTest::Unit::TestCase
     end
   end
 
+  #Test mapping with . and ~
+  def test_mapping_with_dot_and_tilde
+    XfOOrth::SymbolMap.restart('test_20')
+    assert_equal(XfOOrth::SymbolMap.add_entry('.foo'), :test_21)
+    assert_equal(XfOOrth::SymbolMap.map('.foo'), :test_21)
+    assert_equal(XfOOrth::SymbolMap.map('~foo'), :test_21)
+  end
 end
