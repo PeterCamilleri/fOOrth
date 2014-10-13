@@ -6,8 +6,8 @@ class String
   #<br>Returns
   #* An embeddable form of this string as a string.
   def embed
-    temp = self.gsub(/'/) {|_v| "\\'"}
-    "'#{temp}'"
+    temp = (self.gsub(/"/)  {|_v| "\\\""}).gsub(/\\/) {|_v| "\\\\"}
+    "\"#{temp}\""
   end
 
   #Convert this string to a fOOrth boolean.
