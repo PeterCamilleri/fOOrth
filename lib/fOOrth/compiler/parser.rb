@@ -50,7 +50,7 @@ module XfOOrth
         word << next_char
 
         #Check for the three special cases.
-        break if (word == '(') || (word == '//') || (next_char == '"')
+        break if ['(', '//'].include?(word) || (next_char == '"')
 
         next_char = @source.get
       end while next_char && next_char > ' '
@@ -71,8 +71,7 @@ module XfOOrth
 
     #Get the balance of a string from the source code source.
     def get_string
-      done = false
-      result = ''
+      done, result = false, ''
 
       begin
         next_char = @source.get
@@ -96,8 +95,7 @@ module XfOOrth
       next_char = @source.get
 
       if next_char == ' ' && @source.eoln?
-        next_char = @source.get
-        next_char = @source.get until next_char > ' ' || @source.eoln?
+        next_char = skip_white_space_or_to_eoln
       elsif next_char != '\\' && next_char != '"'
         next_char = ''
       end
@@ -111,6 +109,13 @@ module XfOOrth
     def skip_to_eoln
       @source.get until @source.eoln?
       true
+    end
+
+    #Skip till a non-white space or an end of line
+    def skip_white_space_or_to_eoln
+      while (next_char = @source.get)
+        return next_char if next_char > ' ' || @source.eoln?
+      end
     end
 
     #Skip over a portion of the source text until a ')' detected.

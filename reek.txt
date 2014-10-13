@@ -1,11 +1,3 @@
 lib/fOOrth/compiler/modes.rb -- 1 warning:
-  [73]:XfOOrth::VirtualMachine#resume_execute_mode has approx 11 statements (TooManyStatements)
-lib/fOOrth/compiler/parser.rb -- 4 warnings:
-  [73]:XfOOrth::Parser#get_string has approx 8 statements (TooManyStatements)
-  [42]:XfOOrth::Parser#get_word_raw refers to word more than self (FeatureEnvy)
-  [98, 100]:XfOOrth::Parser#process_backslash calls @source.eoln? twice (DuplicateMethodCall)
-  [96, 99, 100]:XfOOrth::Parser#process_backslash calls @source.get 3 times (DuplicateMethodCall)
-lib/fOOrth/compiler/process.rb -- 2 warnings:
-  [44]:XfOOrth::VirtualMachine#generate_code refers to word more than self (FeatureEnvy)
-  [15]:XfOOrth::VirtualMachine#process has unused parameter 'source' (UnusedParameters)
-7 total warnings
+  [71]:XfOOrth::VirtualMachine#resume_execute_mode has approx 11 statements (TooManyStatements)
+1 total warning

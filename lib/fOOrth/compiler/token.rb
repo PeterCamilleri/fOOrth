@@ -11,28 +11,33 @@ module XfOOrth
 
     #Set up an empty token
     def initialize
-      code = ''
-      tags = []
+      @code = ''
+      @tags = []
     end
 
     #Append some text to the code_fragment.
     def <<(text)
-      code << text
+      @code << text
     end
 
     #Add a tag to this token.
     def add_tag(value)
-      tags << value unless has_tag?(value)
+      (@tags << value).uniq!
+    end
+
+    #Add an array of tags
+    def add_tags(values)
+      @tags.concat(values).uniq!
     end
 
     #Does this token have the specified tag?
     def has_tag?(value)
-      tag.include?(value)
+      @tags.include?(value)
     end
 
     #As a string for debugging.
     def to_s
-      "Token: tags = #{tags.inspect} / code = #{code.inspect}"
+      "Tags=#{@tags.inspect} Code=#{@code.inspect}"
     end
 
   end

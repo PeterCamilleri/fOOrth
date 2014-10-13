@@ -44,7 +44,7 @@ module XfOOrth
     #* :reek:FeatureEnvy
     def prompt
       vm = XfOOrth.virtual_machine
-      '>' * vm.level + '"' * vm.quotes
+      '>' * vm.context.depth + '"' * vm.quotes
     end
   end
 end

@@ -33,20 +33,27 @@ module XfOOrth
     #The current execution/compile context.
     attr_accessor :context
 
-    #The level of lexical nesting.
-    attr_reader :level
-
     #The level of quote nesting.
     attr_reader :quotes
 
     #Return the compiler to a known state.
     def compiler_reset
-      @mode   = :Execute  #deprecated!
-      @level  = 0
+      @source = nil
+      @parser = nil
       @quotes = 0
-      @buffer = nil
       @force  = false
-      @context = Context.new(nil, class: VirtualMachine, mode: :Execute)
+      @context = Context.new(nil, class: VirtualMachine, mode: :execute)
+      @buffer = nil
+    end
+
+    #The starting string for all code.
+    def lead_in
+      "lambda {|vm| "
+    end
+
+    #The ending string for all code.
+    def lead_out
+      "}"
     end
 
     #Execute code from the interactive console.

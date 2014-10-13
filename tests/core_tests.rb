@@ -288,10 +288,10 @@ class CoreTester < MiniTest::Unit::TestCase
     src = "lambda {|vm| "
     sym = XfOOrth::SymbolMap.map("Object")
     spec = XfOOrth.object_class.map_shared(sym)
-    src << spec.builds
+    src << spec.builds("Object")
     sym = XfOOrth::SymbolMap.map(".is_class?")
     spec = XfOOrth.object_class.map_shared(sym)
-    src << spec.builds
+    src << spec.builds(".is_class?")
     src << "}"
     blk = eval src
 
@@ -303,7 +303,7 @@ class CoreTester < MiniTest::Unit::TestCase
     src << "vm.push(inst1); "  #Punt for now.
     sym = XfOOrth::SymbolMap.map(".is_class?")
     spec = XfOOrth.object_class.map_shared(sym)
-    src << spec.builds
+    src << spec.builds(".is_class?")
     src << "}"
     blk = eval src
 
@@ -322,7 +322,7 @@ class CoreTester < MiniTest::Unit::TestCase
     src = "lambda {|vm| vm.push(vm); "
     sym = XfOOrth::SymbolMap.map(".test")
     spec = XfOOrth::VirtualMachine.map_shared(sym)
-    src << spec.builds
+    src << spec.builds(".test")
     src << "}"
     blk = eval src
 
