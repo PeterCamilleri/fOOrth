@@ -20,7 +20,7 @@ module XfOOrth
   #<br>Returns
   #* A version string; <major>.<minor>.<step>
   def self.version
-    "00.06.00"
+    "00.00.00"
   end
 
   #The virtual machine is the heart of the fOOrth language system that is
