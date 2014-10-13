@@ -5,6 +5,11 @@ module XfOOrth
   #* modes.rb - The control of the various compiler modes.
   class VirtualMachine
 
+    # WIP - A full is rewrite expected... eventually...
+    # Ignore all code smells in this file until then.
+    # This file must be upgraded to have a working compiler
+    # but the interpreter pretty much can ignore it. Mostly...
+
     #Start compiling a fOOrth definition.
     #<br>Parameters
     #* ctrl - The control symbol that started the compilation.

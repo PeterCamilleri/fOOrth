@@ -91,6 +91,9 @@ module XfOOrth
     end
 
     #Process a backlash character found with a string in the source text.
+    #<br>Notes:
+    #* This is going to undergo change when \xFF and \uFFFF character constants
+    #  are added.
     def process_backslash
       next_char = @source.get
 

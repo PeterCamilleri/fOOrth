@@ -46,12 +46,12 @@ module XfOOrth
     end
 
     #A place holder for cases where late build is required. All it does is save
-    #away the symbol for later use by thd late_builds_string method.
+    #away the symbol for later use by the late_builds_string method.
     def early_builds_string(_name, symbol)
       @symbol = symbol
     end
 
-    #A place holder to give clearer error messages.
+    #A place holder to give clearer error messages?
     def late_builds_string(_name, _symbol)
       error "Why Vinnie? Why?"
     end
