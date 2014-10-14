@@ -80,7 +80,7 @@ module XfOOrth
   all_classes['VirtualMachine'] = VirtualMachine
 
   #Create a virtual machine for the main thread.
-  VirtualMachine.new('main')
+  VirtualMachine.new('Main')
 
   #Create the symbol table entries for the core classes.
   @object_class.create_shared_method('Object', ClassWordSpec, [])
@@ -105,6 +105,30 @@ module XfOOrth
 
   @class_class.create_shared_method('.is_class?', MethodWordSpec, [],
     &lambda {|vm| vm.push(true)})
+
+  #Get the name of the object.
+  @object_class.create_shared_method('.name', MethodWordSpec, [],
+    &lambda {|vm| vm.push(self.name)})
+
+  #Print out an object.
+  @object_class.create_shared_method('.', MethodWordSpec, [],
+    &lambda {|vm| print self.to_s})
+
+  #The self method.
+  @object_class.create_shared_method('self', MacroWordSpec,
+    ["\"vm.push(self); \""])
+
+  #The true method.
+  @object_class.create_shared_method('true', MacroWordSpec,
+    ["\"vm.push(true); \""])
+
+  #The false method.
+  @object_class.create_shared_method('false', MacroWordSpec,
+    ["\"vm.push(false); \""])
+
+  #The nil method.
+  @object_class.create_shared_method('nil', MacroWordSpec,
+    ["\"vm.push(nil); \""])
 
   #==========================================================================
   # The end of the Core Initialization Code Block.

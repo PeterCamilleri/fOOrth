@@ -59,6 +59,12 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal(inst1.foorth_class, inst2.foorth_class)
   end
 
+  #Test that VM instances behave too.
+  def test_vm_instances
+    vm = XfOOrth.virtual_machine
+    assert_equal(vm.name, "VirtualMachine instance <Main>.")
+  end
+
   #Testing sub-classing
   def test_creating_subclasses
     #Get the virtual machine.
@@ -340,6 +346,73 @@ class CoreTester < MiniTest::Unit::TestCase
 
     vm.instance_exec(vm, &blk)
     assert_equal(vm.pop, 109)
+  end
+
+  #Test out some macro methods.
+  def test_some_macro_methods
+    #Get the virtual machine.
+    vm = XfOOrth.virtual_machine
+
+    #Test the fOOrth code: self  ==> vm
+    src = "lambda {|vm| "
+    name = 'self'
+    sym = XfOOrth::SymbolMap.map(name)
+    spec = XfOOrth.object_class.map_shared(sym)
+    src << spec.builds(name)
+    src << "}"
+    blk = eval src
+
+    vm.instance_exec(vm, &blk)
+    assert_equal(vm.pop, vm)
+
+    #Test the fOOrth code: true  ==> true
+    src = "lambda {|vm| "
+    name = 'true'
+    sym = XfOOrth::SymbolMap.map(name)
+    spec = XfOOrth.object_class.map_shared(sym)
+    src << spec.builds(name)
+    src << "}"
+    blk = eval src
+
+    vm.instance_exec(vm, &blk)
+    assert_equal(vm.pop, true)
+
+    #Test the fOOrth code: false  ==> false
+    src = "lambda {|vm| "
+    name = 'false'
+    sym = XfOOrth::SymbolMap.map(name)
+    spec = XfOOrth.object_class.map_shared(sym)
+    src << spec.builds(name)
+    src << "}"
+    blk = eval src
+
+    vm.instance_exec(vm, &blk)
+    assert_equal(vm.pop, false)
+
+    #Test the fOOrth code: false  ==> false
+    src = "lambda {|vm| "
+    name = 'nil'
+    sym = XfOOrth::SymbolMap.map(name)
+    spec = XfOOrth.object_class.map_shared(sym)
+    src << spec.builds(name)
+    src << "}"
+    blk = eval src
+
+    vm.instance_exec(vm, &blk)
+    assert_equal(vm.pop, nil)
+
+    #Test the fOOrth code: ~name  ==> "VirtualMachine instance <Main>."
+    src = "lambda {|vm| "
+    name = '~name'
+    sym = XfOOrth::SymbolMap.map(name)
+    spec = XfOOrth.object_class.map_shared(sym)
+    src << spec.builds(name)
+    src << "}"
+    blk = eval src
+
+    vm.instance_exec(vm, &blk)
+    assert_equal(vm.pop, "VirtualMachine instance <Main>.")
+
   end
 
 end
