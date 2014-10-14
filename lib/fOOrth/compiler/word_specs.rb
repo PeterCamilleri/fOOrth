@@ -37,7 +37,7 @@ module XfOOrth
     #* name - The string (at the point of reference) that maps to the symbol.
     def build_on(token, name)
       token << self.builds(name)
-      token.add_tags(@tags)
+      token.add_tags(export_tags)
     end
 
     #Look up an tag of interest.
@@ -54,6 +54,11 @@ module XfOOrth
     #A place holder to give clearer error messages?
     def late_builds_string(_name, _symbol)
       error "Why Vinnie? Why?"
+    end
+
+    #The tags that are to be exported.
+    def export_tags
+      @tags
     end
   end
 
@@ -134,5 +139,11 @@ module XfOOrth
     def late_builds_string(name)
       eval(@tags[-1])
     end
+
+    #The tags that are to be exported. All but the last one.
+    def export_tags
+      @tags[0..-2]
+    end
+
   end
 end
