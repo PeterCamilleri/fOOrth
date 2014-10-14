@@ -14,6 +14,14 @@ module XfOOrth
 
       while (token = get_token)
         puts token.to_s  #Punt ;-)
+        code = token.code
+
+        if (context[:mode] == :execute) || ((token.has_tag?(:immediate)) && (!@force))
+          instance_exec(self, &eval("lambda {|vm| #{code} }"))
+        else
+          @buffer << code
+          @force = false
+        end
       end
 
       @parser = save
