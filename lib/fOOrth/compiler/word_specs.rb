@@ -19,7 +19,7 @@ module XfOOrth
     #* :immediate - The word is executed, even in compile modes.
     def initialize(name, symbol, tags=[], &block)
       @tags = tags
-      @does = block || lambda {|vm| error "No block for #{name} #{symbol}."}
+      @does = block || lambda {|vm| error "No method for #{name} #{symbol}."}
       early_builds_string(name, symbol)
     end
 

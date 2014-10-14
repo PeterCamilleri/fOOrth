@@ -45,10 +45,13 @@ module XfOOrth
       end
     end
 
+    #The exclusive dictionary for this virtual machine instance.
+    attr_reader :exclusive
+
     #Get the fOOrth class of this virtual machine
     def foorth_class; VirtualMachine; end
 
     #The name of the virtual machine instance
-    def name; "#{foorth_class.name} instance."; end
+    def name; "#{foorth_class.name} instance <#{@name}>."; end
   end
 end

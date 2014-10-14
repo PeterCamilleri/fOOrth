@@ -41,6 +41,13 @@ module XfOOrth
       define_singleton_method(symbol, &spec.does)
     end
 
+    #Cache all of the exclusive methods.
+    def cache_all_exclusives
+      @exclusive.each do |symbol, spec|
+        define_singleton_method(symbol, &spec.does)
+      end
+    end
+
   end
 
 end

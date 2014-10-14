@@ -1,3 +1,3 @@
 lib/fOOrth/compiler/modes.rb -- 1 warning:
-  [71]:XfOOrth::VirtualMachine#resume_execute_mode has approx 11 statements (TooManyStatements)
+  [76]:XfOOrth::VirtualMachine#resume_execute_mode has approx 11 statements (TooManyStatements)
 1 total warning

@@ -15,16 +15,16 @@ module XfOOrth
     #Create an new instance of a fOOrth virtual machine
     #<br>Parameters:
     #* name - An optional string that describes this virtual machine instance.
-    #* source - The dictionary used as a source template for the new one. By
-    #  default an empty dictionary is used.
+    #* source - The exclusive dictionary used as a source template for the new
+    #  new virtual machine instance. By default an empty dictionary is used.
     #<br>Note
     #* A XfOOrthError will be raised if an attempt is made to create more than
     #  one virtual machine on a thread.
     def initialize(name='-', source={})
-      @name          = name
-      @exclusive     = source
-      @debug         = false
-      @foorth_parent = XfOOrth.object_class
+      @name      = name
+      @debug     = false
+      @exclusive = source
+      cache_all_exclusives
 
       #Bring the major sub-systems to a known state.
       self.interpreter_reset
