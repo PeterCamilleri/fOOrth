@@ -45,7 +45,7 @@ end
 class SIRE
   #Set up the interactive session.
   def initialize
-    @done    = false
+    @_done    = false
     @running = false
 
     puts "Welcome to a Simple Interactive Ruby Environment\n"
@@ -54,39 +54,48 @@ class SIRE
 
   #Quit the interactive session.
   def q
-    @done = true
+    @_done = true
     puts
     "Bye bye for now!"
   end
 
+  #Load and run a file
+  def l(file_name)
+    @_break = false
+    lines = IO.readlines(file_name)
+
+    lines.each do |line|
+      exec_line(line)
+      return if @_break
+    end
+
+    "End of file '#{file_name}'."
+  end
+
+  #Execute a single line.
+  def exec_line(line)
+    result = eval line
+    pp result unless line.length == 0
+
+  rescue Interrupt => e
+    @_break = true
+    puts "\nExecution Interrupted!"
+    puts "\n#{e.class} detected: #{e}\n"
+    puts e.backtrace
+    puts "\n"
+
+  rescue Exception => e
+    @_break = true
+    puts "\n#{e.class} detected: #{e}\n"
+    puts e.backtrace
+    puts
+  end
+
   #Run the interactive session.
   def run_sire
-    until @done
-      begin
-        line = Readline.readline('SIRE>', true)
-        @running = true
-        result = eval line
-        @running = false
-        pp result unless line.length == 0
-
-      rescue Interrupt => e
-        if @running
-          @running = false
-          puts "\nExecution Interrupted!"
-          puts "\n#{e.class} detected: #{e}\n"
-          puts e.backtrace
-        else
-          puts "\nI'm outta here!'"
-          @done = true
-        end
-
-        puts "\n"
-
-      rescue Exception => e
-        puts "\n#{e.class} detected: #{e}\n"
-        puts e.backtrace
-        puts
-      end
+    until @_done
+      @_break = false
+      exec_line(Readline.readline('SIRE>', true))
     end
 
     puts "\n\n"

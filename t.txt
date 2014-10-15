@@ -1,0 +1,3 @@
+XfOOrth.create_proxy(Numeric, XfOOrth.object_class)
+Numeric.name
+(4).name

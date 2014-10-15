@@ -13,10 +13,9 @@ module XfOOrth
   #<br>Parameters:
   #* target_class - The Ruby class to be wrapped.
   #* foorth_parent - The fOOrth class that serves as parent.
-  #* exclusives - Are exclusive methods to be allowed?
   #<br>Returns:
   #* The newly created proxy class.
-  def self.create_proxy(target_class, foorth_parent, exclusives=false)
+  def self.create_proxy(target_class, foorth_parent)
     target_class.define_singleton_method(:foorth_parent) {foorth_parent}
     target_class.define_singleton_method(:foorth_class)  {XfOOrth.class_class}
     target_class.define_singleton_method(:shared)        {@shared ||= {}}
@@ -25,7 +24,7 @@ module XfOOrth
       &lambda {target_class})
 
     target_class.send(:define_method, :name,
-      &lambda {"#{foorth_class.name} instance <#{@name}>."})
+      &lambda {"#{foorth_class.name} instance."})
 
     target_class.extend(SharedCache)
     target_class.extend(Shared)
