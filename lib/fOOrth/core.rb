@@ -1,9 +1,11 @@
 # coding: utf-8
 
 require_relative 'compiler/word_specs'
+
 require_relative 'core/object'
 require_relative 'core/class'
 require_relative 'core/virtual_machine'
+require_relative 'core/proxy'
 
 #* core.rb - The fOOrth language OO core.
 module XfOOrth
@@ -62,9 +64,9 @@ module XfOOrth
   #Predefine the default implementation of the init method. All classes
   #inherit this simple method.
   name = '.init'
-  sym = SymbolMap.add_entry(name, :init)
+  sym = SymbolMap.add_entry(name, :foorth_init)
   spec = MethodWordSpec.new(name, sym, [], &lambda {|vm| })
-  @object_class.add_shared_method(:init, spec)
+  @object_class.add_shared_method(:foorth_init, spec)
 
   #The Class class is a child of the Object class.
   @object_class.children['Class'] = @class_class

@@ -4,7 +4,7 @@
 require 'readline'
 require 'pp'
 
-include Readline
+
 
 class Object
   #Generate the class lineage of the object.
@@ -22,6 +22,24 @@ class Object
       puts
     end
   end
+end
+
+module Foobar
+  def hello
+    puts 'Hello!'
+    self
+  end
+
+  Fixnum.send(:include, self)
+end
+
+module Bluebar
+  def ahoy
+    puts 'Ahoy!'
+    self
+  end
+
+  Fixnum.extend(self)
 end
 
 class SIRE
@@ -45,7 +63,7 @@ class SIRE
   def run_sire
     until @done
       begin
-        line = readline('SIRE>', true)
+        line = Readline.readline('SIRE>', true)
         @running = true
         result = eval line
         @running = false

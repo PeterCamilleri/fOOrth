@@ -80,7 +80,7 @@ module XfOOrth
     #* vm - The current fOOrth virtual machine.
     def create_foorth_instance(vm)
       obj = @instance_template.new
-      obj.init(vm)
+      obj.foorth_init(vm)
       obj
     end
 

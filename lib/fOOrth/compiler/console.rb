@@ -8,7 +8,6 @@ module XfOOrth
   #for fOOrth commands and source code. The readline facility is used to enable
   #editing and command history and retrieval.
   class Console
-    include Readline
     include ReadPoint
 
     #Initialize a new console command source.
@@ -25,7 +24,7 @@ module XfOOrth
     #<br>Returns
     #* The next character of user input as a string.
     def get
-      read { puts; readline(prompt, true).rstrip }
+      read { puts; Readline.readline(prompt, true).rstrip }
     end
 
     #Has the scanning of the text reached the end of input?

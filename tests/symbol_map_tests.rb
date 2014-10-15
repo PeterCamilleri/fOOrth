@@ -41,8 +41,8 @@ class SymbolMapTester < MiniTest::Unit::TestCase
 
   #Test the special mappings facility
   def test_special_mappings
-    assert_equal(XfOOrth::SymbolMap.map('.init'), :init)
-    assert_equal(XfOOrth::SymbolMap.unmap(:init), ['.init'])
+    assert_equal(XfOOrth::SymbolMap.map('.init'), :foorth_init)
+    assert_equal(XfOOrth::SymbolMap.unmap(:foorth_init), ['.init'])
 
     assert_raises(XfOOrth::XfOOrthError) do
       XfOOrth::SymbolMap.add_entry('.init', :evil_method)
