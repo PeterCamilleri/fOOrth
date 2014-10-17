@@ -4,6 +4,20 @@
 module XfOOrth
   #* \Shared - A mixin to support for shared methods.
   module Shared
+    #Access/create the class's shared fOOrth dictionary.
+    #<br>Decree!
+    #* This is to be the only reference to @_private_foorth_shared ! ! !
+    def foorth_shared
+      @_private_foorth_shared ||= Hash.new
+    end
+
+    #Access/create the class's progeny hash.
+    #<br>Decree!
+    #* This is to be the only reference to @_private_foorth_child_classes ! ! !
+    def foorth_child_classes
+      @_private_foorth_child_classes ||= Hash.new
+    end
+
     #Create a shared method on this fOOrth class.
     #<br>Parameters:
     #* The name of the method to create.
@@ -29,7 +43,7 @@ module XfOOrth
       current = self
 
       while current
-        dictionary = current.shared
+        dictionary = current.foorth_shared
 
         if dictionary.has_key?(name)
           target_class.cache_shared_method(name, &dictionary[name].does)
@@ -41,8 +55,8 @@ module XfOOrth
     end
 
     #Map the symbol to a specification or nil if there is no mapping.
-    def map_shared(symbol)
-      shared[symbol] || (foorth_parent && foorth_parent.map_shared(symbol))
+    def map_foorth_shared(symbol)
+      foorth_shared[symbol] || (foorth_parent && foorth_parent.map_foorth_shared(symbol))
     end
 
     #Add an instance method to this fOOrth class.
@@ -53,16 +67,16 @@ module XfOOrth
     #* The method cache for this symbol is purged for this class and all child
     #  classes except where the child classes already have there own method.
     def add_shared_method(symbol, spec)
-      @shared.delete(symbol)
+      foorth_shared.delete(symbol)
       purge_shared_method(symbol)
-      @shared[symbol] = spec
+      foorth_shared[symbol] = spec
     end
 
     #Purge the instance method cache for the specified symbol.
     def purge_shared_method(symbol)
-      unless @shared.has_key?(symbol)
+      unless foorth_shared.has_key?(symbol)
         @instance_template.purge_method(symbol)
-        children.each {|name, child| child.purge_shared_method(symbol)}
+        foorth_child_classes.each {|name, child| child.purge_shared_method(symbol)}
       end
     end
   end

@@ -10,7 +10,7 @@ require          'minitest/autorun'
 class MockClass
   def initialize; @data = {}; end
   def []=(index, value); @data[index] = value; end
-  def map_shared(index); @data[index]; end
+  def map_foorth_shared(index); @data[index]; end
 end
 
 class MockObject

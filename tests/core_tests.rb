@@ -33,11 +33,11 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal(XfOOrth.class_class.foorth_class.name, "Class")
     assert_equal(XfOOrth::VirtualMachine.foorth_class.name, "Class")
 
-    assert_equal(XfOOrth.object_class.children["Class"].name, "Class")
-    assert_equal(XfOOrth.class_class.children["Object"], nil)
+    assert_equal(XfOOrth.object_class.foorth_child_classes["Class"].name, "Class")
+    assert_equal(XfOOrth.class_class.foorth_child_classes["Object"], nil)
 
     #The VirtualMachine class must be childfree!
-    assert_equal(XfOOrth::VirtualMachine.children, {})
+    assert_equal(XfOOrth::VirtualMachine.foorth_child_classes, {})
 
     #This really should raise an exception, and it does!
     assert_raises(XfOOrth::XfOOrthError) do
@@ -74,7 +74,7 @@ class CoreTester < MiniTest::Unit::TestCase
     #        or ==> Object subclass: MyClass
     my_class = XfOOrth.object_class.create_foorth_subclass("MyClass")
 
-    assert_equal(XfOOrth.object_class.children["MyClass"], my_class)
+    assert_equal(XfOOrth.object_class.foorth_child_classes["MyClass"], my_class)
     assert_equal(my_class, XfOOrth.all_classes["MyClass"])
     assert_equal(my_class.name, "MyClass")
     assert_equal(my_class.foorth_class, XfOOrth.class_class)
@@ -88,7 +88,7 @@ class CoreTester < MiniTest::Unit::TestCase
     # In fOOrth ==> MyClass subclass: Other
     other = my_class.create_foorth_subclass("Other")
 
-    assert_equal(my_class.children["Other"], other)
+    assert_equal(my_class.foorth_child_classes["Other"], other)
     assert_equal(other, XfOOrth.all_classes["Other"])
     assert_equal(other.name, "Other")
     assert_equal(other.foorth_class, XfOOrth.class_class)
@@ -276,7 +276,7 @@ class CoreTester < MiniTest::Unit::TestCase
 
   #Test that the children of Object class are set up correctly.
   def test_object_children
-    children = XfOOrth.object_class.children
+    children = XfOOrth.object_class.foorth_child_classes
 
     assert_equal(children['Class'], XfOOrth.class_class)
     assert_equal(children['VirtualMachine'], XfOOrth::VirtualMachine)
@@ -293,10 +293,10 @@ class CoreTester < MiniTest::Unit::TestCase
     #Test the fOOrth code: Object .is_class?  ==> true
     src = "lambda {|vm| "
     sym = XfOOrth::SymbolMap.map("Object")
-    spec = XfOOrth.object_class.map_shared(sym)
+    spec = XfOOrth.object_class.map_foorth_shared(sym)
     src << spec.builds("Object")
     sym = XfOOrth::SymbolMap.map(".is_class?")
-    spec = XfOOrth.object_class.map_shared(sym)
+    spec = XfOOrth.object_class.map_foorth_shared(sym)
     src << spec.builds(".is_class?")
     src << "}"
     blk = eval src
@@ -308,7 +308,7 @@ class CoreTester < MiniTest::Unit::TestCase
     src = "lambda {|vm| "
     src << "vm.push(inst1); "  #Punt for now.
     sym = XfOOrth::SymbolMap.map(".is_class?")
-    spec = XfOOrth.object_class.map_shared(sym)
+    spec = XfOOrth.object_class.map_foorth_shared(sym)
     src << spec.builds(".is_class?")
     src << "}"
     blk = eval src
@@ -327,7 +327,7 @@ class CoreTester < MiniTest::Unit::TestCase
 
     src = "lambda {|vm| vm.push(vm); "
     sym = XfOOrth::SymbolMap.map(".test")
-    spec = XfOOrth::VirtualMachine.map_shared(sym)
+    spec = XfOOrth::VirtualMachine.map_foorth_shared(sym)
     src << spec.builds(".test")
     src << "}"
     blk = eval src
@@ -357,7 +357,7 @@ class CoreTester < MiniTest::Unit::TestCase
     src = "lambda {|vm| "
     name = 'self'
     sym = XfOOrth::SymbolMap.map(name)
-    spec = XfOOrth.object_class.map_shared(sym)
+    spec = XfOOrth.object_class.map_foorth_shared(sym)
     src << spec.builds(name)
     src << "}"
     blk = eval src
@@ -369,7 +369,7 @@ class CoreTester < MiniTest::Unit::TestCase
     src = "lambda {|vm| "
     name = 'true'
     sym = XfOOrth::SymbolMap.map(name)
-    spec = XfOOrth.object_class.map_shared(sym)
+    spec = XfOOrth.object_class.map_foorth_shared(sym)
     src << spec.builds(name)
     src << "}"
     blk = eval src
@@ -381,7 +381,7 @@ class CoreTester < MiniTest::Unit::TestCase
     src = "lambda {|vm| "
     name = 'false'
     sym = XfOOrth::SymbolMap.map(name)
-    spec = XfOOrth.object_class.map_shared(sym)
+    spec = XfOOrth.object_class.map_foorth_shared(sym)
     src << spec.builds(name)
     src << "}"
     blk = eval src
@@ -393,7 +393,7 @@ class CoreTester < MiniTest::Unit::TestCase
     src = "lambda {|vm| "
     name = 'nil'
     sym = XfOOrth::SymbolMap.map(name)
-    spec = XfOOrth.object_class.map_shared(sym)
+    spec = XfOOrth.object_class.map_foorth_shared(sym)
     src << spec.builds(name)
     src << "}"
     blk = eval src
@@ -405,7 +405,7 @@ class CoreTester < MiniTest::Unit::TestCase
     src = "lambda {|vm| "
     name = '~name'
     sym = XfOOrth::SymbolMap.map(name)
-    spec = XfOOrth.object_class.map_shared(sym)
+    spec = XfOOrth.object_class.map_foorth_shared(sym)
     src << spec.builds(name)
     src << "}"
     blk = eval src

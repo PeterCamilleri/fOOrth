@@ -69,14 +69,14 @@ module XfOOrth
   @object_class.add_shared_method(:foorth_init, spec)
 
   #The Class class is a child of the Object class.
-  @object_class.children['Class'] = @class_class
+  @object_class.foorth_child_classes['Class'] = @class_class
 
   #Set up fOOrth Object as the parent of fOOrth Class. Now that the parent of
   #the Class class exists, set it!
   @class_class.set_foorth_parent(@object_class)
 
   #The VirtualMachine class is a child of the Object class.
-  @object_class.children['VirtualMachine'] = VirtualMachine
+  @object_class.foorth_child_classes['VirtualMachine'] = VirtualMachine
 
   #Explicitly add the VirtualMachine class to the hash of all classes
   all_classes['VirtualMachine'] = VirtualMachine

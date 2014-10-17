@@ -20,11 +20,14 @@ module XfOOrth
     #<br>Note
     #* A XfOOrthError will be raised if an attempt is made to create more than
     #  one virtual machine on a thread.
-    def initialize(name='-', source={})
-      @name      = name
-      @debug     = false
-      @exclusive = source
-      cache_all_exclusives
+    def initialize(name='-', source=nil)
+      @name  = name
+      @debug = false
+
+      if (source)
+        @_foorth_exclusive = source
+        cache_all_exclusives
+      end
 
       #Bring the major sub-systems to a known state.
       self.interpreter_reset

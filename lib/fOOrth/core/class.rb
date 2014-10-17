@@ -22,14 +22,6 @@ module XfOOrth
     #* The \foorth_parent of the fOOrth class "Object" is nil.
     attr_reader :foorth_parent
 
-    #A hash containing the methods shared by instances of this class.
-    #<br>It maps (a symbol) => (a word specification object)
-    attr_reader :shared
-
-    #A hash containing all of the classes derived from this one.
-    #<br>It maps (a class name) => (an object derived from \XClass)
-    attr_reader :children
-
     #Create an new instance of a fOOrth class.
     #<br>Parameters:
     #* name - The name of this fOOrth class.
@@ -37,9 +29,7 @@ module XfOOrth
     def initialize(name, foorth_parent)
       @name          = name
       @foorth_parent = foorth_parent
-      @shared        = Hash.new
-      @children      = Hash.new
-      klass          = self
+      foorth_class   = self
 
       all = XfOOrth.all_classes
 
@@ -49,29 +39,27 @@ module XfOOrth
         all[@name]  = self
       end
 
+      #Setup the Ruby shadow class used to create instances of this fOOrth class.
       @instance_template = Class.new(self.instance_base_class) do
-        @foorth_class = klass
+        @foorth_class = foorth_class
       end
     end
 
     #Set the class's parent class for the case where this can not be done
-    #when the class is constructed. The parent may only be set once.
+    #when the class is constructed.
     def set_foorth_parent(foorth_parent)
-      error "The class parent is already set" if @foorth_parent
       @foorth_parent = foorth_parent
     end
 
     #Create a new fOOrth subclass of this class.
     #<br>Parameters:
     #* name - The name of the new sub-class.
-    #* class_base - The Ruby class used as the basis for fOOrth subclass. By
-    #  default this is XClass.
     #<br>Note:
     #* If a sub-class with the given name already exists, that class is returned.
-    def create_foorth_subclass(name, class_base=XClass)
-      anon = Class.new(class_base) {@foorth_class = XfOOrth.class_class}
+    def create_foorth_subclass(name)
+      anon = Class.new(XClass) {@foorth_class = XfOOrth.class_class}
       new_class = anon.new(name, self)
-      @children[name] = new_class
+      foorth_child_classes[name] = new_class
       new_class
     end
 

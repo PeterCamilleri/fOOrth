@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#require_relative 'exclusive'
+require_relative 'exclusive'
 require_relative 'shared_cache'
 require_relative 'method_missing'
 require_relative 'shared'
@@ -15,10 +15,14 @@ module XfOOrth
   #* foorth_parent - The fOOrth class that serves as parent.
   #<br>Returns:
   #* The newly created proxy class.
+  #<br> Endemic Code Smells
+  #* :reek:TooManyStatements
   def self.create_proxy(target_class, foorth_parent)
-    target_class.define_singleton_method(:foorth_parent) {foorth_parent}
-    target_class.define_singleton_method(:foorth_class)  {XfOOrth.class_class}
-    target_class.define_singleton_method(:shared)        {@shared ||= {}}
+    target_class.define_singleton_method(:foorth_parent,
+      &lambda {foorth_parent})
+
+    target_class.define_singleton_method(:foorth_class,
+      &lambda {XfOOrth.class_class})
 
     target_class.send(:define_method, :foorth_class,
       &lambda {target_class})
@@ -28,10 +32,8 @@ module XfOOrth
 
     target_class.extend(SharedCache)
     target_class.extend(Shared)
+    target_class.send(:include, Exclusive)
     target_class.send(:include, MethodMissing)
-
-    target_class
   end
-
 
 end
