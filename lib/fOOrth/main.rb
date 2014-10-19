@@ -5,19 +5,6 @@ require 'getoptlong'
 #* main.rb - The entry point for a stand-alone foorth session.
 module XfOOrth
 
-  #Has the library been loaded?
-  @library_loaded = false
-
-  #Has the fOOrth run time library been loaded?
-  def self.library_loaded?
-    @library_loaded
-  end
-
-  #The fOOrth run time library has been loaded!
-  def self.library_loaded
-    @library_loaded = true
-  end
-
   #The starting point for an interactive fOOrth programming session.
   #This method only returns when the session is closed.
   #<br>Returns:
@@ -28,6 +15,7 @@ module XfOOrth
   #* :reek:TooManyStatements
   def self.main
     vm = XfOOrth.virtual_machine
+    running = false
 
     begin
 
@@ -72,7 +60,7 @@ module XfOOrth
   def self.announcements
     puts "Welcome to fOOrth: fO(bject)O(riented)rth."
     puts "\nfOOrth Reference Implementation Version: #{XfOOrth.version}"
-    puts "\nSession began on date: #{Time.now.strftime('%Y-%m-%d at %I:%M%P')}"
+    puts "\nSession began on: #{Time.now.strftime('%Y-%m-%d at %I:%M%P')}"
   end
 
   #Process the command line arguments. A string is returned containing

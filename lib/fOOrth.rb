@@ -8,8 +8,9 @@ require_relative 'fOOrth/monkey_patch'
 require_relative 'fOOrth/symbol_map'
 require_relative 'fOOrth/interpreter'
 require_relative 'fOOrth/compiler'
-require_relative 'fOOrth/initialize.rb'
+require_relative 'fOOrth/initialize'
 require_relative 'fOOrth/core'
+require_relative 'fOOrth/library'
 require_relative 'fOOrth/main'
 
 #\XfOOrth - the module name space of the fOOrth language system.

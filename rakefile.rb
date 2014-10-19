@@ -22,6 +22,8 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/core/shared.rb",
                      "lib/fOOrth/core/shared_cache.rb",
                      "lib/fOOrth/core/method_missing.rb",
+                     "lib/fOOrth/library.rb",
+                     "lib/fOOrth/library/standard_library.rb",
                      "lib/fOOrth/interpreter.rb",
                      "lib/fOOrth/interpreter/data_stack.rb",
                      "lib/fOOrth/interpreter/ctrl_stack.rb",
@@ -55,7 +57,7 @@ RDoc::Task.new do |rdoc|
 
 end
 
-#Run the fOOrth test suite.
+#Run the fOOrth unit test suite.
 Rake::TestTask.new do |t|
   #List out all the test files.
   t.test_files = ["tests/monkey_patch/object_test.rb",
@@ -75,6 +77,16 @@ Rake::TestTask.new do |t|
 
   t.verbose = false
 end
+
+#Run the fOOrth integration test suite.
+Rake::TestTask.new(:itest) do |t|
+  #List out all the test files.
+  t.test_files = ["integration/standard_library_tests.rb"
+                 ]
+
+  t.verbose = false
+end
+
 
 #Run a scan for smelly code!
 task :reek do |t|

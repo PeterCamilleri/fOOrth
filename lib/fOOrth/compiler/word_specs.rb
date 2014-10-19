@@ -69,7 +69,7 @@ module XfOOrth
     #* _name - The string that maps to the symbol. Unused
     #* symbol - The symbol that the name maps to.
     def early_builds_string(_name, symbol)
-      @builds = "vm.#{symbol}; "
+      @builds = "vm.#{symbol}(vm); "
     end
   end
 

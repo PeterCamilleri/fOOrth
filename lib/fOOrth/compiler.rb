@@ -38,22 +38,12 @@ module XfOOrth
 
     #Return the compiler to a known state.
     def compiler_reset
+      @buffer = nil
       @source = nil
       @parser = nil
       @quotes = 0
       @force  = false
       @context = Context.new(nil, class: VirtualMachine, mode: :execute)
-      @buffer = nil
-    end
-
-    #The starting string for all code.
-    def lead_in
-      "lambda {|vm| "
-    end
-
-    #The ending string for all code.
-    def lead_out
-      "}"
     end
 
     #Execute code from the interactive console.
