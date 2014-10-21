@@ -1,9 +1,10 @@
 # coding: utf-8
 
 require_relative 'exclusive'
+require_relative 'shared'
 require_relative 'shared_cache'
 require_relative 'method_missing'
-require_relative 'shared'
+require_relative 'proxy_method_missing'
 
 #* core/proxy.rb - A module to allow existing Ruby classes to serve as fOOrth
 #  classes as well. This is done via a proxy mechanism.
@@ -18,6 +19,8 @@ module XfOOrth
   #<br> Endemic Code Smells
   #* :reek:TooManyStatements
   def self.create_proxy(target_class, foorth_parent)
+    name = target_class.name
+
     target_class.define_singleton_method(:foorth_parent,
       &lambda {foorth_parent})
 
@@ -33,7 +36,13 @@ module XfOOrth
     target_class.extend(SharedCache)
     target_class.extend(Shared)
     target_class.send(:include, Exclusive)
+    target_class.extend(Exclusive)
     target_class.send(:include, MethodMissing)
+    target_class.extend(ProxyMethodMissing)
+
+    foorth_parent.foorth_child_classes[name] = @class_class
+    all_classes[name] = target_class
+    @object_class.create_shared_method(name, ClassWordSpec, [])
   end
 
 end

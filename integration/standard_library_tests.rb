@@ -1,6 +1,7 @@
 # coding: utf-8
 
-require_relative './foorth_testing'
+require_relative '../lib/foorth'
+require_relative 'support/foorth_testing'
 require          'minitest/autorun'
 
 #Test the standard fOOrth library.
@@ -21,8 +22,16 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
     super(*all)
   end
 
-  def test_a_bunch_o_stack_stuff
+  def test_basic_constants
+    foorth_equal("self", [XfOOrth.virtual_machine])
+    foorth_equal("true", [true])
+    foorth_equal("false", [false])
+    foorth_equal("nil", [nil])
+  end
+
+  def test_stack_manipulation
     foorth_equal("1 2 drop", [1])
+
     foorth_equal("33 dup", [33,33])
 
     foorth_equal("false ?dup", [false])
@@ -49,5 +58,70 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("1 2 tuck", [2,1,2])
   end
 
-end
+  def test_some_computations
+    foorth_equal('5 3 +', [8])
+    foorth_equal('5 3 -', [2])
+    foorth_equal('5 3 *', [15])
+    foorth_equal('5 3 /', [1])
+    foorth_equal('5 3 mod', [2])
+  end
 
+  def test_some_comparisons
+    foorth_equal('4 4 =', [true])
+    foorth_equal('4 5 =', [false])
+
+    foorth_equal('4 4 <>', [false])
+    foorth_equal('4 5 <>', [true])
+
+    foorth_equal('4 4  >', [false])
+    foorth_equal('4 5  >', [false])
+    foorth_equal('5 4  >', [true])
+
+    foorth_equal('4 4  <', [false])
+    foorth_equal('4 5  <', [true])
+    foorth_equal('5 4  <', [false])
+
+    foorth_equal('4 4 >=', [true])
+    foorth_equal('4 5 >=', [false])
+    foorth_equal('5 4 >=', [true])
+
+    foorth_equal('4 4 <=', [true])
+    foorth_equal('4 5 <=', [true])
+    foorth_equal('5 4 <=', [false])
+
+    foorth_equal('4 4 <=>', [0])
+    foorth_equal('4 5 <=>', [-1])
+    foorth_equal('5 4 <=>', [1])
+  end
+
+  def test_some_comparisons_with_zero
+    foorth_equal('-2 0=', [false])
+    foorth_equal('0  0=', [true])
+    foorth_equal('4  0=', [false])
+
+    foorth_equal('-4 0<>', [true])
+    foorth_equal('0  0<>', [false])
+    foorth_equal('5  0<>', [true])
+
+    foorth_equal('-1 0>', [false])
+    foorth_equal('0  0>', [false])
+    foorth_equal('4  0>', [true])
+
+    foorth_equal('4  0<', [false])
+    foorth_equal('-5 0<', [true])
+    foorth_equal('0  0<', [false])
+
+    foorth_equal('4  0>=', [true])
+    foorth_equal('-5 0>=', [false])
+    foorth_equal('0  0>=', [true])
+
+    foorth_equal('-4 0<=', [true])
+    foorth_equal('0  0<=', [true])
+    foorth_equal('4  0<=', [false])
+
+    foorth_equal('0  0<=>', [0])
+    foorth_equal('-5 0<=>', [-1])
+    foorth_equal('4  0<=>', [1])
+  end
+
+end

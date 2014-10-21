@@ -54,6 +54,30 @@ module XfOOrth
       end
     end
 
+    #Search the object class dictionaries for the named instance method and add
+    #it to the target class.
+    #<br>Parameters:
+    #* name - The symbol of the method name to be added.
+    #* target_class - The class to which the method is added.
+    #<br>Returns:
+    #* True on success else false if name could not be found.
+    #<br>Endemic Code Smells
+    #* :reek:FeatureEnvy
+    def link_proxy_method(name, target_class)
+      current = self
+
+      while current
+        dictionary = current.foorth_shared
+
+        if dictionary.has_key?(name)
+          target_class.cache_exclusive_method(name, &dictionary[name].does)
+          return true
+        end
+
+        current = current.foorth_parent
+      end
+    end
+
     #Map the symbol to a specification or nil if there is no mapping.
     def map_foorth_shared(symbol)
       foorth_shared[symbol] || (foorth_parent && foorth_parent.map_foorth_shared(symbol))

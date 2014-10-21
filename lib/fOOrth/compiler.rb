@@ -49,6 +49,8 @@ module XfOOrth
     #Execute code from the interactive console.
     def process_console
       process(console)
+    ensure
+      console.flush
     end
 
     #Execute a string of code.

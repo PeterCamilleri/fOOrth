@@ -11,14 +11,9 @@ module XfOOrth
     include ReadPoint
 
     #Initialize a new console command source.
-    def initialize
-      reset_read_point
-    end
-
-    #Consoles don;t really close, they just fake it.
-    def close
-      reset_read_point
-    end
+    alias initialize reset_read_point
+    alias close reset_read_point
+    alias flush reset_read_point
 
     #Get the next character of command text from the user.
     #<br>Returns

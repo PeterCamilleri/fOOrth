@@ -23,7 +23,11 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/core/shared_cache.rb",
                      "lib/fOOrth/core/method_missing.rb",
                      "lib/fOOrth/library.rb",
+                     "lib/fOOrth/library/string_library.rb",
+                     "lib/fOOrth/library/numeric_library.rb",
                      "lib/fOOrth/library/standard_library.rb",
+                     "lib/fOOrth/library/stdio_library.rb",
+                     "lib/fOOrth/library/command_library.rb",
                      "lib/fOOrth/interpreter.rb",
                      "lib/fOOrth/interpreter/data_stack.rb",
                      "lib/fOOrth/interpreter/ctrl_stack.rb",
@@ -79,14 +83,14 @@ Rake::TestTask.new do |t|
 end
 
 #Run the fOOrth integration test suite.
-Rake::TestTask.new(:itest) do |t|
+Rake::TestTask.new(:integration) do |t|
   #List out all the test files.
-  t.test_files = ["integration/standard_library_tests.rb"
+  t.test_files = ["integration/standard_library_tests.rb",
+                  "integration/stdio_library_tests.rb"
                  ]
 
   t.verbose = false
 end
-
 
 #Run a scan for smelly code!
 task :reek do |t|

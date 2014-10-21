@@ -24,8 +24,8 @@ module XfOOrth
           running ||= start_up(vm)
           vm.process_console
 
-        rescue ForceAbort => forced_abort
-          vm.display_abort(forced_abort)
+        rescue XfOOrthError, ForceAbort => error
+          vm.display_abort(error)
           break unless running
         end
       end

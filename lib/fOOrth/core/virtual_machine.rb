@@ -1,9 +1,10 @@
 # coding: utf-8
 
 require_relative 'exclusive'
+require_relative 'shared'
 require_relative 'shared_cache'
 require_relative 'method_missing'
-require_relative 'shared'
+require_relative 'proxy_method_missing'
 
 #* core/virtual_machine.rb - The core connection to the virtual machine.
 module XfOOrth
@@ -11,9 +12,11 @@ module XfOOrth
   #* core/virtual_machine.rb - The core connection to the virtual machine.
   class VirtualMachine
     include Exclusive
+    extend  Exclusive
+    extend  Shared
     extend  SharedCache
     include MethodMissing
-    extend  Shared
+    extend  ProxyMethodMissing
 
     @instance_template = self
 
