@@ -12,7 +12,12 @@ module XfOOrth
     &lambda {|vm| print self.to_s})
 
   #Print out a string.
-  @object_class.create_shared_method('."', MethodWordSpec, [],
-    &lambda {|vm| print self.to_s})
+  VirtualMachine.create_shared_method('."', VmWordSpec, [],
+    &lambda {|vm| print pop})
+
+  #Force a new line.
+  VirtualMachine.create_shared_method('.cr', MacroWordSpec,
+    ['"puts; "'])
+
 
 end

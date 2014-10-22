@@ -25,9 +25,15 @@ class StdioLibraryTester < MiniTest::Unit::TestCase
     foorth_output('4 .', "4")
     foorth_output('-4 .', "-4")
     foorth_output('"test" .', "test")
-
     foorth_output('Object .name .', "Object")
+  end
 
+  def test_the_dot_quote
     foorth_output('."test"', "test")
   end
+
+  def test_the_dot_cr
+    foorth_output('.cr', "\n")
+  end
+
 end
