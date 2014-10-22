@@ -29,11 +29,11 @@ module XfOOrth
   #===================================================
 
   # [a] drop []
-  @object_class.create_shared_method('drop', MacroWordSpec,
+  VirtualMachine.create_shared_method('drop', MacroWordSpec,
     ['"vm.pop(); "'])
 
   # [a] dup [a, a]
-  @object_class.create_shared_method('dup', MacroWordSpec,
+  VirtualMachine.create_shared_method('dup', MacroWordSpec,
     ['"vm.push(vm.peek()); "'])
 
   # [a] ?dup if a is true then [a,a] else [a]
@@ -49,11 +49,11 @@ module XfOOrth
     &lambda {|vm| vc,vb,va = popm(3); push(vb); push(va); push(vc); })
 
   # [b,a] over [b,a,b]
-  @object_class.create_shared_method('over', MacroWordSpec,
+  VirtualMachine.create_shared_method('over', MacroWordSpec,
     ['"vm.push(vm.peek(2)); "'])
 
   # [di,..d2,d1,i] pick [di,..d2,d1,di]
-  @object_class.create_shared_method('pick', MacroWordSpec,
+  VirtualMachine.create_shared_method('pick', MacroWordSpec,
     ['"vm.push(vm.peek(vm.pop())); "'])
 
   # [b,a] nip [a]
@@ -152,5 +152,24 @@ module XfOOrth
   # [b,a] 0<=> if b <=> 0 then [true] else [false]
   @object_class.create_shared_method('0<=>', MethodWordSpec, [],
     &lambda {|vm| vm.push(self <=> 0); })
+
+  #===================================================
+  # Support for the classic if else then construct!
+  #===================================================
+
+  # [boolean] if (boolean true code) else (boolean false code) then
+
+  VirtualMachine.create_shared_method('if', VmWordSpec, [:immediate],
+    &lambda {|vm| vm.suspend_execute_mode('if vm.pop? then ', :if) })
+
+  VirtualMachine.create_shared_method('else', VmWordSpec, [:immediate],
+    &lambda {|vm|
+      vm.context.check_set(:mode, [:compile, :deferred])
+      vm.context.check_set(:ctrl, [:if])
+      vm << 'else '
+    })
+
+  VirtualMachine.create_shared_method('then', VmWordSpec, [:immediate],
+    &lambda {|vm| resume_execute_mode('end; ', [:if]) })
 
 end

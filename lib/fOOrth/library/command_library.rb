@@ -15,4 +15,9 @@ module XfOOrth
   @object_class.create_shared_method(')"', MacroWordSpec,
     ['"system(vm.pop()); "'])
 
+  #Execute a command to the shell.
+  @object_class.create_shared_method(')debug', MacroWordSpec,
+    ['"vm.debug = true; "'])
+
+
 end

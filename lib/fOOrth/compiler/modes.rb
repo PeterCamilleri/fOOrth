@@ -11,8 +11,7 @@ module XfOOrth
     #* action - A block to be executed when the compilation is done.
     def begin_compile_mode(ctrl, &action)
       @context.check_set(:mode, [:execute])
-      @context = Context.new(@context,
-        mode: :compile, ctrl: ctrl, action: action)
+      @context = Context.new(@context, mode: :compile, ctrl: ctrl, action: action)
     end
 
     #Finish compiling a fOOrth definition.
@@ -21,10 +20,7 @@ module XfOOrth
     def end_compile_mode(ctrls)
       @context.check_set(:mode, [:compile])
       @context.check_set(:ctrl, ctrls)
-
-      block = eval("lambda {|vm| #{@buffer} }")
-      instance_exec(block, &@context[:action])
-
+      instance_exec("lambda {|vm| #{@buffer} }", &@context[:action])
       @context = @context.previous
     end
 
@@ -32,7 +28,7 @@ module XfOOrth
     #<br>Parameters
     #* ctrl - The control symbol that suspended the compilation.
     def suspend_compile_mode(ctrl)
-      @context.check_set(:mode, [:compile, :deffered])
+      @context.check_set(:mode, [:compile, :deferred])
       @context = Context.new(@context, mode: :execute, ctrl: ctrl)
     end
 
@@ -46,32 +42,36 @@ module XfOOrth
       @context = @context.previous
     end
 
-    #Enter a mode where execution is deferred. If currently in :Execute
-    #mode, enter :Deferred mode. If in :Compile mode, stay in that mode.
+    #Enter a mode where execution is deferred. If currently in :execute
+    #mode, enter :deferred mode. If in :compile mode, stay in that mode.
     #<br>Parameters
+    #* text - Some text to append to the buffer before proceeding.
     #* ctrl - The control symbol that started the deferral.
-    def suspend_execute_mode(ctrl)
+    def suspend_execute_mode(text, ctrl)
       @context = Context.new(@context, ctrl: ctrl)
 
       if @context[:mode] == :execute
         @context[:mode] = :deferred
         @buffer = ''
       end
+
+      self << text
     end
 
     #If execution was previously deferred, resume the previous mode.
     #<br>Parameters
+    #* text - Some text to append to the buffer before bundling it up.
     #* ctrls - An array of control symbols that could have started the deferral.
-    def resume_execute_mode(ctrls)
-      @context.check_set(:mode, [:compile, :deffered])
+    def resume_execute_mode(text, ctrls)
+      @context.check_set(:mode, [:compile, :deferred])
       @context.check_set(:ctrl, ctrls)
       @context = @context.previous
+      self << text
 
       if @context[:mode] == :execute
-        instance_exec(self, &eval("lambda {|vm| #{@buffer} }"))
-        @buffer = nil
+        source, @buffer = "lambda {|vm| #{@buffer} }", nil
+        instance_exec(self, &eval(source))
       end
     end
-
   end
 end

@@ -43,7 +43,13 @@ module XfOOrth
       @parser = nil
       @quotes = 0
       @force  = false
-      @context = Context.new(nil, class: VirtualMachine, mode: :execute)
+      @context = Context.new(nil, vm: self, mode: :execute)
+    end
+
+    #Append text to the compile buffer.
+    def <<(text)
+      puts "  Append=#{text.inspect}" if @debug
+      @buffer << text
     end
 
     #Execute code from the interactive console.
@@ -60,7 +66,13 @@ module XfOOrth
 
     #Execute a file of code.
     def process_file(name)
-      process(FileSource.new(name))
+      source = FileSource.new(name)
+
+      begin
+        process(source)
+      ensure
+        source.close
+      end
     end
 
   end
