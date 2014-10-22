@@ -37,9 +37,9 @@ module XfOOrth
     #* The specification that corresponds to the name or nil if none found.
     def map(name)
       if (symbol = SymbolMap.map(name))
-        self[symbol]                                         ||
-        ((tgt = self[:object]) && tgt.map_exclusive(symbol)) ||
-        ((tgt = self[:class])  && tgt.map_foorth_shared(symbol))    ||
+        self[symbol]                                             ||
+        ((tgt = self[:object]) && tgt.map_exclusive(symbol))     ||
+        ((tgt = self[:class])  && tgt.map_foorth_shared(symbol)) ||
         map_default(name, symbol)
       end
     end
