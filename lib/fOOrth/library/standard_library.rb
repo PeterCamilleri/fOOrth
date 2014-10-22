@@ -172,4 +172,27 @@ module XfOOrth
   VirtualMachine.create_shared_method('then', VmWordSpec, [:immediate],
     &lambda {|vm| resume_execute_mode('end; ', [:if]) })
 
+  #===================================================
+  # Support for the classic begin until constructs!
+  #===================================================
+
+  VirtualMachine.create_shared_method('begin', VmWordSpec, [:immediate],
+    &lambda {|vm| vm.suspend_execute_mode('begin ', :begin) })
+
+  VirtualMachine.create_shared_method('while', VmWordSpec, [:immediate],
+    &lambda {|vm|
+      vm.context.check_set(:mode, [:compile, :deferred])
+      vm.context.check_set(:ctrl, [:begin])
+      vm << 'break unless pop?; '
+    })
+
+  VirtualMachine.create_shared_method('until', VmWordSpec, [:immediate],
+    &lambda {|vm| resume_execute_mode('end until vm.pop?; ', [:begin]) })
+
+  VirtualMachine.create_shared_method('again', VmWordSpec, [:immediate],
+    &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
+
+  VirtualMachine.create_shared_method('repeat', VmWordSpec, [:immediate],
+    &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
+
 end

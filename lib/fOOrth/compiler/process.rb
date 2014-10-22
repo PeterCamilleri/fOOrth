@@ -16,7 +16,7 @@ module XfOOrth
         puts token.to_s if @debug
         code = token.code
 
-        if (context[:mode] == :execute) || ((token.has_tag?(:immediate)) && (!@force))
+        if (@context[:mode] == :execute) || ((token.has_tag?(:immediate)) && (!@force))
           instance_exec(self, &eval("lambda {|vm| #{code} }"))
         else
           @buffer << code
@@ -54,7 +54,7 @@ module XfOOrth
     #* word  - The text of the word.
     def generate_code(token, word)
       unless word == '"'
-        if (spec = context.map(word))
+        if (spec = @context.map(word))
           spec.build_on(token, word)
         elsif (value = word.to_foorth_n)
           token << "vm.push(#{value.embed}); "

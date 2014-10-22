@@ -31,10 +31,13 @@ module XfOOrth
     attr_reader :parser
 
     #The current execution/compile context.
-    attr_accessor :context
+    attr_reader :context
 
     #The level of quote nesting.
     attr_reader :quotes
+
+    #Is a force compile in effect?
+    attr_accessor :force
 
     #Return the compiler to a known state.
     def compiler_reset
