@@ -2,6 +2,7 @@
 
 require_relative 'interpreter/data_stack'
 require_relative 'interpreter/ctrl_stack'
+require_relative 'interpreter/do_loop'
 
 #* interpreter.rb - The run time interpreter portion of the fOOrth language system.
 module XfOOrth

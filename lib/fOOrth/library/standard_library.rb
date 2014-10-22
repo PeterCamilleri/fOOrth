@@ -89,6 +89,7 @@ module XfOOrth
   @object_class.create_shared_method('mod', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self % vm.pop()); })
 
+
   #===================================================
   # Some comparison words.
   #===================================================
@@ -120,6 +121,7 @@ module XfOOrth
   # [b,a] <=> if b <=> a then [true] else [false]
   @object_class.create_shared_method('<=>', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self <=> vm.pop()); })
+
 
   #===================================================
   # Some comparison with zero words.
@@ -153,6 +155,7 @@ module XfOOrth
   @object_class.create_shared_method('0<=>', MethodWordSpec, [],
     &lambda {|vm| vm.push(self <=> 0); })
 
+
   #===================================================
   # Support for the classic if else then construct!
   #===================================================
@@ -171,6 +174,7 @@ module XfOOrth
 
   VirtualMachine.create_shared_method('then', VmWordSpec, [:immediate],
     &lambda {|vm| resume_execute_mode('end; ', [:if]) })
+
 
   #===================================================
   # Support for the classic begin until constructs!
@@ -194,5 +198,51 @@ module XfOOrth
 
   VirtualMachine.create_shared_method('repeat', VmWordSpec, [:immediate],
     &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
+
+
+  #===================================================
+  # Support for the classic do loop constructs!
+  #===================================================
+
+  VirtualMachine.create_shared_method('do', VmWordSpec, [:immediate],
+    &lambda {|vm|
+      jvar =  vm.context[:jloop].to_s
+      vm.suspend_execute_mode("vm.vm_do(#{jvar}) {|iloop, jloop| ", :do)
+      vm.context[:jloop] = 'iloop'
+    })
+
+  VirtualMachine.create_shared_method('i', VmWordSpec, [:immediate],
+    &lambda {|vm|
+      vm.context.check_set(:mode, [:compile, :deferred])
+      vm.context.check_set(:ctrl, [:do])
+      vm << 'vm.push(iloop[0]); '
+    })
+
+  VirtualMachine.create_shared_method('j', VmWordSpec, [:immediate],
+    &lambda {|vm|
+      vm.context.check_set(:mode, [:compile, :deferred])
+      vm.context.check_set(:ctrl, [:do])
+      vm << 'vm.push(jloop[0]); '
+    })
+
+  VirtualMachine.create_shared_method('-i', VmWordSpec, [:immediate],
+    &lambda {|vm|
+      vm.context.check_set(:mode, [:compile, :deferred])
+      vm.context.check_set(:ctrl, [:do])
+      vm << 'vm.push(iloop[2] - iloop[0]); '
+    })
+
+  VirtualMachine.create_shared_method('-j', VmWordSpec, [:immediate],
+    &lambda {|vm|
+      vm.context.check_set(:mode, [:compile, :deferred])
+      vm.context.check_set(:ctrl, [:do])
+      vm << 'vm.push(jloop[2] - jloop[0]); '
+    })
+
+  VirtualMachine.create_shared_method('loop', VmWordSpec, [:immediate],
+    &lambda {|vm| resume_execute_mode('iloop[0] += 1}; ', [:do]) })
+
+  VirtualMachine.create_shared_method('+loop', VmWordSpec, [:immediate],
+    &lambda {|vm| resume_execute_mode('iloop[0] += vm.pop}; ', [:do]) })
 
 end
