@@ -118,7 +118,7 @@ module XfOOrth
   @object_class.create_shared_method('<=', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self <= vm.pop()); })
 
-  # [b,a] <=> if b <=> a then [true] else [false]
+  # [b,a] 0<=> b < a [-1], b = a [0], b > a [1]
   @object_class.create_shared_method('<=>', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self <=> vm.pop()); })
 
@@ -151,7 +151,7 @@ module XfOOrth
   @object_class.create_shared_method('0<=', MethodWordSpec, [],
     &lambda {|vm| vm.push(self <= 0); })
 
-  # [b,a] 0<=> if b <=> 0 then [true] else [false]
+  # [b] 0<=> b < 0 [-1], b = 0 [0], b > 0 [1]
   @object_class.create_shared_method('0<=>', MethodWordSpec, [],
     &lambda {|vm| vm.push(self <=> 0); })
 
