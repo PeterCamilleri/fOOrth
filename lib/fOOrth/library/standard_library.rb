@@ -166,14 +166,10 @@ module XfOOrth
     &lambda {|vm| vm.suspend_execute_mode('if vm.pop? then ', :if) })
 
   VirtualMachine.create_shared_method('else', VmWordSpec, [:immediate],
-    &lambda {|vm|
-      vm.context.check_set(:mode, [:compile, :deferred])
-      vm.context.check_set(:ctrl, [:if])
-      vm << 'else '
-    })
+    &lambda {|vm| vm.check_deferred_mode('else ', [:if]) })
 
   VirtualMachine.create_shared_method('then', VmWordSpec, [:immediate],
-    &lambda {|vm| resume_execute_mode('end; ', [:if]) })
+    &lambda {|vm| vm.resume_execute_mode('end; ', [:if]) })
 
 
   #===================================================
@@ -184,20 +180,16 @@ module XfOOrth
     &lambda {|vm| vm.suspend_execute_mode('begin ', :begin) })
 
   VirtualMachine.create_shared_method('while', VmWordSpec, [:immediate],
-    &lambda {|vm|
-      vm.context.check_set(:mode, [:compile, :deferred])
-      vm.context.check_set(:ctrl, [:begin])
-      vm << 'break unless pop?; '
-    })
+    &lambda {|vm| vm.check_deferred_mode('break unless pop?; ', [:begin]) })
 
   VirtualMachine.create_shared_method('until', VmWordSpec, [:immediate],
-    &lambda {|vm| resume_execute_mode('end until vm.pop?; ', [:begin]) })
+    &lambda {|vm| vm.resume_execute_mode('end until vm.pop?; ', [:begin]) })
 
   VirtualMachine.create_shared_method('again', VmWordSpec, [:immediate],
-    &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
+    &lambda {|vm| vm.resume_execute_mode('end until false; ', [:begin]) })
 
   VirtualMachine.create_shared_method('repeat', VmWordSpec, [:immediate],
-    &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
+    &lambda {|vm| vm.resume_execute_mode('end until false; ', [:begin]) })
 
 
   #===================================================
@@ -212,37 +204,21 @@ module XfOOrth
     })
 
   VirtualMachine.create_shared_method('i', VmWordSpec, [:immediate],
-    &lambda {|vm|
-      vm.context.check_set(:mode, [:compile, :deferred])
-      vm.context.check_set(:ctrl, [:do])
-      vm << 'vm.push(iloop[0]); '
-    })
+    &lambda {|vm| vm.check_deferred_mode('vm.push(iloop[0]); ', [:do]) })
 
   VirtualMachine.create_shared_method('j', VmWordSpec, [:immediate],
-    &lambda {|vm|
-      vm.context.check_set(:mode, [:compile, :deferred])
-      vm.context.check_set(:ctrl, [:do])
-      vm << 'vm.push(jloop[0]); '
-    })
+    &lambda {|vm| vm.check_deferred_mode('vm.push(jloop[0]); ', [:do]) })
 
   VirtualMachine.create_shared_method('-i', VmWordSpec, [:immediate],
-    &lambda {|vm|
-      vm.context.check_set(:mode, [:compile, :deferred])
-      vm.context.check_set(:ctrl, [:do])
-      vm << 'vm.push(iloop[2] - iloop[0]); '
-    })
+    &lambda {|vm| vm.check_deferred_mode('iloop[2] - iloop[0]); ', [:do]) })
 
   VirtualMachine.create_shared_method('-j', VmWordSpec, [:immediate],
-    &lambda {|vm|
-      vm.context.check_set(:mode, [:compile, :deferred])
-      vm.context.check_set(:ctrl, [:do])
-      vm << 'vm.push(jloop[2] - jloop[0]); '
-    })
+    &lambda {|vm| vm.check_deferred_mode('jloop[2] - jloop[0]); ', [:do]) })
 
   VirtualMachine.create_shared_method('loop', VmWordSpec, [:immediate],
-    &lambda {|vm| resume_execute_mode('iloop[0] += 1}; ', [:do]) })
+    &lambda {|vm| vm.resume_execute_mode('iloop[0] += 1}; ', [:do]) })
 
   VirtualMachine.create_shared_method('+loop', VmWordSpec, [:immediate],
-    &lambda {|vm| resume_execute_mode('iloop[0] += vm.pop}; ', [:do]) })
+    &lambda {|vm| vm.resume_execute_mode('iloop[0] += vm.pop}; ', [:do]) })
 
 end

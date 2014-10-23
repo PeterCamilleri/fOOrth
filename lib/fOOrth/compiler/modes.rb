@@ -58,15 +58,23 @@ module XfOOrth
       self << text
     end
 
+    #Verify the deferred execution state.
+    #<br>Parameters
+    #* text - Some text to append to the buffer before bundling it up.
+    #* ctrls - An array of control symbols that could have started the deferral.
+    def check_deferred_mode(text, ctrls)
+      @context.check_set(:mode, [:compile, :deferred])
+      @context.check_set(:ctrl, ctrls)
+      self << text
+    end
+
     #If execution was previously deferred, resume the previous mode.
     #<br>Parameters
     #* text - Some text to append to the buffer before bundling it up.
     #* ctrls - An array of control symbols that could have started the deferral.
     def resume_execute_mode(text, ctrls)
-      @context.check_set(:mode, [:compile, :deferred])
-      @context.check_set(:ctrl, ctrls)
+      check_deferred_mode(text, ctrls)
       @context = @context.previous
-      self << text
 
       if @context[:mode] == :execute
         source, @buffer = "lambda {|vm| #{@buffer} }", nil
