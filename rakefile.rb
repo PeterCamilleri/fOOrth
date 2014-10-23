@@ -26,6 +26,7 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/library/string_library.rb",
                      "lib/fOOrth/library/numeric_library.rb",
                      "lib/fOOrth/library/standard_library.rb",
+                     "lib/fOOrth/library/ctrl_struct_library.rb",
                      "lib/fOOrth/library/stdio_library.rb",
                      "lib/fOOrth/library/command_library.rb",
                      "lib/fOOrth/interpreter.rb",
@@ -86,6 +87,7 @@ end
 Rake::TestTask.new(:integration) do |t|
   #List out all the test files.
   t.test_files = ["integration/standard_library_tests.rb",
+                  "integration/ctrl_struct_library_tests.rb",
                   "integration/stdio_library_tests.rb"
                  ]
 

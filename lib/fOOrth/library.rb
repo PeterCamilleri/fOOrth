@@ -1,6 +1,7 @@
 # coding: utf-8
 
 require_relative 'library/standard_library'
+require_relative 'library/ctrl_struct_library'
 require_relative 'library/stdio_library'
 require_relative 'library/numeric_library'
 require_relative 'library/string_library'
