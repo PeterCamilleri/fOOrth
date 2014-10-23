@@ -19,5 +19,12 @@ module XfOOrth
   VirtualMachine.create_shared_method('.cr', MacroWordSpec,
     ['"puts; "'])
 
+  #Force a space.
+  VirtualMachine.create_shared_method('space', MacroWordSpec,
+    ['"print \' \'; "'])
+
+  #Force multiple spaces.
+  VirtualMachine.create_shared_method('spaces', MacroWordSpec,
+    ['"print \' \' * vm.pop(); "'])
 
 end

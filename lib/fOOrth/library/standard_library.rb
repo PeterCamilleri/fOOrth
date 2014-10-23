@@ -163,13 +163,13 @@ module XfOOrth
   # [boolean] if (boolean true code) else (boolean false code) then
 
   VirtualMachine.create_shared_method('if', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.suspend_execute_mode('if vm.pop? then ', :if) })
+    &lambda {|vm| suspend_execute_mode('if vm.pop? then ', :if) })
 
   VirtualMachine.create_shared_method('else', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.check_deferred_mode('else ', [:if]) })
+    &lambda {|vm| check_deferred_mode('else ', [:if]) })
 
   VirtualMachine.create_shared_method('then', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.resume_execute_mode('end; ', [:if]) })
+    &lambda {|vm| resume_execute_mode('end; ', [:if]) })
 
 
   #===================================================
@@ -177,48 +177,54 @@ module XfOOrth
   #===================================================
 
   VirtualMachine.create_shared_method('begin', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.suspend_execute_mode('begin ', :begin) })
+    &lambda {|vm| suspend_execute_mode('begin ', :begin) })
 
   VirtualMachine.create_shared_method('while', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.check_deferred_mode('break unless pop?; ', [:begin]) })
+    &lambda {|vm| check_deferred_mode('break unless pop?; ', [:begin]) })
 
   VirtualMachine.create_shared_method('until', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.resume_execute_mode('end until vm.pop?; ', [:begin]) })
+    &lambda {|vm| resume_execute_mode('end until vm.pop?; ', [:begin]) })
 
   VirtualMachine.create_shared_method('again', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.resume_execute_mode('end until false; ', [:begin]) })
+    &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
 
   VirtualMachine.create_shared_method('repeat', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.resume_execute_mode('end until false; ', [:begin]) })
+    &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
 
 
   #===================================================
   # Support for the classic do loop constructs!
+  #
+  # NOTE: The do loop must always be configured to
+  # count upward. To count backward use -i or -j to
+  # access the reverse count. This differs from the
+  # classic FORTH version to avoid its tendency to
+  # fly off into endless loops.
   #===================================================
 
   VirtualMachine.create_shared_method('do', VmWordSpec, [:immediate],
     &lambda {|vm|
-      jvar =  vm.context[:jloop].to_s
-      vm.suspend_execute_mode("vm.vm_do(#{jvar}) {|iloop, jloop| ", :do)
-      vm.context[:jloop] = 'iloop'
+      jvar =  context[:jloop].to_s
+      suspend_execute_mode("vm.vm_do(#{jvar}) {|iloop, jloop| ", :do)
+      context[:jloop] = 'iloop'
     })
 
   VirtualMachine.create_shared_method('i', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.check_deferred_mode('vm.push(iloop[0]); ', [:do]) })
+    &lambda {|vm| check_deferred_mode('vm.push(iloop[0]); ', [:do]) })
 
   VirtualMachine.create_shared_method('j', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.check_deferred_mode('vm.push(jloop[0]); ', [:do]) })
+    &lambda {|vm| check_deferred_mode('vm.push(jloop[0]); ', [:do]) })
 
   VirtualMachine.create_shared_method('-i', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.check_deferred_mode('iloop[2] - iloop[0]); ', [:do]) })
+    &lambda {|vm| check_deferred_mode('vm.push(iloop[2] - iloop[0]); ', [:do]) })
 
   VirtualMachine.create_shared_method('-j', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.check_deferred_mode('jloop[2] - jloop[0]); ', [:do]) })
+    &lambda {|vm| check_deferred_mode('vm.push(jloop[2] - jloop[0]); ', [:do]) })
 
   VirtualMachine.create_shared_method('loop', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.resume_execute_mode('iloop[0] += 1}; ', [:do]) })
+    &lambda {|vm| resume_execute_mode('iloop[0] += 1}; ', [:do]) })
 
   VirtualMachine.create_shared_method('+loop', VmWordSpec, [:immediate],
-    &lambda {|vm| vm.resume_execute_mode('iloop[0] += vm.pop}; ', [:do]) })
+    &lambda {|vm| resume_execute_mode('iloop[0] += vm.pop}; ', [:do]) })
 
 end
