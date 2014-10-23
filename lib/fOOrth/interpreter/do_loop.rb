@@ -30,6 +30,7 @@ module XfOOrth
 
       #Loop until done!
       while iloop[0] <= iloop[1]
+        #Yield to the loop.
         yield iloop, jloop
       end
     end
