@@ -27,7 +27,7 @@ module XfOOrth
 
     #Get the name of this object.
     def name
-      "#{foorth_class.name} instance."
+      "#{foorth_class.name} instance"
     end
 
   end

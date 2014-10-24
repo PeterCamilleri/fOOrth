@@ -12,20 +12,26 @@ module XfOOrth
     #<br>Note:
     #* Adds a nested context level to be un-nested at a later point.
     def begin_compile_mode(ctrl, &action)
+      puts "  begin_compile_mode" if debug
       @context.check_set(:mode, [:execute])
       @context = Context.new(@context, mode: :compile, ctrl: ctrl, action: action)
+      @buffer = ''
     end
 
     #Finish compiling a fOOrth definition.
     #<br>Parameters
     #* ctrls - an array of the allowed set of control values.
+    #<br>Returns
+    #* The value of the action block.
     #<br>Note:
     #* Un-nests a context level.
     def end_compile_mode(ctrls)
-      @context.check_set(:mode, [:compile])
+      puts "  end_compile_mode" if debug
       @context.check_set(:ctrl, ctrls)
-      instance_exec("lambda {|vm| #{@buffer} }", &@context[:action])
+      @context.check_set(:mode, [:compile])
+      result = instance_exec(self, "lambda {|vm| #{@buffer}}", &@context[:action])
       @context = @context.previous
+      result
     end
 
     #While compiling, suspend compiling so that some code may be executed.
@@ -34,6 +40,7 @@ module XfOOrth
     #<br>Note:
     #* Adds a nested context level to be un-nested at a later point.
     def suspend_compile_mode(ctrl)
+      puts "  suspend_compile_mode" if debug
       @context.check_set(:mode, [:compile, :deferred])
       @context = Context.new(@context, mode: :execute, ctrl: ctrl)
     end
@@ -45,8 +52,9 @@ module XfOOrth
     #<br>Note:
     #* Un-nests a context level.
     def resume_compile_mode(ctrls)
-      @context.check_set(:mode, [:execute])
+      puts "  resume_compile_mode" if debug
       @context.check_set(:ctrl, ctrls)
+      @context.check_set(:mode, [:execute])
       @context = @context.previous
     end
 
@@ -58,6 +66,7 @@ module XfOOrth
     #<br>Note:
     #* Adds a nested context level to be un-nested at a later point.
     def suspend_execute_mode(text, ctrl)
+      puts "  suspend_execute_mode" if debug
       @context = Context.new(@context, ctrl: ctrl)
 
       if @context[:mode] == :execute
@@ -85,6 +94,7 @@ module XfOOrth
     #<br>Note:
     #* Un-nests a context level.
     def resume_execute_mode(text, ctrls)
+      puts "  resume_execute_mode" if debug
       check_deferred_mode(text, ctrls)
       @context = @context.previous
 

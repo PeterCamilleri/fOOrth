@@ -15,9 +15,9 @@ module XfOOrth
       if foorth_class.link_shared_method(name, self.class)
         send(name, *args, &block)
       elsif (names = SymbolMap.unmap(name))
-         my_name = self.respond_to?(:name) ? self.name.chop : 'self.class.name'
-         names = names[0] unless names.length > 1
-         error "A #{my_name} does not understand #{names} (#{name.inspect})."
+        my_name = self.respond_to?(:name) ? self.name : self.class.name
+        names = names[0] unless names.length > 1
+        error "A #{my_name} does not understand #{names} (#{name.inspect})."
       else
         super
       end

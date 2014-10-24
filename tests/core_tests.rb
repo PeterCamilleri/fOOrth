@@ -51,7 +51,7 @@ class CoreTester < MiniTest::Unit::TestCase
 
     inst1 = XfOOrth.object_class.create_foorth_instance(vm)
     assert_equal(inst1.foorth_class.name, 'Object')
-    assert_equal(inst1.name, 'Object instance.')
+    assert_equal(inst1.name, 'Object instance')
 
     inst2 = XfOOrth.object_class.create_foorth_instance(vm)
     assert(inst1 != inst2)
@@ -83,7 +83,7 @@ class CoreTester < MiniTest::Unit::TestCase
     # In fOOrth ==> MyClass .new inst1 !
     inst1 = my_class.create_foorth_instance(vm)
     assert_equal(inst1.foorth_class.name, 'MyClass')
-    assert_equal(inst1.name, 'MyClass instance.')
+    assert_equal(inst1.name, 'MyClass instance')
 
     # In fOOrth ==> MyClass subclass: Other
     other = my_class.create_foorth_subclass("Other")
@@ -99,7 +99,7 @@ class CoreTester < MiniTest::Unit::TestCase
 
     assert(inst1 != inst2)
     assert_equal(inst2.foorth_class.name, 'Other')
-    assert_equal(inst2.name, 'Other instance.')
+    assert_equal(inst2.name, 'Other instance')
   end
 
   #Test the the VM class does NOT sub-class

@@ -24,10 +24,13 @@ module XfOOrth
     #* The specification class to use.
     #* An array of options.
     #* A block to associate with the name.
+    #<br>Returns
+    #* The spec created for the shared method.
     def create_shared_method(name, spec_class, options, &block)
       sym = SymbolMap.add_entry(name)
       spec = spec_class.new(name, sym, options, &block)
       add_shared_method(sym, spec)
+      spec
     end
 
     #Search the object class dictionaries for the named instance method and add

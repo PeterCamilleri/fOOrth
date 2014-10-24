@@ -27,6 +27,8 @@ module XfOOrth
     target_class.define_singleton_method(:foorth_class,
       &lambda {XfOOrth.class_class})
 
+    target_class.write_var(:@instance_template, target_class)
+
     target_class.send(:define_method, :foorth_class,
       &lambda {target_class})
 
@@ -40,7 +42,7 @@ module XfOOrth
     target_class.send(:include, MethodMissing)
     target_class.extend(ProxyMethodMissing)
 
-    foorth_parent.foorth_child_classes[name] = @class_class
+    foorth_parent.foorth_child_classes[name] = target_class
     all_classes[name] = target_class
     @object_class.create_shared_method(name, ClassWordSpec, [])
   end
