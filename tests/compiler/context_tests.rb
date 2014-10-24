@@ -144,7 +144,7 @@ class ContextTester < MiniTest::Unit::TestCase
   #Test the class instance mapping of symbols
   def test_the_class_mapping_of_symbols
     mk = MockClass.new
-    context = XfOOrth::Context.new(nil, class: mk)
+    context = XfOOrth::Context.new(nil, cls: mk)
 
     name = 'c'
     sym = XfOOrth::SymbolMap.add_entry(name)
@@ -171,7 +171,7 @@ class ContextTester < MiniTest::Unit::TestCase
   #Test the singleton mapping of symbols
   def test_the_exclusive_mapping_of_symbols
     mk = MockObject.new
-    context = XfOOrth::Context.new(nil, object: mk)
+    context = XfOOrth::Context.new(nil, obj: mk)
 
     name = 'd'
     sym = XfOOrth::SymbolMap.add_entry(name)

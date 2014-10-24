@@ -23,7 +23,7 @@ module XfOOrth
     error "Name Error: All non-Object methods must begin with a '.'" unless
       (target.name == 'Object') || (name[0] == '.')
 
-    begin_compile_mode('::', class: target, &lambda {|vm, src|
+    begin_compile_mode('::', cls: target, &lambda {|vm, src|
       puts "#{target.name} #{name} => #{src}" if vm.debug
       target.create_shared_method(name, MethodWordSpec, [], &eval(src))
     })
