@@ -18,6 +18,7 @@ module XfOOrth
   VirtualMachine.create_shared_method('::', VmWordSpec, [],  &lambda {|vm|
     name    = vm.parser.get_word()
     (target = vm.pop).foorth_is_class?(vm)
+
     error "The target of :: must be a class." unless vm.pop?
 
     error "Name Error: All non-Object methods must begin with a '.'" unless
