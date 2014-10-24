@@ -88,6 +88,7 @@ Rake::TestTask.new(:integration) do |t|
   #List out all the test files.
   t.test_files = ["integration/standard_library_tests.rb",
                   "integration/ctrl_struct_library_tests.rb",
+                  "integration/compile_library_tests.rb",
                   "integration/stdio_library_tests.rb"
                  ]
 

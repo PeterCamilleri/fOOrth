@@ -30,6 +30,11 @@ module XfOOrth
       @data[index] = value
     end
 
+    #Merge in a hash of tag data.
+    def merge(new_data)
+      @data.merge!(new_data)
+    end
+
     #Map a name to a specification.
     #<br>Parameters:
     #* name - The string to be mapped.

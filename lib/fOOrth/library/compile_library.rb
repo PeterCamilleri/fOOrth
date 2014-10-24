@@ -8,7 +8,7 @@ module XfOOrth
     name   = vm.parser.get_word()
     target = VirtualMachine
 
-    begin_compile_mode(':', &lambda {|vm, src|
+    begin_compile_mode(':', vm: vm, &lambda {|vm, src|
       puts "#{name} => #{src}" if vm.debug
       target.create_shared_method(name, VmWordSpec, [], &eval(src))
     })
@@ -16,12 +16,15 @@ module XfOOrth
 
   #A colon definition that creates a word in the specified class.
   VirtualMachine.create_shared_method('::', VmWordSpec, [],  &lambda {|vm|
-    name   = vm.parser.get_word()
+    name    = vm.parser.get_word()
     (target = vm.pop).foorth_is_class?(vm)
     error "The target of :: must be a class." unless vm.pop?
 
-    begin_compile_mode('::', &lambda {|vm, src|
-      puts "#{name} => #{src}" if vm.debug
+    error "Name Error: All non-Object methods must begin with a '.'" unless
+      (target.name == 'Object') || (name[0] == '.')
+
+    begin_compile_mode('::', class: target, &lambda {|vm, src|
+      puts "#{target.name} #{name} => #{src}" if vm.debug
       target.create_shared_method(name, MethodWordSpec, [], &eval(src))
     })
   })

@@ -12,10 +12,11 @@ module XfOOrth
     #* action - A block to be executed when the compilation is done.
     #<br>Note:
     #* Adds a nested context level to be un-nested at a later point.
-    def begin_compile_mode(ctrl, &action)
+    def begin_compile_mode(ctrl, defs={}, &action)
       puts "  begin_compile_mode" if debug
       @context.check_set(:mode, [:execute])
       @context = Context.new(@context, mode: :compile, ctrl: ctrl, action: action)
+      @context.merge(defs)
       @buffer = ''
     end
 
