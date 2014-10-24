@@ -16,7 +16,7 @@ end
 class MockObject
   def initialize; @data = {}; end
   def []=(index, value); @data[index] = value; end
-  def map_exclusive(index); @data[index]; end
+  def map_foorth_exclusive(index); @data[index]; end
 end
 
 #Test the monkey patches applied to the Object class.

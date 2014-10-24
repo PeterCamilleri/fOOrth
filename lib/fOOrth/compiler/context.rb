@@ -42,10 +42,10 @@ module XfOOrth
     #* The specification that corresponds to the name or nil if none found.
     def map(name)
       if (symbol = SymbolMap.map(name))
-        self[symbol]                                        ||
-        ((vm = self[:vm])  && vm.map_exclusive(symbol))     ||
-        ((to = self[:obj]) && to.map_exclusive(symbol))     ||
-        ((tc = self[:cls]) && tc.map_foorth_shared(symbol)) ||
+        self[symbol]                                           ||
+        ((vm = self[:vm])  && vm.map_foorth_exclusive(symbol)) ||
+        ((to = self[:obj]) && to.map_foorth_exclusive(symbol)) ||
+        ((tc = self[:cls]) && tc.map_foorth_shared(symbol))    ||
         map_default(name, symbol)
       end
     end
