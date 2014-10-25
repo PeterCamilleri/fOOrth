@@ -47,6 +47,11 @@ class StringMonkeyPatchTester < MiniTest::Unit::TestCase
     assert_equal('1/2'.to_foorth_n, '1/2'.to_r)
     assert_equal('1+2i'.to_foorth_n, Complex(1,2))
     assert_equal('2i'.to_foorth_n, Complex(0,2))
+    assert_equal('1-2i'.to_foorth_n, Complex(1,-2))
+    assert_equal('-2i'.to_foorth_n, Complex(0,-2))
+    assert_equal('+1+2i'.to_foorth_n, Complex(1,2))
+    assert_equal('+2i'.to_foorth_n, Complex(0,2))
+    assert_equal('+1-2i'.to_foorth_n, Complex(1,-2))
 
     assert_equal('fubar'.to_foorth_n, nil)
     assert_equal('2cats'.to_foorth_n, nil)
