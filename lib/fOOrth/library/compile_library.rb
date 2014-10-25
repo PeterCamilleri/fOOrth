@@ -21,8 +21,8 @@ module XfOOrth
 
     error "The target of :: must be a class." unless vm.pop?
 
-    error "Name Error: All non-Object methods must begin with a '.'" unless
-      (target.name == 'Object') || (name[0] == '.')
+    error "Name Error: All non-Object mapped methods must begin with a '.'" unless
+      (target.name == 'Object') || (name[0] == '.') || XfOOrth.object_maps(name)
 
     begin_compile_mode('::', cls: target, &lambda {|vm, src|
       puts "#{target.name} #{name} => #{src}" if vm.debug
