@@ -9,19 +9,19 @@ module XfOOrth
 
   #The self method.
   @object_class.create_shared_method('self', MacroWordSpec,
-    ['"vm.push(self); "'])
+    ["vm.push(self); "])
 
   #The true method.
   @object_class.create_shared_method('true', MacroWordSpec,
-    ['"vm.push(true); "'])
+    ["vm.push(true); "])
 
   #The false method.
   @object_class.create_shared_method('false', MacroWordSpec,
-    ['"vm.push(false); "'])
+    ["vm.push(false); "])
 
   #The nil method.
   @object_class.create_shared_method('nil', MacroWordSpec,
-    ['"vm.push(nil); "'])
+    ["vm.push(nil); "])
 
 
   #===================================================
@@ -30,11 +30,11 @@ module XfOOrth
 
   # [a] drop []
   VirtualMachine.create_shared_method('drop', MacroWordSpec,
-    ['"vm.pop(); "'])
+    ["vm.pop(); "])
 
   # [a] dup [a, a]
   VirtualMachine.create_shared_method('dup', MacroWordSpec,
-    ['"vm.push(vm.peek()); "'])
+    ["vm.push(vm.peek()); "])
 
   # [a] ?dup if a is true then [a,a] else [a]
   VirtualMachine.create_shared_method('?dup', VmWordSpec, [],
@@ -50,15 +50,15 @@ module XfOOrth
 
   # [b,a] over [b,a,b]
   VirtualMachine.create_shared_method('over', MacroWordSpec,
-    ['"vm.push(vm.peek(2)); "'])
+    ["vm.push(vm.peek(2)); "])
 
   # [di,..d2,d1,i] pick [di,..d2,d1,di]
   VirtualMachine.create_shared_method('pick', MacroWordSpec,
-    ['"vm.push(vm.peek(vm.pop())); "'])
+    ["vm.push(vm.peek(vm.pop())); "])
 
   # [b,a] nip [a]
   VirtualMachine.create_shared_method('nip', MacroWordSpec,
-    ['"vm.swap_pop(); "'])
+    ["vm.swap_pop(); "])
 
   # [b,a] tuck [a,b,a]
   VirtualMachine.create_shared_method('tuck', VmWordSpec, [],

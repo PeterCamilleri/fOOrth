@@ -137,7 +137,7 @@ module XfOOrth
     #<br>Endemic Code Smells
     #* :reek:UnusedParameters
     def late_builds_string(name)
-      eval(@tags[-1])
+      @tags[-1]
     end
 
     #The tags that are to be exported. All but the last one.

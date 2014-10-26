@@ -90,13 +90,13 @@ module XfOOrth
 
   #Create the symbol table entries for the core classes.
   @object_class.create_shared_method('Object', MacroWordSpec,
-    ['"vm.push(XfOOrth.object_class); "'])
+    ["vm.push(XfOOrth.object_class); "])
 
   @object_class.create_shared_method('Class', MacroWordSpec,
-    ['"vm.push(XfOOrth.class_class); "'])
+    ["vm.push(XfOOrth.class_class); "])
 
   @object_class.create_shared_method('VirtualMachine', MacroWordSpec,
-    ['"vm.push(VirtualMachine); "'])
+    ["vm.push(VirtualMachine); "])
 
   #==========================================================================
   # Define some core methods.
