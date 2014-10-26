@@ -36,7 +36,7 @@ module XfOOrth
     #<br>Returns:
     #* A symbol or nil if the symbol is not in the map.
     def self.map(name)
-      @fwd_map[name] || ((name[0] == '~') && @fwd_map['.' + name[1..-1]])
+      @fwd_map[name]
     end
 
     #Get the entry for the mapping symbol. Return nil if there is no entry.

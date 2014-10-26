@@ -54,6 +54,5 @@ class SymbolMapTester < MiniTest::Unit::TestCase
     XfOOrth::SymbolMap.restart('test_20')
     assert_equal(XfOOrth::SymbolMap.add_entry('.foo'), :test_21)
     assert_equal(XfOOrth::SymbolMap.map('.foo'), :test_21)
-    assert_equal(XfOOrth::SymbolMap.map('~foo'), :test_21)
   end
 end

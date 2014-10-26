@@ -403,7 +403,8 @@ class CoreTester < MiniTest::Unit::TestCase
 
     #Test the fOOrth code: ~name  ==> "VirtualMachine instance <Main>."
     src = "lambda {|vm| "
-    name = '~name'
+    vm.push(vm)
+    name = '.name'
     sym = XfOOrth::SymbolMap.map(name)
     spec = XfOOrth.object_class.map_foorth_shared(sym)
     src << spec.builds(name)

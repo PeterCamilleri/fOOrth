@@ -136,9 +136,6 @@ class ContextTester < MiniTest::Unit::TestCase
     context[sym] = XfOOrth::MethodWordSpec.new(sym, name)
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::MethodWordSpec))
-
-    spec = context.map('~b')
-    assert(spec.is_a?(XfOOrth::MethodWordSpec))
   end
 
   #Test the class instance mapping of symbols
@@ -163,9 +160,6 @@ class ContextTester < MiniTest::Unit::TestCase
     mk[sym] = XfOOrth::MethodWordSpec.new(sym, name)
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::MethodWordSpec))
-
-    spec = context.map('~c')
-    assert(spec.is_a?(XfOOrth::MethodWordSpec))
   end
 
   #Test the singleton mapping of symbols
@@ -189,9 +183,6 @@ class ContextTester < MiniTest::Unit::TestCase
     sym = XfOOrth::SymbolMap.add_entry(name)
     mk[sym] = XfOOrth::MethodWordSpec.new(sym, name)
     spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::MethodWordSpec))
-
-    spec = context.map('~d')
     assert(spec.is_a?(XfOOrth::MethodWordSpec))
   end
 
@@ -218,9 +209,6 @@ class ContextTester < MiniTest::Unit::TestCase
     assert(spec.is_a?(XfOOrth::VariableWordSpec))
 
     spec = context.map('.a')
-    assert(spec.is_a?(XfOOrth::MethodWordSpec))
-
-    spec = context.map('~a')
     assert(spec.is_a?(XfOOrth::MethodWordSpec))
   end
 
