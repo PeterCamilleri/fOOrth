@@ -18,11 +18,9 @@ module XfOOrth
     #<br>Returns:
     #* The symbol that corresponds to the name.
     def self.add_entry(name, presym=nil)
-      prefix = '' unless ['@', '$'].include?(prefix = name[0])
-
       @sync.synchronize do
         unless (symbol = @fwd_map[name])
-          symbol = presym || (prefix + (@incrementer.succ!)).to_sym
+          symbol = presym || (@incrementer.succ!).to_sym
           connect(name, symbol)
         else
           error "Attempt to redefine #{name}." if presym && presym != symbol
