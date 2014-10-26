@@ -8,7 +8,7 @@ module XfOOrth
   #===================================================
 
   #Print out an object.
-  @object_class.create_shared_method('.', MethodWordSpec, [],
+  @object_class.create_shared_method('.', PublicWordSpec, [],
     &lambda {|vm| print self.to_s})
 
   #Print out a string.

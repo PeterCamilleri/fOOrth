@@ -26,7 +26,7 @@ module XfOOrth
 
     begin_compile_mode('::', cls: target, &lambda {|vm, src|
       puts "#{target.name} #{name} => #{src}" if vm.debug
-      target.create_shared_method(name, MethodWordSpec, [], &eval(src))
+      target.create_shared_method(name, PublicWordSpec, [], &eval(src))
     })
   })
 

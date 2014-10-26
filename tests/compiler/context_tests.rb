@@ -133,9 +133,9 @@ class ContextTester < MiniTest::Unit::TestCase
 
     name = '.b'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    context[sym] = XfOOrth::MethodWordSpec.new(sym, name)
+    context[sym] = XfOOrth::PublicWordSpec.new(sym, name)
     spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::MethodWordSpec))
+    assert(spec.is_a?(XfOOrth::PublicWordSpec))
   end
 
   #Test the class instance mapping of symbols
@@ -145,9 +145,9 @@ class ContextTester < MiniTest::Unit::TestCase
 
     name = 'c'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::MethodWordSpec.new(sym, name)
+    mk[sym] = XfOOrth::PublicWordSpec.new(sym, name)
     spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::MethodWordSpec))
+    assert(spec.is_a?(XfOOrth::PublicWordSpec))
 
     name = '@c'
     sym = XfOOrth::SymbolMap.add_entry(name)
@@ -157,9 +157,9 @@ class ContextTester < MiniTest::Unit::TestCase
 
     name = '.c'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::MethodWordSpec.new(sym, name)
+    mk[sym] = XfOOrth::PublicWordSpec.new(sym, name)
     spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::MethodWordSpec))
+    assert(spec.is_a?(XfOOrth::PublicWordSpec))
   end
 
   #Test the singleton mapping of symbols
@@ -169,9 +169,9 @@ class ContextTester < MiniTest::Unit::TestCase
 
     name = 'd'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::MethodWordSpec.new(sym, name)
+    mk[sym] = XfOOrth::PublicWordSpec.new(sym, name)
     spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::MethodWordSpec))
+    assert(spec.is_a?(XfOOrth::PublicWordSpec))
 
     name = '@d'
     sym = XfOOrth::SymbolMap.add_entry(name)
@@ -181,9 +181,9 @@ class ContextTester < MiniTest::Unit::TestCase
 
     name = '.d'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::MethodWordSpec.new(sym, name)
+    mk[sym] = XfOOrth::PublicWordSpec.new(sym, name)
     spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::MethodWordSpec))
+    assert(spec.is_a?(XfOOrth::PublicWordSpec))
   end
 
 
@@ -209,7 +209,7 @@ class ContextTester < MiniTest::Unit::TestCase
     assert(spec.is_a?(XfOOrth::VariableWordSpec))
 
     spec = context.map('.a')
-    assert(spec.is_a?(XfOOrth::MethodWordSpec))
+    assert(spec.is_a?(XfOOrth::PublicWordSpec))
   end
 
   #Test verification testing.

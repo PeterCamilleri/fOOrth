@@ -74,7 +74,7 @@ module XfOOrth
   end
 
   #A class used to specify the compile of methods of a class or object.
-  class MethodWordSpec < AbstractWordSpec
+  class PublicWordSpec < AbstractWordSpec
     #Generate the Ruby code for this method.
     #<br>Parameters:
     #* name - The string that maps to the symbol.

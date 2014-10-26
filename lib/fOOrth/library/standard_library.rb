@@ -128,31 +128,31 @@ module XfOOrth
   #===================================================
 
   # [b,a] 0= if b == 0 then [true] else [false]
-  @object_class.create_shared_method('0=', MethodWordSpec, [],
+  @object_class.create_shared_method('0=', PublicWordSpec, [],
     &lambda {|vm| vm.push(self == 0); })
 
   # [b,a] 0<> if b != 0 then [true] else [false]
-  @object_class.create_shared_method('0<>', MethodWordSpec, [],
+  @object_class.create_shared_method('0<>', PublicWordSpec, [],
     &lambda {|vm| vm.push(self != 0); })
 
   # [b,a] 0> if b > 0 then [true] else [false]
-  @object_class.create_shared_method('0>', MethodWordSpec, [],
+  @object_class.create_shared_method('0>', PublicWordSpec, [],
     &lambda {|vm| vm.push(self > 0); })
 
   # [b,a] 0< if b < 0 then [true] else [false]
-  @object_class.create_shared_method('0<', MethodWordSpec, [],
+  @object_class.create_shared_method('0<', PublicWordSpec, [],
     &lambda {|vm| vm.push(self < 0); })
 
   # [b,a] 0>= if b >= 0 then [true] else [false]
-  @object_class.create_shared_method('0>=', MethodWordSpec, [],
+  @object_class.create_shared_method('0>=', PublicWordSpec, [],
     &lambda {|vm| vm.push(self >= 0); })
 
   # [b,a] 0<= if b <= 0 then [true] else [false]
-  @object_class.create_shared_method('0<=', MethodWordSpec, [],
+  @object_class.create_shared_method('0<=', PublicWordSpec, [],
     &lambda {|vm| vm.push(self <= 0); })
 
   # [b] 0<=> b < 0 [-1], b = 0 [0], b > 0 [1]
-  @object_class.create_shared_method('0<=>', MethodWordSpec, [],
+  @object_class.create_shared_method('0<=>', PublicWordSpec, [],
     &lambda {|vm| vm.push(self <=> 0); })
 
 end

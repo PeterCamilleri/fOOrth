@@ -65,7 +65,7 @@ module XfOOrth
           VariableWordSpec.new(name, symbol)
 
         when '.', '~'
-          MethodWordSpec.new(name, symbol)
+          PublicWordSpec.new(name, symbol)
 
         else
           VmWordSpec.new(name, symbol)

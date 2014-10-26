@@ -19,6 +19,10 @@ module XfOOrth
 
     #A short-cut for getting the fOOrth Class class.
     attr_reader :class_class
+
+    def object_maps(name)
+      (symbol = SymbolMap.map(name)) && object_class.map_foorth_shared(symbol)
+    end
   end
 
   #A short-cut for getting the virtual machine of the current thread.
@@ -65,7 +69,7 @@ module XfOOrth
   #inherit this simple method.
   name = '.init'
   sym = SymbolMap.add_entry(name, :foorth_init)
-  spec = MethodWordSpec.new(name, sym, [], &lambda {|vm| })
+  spec = PublicWordSpec.new(name, sym, [], &lambda {|vm| })
   @object_class.add_shared_method(:foorth_init, spec)
 
   #The Class class is a child of the Object class.
@@ -99,23 +103,23 @@ module XfOOrth
   #==========================================================================
 
   #The .class method. This allows the class of any object to be determined.
-  @object_class.create_shared_method('.class', MethodWordSpec, [],
+  @object_class.create_shared_method('.class', PublicWordSpec, [],
     &lambda {|vm| vm.push(self.foorth_class)})
 
   #The .parent_class method. Retrieves the parent class of a class.
-  @class_class.create_shared_method('.parent_class', MethodWordSpec, [],
+  @class_class.create_shared_method('.parent_class', PublicWordSpec, [],
     &lambda {|vm| vm.push(self.foorth_parent)})
 
   #The .is_class? method. Is the object a class object?
   sym = SymbolMap.add_entry('.is_class?', :foorth_is_class?)
-  @object_class.create_shared_method('.is_class?', MethodWordSpec, [],
+  @object_class.create_shared_method('.is_class?', PublicWordSpec, [],
     &lambda {|vm| vm.push(false)})
 
-  @class_class.create_shared_method('.is_class?', MethodWordSpec, [],
+  @class_class.create_shared_method('.is_class?', PublicWordSpec, [],
     &lambda {|vm| vm.push(true)})
 
   #Get the name of the object.
-  @object_class.create_shared_method('.name', MethodWordSpec, [],
+  @object_class.create_shared_method('.name', PublicWordSpec, [],
     &lambda {|vm| vm.push(self.name)})
 
 end
