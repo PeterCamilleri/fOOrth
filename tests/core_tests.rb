@@ -294,11 +294,12 @@ class CoreTester < MiniTest::Unit::TestCase
     src = "lambda {|vm| "
     sym = XfOOrth::SymbolMap.map("Object")
     spec = XfOOrth.object_class.map_foorth_shared(sym)
-    src << spec.builds("Object")
+    src << spec.builds()
     sym = XfOOrth::SymbolMap.map(".is_class?")
     spec = XfOOrth.object_class.map_foorth_shared(sym)
-    src << spec.builds(".is_class?")
+    src << spec.builds()
     src << "}"
+
     blk = eval src
 
     vm.instance_exec(vm, &blk)
@@ -309,7 +310,7 @@ class CoreTester < MiniTest::Unit::TestCase
     src << "vm.push(inst1); "  #Punt for now.
     sym = XfOOrth::SymbolMap.map(".is_class?")
     spec = XfOOrth.object_class.map_foorth_shared(sym)
-    src << spec.builds(".is_class?")
+    src << spec.builds()
     src << "}"
     blk = eval src
 
@@ -328,7 +329,7 @@ class CoreTester < MiniTest::Unit::TestCase
     src = "lambda {|vm| vm.push(vm); "
     sym = XfOOrth::SymbolMap.map(".test")
     spec = XfOOrth::VirtualMachine.map_foorth_shared(sym)
-    src << spec.builds(".test")
+    src << spec.builds()
     src << "}"
     blk = eval src
 
@@ -358,7 +359,7 @@ class CoreTester < MiniTest::Unit::TestCase
     name = 'self'
     sym = XfOOrth::SymbolMap.map(name)
     spec = XfOOrth.object_class.map_foorth_shared(sym)
-    src << spec.builds(name)
+    src << spec.builds()
     src << "}"
     blk = eval src
 
@@ -370,7 +371,7 @@ class CoreTester < MiniTest::Unit::TestCase
     name = 'true'
     sym = XfOOrth::SymbolMap.map(name)
     spec = XfOOrth.object_class.map_foorth_shared(sym)
-    src << spec.builds(name)
+    src << spec.builds()
     src << "}"
     blk = eval src
 
@@ -382,7 +383,7 @@ class CoreTester < MiniTest::Unit::TestCase
     name = 'false'
     sym = XfOOrth::SymbolMap.map(name)
     spec = XfOOrth.object_class.map_foorth_shared(sym)
-    src << spec.builds(name)
+    src << spec.builds()
     src << "}"
     blk = eval src
 
@@ -394,7 +395,7 @@ class CoreTester < MiniTest::Unit::TestCase
     name = 'nil'
     sym = XfOOrth::SymbolMap.map(name)
     spec = XfOOrth.object_class.map_foorth_shared(sym)
-    src << spec.builds(name)
+    src << spec.builds()
     src << "}"
     blk = eval src
 
@@ -407,7 +408,7 @@ class CoreTester < MiniTest::Unit::TestCase
     name = '.name'
     sym = XfOOrth::SymbolMap.map(name)
     spec = XfOOrth.object_class.map_foorth_shared(sym)
-    src << spec.builds(name)
+    src << spec.builds()
     src << "}"
     blk = eval src
 

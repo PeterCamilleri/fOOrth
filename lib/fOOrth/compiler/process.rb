@@ -55,7 +55,7 @@ module XfOOrth
     def generate_code(token, word)
       unless word == '"'
         if (spec = @context.map(word))
-          spec.build_on(token, word)
+          spec.build_on(token)
         elsif (value = word.to_foorth_n)
           token << "vm.push(#{value.embed}); "
         else

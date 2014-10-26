@@ -7,6 +7,9 @@ module XfOOrth
   #The abstract base class for all of the different sorts of word specs.
   class AbstractWordSpec
 
+    #The compile-time text inserted into the buffer.
+    attr_reader :builds
+
     #The run-time action, a block that gets linked to the symbol.
     attr_reader :does
 
@@ -20,23 +23,14 @@ module XfOOrth
     def initialize(name, symbol, tags=[], &block)
       @tags = tags
       @does = block || lambda {|vm| error "No method for #{name} #{symbol}."}
-      early_builds_string(name, symbol)
-    end
-
-    #Get or generate the compile specification. This is a string to be
-    #appended to the the emitted Ruby code for calling this method.
-    #<br>Parameters:
-    #* name - The string (at the point of reference) that maps to the symbol.
-    def builds(name)
-      @builds || late_builds_string(name)
+      build_builds_string(name, symbol)
     end
 
     #Transfer needed info to a Token object for compiling.
     #<br>Parameters:
     #* token - The Token object to be filled with wisdom.
-    #* name - The string (at the point of reference) that maps to the symbol.
-    def build_on(token, name)
-      token << self.builds(name)
+    def build_on(token)
+      token << builds
       token.add_tags(export_tags)
     end
 
@@ -47,13 +41,8 @@ module XfOOrth
 
     #A place holder for cases where late build is required. All it does is save
     #away the symbol for later use by the late_builds_string method.
-    def early_builds_string(_name, symbol)
+    def build_builds_string(_name, symbol)
       @symbol = symbol
-    end
-
-    #A place holder to give clearer error messages?
-    def late_builds_string(_name, _symbol)
-      error "Why Vinnie? Why?"
     end
 
     #The tags that are to be exported.
@@ -68,7 +57,7 @@ module XfOOrth
     #<br>Parameters:
     #* _name - The string that maps to the symbol. Unused
     #* symbol - The symbol that the name maps to.
-    def early_builds_string(_name, symbol)
+    def build_builds_string(_name, symbol)
       @builds = "vm.#{symbol}(vm); "
     end
   end
@@ -77,14 +66,21 @@ module XfOOrth
   class PublicWordSpec < AbstractWordSpec
     #Generate the Ruby code for this method.
     #<br>Parameters:
-    #* name - The string that maps to the symbol.
+    #* _name - The string that maps to the symbol. Unused
     #* symbol - The symbol that the name maps to.
-    def late_builds_string(name)
-      if name[0] == '~'
-        "self.#{@symbol}(vm); "
-      else
-        "vm.pop.#{@symbol}(vm); "
-      end
+    def build_builds_string(_name, symbol)
+      @builds = "vm.pop.#{symbol}(vm); "
+    end
+  end
+
+  #A class used to specify the compile of methods of a class or object.
+  class PrivateWordSpec < AbstractWordSpec
+    #Generate the Ruby code for this method.
+    #<br>Parameters:
+    #* _name - The string that maps to the symbol. Unused
+    #* symbol - The symbol that the name maps to.
+    def build_builds_string(name, symbol)
+      @builds = "self.#{symbol}(vm); "
     end
   end
 
@@ -94,7 +90,7 @@ module XfOOrth
     #<br>Parameters:
     #* _name - The string that maps to the symbol. Unused
     #* symbol - The symbol that the name maps to.
-    def early_builds_string(_name, symbol)
+    def build_builds_string(_name, symbol)
       @builds = "vm.swap_pop.#{symbol}(vm); "
     end
   end
@@ -105,7 +101,7 @@ module XfOOrth
     #<br>Parameters:
     #* name - The string that maps to the symbol.
     #* _symbol - The symbol that the name maps to. Unused
-    def early_builds_string(name, _symbol)
+    def build_builds_string(name, _symbol)
       @builds = "vm.push(XfOOrth.all_classes[#{name.embed}]); "
     end
   end
@@ -116,7 +112,7 @@ module XfOOrth
     #<br>Parameters:
     #* _name - The string that maps to the symbol.  Unused
     #* symbol - The symbol that the name maps to.
-    def early_builds_string(_name, symbol)
+    def build_builds_string(_name, symbol)
       @builds = "vm.push(#{symbol}); "
     end
   end
@@ -136,8 +132,8 @@ module XfOOrth
     #  the name, @symbol, an expression, or global data.
     #<br>Endemic Code Smells
     #* :reek:UnusedParameters
-    def late_builds_string(name)
-      @tags[-1]
+    def build_builds_string(_name, _symbol)
+      @builds = @tags[-1]
     end
 
     #The tags that are to be exported. All but the last one.
