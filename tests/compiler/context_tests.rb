@@ -121,19 +121,19 @@ class ContextTester < MiniTest::Unit::TestCase
 
     name = 'b'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    context[sym] = XfOOrth::VmWordSpec.new(sym, name)
+    context[sym] = XfOOrth::VmWordSpec.new(name, sym)
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::VmWordSpec))
 
     name = '@b'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    context[sym] = XfOOrth::VariableWordSpec.new(sym, name)
+    context[sym] = XfOOrth::VariableWordSpec.new(name, sym)
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::VariableWordSpec))
 
     name = '.b'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    context[sym] = XfOOrth::PublicWordSpec.new(sym, name)
+    context[sym] = XfOOrth::PublicWordSpec.new(name, sym)
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::PublicWordSpec))
   end
@@ -143,21 +143,9 @@ class ContextTester < MiniTest::Unit::TestCase
     mk = MockClass.new
     context = XfOOrth::Context.new(nil, cls: mk)
 
-    name = 'c'
-    sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::PublicWordSpec.new(sym, name)
-    spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::PublicWordSpec))
-
-    name = '@c'
-    sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::VariableWordSpec.new(sym, name)
-    spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::VariableWordSpec))
-
     name = '.c'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::PublicWordSpec.new(sym, name)
+    mk[sym] = XfOOrth::PublicWordSpec.new(name, sym)
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::PublicWordSpec))
   end
@@ -167,21 +155,9 @@ class ContextTester < MiniTest::Unit::TestCase
     mk = MockObject.new
     context = XfOOrth::Context.new(nil, obj: mk)
 
-    name = 'd'
-    sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::PublicWordSpec.new(sym, name)
-    spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::PublicWordSpec))
-
-    name = '@d'
-    sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::VariableWordSpec.new(sym, name)
-    spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::VariableWordSpec))
-
     name = '.d'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::PublicWordSpec.new(sym, name)
+    mk[sym] = XfOOrth::PublicWordSpec.new(name, sym)
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::PublicWordSpec))
   end

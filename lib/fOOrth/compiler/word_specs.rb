@@ -13,6 +13,9 @@ module XfOOrth
     #The run-time action, a block that gets linked to the symbol.
     attr_reader :does
 
+    #The attributes tagged to this specification.
+    attr_reader :tags
+
     #Set up the method spec.
     #<br>Parameters:
     #* name - The string that maps to the symbol.
@@ -21,9 +24,14 @@ module XfOOrth
     #<br>These may include:
     #* :immediate - The word is executed, even in compile modes.
     def initialize(name, symbol, tags=[], &block)
+      validate(name)
       @tags = tags
       @does = block || lambda {|vm| error "No method for #{name} #{symbol}."}
       build_builds_string(name, symbol)
+    end
+
+    #Validate the name for this type of entry.
+    def validate(name)
     end
 
     #Transfer needed info to a Token object for compiling.
@@ -37,12 +45,6 @@ module XfOOrth
     #Look up an tag of interest.
     def has_tag?(tag)
       @tags.include?(tag)
-    end
-
-    #A place holder for cases where late build is required. All it does is save
-    #away the symbol for later use by the late_builds_string method.
-    def build_builds_string(_name, symbol)
-      @symbol = symbol
     end
 
     #The tags that are to be exported.
@@ -71,6 +73,12 @@ module XfOOrth
     def build_builds_string(_name, symbol)
       @builds = "vm.pop.#{symbol}(vm); "
     end
+
+    #Validate the name for this type of entry.
+    def validate(name)
+      error "Invalid public method name: '#{name}'" unless /^\../ =~ name
+    end
+
   end
 
   #A class used to specify the compile of methods of a class or object.
@@ -81,6 +89,17 @@ module XfOOrth
     #* symbol - The symbol that the name maps to.
     def build_builds_string(name, symbol)
       @builds = "self.#{symbol}(vm); "
+    end
+  end
+
+  #A class used to specify the compile of monadic operators.
+  class MonadicWordSpec < AbstractWordSpec
+    #Generate the Ruby code for this dyadic operator.
+    #<br>Parameters:
+    #* _name - The string that maps to the symbol. Unused
+    #* symbol - The symbol that the name maps to.
+    def build_builds_string(_name, symbol)
+      @builds = "vm.pop.#{symbol}(vm); "
     end
   end
 

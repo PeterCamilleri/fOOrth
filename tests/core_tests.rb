@@ -171,7 +171,7 @@ class CoreTester < MiniTest::Unit::TestCase
     blk = lambda {|vm| vm.pop.foo(vm) }
 
     # In fOOrth ==> Object :: foo 4 ;
-    spec_4 = XfOOrth::PublicWordSpec.new('foo', :foo, [], &lambda {|vm| vm.push(4)})
+    spec_4 = XfOOrth::PublicWordSpec.new('.foo0', :foo, [], &lambda {|vm| vm.push(4)})
     XfOOrth.object_class.add_shared_method(:foo, spec_4)
 
     vm.push(inst1)
@@ -183,7 +183,7 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal(4, vm.pop)
 
     # In fOOrth ==> Object :: foo 5 ;
-    spec_5 = XfOOrth::PublicWordSpec.new('foo', :foo, [], &lambda {|vm| vm.push(5)})
+    spec_5 = XfOOrth::PublicWordSpec.new('.foo0', :foo, [], &lambda {|vm| vm.push(5)})
     XfOOrth.object_class.add_shared_method(:foo, spec_5)
 
     vm.push(inst1)
@@ -195,7 +195,7 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal(5, vm.pop)
 
     # In fOOrth ==> TestClass :: foo 6 ;
-    spec_6 = XfOOrth::PublicWordSpec.new('foo', :foo, [], &lambda {|vm| vm.push(6)})
+    spec_6 = XfOOrth::PublicWordSpec.new('.foo0', :foo, [], &lambda {|vm| vm.push(6)})
     test_class.add_shared_method(:foo, spec_6)
 
     blk = lambda {|vm| vm.pop.foo(vm) }
@@ -209,7 +209,7 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal(6, vm.pop)
 
     # In fOOrth ==> Object :: foo 7 ;
-    spec_7 = XfOOrth::PublicWordSpec.new('foo', :foo, [], &lambda {|vm| vm.push(7)})
+    spec_7 = XfOOrth::PublicWordSpec.new('.foo0', :foo, [], &lambda {|vm| vm.push(7)})
     XfOOrth.object_class.add_shared_method(:foo, spec_7)
 
     blk = lambda {|vm| vm.pop.foo(vm) }
@@ -238,7 +238,7 @@ class CoreTester < MiniTest::Unit::TestCase
     blk = lambda {|vm| vm.pop.bar(vm) }
 
     # In fOOrth ==> Object :: bar 11 ;
-    spec_11 = XfOOrth::PublicWordSpec.new('bar', :bar, [], &lambda {|vm| vm.push(11)})
+    spec_11 = XfOOrth::PublicWordSpec.new('.bar0', :bar, [], &lambda {|vm| vm.push(11)})
     XfOOrth.object_class.add_shared_method(:bar, spec_11)
 
     vm.push(inst1)
@@ -250,7 +250,7 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal(11, vm.pop)
 
     # In fOOrth ==> inst2 @ ::: bar 22 ;
-    spec_22 = XfOOrth::PublicWordSpec.new('bar', :bar, [], &lambda {|vm| vm.push(22)})
+    spec_22 = XfOOrth::PublicWordSpec.new('.bar0', :bar, [], &lambda {|vm| vm.push(22)})
     inst2.add_exclusive_method(:bar, spec_22)
 
     vm.push(inst1)
@@ -262,7 +262,7 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal(22, vm.pop)
 
     # In fOOrth ==> Object :: bar 33 ;
-    spec_33 = XfOOrth::PublicWordSpec.new('bar', :bar, [], &lambda {|vm| vm.push(33)})
+    spec_33 = XfOOrth::PublicWordSpec.new('.bar0', :bar, [], &lambda {|vm| vm.push(33)})
     XfOOrth.object_class.add_shared_method(:bar, spec_33)
 
     vm.push(inst1)
