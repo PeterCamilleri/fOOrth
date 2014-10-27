@@ -3,7 +3,7 @@
 #* compiler/process.rb - Process source code from a code source.
 module XfOOrth
 
-  #* process.rb - Process source code from a code source.
+  #* compiler/process.rb - Process source code from a code source.
   class VirtualMachine
 
     #Process the source code provided by the source parameter.

@@ -16,10 +16,8 @@ module XfOOrth
 
   #A colon definition that creates a word in the specified class.
   VirtualMachine.create_shared_method('::', VmWordSpec, [],  &lambda {|vm|
-    name    = vm.parser.get_word()
-    (target = vm.pop).foorth_is_class?(vm)
-
-    error "The target of :: must be a class." unless vm.pop?
+    name   = vm.parser.get_word()
+    target = vm.pop_compile_class('::')
 
     error "Name Error: All non-Object mapped methods must begin with a '.'" unless
       (target.name == 'Object') || (name[0] == '.') || XfOOrth.object_maps(name)
