@@ -24,14 +24,9 @@ module XfOOrth
     #<br>These may include:
     #* :immediate - The word is executed, even in compile modes.
     def initialize(name, symbol, tags=[], &block)
-      validate(name)
       @tags = tags
       @does = block || lambda {|vm| error "No method for #{name} #{symbol}."}
       build_builds_string(name, symbol)
-    end
-
-    #Validate the name for this type of entry.
-    def validate(name)
     end
 
     #Transfer needed info to a Token object for compiling.
@@ -73,12 +68,6 @@ module XfOOrth
     def build_builds_string(_name, symbol)
       @builds = "vm.pop.#{symbol}(vm); "
     end
-
-    #Validate the name for this type of entry.
-    def validate(name)
-      error "Invalid public method name: '#{name}'" unless /^\../ =~ name
-    end
-
   end
 
   #A class used to specify the compile of methods of a class or object.
