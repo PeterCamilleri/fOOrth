@@ -2,6 +2,7 @@
 
 require_relative 'compiler/word_specs'
 
+require_relative 'core/core_access'
 require_relative 'core/object'
 require_relative 'core/class'
 require_relative 'core/virtual_machine'
@@ -10,35 +11,7 @@ require_relative 'core/proxy'
 #* core.rb - The fOOrth language OO core.
 module XfOOrth
 
-  class << self
-    #A short-cut for getting the hash of all fOOrth classes.
-    attr_reader :all_classes
-
-    #A short-cut for getting the fOOrth Object class.
-    attr_reader :object_class
-
-    #A short-cut for getting the fOOrth Class class.
-    attr_reader :class_class
-
-    #Get the spec that corresponds to this symbol in the Object shared dictionary.
-    def object_maps_symbol(symbol)
-      object_class.map_foorth_shared(symbol)
-    end
-
-    #Get the spec that corresponds to this name in the Object shared dictionary.
-    def object_maps_name(name)
-      (symbol = SymbolMap.map(name)) && object_maps_symbol(symbol)
-    end
-
-    #A short-cut for getting the virtual machine of the current thread.
-    def virtual_machine
-      Thread.current[:vm]
-    end
-  end
-
-
-  #There is no short cut for getting the fOOrth VitualMachine class because
-  #it also happens to be the Ruby VirtualMachine class.
+  extend CoreAccess
 
   #==========================================================================
   # The Core Initialization Code Block. This code weaves the core of the

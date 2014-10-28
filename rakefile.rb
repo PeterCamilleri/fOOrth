@@ -15,6 +15,7 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/display_abort.rb",
                      "lib/fOOrth/symbol_map.rb",
                      "lib/fOOrth/core.rb",
+                     "lib/fOOrth/core/core_access.rb",
                      "lib/fOOrth/core/object.rb",
                      "lib/fOOrth/core/class.rb",
                      "lib/fOOrth/core/virtual_machine.rb",
