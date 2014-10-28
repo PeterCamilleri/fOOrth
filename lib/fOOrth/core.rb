@@ -20,15 +20,22 @@ module XfOOrth
     #A short-cut for getting the fOOrth Class class.
     attr_reader :class_class
 
-    def object_maps(name)
-      (symbol = SymbolMap.map(name)) && object_class.map_foorth_shared(symbol)
+    #Get the spec that corresponds to this symbol in the Object shared dictionary.
+    def object_maps_symbol(symbol)
+      object_class.map_foorth_shared(symbol)
+    end
+
+    #Get the spec that corresponds to this name in the Object shared dictionary.
+    def object_maps_name(name)
+      (symbol = SymbolMap.map(name)) && object_maps_symbol(symbol)
+    end
+
+    #A short-cut for getting the virtual machine of the current thread.
+    def virtual_machine
+      Thread.current[:vm]
     end
   end
 
-  #A short-cut for getting the virtual machine of the current thread.
-  def self.virtual_machine
-    Thread.current[:vm]
-  end
 
   #There is no short cut for getting the fOOrth VitualMachine class because
   #it also happens to be the Ruby VirtualMachine class.
@@ -65,8 +72,8 @@ module XfOOrth
   #Object class has no parent, so nil is the actual parent, not a stand in.
   @object_class = object_anon.new('Object', nil)
 
-  #Predefine the default implementation of the init method. All classes
-  #inherit this simple method.
+  #Predefine the default implementation of the .init method. This method must
+  #exist at this point in order to proceed further.
   name = '.init'
   sym = SymbolMap.add_entry(name, :foorth_init)
   spec = PublicWordSpec.new(name, sym, [], &lambda {|vm| })

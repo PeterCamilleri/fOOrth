@@ -20,7 +20,7 @@ module XfOOrth
     target = vm.pop_compile_class('::')
 
     error "Name Error: All non-Object mapped methods must begin with a '.'" unless
-      (target.name == 'Object') || (name[0] == '.') || XfOOrth.object_maps(name)
+      (target.name == 'Object') || (name[0] == '.') || XfOOrth.object_maps_name(name)
 
     begin_compile_mode('::', cls: target, &lambda {|vm, src|
       puts "#{target.name} #{name} => #{src}" if vm.debug
