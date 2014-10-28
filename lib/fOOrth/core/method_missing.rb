@@ -8,19 +8,27 @@ module XfOOrth
     #The \method_missing hook is at the very heart of the fOOrth language
     #compiler. It is here that code blocks are added for shared methods.
     #<br>Parameters:
-    #* name - The name of the missing method.
+    #* symbol - The symbol of the missing method.
     #* args - Any arguments that were passed to that method.
     #* block - Any block that might have passed to the method.
-    def method_missing(name, *args, &block)
-      if foorth_class.link_shared_method(name, self.class)
-        send(name, *args, &block)
-      elsif (names = SymbolMap.unmap(name))
-        my_name = self.respond_to?(:name) ? self.name : self.class.name
-        names = names[0] unless names.length > 1
-        error "A #{my_name} does not understand #{names} (#{name.inspect})."
+    def method_missing(symbol, *args, &block)
+      if foorth_class.link_shared_method(symbol, self.class)
+        send(symbol, *args, &block)
+      elsif (names = SymbolMap.unmap(symbol))
+        report_method_missing_error(symbol, names)
       else
         super
       end
+    end
+
+    #The common point for reporting a method missing error
+    #<br>Parameters:
+    #* symbol - The symbol that was sent.
+    #* names - The name or names that were not found.
+    def report_method_missing_error(symbol, names)
+      self_name = self.respond_to?(:name) ? self.name : "#{self.class.name} instance"
+      names = names[0] unless names.length > 1
+      error "A #{self_name} does not understand #{names} (#{symbol.inspect})."
     end
 
   end

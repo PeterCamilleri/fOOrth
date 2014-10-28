@@ -25,7 +25,7 @@ module XfOOrth
       &lambda {foorth_parent})
 
     target_class.define_singleton_method(:foorth_class,
-      &lambda {XfOOrth.class_class})
+      &lambda {XfOOrth _class})
 
     target_class.write_var(:@instance_template, target_class)
 
@@ -33,7 +33,7 @@ module XfOOrth
       &lambda {target_class})
 
     target_class.send(:define_method, :name,
-      &lambda {"#{foorth_class.name} instance."})
+      &lambda {"#{foorth_class.name} instance"})
 
     target_class.extend(SharedCache)
     target_class.extend(Shared)

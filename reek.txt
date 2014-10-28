@@ -1,5 +1,11 @@
 lib/fOOrth/compiler/modes.rb -- 1 warning:
-  [15, 29, 43, 55, 69, 97]:XfOOrth::VirtualMachine tests debug at least 6 times (RepeatedConditional)
-lib/fOOrth/core/method_missing.rb -- 1 warning:
-  [15, 18]:XfOOrth::MethodMissing#method_missing calls self.class twice (DuplicateMethodCall)
-2 total warnings
+  [16, 32, 46, 58, 72, 101]:XfOOrth::VirtualMachine tests debug at least 6 times (RepeatedConditional)
+lib/fOOrth/compiler/word_specs.rb -- 1 warning:
+  [79]:XfOOrth::PrivateWordSpec#build_builds_string has unused parameter 'name' (UnusedParameters)
+lib/fOOrth/core/core_access.rb -- 1 warning:
+  [29]:CoreAccess#virtual_machine doesn't depend on instance state (UtilityFunction)
+lib/fOOrth/monkey_patch/string.rb -- 3 warnings:
+  [27, 29]:String#to_foorth_n calls $'.chop twice (DuplicateMethodCall)
+  [27, 29]:String#to_foorth_n calls $'.chop.to_foorth_n twice (DuplicateMethodCall)
+  [27, 29]:String#to_foorth_n calls $`.to_foorth_n twice (DuplicateMethodCall)
+6 total warnings
