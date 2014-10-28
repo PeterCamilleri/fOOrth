@@ -25,7 +25,7 @@ module XfOOrth
       &lambda {foorth_parent})
 
     target_class.define_singleton_method(:foorth_class,
-      &lambda {XfOOrth _class})
+      &lambda {XfOOrth.class_class})
 
     target_class.write_var(:@instance_template, target_class)
 
