@@ -76,7 +76,7 @@ module XfOOrth
     #<br>Parameters:
     #* _name - The string that maps to the symbol. Unused
     #* symbol - The symbol that the name maps to.
-    def build_builds_string(name, symbol)
+    def build_builds_string(_name, symbol)
       @builds = "self.#{symbol}(vm); "
     end
   end
