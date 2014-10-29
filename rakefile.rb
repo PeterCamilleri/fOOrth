@@ -23,6 +23,7 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/core/shared.rb",
                      "lib/fOOrth/core/shared_cache.rb",
                      "lib/fOOrth/core/method_missing.rb",
+                     "lib/fOOrth/core/proxy_method_missing.rb",
                      "lib/fOOrth/library.rb",
                      "lib/fOOrth/library/string_library.rb",
                      "lib/fOOrth/library/numeric_library.rb",
