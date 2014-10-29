@@ -72,8 +72,6 @@ module XfOOrth
 
   #Everything after this point should be re-factored elsewhere!
 
-  @object_class.create_shared_method('VirtualMachine', MacroWordSpec,
-    ["vm.push(VirtualMachine); "])
 
   #==========================================================================
   # Define some core methods.

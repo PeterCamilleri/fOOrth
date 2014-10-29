@@ -5,7 +5,7 @@ require_relative 'support/foorth_testing'
 require          'minitest/autorun'
 
 #Test the standard fOOrth library.
-class ClassLibraryTester < MiniTest::Unit::TestCase
+class VMLibraryTester < MiniTest::Unit::TestCase
 
   include XfOOrthTestExtensions
 
@@ -22,8 +22,11 @@ class ClassLibraryTester < MiniTest::Unit::TestCase
     super(*all)
   end
 
-  def test_that_the_class_class_is_available
-    foorth_equal("Class", [XfOOrth.class_class])
+  def test_that_the_VM_class_and_instance_are_available
+    foorth_equal("VirtualMachine", [XfOOrth::VirtualMachine])
+
+    vm = XfOOrth.virtual_machine
+    foorth_equal("vm", [vm])
   end
 
 
