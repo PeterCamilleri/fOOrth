@@ -124,18 +124,6 @@ class ContextTester < MiniTest::Unit::TestCase
     context[sym] = XfOOrth::VmWordSpec.new(name, sym)
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::VmWordSpec))
-
-    name = '@b'
-    sym = XfOOrth::SymbolMap.add_entry(name)
-    context[sym] = XfOOrth::VariableWordSpec.new(name, sym)
-    spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::VariableWordSpec))
-
-    name = '.b'
-    sym = XfOOrth::SymbolMap.add_entry(name)
-    context[sym] = XfOOrth::PublicWordSpec.new(name, sym)
-    spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::PublicWordSpec))
   end
 
   #Test the class instance mapping of symbols
@@ -159,32 +147,6 @@ class ContextTester < MiniTest::Unit::TestCase
     sym = XfOOrth::SymbolMap.add_entry(name)
     mk[sym] = XfOOrth::PublicWordSpec.new(name, sym)
     spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::PublicWordSpec))
-  end
-
-
-  #Test the mapping of symbols.
-  def test_the_default_mapping_of_symbols
-    context = XfOOrth::Context.new(nil)
-
-    spec = context.map('test')
-    assert_equal(spec, nil)
-
-    XfOOrth::SymbolMap.add_entry('a')
-    XfOOrth::SymbolMap.add_entry('@a')
-    XfOOrth::SymbolMap.add_entry('$a')
-    XfOOrth::SymbolMap.add_entry('.a')
-
-    spec = context.map('a')
-    assert(spec.is_a?(XfOOrth::VmWordSpec))
-
-    spec = context.map('@a')
-    assert(spec.is_a?(XfOOrth::VariableWordSpec))
-
-    spec = context.map('$a')
-    assert(spec.is_a?(XfOOrth::VariableWordSpec))
-
-    spec = context.map('.a')
     assert(spec.is_a?(XfOOrth::PublicWordSpec))
   end
 

@@ -41,34 +41,8 @@ module XfOOrth
     #<br>Returns:
     #* The specification that corresponds to the name or nil if none found.
     def map(name)
-      if (symbol = SymbolMap.map(name))
-        self[symbol]                                           ||
-        ((vm = self[:vm])  && vm.map_foorth_exclusive(symbol)) ||
-        ((to = self[:obj]) && to.map_foorth_exclusive(symbol)) ||
-        ((tc = self[:cls]) && tc.map_foorth_shared(symbol))    ||
-        map_default(name, symbol)
-      end
-    end
-
-    #Map a name to a specification based on the text of the name.
-    #<br>Parameters:
-    #* name - The name to be mapped.
-    #* symbol - The symbol to be mapped.
-    #<br>Returns:
-    #* The specification that corresponds to the name.
-    #<br>Endemic Code Smells
-    #* :reek:UtilityFunction
-    #* :reek:FeatureEnvy
-    def map_default(name, symbol)
-      case name[0]
-        when '@', '$'
-          VariableWordSpec.new(name, symbol)
-
-        when '.', '~'
-          PublicWordSpec.new(name, symbol)
-
-        else
-          VmWordSpec.new(name, symbol)
+      if (@symbol = SymbolMap.map(@name = name))
+        do_map_name
       end
     end
 
@@ -93,5 +67,67 @@ module XfOOrth
     def depth
       1 + (previous ? previous.depth : 0)
     end
+
+    private
+
+    #Do a search of dictionaries based on the syntax of the name.
+    def do_map_name
+      case @name[0]
+        when '.'
+          do_object_class_map    ||
+          do_vm_target_map       ||
+          do_default_public_spec
+
+        when '~', '@'
+          do_class_target_map    ||
+          do_object_target_map   ||
+          do_vm_target_map       ||
+          spec_error
+
+        when '$'
+          spec_error  # Reserved for now.
+
+        when '#'
+          spec_error  # Reserved for now.
+
+        else
+          @data[@symbol]         ||
+          do_object_class_map    ||
+          do_vm_target_map       ||
+          spec_error
+      end
+
+    end
+
+    #Do a search of the Object class for the item.
+    def do_object_class_map
+      XfOOrth.object_maps_symbol(@symbol)
+    end
+
+    #Do a search of the :cls tag if it is specified.
+    def do_class_target_map
+      (tc = self[:cls]) && tc.map_foorth_shared(@symbol)
+    end
+
+    #Do a search of the :obj tag if it is specified.
+    def do_object_target_map
+      (to = self[:obj]) && to.map_foorth_exclusive(@symbol)
+    end
+
+    #Do a search of the :vm tag if it is specified.
+    def do_vm_target_map
+      (vm = self[:vm]) && vm.map_foorth_exclusive(@symbol)
+    end
+
+    #Create a default entry for a method
+    def do_default_public_spec
+      PublicWordSpec.new(@name, @symbol)
+    end
+
+    #Error: Unable to find a specification.
+    def spec_error
+      error "Unable to find a spec for #{@name} (#{@symbol.inspect})"
+    end
+
   end
 end
