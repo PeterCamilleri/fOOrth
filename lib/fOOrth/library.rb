@@ -1,5 +1,6 @@
 # coding: utf-8
 
+require_relative 'library/object_library'
 require_relative 'library/compile_library'
 require_relative 'library/standard_library'
 require_relative 'library/ctrl_struct_library'

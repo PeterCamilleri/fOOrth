@@ -10,10 +10,13 @@ RDoc::Task.new do |rdoc|
 
   #List out all the files to be documented.
   rdoc.rdoc_files = ["lib/fOOrth.rb",
+
+                     "lib/fOOrth/main.rb",
                      "lib/fOOrth/initialize.rb",
                      "lib/fOOrth/exceptions.rb",
                      "lib/fOOrth/display_abort.rb",
                      "lib/fOOrth/symbol_map.rb",
+
                      "lib/fOOrth/core.rb",
                      "lib/fOOrth/core/core_access.rb",
                      "lib/fOOrth/core/object.rb",
@@ -24,16 +27,22 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/core/shared_cache.rb",
                      "lib/fOOrth/core/method_missing.rb",
                      "lib/fOOrth/core/proxy_method_missing.rb",
+
                      "lib/fOOrth/library.rb",
-                     "lib/fOOrth/library/string_library.rb",
-                     "lib/fOOrth/library/numeric_library.rb",
+                     "lib/fOOrth/library/object_library.rb",
+                     "lib/fOOrth/library/compile_library.rb",
                      "lib/fOOrth/library/standard_library.rb",
                      "lib/fOOrth/library/ctrl_struct_library.rb",
                      "lib/fOOrth/library/stdio_library.rb",
+                     "lib/fOOrth/library/numeric_library.rb",
+                     "lib/fOOrth/library/string_library.rb",
+                     "lib/fOOrth/library/other_value_types_library.rb",
                      "lib/fOOrth/library/command_library.rb",
+
                      "lib/fOOrth/interpreter.rb",
                      "lib/fOOrth/interpreter/data_stack.rb",
                      "lib/fOOrth/interpreter/ctrl_stack.rb",
+
                      "lib/fOOrth/compiler.rb",
                      "lib/fOOrth/compiler/read_point.rb",
                      "lib/fOOrth/compiler/console.rb",
@@ -46,13 +55,14 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/compiler/context.rb",
                      "lib/fOOrth/compiler/word_specs.rb",
                      "lib/fOOrth/compiler/modes.rb",
-                     "lib/fOOrth/main.rb",
+
                      "lib/fOOrth/monkey_patch.rb",
                      "lib/fOOrth/monkey_patch/object.rb",
                      "lib/fOOrth/monkey_patch/numeric.rb",
                      "lib/fOOrth/monkey_patch/rational.rb",
                      "lib/fOOrth/monkey_patch/complex.rb",
                      "lib/fOOrth/monkey_patch/string.rb",
+
                      "license.txt",
                      "readme.txt"]
 
@@ -88,7 +98,8 @@ end
 #Run the fOOrth integration test suite.
 Rake::TestTask.new(:integration) do |t|
   #List out all the test files.
-  t.test_files = ["integration/standard_library_tests.rb",
+  t.test_files = ["integration/object_library_tests.rb",
+                  "integration/standard_library_tests.rb",
                   "integration/ctrl_struct_library_tests.rb",
                   "integration/compile_library_tests.rb",
                   "integration/stdio_library_tests.rb"
