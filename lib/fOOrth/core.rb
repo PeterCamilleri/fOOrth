@@ -72,11 +72,6 @@ module XfOOrth
 
   #Everything after this point should be re-factored elsewhere!
 
-  #Create the symbol table entries for the core classes.
-
-  @object_class.create_shared_method('Class', MacroWordSpec,
-    ["vm.push(XfOOrth.class_class); "])
-
   @object_class.create_shared_method('VirtualMachine', MacroWordSpec,
     ["vm.push(VirtualMachine); "])
 
