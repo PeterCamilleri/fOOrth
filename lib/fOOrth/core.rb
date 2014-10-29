@@ -27,21 +27,21 @@ module XfOOrth
   #class is set to nil as a stand in.
   class_anon = Class.new(XClass, &lambda {|vm| @foorth_class = nil})
 
-  #Create the instance of fOOrth class for fOOrth class class. At this point
+  #Create the instance of fOOrth class for fOOrth Class class. At this point
   #there is no way to set the foorth_parent because it does not yet exist. So
-  #the value nil is used as a temporary stand in.
+  #the value nil is used as a temporary stand in. It is set below.
   @class_class = class_anon.new('Class', nil)
 
-  #Set the class of the fOOrth class to be the newly created fOOrth class.
-  #This means that fOOrth class is an instance of itself! Of all the fOOrth
+  #Set the class of the fOOrth Class to be the newly created fOOrth Class.
+  #This means that fOOrth Class is an instance of itself! Of all the fOOrth
   #classes, it is unique in this respect.
   class_anon.foorth_class = @class_class
 
-  #Create the anonymous template class for the fOOrth object class.
+  #Create the anonymous template class for the fOOrth Object class.
   #Note that it is also an instance of fOOrth class.
   object_anon = Class.new(XClass, &lambda {|vm| @foorth_class = XfOOrth.class_class})
 
-  #Create the instance of fOOrth class for fOOrth object class. The fOOrth
+  #Create the instance of fOOrth class for fOOrth Object class. The fOOrth
   #Object class has no parent, so nil is the actual parent, not a stand in.
   @object_class = object_anon.new('Object', nil)
 
@@ -65,8 +65,12 @@ module XfOOrth
   #Explicitly add the VirtualMachine class to the hash of all classes
   all_classes['VirtualMachine'] = VirtualMachine
 
-  #Create a virtual machine for the main thread.
+  #Create a virtual machine instance for the main thread. The constructor
+  #connects the new instance to a thread variable so we don't need to do
+  #anything with it here.
   VirtualMachine.new('Main')
+
+  #Everything after this point should be re-factored elsewhere!
 
   #Create the symbol table entries for the core classes.
   @object_class.create_shared_method('Object', MacroWordSpec,
