@@ -26,5 +26,27 @@ class ClassLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("Class", [XfOOrth.class_class])
   end
 
+  def test_that_we_can_tell_classes_from_non_classes
+    foorth_equal("Class  .is_class?",      [true])
+    foorth_equal("Object .is_class?",      [true])
+    foorth_equal("Object .new .is_class?", [false])
+
+    foorth_equal("Fixnum .is_class?",      [true])
+    foorth_equal("42     .is_class?",      [false])
+  end
+
+  def test_that_we_can_find_the_class_of_a_thing
+    foorth_equal("Class       .class",     [XfOOrth.class_class])
+    foorth_equal("Object      .class",     [XfOOrth.class_class])
+
+    foorth_equal("Object .new .class",     [XfOOrth.object_class])
+    foorth_equal("42          .class",     [Fixnum])
+    foorth_equal('"foobar"    .class',     [String])
+  end
+
+  def test_that_we_can_find_the_parent_of_a_class
+    foorth_equal("Class  .parent_class",   [XfOOrth.object_class])
+    foorth_equal("Object .parent_class",   [nil])
+  end
 
 end

@@ -21,7 +21,7 @@ module XfOOrth
   #Set up a hash for all fOOrth class objects.
   @all_classes = Hash.new
 
-  #Create the anonymous template class for the fOOrth class class. Each
+  #Create the anonymous template class for the fOOrth Class class. Each
   #instance of fOOrth class will be wrapped in one of these anonymous classes
   #to allow it to define methods independently. The fOOrth class of this
   #class is set to nil as a stand in.

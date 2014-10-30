@@ -26,5 +26,13 @@ class ObjectLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("Object", [XfOOrth.object_class])
   end
 
+  def test_getting_a_things_name
+    foorth_equal("Object .name",      ['Object'])
+    foorth_equal("Class  .name",      ['Class'])
+
+    foorth_equal("Object .new .name", ['Object instance'])
+    foorth_equal("45          .name", ['Fixnum instance'])
+    foorth_equal('"Foobar"    .name', ['String instance'])
+  end
 
 end

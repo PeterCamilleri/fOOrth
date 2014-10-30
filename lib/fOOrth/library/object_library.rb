@@ -7,5 +7,4 @@ module XfOOrth
   @object_class.create_shared_method('Object', MacroWordSpec,
     ["vm.push(XfOOrth.object_class); "])
 
-
 end
