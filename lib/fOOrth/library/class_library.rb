@@ -16,7 +16,7 @@ module XfOOrth
     &lambda {|vm| vm.push(self.foorth_parent)})
 
   #The .is_class? method. Is the object a class object?
-  sym = SymbolMap.add_entry('.is_class?', :foorth_is_class?)
+  SymbolMap.add_entry('.is_class?', :foorth_is_class?)
   @object_class.create_shared_method('.is_class?', PublicWordSpec, [],
     &lambda {|vm| vm.push(false)})
 
