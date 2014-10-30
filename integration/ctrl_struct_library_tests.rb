@@ -1,6 +1,6 @@
 # coding: utf-8
 
-require_relative '../lib/foorth'
+require_relative '../lib/fOOrth'
 require_relative 'support/foorth_testing'
 require          'minitest/autorun'
 
