@@ -10,8 +10,11 @@ require_relative 'fOOrth/interpreter'
 require_relative 'fOOrth/compiler'
 require_relative 'fOOrth/initialize'
 require_relative 'fOOrth/core'
-require_relative 'fOOrth/library'
-require_relative 'fOOrth/main'
+
+unless $exclude_fOOrth_library
+  require_relative 'fOOrth/library'
+  require_relative 'fOOrth/main'
+end
 
 #\XfOOrth - the module name space of the fOOrth language system.
 #* fOOrth.rb - The root file that gathers up all the system's parts.

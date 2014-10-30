@@ -1,7 +1,6 @@
 # coding: utf-8
 
 require_relative 'compiler/word_specs'
-
 require_relative 'core/core_access'
 require_relative 'core/object'
 require_relative 'core/class'
@@ -10,7 +9,6 @@ require_relative 'core/proxy'
 
 #* core.rb - The fOOrth language OO core.
 module XfOOrth
-
   extend CoreAccess
 
   #==========================================================================
@@ -69,32 +67,4 @@ module XfOOrth
   #connects the new instance to a thread variable so we don't need to do
   #anything with it here.
   VirtualMachine.new('Main')
-
-  #Everything after this point should be re-factored elsewhere!
-
-
-  #==========================================================================
-  # Define some core methods.
-  #==========================================================================
-
-  #The .class method. This allows the class of any object to be determined.
-  @object_class.create_shared_method('.class', PublicWordSpec, [],
-    &lambda {|vm| vm.push(self.foorth_class)})
-
-  #The .parent_class method. Retrieves the parent class of a class.
-  @class_class.create_shared_method('.parent_class', PublicWordSpec, [],
-    &lambda {|vm| vm.push(self.foorth_parent)})
-
-  #The .is_class? method. Is the object a class object?
-  sym = SymbolMap.add_entry('.is_class?', :foorth_is_class?)
-  @object_class.create_shared_method('.is_class?', PublicWordSpec, [],
-    &lambda {|vm| vm.push(false)})
-
-  @class_class.create_shared_method('.is_class?', PublicWordSpec, [],
-    &lambda {|vm| vm.push(true)})
-
-  #Get the name of the object.
-  @object_class.create_shared_method('.name', PublicWordSpec, [],
-    &lambda {|vm| vm.push(self.name)})
-
 end

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-require_relative '../../lib/fOOrth'
+require_relative '../../lib/fOOrth/interpreter'
 require          'minitest/autorun'
 
 #Test the monkey patches applied to the Object class.
