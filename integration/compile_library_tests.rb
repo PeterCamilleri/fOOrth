@@ -36,14 +36,14 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_creating_methods
-    foorth_equal('Numeric :: .dbl self dup + ; 4 .dbl', [8])
+    foorth_equal('Numeric .:: .dbl self dup + ; 4 .dbl', [8])
     foorth_equal('9 .dbl', [18])
   end
 
   def test_methods_override
-    foorth_equal('Numeric :: .foo self 3 * ; 4 .foo', [12])
+    foorth_equal('Numeric .:: .foo self 3 * ; 4 .foo', [12])
     foorth_equal('5 .foo', [15])
-    foorth_equal('Numeric :: .foo self 4 * ; 4 .foo', [16])
+    foorth_equal('Numeric .:: .foo self 4 * ; 4 .foo', [16])
     foorth_equal('5 .foo', [20])
   end
 
