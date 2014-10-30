@@ -5,26 +5,48 @@ module XfOOrth
 
   #The classic colon definition that creates a word in the Virtual Machine class.
   VirtualMachine.create_shared_method(':', VmWordSpec, [],  &lambda {|vm|
-    name   = vm.parser.get_word()
     target = VirtualMachine
+    name   = vm.parser.get_word()
+    type   = VmWordSpec
 
     begin_compile_mode(':', vm: vm, &lambda {|vm, src|
       puts "#{name} => #{src}" if vm.debug
-      target.create_shared_method(name, VmWordSpec, [], &eval(src))
+      target.create_shared_method(name, type, [], &eval(src))
     })
   })
 
+  #An array of types allowed for a method.
+  AllowedMethodTypes = [PublicWordSpec,
+                        PrivateWordSpec,
+                        MonadicWordSpec,
+                        DyadicWordSpec]
+
+  #Determine the type of word being created.
+  def self.name_to_type(name)
+    case name[0]
+    when '.'
+      PublicWordSpec
+
+    when '~'
+      PrivateWordSpec
+
+    else
+      type = (spec = object_maps_name(name)) && spec.does
+      type = nil unless AllowedMethodTypes.include?(type)
+      error "Invalid name for a method: #{name}" unless type
+      type
+    end
+  end
+
   #A colon definition that creates a word in the specified class.
   compile_action = lambda {|vm|
-    name   = vm.parser.get_word()
     target = self
-
-    error "Name Error: All non-Object mapped methods must begin with a '.'" unless
-      (target.name == 'Object') || (name[0] == '.') || XfOOrth.object_maps_name(name)
+    name   = vm.parser.get_word()
+    type   = XfOOrth.name_to_type(name)
 
     vm.begin_compile_mode('x::', cls: target, &lambda {|vm, src|
       puts "#{target.name} #{name} => #{src}" if vm.debug
-      target.create_shared_method(name, PublicWordSpec, [], &eval(src))
+      target.create_shared_method(name, type, [], &eval(src))
     })
   }
 
