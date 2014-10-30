@@ -73,28 +73,28 @@ module XfOOrth
     #Do a search of dictionaries based on the syntax of the name.
     def do_map_name
       case @name[0]
-        when '.'
-          do_object_class_map    ||
-          do_vm_target_map       ||
-          do_default_public_spec
+      when '.'
+        do_object_class_map    ||
+        do_vm_target_map       ||
+        do_default_public_spec
 
-        when '~', '@'
-          do_class_target_map    ||
-          do_object_target_map   ||
-          do_vm_target_map       ||
-          spec_error
+      when '~', '@'
+        do_class_target_map    ||
+        do_object_target_map   ||
+        do_vm_target_map       ||
+        spec_error
 
-        when '$'
-          spec_error  # Reserved for now.
+      when '$'
+        spec_error  # Reserved for now.
 
-        when '#'
-          spec_error  # Reserved for now.
+      when '#'
+        spec_error  # Reserved for now.
 
-        else
-          @data[@symbol]         ||
-          do_object_class_map    ||
-          do_vm_target_map       ||
-          spec_error
+      else
+        @data[@symbol]         ||
+        do_object_class_map    ||
+        do_vm_target_map       ||
+        spec_error
       end
 
     end
