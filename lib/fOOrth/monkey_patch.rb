@@ -7,4 +7,5 @@ require_relative 'monkey_patch/numeric'
 require_relative 'monkey_patch/rational'
 require_relative 'monkey_patch/complex'
 require_relative 'monkey_patch/string'
-
+require_relative 'monkey_patch/array'
+require_relative 'monkey_patch/hash'

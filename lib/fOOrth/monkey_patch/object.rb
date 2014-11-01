@@ -22,6 +22,11 @@ class Object
     nil
   end
 
+  #Convert this object to a "pointer".
+  def to_foorth_p
+    [self]
+  end
+
   #Fail with XfOOrthError argument error.
   def error(msg)
     fail XfOOrth::XfOOrthError, msg, caller

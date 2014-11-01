@@ -64,6 +64,8 @@ RDoc::Task.new do |rdoc|
                      "lib/fOOrth/monkey_patch/rational.rb",
                      "lib/fOOrth/monkey_patch/complex.rb",
                      "lib/fOOrth/monkey_patch/string.rb",
+                     "lib/fOOrth/monkey_patch/array.rb",
+                     "lib/fOOrth/monkey_patch/hash.rb",
 
                      "license.txt",
                      "readme.txt"]
@@ -84,6 +86,8 @@ Rake::TestTask.new do |t|
                   "tests/monkey_patch/numeric_test.rb",
                   "tests/monkey_patch/complex_test.rb",
                   "tests/monkey_patch/string_test.rb",
+                  "tests/monkey_patch/array_test.rb",
+                  "tests/monkey_patch/hash_test.rb",
                   "tests/interpreter/data_stack_tests.rb",
                   "tests/interpreter/ctrl_stack_tests.rb",
                   "tests/compiler/string_source_tests.rb",

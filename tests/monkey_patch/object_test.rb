@@ -29,7 +29,7 @@ class ObjectMonkeyPatchTester < MiniTest::Unit::TestCase
   end
 
   #Test that it does NOT embed.
-  def test_embed
+  def test_embed_error
     obj = Object.new
     assert_raises(XfOOrth::XfOOrthError) { obj.embed }
   end
@@ -50,6 +50,15 @@ class ObjectMonkeyPatchTester < MiniTest::Unit::TestCase
   def test_to_number
     obj = Object.new
     assert_equal(obj.to_foorth_n, nil)
+  end
+
+  def test_to_pointer
+    obj = Object.new
+    assert_equal(obj.to_foorth_p, [obj])
+
+    assert_equal((5).to_foorth_p, [5])
+    assert_equal(('hello').to_foorth_p, ['hello'])
+    assert_equal(nil.to_foorth_p, [nil])
   end
 
   #Test the quick fail raise in fOOrth.
