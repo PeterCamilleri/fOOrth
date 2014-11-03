@@ -1,10 +1,11 @@
 # coding: utf-8
 
-require_relative '../../lib/fOOrth/monkey_patch/string'
+gem              'minitest'
 require          'minitest/autorun'
+require_relative '../../lib/fOOrth/monkey_patch/string'
 
 #Test the monkey patches applied to the Object class.
-class StringMonkeyPatchTester < MiniTest::Unit::TestCase
+class StringMonkeyPatchTester < MiniTest::Test
 
   #Special initialize to track rake progress.
   def initialize(*all)

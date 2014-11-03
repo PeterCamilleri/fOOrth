@@ -1,10 +1,11 @@
 # coding: utf-8
 
-require_relative '../../lib/fOOrth/compiler/string_source'
+gem              'minitest'
 require          'minitest/autorun'
+require_relative '../../lib/fOOrth/compiler/string_source'
 
 #Test the monkey patches applied to the Object class.
-class StringSourceTester < MiniTest::Unit::TestCase
+class StringSourceTester < MiniTest::Test
 
   #Special initialize to track rake progress.
   def initialize(*all)

@@ -1,8 +1,9 @@
 # coding: utf-8
 
+gem              'minitest'
+require          'minitest/autorun'
 require_relative '../../lib/fOOrth/exceptions'
 require_relative '../../lib/fOOrth/monkey_patch/object'
-require          'minitest/autorun'
 
 #A tiny test class used to test access to instance variables.
 class Test
@@ -11,9 +12,8 @@ class Test
   end
 end
 
-
 #Test the monkey patches applied to the Object class.
-class ObjectMonkeyPatchTester < MiniTest::Unit::TestCase
+class ObjectMonkeyPatchTester < MiniTest::Test
 
   #Special initialize to track rake progress.
   def initialize(*all)
