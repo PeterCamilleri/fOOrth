@@ -2,6 +2,7 @@
 
 # The fOOrth Language System implemented via a Ruby gem.
 
+require_relative 'fOOrth/version'
 require_relative 'fOOrth/exceptions'
 require_relative 'fOOrth/display_abort'
 require_relative 'fOOrth/monkey_patch'
@@ -24,7 +25,7 @@ module XfOOrth
   #<br>Returns
   #* A version string; <major>.<minor>.<step>
   def self.version
-    "00.00.00"
+    VERSION
   end
 
   #The virtual machine is the heart of the fOOrth language system that is
