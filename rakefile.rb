@@ -34,12 +34,12 @@ Rake::TestTask.new(:integration) do |t|
   t.verbose = false
 end
 
-#Run a scan for smelly code!
+desc "Run a scan for smelly code!"
 task :reek do |t|
   `reek --no-color lib > reek.txt`
 end
 
-#Fire up an IRB session with fOOrth preloaded.
+desc "Fire up an IRB session with fOOrth preloaded."
 task :console do
   require 'irb'
   require 'irb/completion'
@@ -49,14 +49,14 @@ task :console do
   IRB.start
 end
 
-#Run the Simple Interactive Ruby Environment.
+desc "Run the Simple Interactive Ruby Environment."
 task :sire do
   require './lib/fOOrth'
   require './sire'
   SIRE.new.run_sire
 end
 
-#Run an Interactive fOOrth Session.
+desc "Run an Interactive fOOrth Session."
 task :run do
   require './lib/fOOrth'
   ARGV.clear
