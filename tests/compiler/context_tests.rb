@@ -1,12 +1,11 @@
 # coding: utf-8
 
-gem              'minitest'
-require          'minitest/autorun'
 require_relative '../../lib/fOOrth/exceptions'
 require_relative '../../lib/fOOrth/monkey_patch/object'
 require_relative '../../lib/fOOrth/symbol_map'
 require_relative '../../lib/fOOrth/compiler/context'
 require_relative '../../lib/fOOrth/compiler/word_specs'
+require          'minitest/autorun'
 
 class MockClass
   def initialize; @data = {}; end
@@ -21,7 +20,7 @@ class MockObject
 end
 
 #Test the monkey patches applied to the Object class.
-class ContextTester < MiniTest::Test
+class ContextTester < MiniTest::Unit::TestCase
 
   #Special initialize to track rake progress.
   def initialize(*all)

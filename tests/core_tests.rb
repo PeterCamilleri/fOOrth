@@ -1,12 +1,11 @@
 # coding: utf-8
 
 $exclude_fOOrth_library = true
-gem              'minitest'
-require          'minitest/autorun'
 require_relative '../lib/fOOrth'
+require          'minitest/autorun'
 
 #Test the monkey patches applied to the Object class.
-class CoreTester < MiniTest::Test
+class CoreTester < MiniTest::Unit::TestCase
 
   #Special initialize to track rake progress.
   def initialize(*all)

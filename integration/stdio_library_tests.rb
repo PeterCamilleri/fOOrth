@@ -1,11 +1,10 @@
 # coding: utf-8
 
-gem              'minitest'
-require          'minitest/autorun'
 require_relative './support/foorth_testing'
+require          'minitest/autorun'
 
 #Test the standard fOOrth library.
-class StdioLibraryTester < MiniTest::Test
+class StdioLibraryTester < MiniTest::Unit::TestCase
 
   include XfOOrthTestExtensions
 

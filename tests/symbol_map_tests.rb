@@ -1,13 +1,12 @@
 # coding: utf-8
 
-gem              'minitest'
-require          'minitest/autorun'
 require_relative '../lib/fOOrth/exceptions'
 require_relative '../lib/fOOrth/monkey_patch/object'
 require_relative '../lib/fOOrth/symbol_map'
+require          'minitest/autorun'
 
 #Test the monkey patches applied to the Object class.
-class SymbolMapTester < MiniTest::Test
+class SymbolMapTester < MiniTest::Unit::TestCase
 
   #Special initialize to track rake progress.
   def initialize(*all)

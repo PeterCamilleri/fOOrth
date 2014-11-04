@@ -1,11 +1,10 @@
 # coding: utf-8
 
-gem              'minitest'
-require          'minitest/autorun'
 require_relative '../../lib/fOOrth/interpreter'
+require          'minitest/autorun'
 
 #Test the monkey patches applied to the Object class.
-class CtrlStackMapTester < MiniTest::Test
+class CtrlStackMapTester < MiniTest::Unit::TestCase
 
   #Special initialize to track rake progress.
   def initialize(*all)
