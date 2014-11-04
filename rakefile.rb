@@ -62,3 +62,10 @@ task :run do
   ARGV.clear
   XfOOrth::main
 end
+
+desc "What version of fOOrth is this?"
+task :vers do |t|
+  puts
+  puts "fOOrth version = #{XfOOrth::VERSION}"
+end
+
