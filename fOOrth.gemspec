@@ -19,9 +19,9 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "bundler", "~> 1.3"
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'reek'
-  s.add_development_dependency 'minitest'
-  s.add_development_dependency 'rdoc', "~> 4.0"
+  s.add_development_dependency 'reek', "~> 1.3.8"
+  s.add_development_dependency 'minitest', "~> 4.7.5"
+  s.add_development_dependency 'rdoc', "~> 4.0.1"
 
   s.files       = `git ls-files`.split($/)
   s.test_files  = s.files.grep(%r{^(test|spec|features)/})
