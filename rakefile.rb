@@ -10,7 +10,7 @@ RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = "rdoc"
 
   #List out all the files to be documented.
-  rdoc.rdoc_files.include("lib/**/*.rb", "license.txt", "readme.txt")
+  rdoc.rdoc_files.include("lib/**/*.rb", "license.txt", "README.md")
 
   #Make all access levels visible.
   rdoc.options << '--visibility' << 'private'
