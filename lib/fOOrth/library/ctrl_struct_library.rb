@@ -54,24 +54,24 @@ module XfOOrth
       jvar =  context[:jloop].to_s
       suspend_execute_mode("vm.vm_do(#{jvar}) {|iloop, jloop| ", :do)
       context[:jloop] = 'iloop'
+
+      context.create_local_method('i', [:immediate],
+        &lambda {|vm| check_deferred_mode('vm.push(iloop[0]); ', [:do]) })
+
+      context.create_local_method('j', [:immediate],
+        &lambda {|vm| check_deferred_mode('vm.push(jloop[0]); ', [:do]) })
+
+      context.create_local_method('-i', [:immediate],
+        &lambda {|vm| check_deferred_mode('vm.push(iloop[2] - iloop[0]); ', [:do]) })
+
+      context.create_local_method('-j', [:immediate],
+        &lambda {|vm| check_deferred_mode('vm.push(jloop[2] - jloop[0]); ', [:do]) })
+
+      context.create_local_method('loop', [:immediate],
+        &lambda {|vm| resume_execute_mode('iloop[0] += 1}; ', [:do]) })
+
+      context.create_local_method('+loop', [:immediate],
+        &lambda {|vm| resume_execute_mode('iloop[0] += vm.pop}; ', [:do]) })
     })
-
-  VirtualMachine.create_shared_method('i', VmWordSpec, [:immediate],
-    &lambda {|vm| check_deferred_mode('vm.push(iloop[0]); ', [:do]) })
-
-  VirtualMachine.create_shared_method('j', VmWordSpec, [:immediate],
-    &lambda {|vm| check_deferred_mode('vm.push(jloop[0]); ', [:do]) })
-
-  VirtualMachine.create_shared_method('-i', VmWordSpec, [:immediate],
-    &lambda {|vm| check_deferred_mode('vm.push(iloop[2] - iloop[0]); ', [:do]) })
-
-  VirtualMachine.create_shared_method('-j', VmWordSpec, [:immediate],
-    &lambda {|vm| check_deferred_mode('vm.push(jloop[2] - jloop[0]); ', [:do]) })
-
-  VirtualMachine.create_shared_method('loop', VmWordSpec, [:immediate],
-    &lambda {|vm| resume_execute_mode('iloop[0] += 1}; ', [:do]) })
-
-  VirtualMachine.create_shared_method('+loop', VmWordSpec, [:immediate],
-    &lambda {|vm| resume_execute_mode('iloop[0] += vm.pop}; ', [:do]) })
 
 end

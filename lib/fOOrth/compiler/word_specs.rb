@@ -125,6 +125,17 @@ module XfOOrth
     end
   end
 
+  #A class used to specify the compile of fOOrth variable.
+  class LocalWordSpec < AbstractWordSpec
+    #Generate the Ruby code for this fOOrth variable.
+    #<br>Parameters:
+    #* _name  - The string that maps to the symbol. Unused
+    #* symbol - The symbol that the name maps to.
+    def build_builds_string(_name, symbol)
+      @builds = "vm.context[#{symbol.inspect}].does.call(vm); "
+    end
+  end
+
   #A class used to specify the compile of fOOrth macros.
   class MacroWordSpec < AbstractWordSpec
     #Generate the Ruby code for this macro.

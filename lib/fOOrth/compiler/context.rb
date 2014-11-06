@@ -68,6 +68,19 @@ module XfOOrth
       1 + (previous ? previous.depth : 0)
     end
 
+    #Create a local method on this context.
+    #<br>Parameters:
+    #* The name of the method to create.
+    #* An array of options.
+    #* A block to associate with the name.
+    #<br>Returns
+    #* The spec created for the shared method.
+    def create_local_method(name, options, &block)
+      sym = SymbolMap.add_entry(name)
+      self[sym] = LocalWordSpec.new(name, sym, options, &block)
+    end
+
+    #Private methods follow.
     private
 
     #Do a search of dictionaries based on the syntax of the name.
