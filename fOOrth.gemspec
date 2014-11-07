@@ -23,6 +23,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'minitest', "~> 4.7.5"
   s.add_development_dependency 'rdoc', "~> 4.0.1"
 
+  s.add_runtime_dependency 'full_clone'
+
   s.files       = `git ls-files`.split($/)
   s.test_files  = s.files.grep(%r{^(test|spec|features)/})
   s.extra_rdoc_files = ['license.txt']
