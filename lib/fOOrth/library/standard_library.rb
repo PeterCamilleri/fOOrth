@@ -36,6 +36,14 @@ module XfOOrth
   VirtualMachine.create_shared_method('dup', MacroWordSpec,
     ["vm.push(vm.peek()); "])
 
+  # [a] clone [a, a']
+  VirtualMachine.create_shared_method('clone', MacroWordSpec,
+    ["vm.push(vm.peek.full_clone); "])
+
+  # [a] .clone [a']
+  object_class.create_shared_method('.clone', MonadicWordSpec, [],
+    &lambda {|vm| vm.push(self.full_clone); })
+
   # [a] ?dup if a is true then [a,a] else [a]
   VirtualMachine.create_shared_method('?dup', VmWordSpec, [],
     &lambda {|vm| if peek?() then push(peek()); end; })
@@ -122,6 +130,17 @@ module XfOOrth
   object_class.create_shared_method('<=>', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self <=> vm.pop()); })
 
+  #===================================================
+  # Some identity comparison words.
+  #===================================================
+
+  # [b,a] identical? if b.object_id == a.object_id then [true] else [false]
+  object_class.create_shared_method('identical?', DyadicWordSpec, [],
+    &lambda {|vm| vm.push(self.object_id == vm.pop.object_id); })
+
+  # [b,a] distinct? if b.object_id != a.object_id then [true] else [false]
+  object_class.create_shared_method('distinct?', DyadicWordSpec, [],
+    &lambda {|vm| vm.push(self.object_id != vm.pop.object_id); })
 
   #===================================================
   # Some comparison with zero words.

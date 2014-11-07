@@ -124,4 +124,30 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('4  0<=>', [1])
   end
 
+  def test_for_the_bored_identity
+    foorth_equal("33 33 identical?", [true])
+    foorth_equal("33 33 distinct?", [false])
+
+    foorth_equal('"33" "33" identical?', [false])
+    foorth_equal('"33" "33" distinct?', [true])
+
+    foorth_equal('"33" dup  identical?', [true])
+    foorth_equal('"33" dup  distinct?', [false])
+
+  end
+
+  def test_some_cloning_around
+    foorth_equal("33 clone", [33,33])
+    foorth_equal("33 .clone", [33])
+
+    foorth_equal("33 clone identical?", [true])
+    foorth_equal("33 clone distinct?", [false])
+
+    foorth_equal('"33" clone identical?', [false])
+    foorth_equal('"33" clone distinct?', [true])
+
+    foorth_equal('"33" dup .clone identical?', [false])
+    foorth_equal('"33" dup .clone distinct?', [true])
+  end
+
 end
