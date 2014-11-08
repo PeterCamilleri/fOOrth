@@ -164,4 +164,20 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal(vm.pop, 109)
   end
 
+  def test_proxy_classes
+    XfOOrth.create_proxy(Numeric,  XfOOrth.object_class)
+    XfOOrth.create_proxy(Integer,  Numeric)
+    XfOOrth.create_proxy(Fixnum,   Integer)
+
+    assert_equal('Numeric', Numeric.foorth_name)
+    assert_equal('Integer', Integer.foorth_name)
+    assert_equal('Fixnum',  Fixnum.foorth_name)
+
+    assert_equal(XfOOrth.object_class, Numeric.foorth_parent)
+    assert_equal(Numeric, Integer.foorth_parent)
+    assert_equal(Integer, Fixnum.foorth_parent)
+
+    assert_equal('Fixnum instance',  (42).foorth_name)
+  end
+
 end

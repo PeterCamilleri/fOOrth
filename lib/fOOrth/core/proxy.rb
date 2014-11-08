@@ -27,6 +27,9 @@ module XfOOrth
     target_class.define_singleton_method(:foorth_class,
       &lambda {XfOOrth.class_class})
 
+    target_class.define_singleton_method(:foorth_name,
+      &lambda {self.name})
+
     target_class.write_var(:@instance_template, target_class)
 
     target_class.send(:define_method, :foorth_class,
