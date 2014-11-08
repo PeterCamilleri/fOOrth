@@ -9,7 +9,7 @@ class Object
 
   #Convert this object to a fOOrth boolean.
   def to_foorth_b
-    self
+    self ? true : false
   end
 
   #Convert this object to a single character string.

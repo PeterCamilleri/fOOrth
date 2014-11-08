@@ -37,7 +37,7 @@ class ObjectMonkeyPatchTester < MiniTest::Unit::TestCase
   #Test for conversion to a boolean.
   def test_to_boolean
     obj = Object.new
-    assert(obj == obj.to_foorth_b)
+    assert_equal(obj.to_foorth_b, true)
   end
 
   #Test for conversion to a character.
