@@ -72,7 +72,6 @@ module XfOOrth
   VirtualMachine.create_shared_method('tuck', VmWordSpec, [],
     &lambda {|vm| vb,va = popm(2); push(va); push(vb); push(va); })
 
-
   #===================================================
   # Some stack arithmetic words.
   #===================================================
@@ -97,6 +96,49 @@ module XfOOrth
   object_class.create_shared_method('mod', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self % vm.pop()); })
 
+  # [a] 0- [0-a]
+  object_class.create_shared_method('0-', MonadicWordSpec, [],
+    &lambda {|vm| vm.push(0-self); })
+
+  #===================================================
+  # Some bitwise operation words.
+  #===================================================
+
+  # [b,a] and [b&a]
+  object_class.create_shared_method('and', DyadicWordSpec, [],
+    &lambda {|vm| vm.push(self.to_i & vm.pop.to_i); })
+
+  # [b,a] or [b|a]
+  object_class.create_shared_method('or', DyadicWordSpec, [],
+    &lambda {|vm| vm.push(self.to_i | vm.pop.to_i); })
+
+  # [b,a] xor [b^a]
+  object_class.create_shared_method('xor', DyadicWordSpec, [],
+    &lambda {|vm| vm.push(self.to_i ^ vm.pop.to_i); })
+
+  # [a] not [~a]
+  object_class.create_shared_method('not', MonadicWordSpec, [],
+    &lambda {|vm| vm.push(~(self.to_i)); })
+
+  #===================================================
+  # Some boolean operation words.
+  #===================================================
+
+  # [b,a] && [b&a]
+  object_class.create_shared_method('&&', DyadicWordSpec, [],
+    &lambda {|vm| vm.push(self.to_foorth_b & vm.pop.to_foorth_b); })
+
+  # [b,a] || [b|a]
+  object_class.create_shared_method('||', DyadicWordSpec, [],
+    &lambda {|vm| vm.push(self.to_foorth_b | vm.pop.to_foorth_b); })
+
+  # [b,a] ^^ [b^a]
+  object_class.create_shared_method('^^', DyadicWordSpec, [],
+    &lambda {|vm| vm.push(self.to_foorth_b ^ vm.pop.to_foorth_b); })
+
+  # [a] ! [!a]
+  object_class.create_shared_method('!', MonadicWordSpec, [],
+    &lambda {|vm| vm.push(!(self.to_foorth_b)); })
 
   #===================================================
   # Some comparison words.

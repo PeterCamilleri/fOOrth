@@ -64,6 +64,14 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('5 3 *', [15])
     foorth_equal('5 3 /', [1])
     foorth_equal('5 3 mod', [2])
+
+    foorth_equal('5 0-', [-5])
+    foorth_equal('0 0-', [0])
+    foorth_equal('-5 0-', [5])
+
+    foorth_equal('5.0 0-', [-5.0])
+    foorth_equal('0.0 0-', [0.0])
+    foorth_equal('-5.0 0-', [5.0])
   end
 
   def test_some_comparisons
@@ -148,6 +156,33 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
 
     foorth_equal('"33" dup .clone identical?', [false])
     foorth_equal('"33" dup .clone distinct?', [true])
+  end
+
+  def test_some_bitwise_ops
+    foorth_equal("5 3 and", [1])
+    foorth_equal("5 3 or",  [7])
+    foorth_equal("5 3 xor", [6])
+    foorth_equal("5 not",  [-6])
+  end
+
+  def test_some_logical_ops
+    foorth_equal("false false &&", [false])
+    foorth_equal("false true  &&", [false])
+    foorth_equal("true  false &&", [false])
+    foorth_equal("true  true  &&", [true ])
+
+    foorth_equal("false false ||", [false])
+    foorth_equal("false true  ||", [true ])
+    foorth_equal("true  false ||", [true ])
+    foorth_equal("true  true  ||", [true ])
+
+    foorth_equal("false false ^^", [false])
+    foorth_equal("false true  ^^", [true ])
+    foorth_equal("true  false ^^", [true ])
+    foorth_equal("true  true  ^^", [false])
+
+    foorth_equal("false !", [true ])
+    foorth_equal("true  !", [false])
   end
 
 end
