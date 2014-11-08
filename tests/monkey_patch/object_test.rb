@@ -1,7 +1,7 @@
 # coding: utf-8
 
 require_relative '../../lib/fOOrth/exceptions'
-require_relative '../../lib/fOOrth/monkey_patch/object'
+require_relative '../../lib/fOOrth/monkey_patch'
 require          'minitest/autorun'
 
 #A tiny test class used to test access to instance variables.
@@ -74,6 +74,11 @@ class ObjectMonkeyPatchTester < MiniTest::Unit::TestCase
     assert_equal(test.read_var(:@my_var), "before")
     test.write_var(:@my_var, "after")
     assert_equal(test.read_var(:@my_var), "after")
+  end
+
+  def test_object_naming
+    assert_equal("Ruby::Object", Object.foorth_name)
+    assert_equal("Ruby::Regexp instance", (/ABC/).foorth_name)
   end
 
 end
