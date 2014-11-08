@@ -30,6 +30,8 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_stack_manipulation
+    foorth_equal("1 2", [1, 2])
+
     foorth_equal("1 2 drop", [1])
 
     foorth_equal("33 dup", [33,33])
