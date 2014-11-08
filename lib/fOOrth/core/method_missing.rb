@@ -26,9 +26,8 @@ module XfOOrth
     #* symbol - The symbol that was sent.
     #* names - The name or names that were not found.
     def report_method_missing_error(symbol, names)
-      self_name = self.respond_to?(:foorth_name) ? self.foorth_name : "#{self.class.name} instance"
       names = names[0] unless names.length > 1
-      error "A #{self_name} does not understand #{names} (#{symbol.inspect})."
+      error "A #{self.foorth_name} does not understand #{names} (#{symbol.inspect})."
     end
 
   end

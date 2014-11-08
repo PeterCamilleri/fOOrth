@@ -180,4 +180,28 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal('Fixnum instance',  (42).foorth_name)
   end
 
+  def test_missing_method_handling
+    #Get the virtual machine.
+    vm = XfOOrth.virtual_machine
+
+    sym = XfOOrth::SymbolMap.add_entry("tmmh", :tmmh)
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      XfOOrth.object_class.tmmh
+    end
+
+    assert_raises(NoMethodError) do
+      XfOOrth.object_class.cranch  #Scanners live in vain!
+    end
+
+    sym = XfOOrth::SymbolMap.add_entry(".semper", :tmmh_deux)
+    XfOOrth.object_class.create_shared_method('.semper', XfOOrth::PublicWordSpec, [])
+    inst1 = XfOOrth.object_class.create_foorth_instance(vm)
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      XfOOrth.object_class.tmmh_deux(vm)
+    end
+
+  end
+
 end
