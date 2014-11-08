@@ -32,7 +32,7 @@ module XfOOrth
     target_class.send(:define_method, :foorth_class,
       &lambda {target_class})
 
-    target_class.send(:define_method, :name,
+    target_class.send(:define_method, :foorth_name,
       &lambda {"#{foorth_class.name} instance"})
 
     target_class.extend(SharedCache)

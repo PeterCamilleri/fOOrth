@@ -35,7 +35,7 @@ module XfOOrth
 
       #The name of the virtual machine fOOrth class. We don't care if we
       #clobber the Ruby name.
-      def name
+      def foorth_name
         "VirtualMachine"
       end
 
@@ -52,8 +52,8 @@ module XfOOrth
     end
 
     #The name of the virtual machine instance
-    def name
-      "#{foorth_class.name} instance <#{@name}>."
+    def foorth_name
+      "#{foorth_class.foorth_name} instance <#{@name}>."
     end
   end
 end

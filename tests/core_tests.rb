@@ -22,19 +22,19 @@ class CoreTester < MiniTest::Unit::TestCase
 
   #Test out the bare minimum core elements
   def test_core_essentials
-    assert_equal(XfOOrth.object_class.name, "Object")
-    assert_equal(XfOOrth.class_class.name,  "Class")
-    assert_equal(XfOOrth::VirtualMachine.name,  "VirtualMachine")
+    assert_equal(XfOOrth.object_class.foorth_name, "Object")
+    assert_equal(XfOOrth.class_class.foorth_name,  "Class")
+    assert_equal(XfOOrth::VirtualMachine.foorth_name,  "VirtualMachine")
 
     assert_equal(XfOOrth.object_class.foorth_parent, nil)
-    assert_equal(XfOOrth.class_class.foorth_parent.name, "Object")
-    assert_equal(XfOOrth::VirtualMachine.foorth_parent.name, "Object")
+    assert_equal(XfOOrth.class_class.foorth_parent.foorth_name, "Object")
+    assert_equal(XfOOrth::VirtualMachine.foorth_parent.foorth_name, "Object")
 
-    assert_equal(XfOOrth.object_class.foorth_class.name, "Class")
-    assert_equal(XfOOrth.class_class.foorth_class.name, "Class")
-    assert_equal(XfOOrth::VirtualMachine.foorth_class.name, "Class")
+    assert_equal(XfOOrth.object_class.foorth_class.foorth_name, "Class")
+    assert_equal(XfOOrth.class_class.foorth_class.foorth_name, "Class")
+    assert_equal(XfOOrth::VirtualMachine.foorth_class.foorth_name, "Class")
 
-    assert_equal(XfOOrth.object_class.foorth_child_classes["Class"].name, "Class")
+    assert_equal(XfOOrth.object_class.foorth_child_classes["Class"].foorth_name, "Class")
     assert_equal(XfOOrth.class_class.foorth_child_classes["Object"], nil)
 
     #The VirtualMachine class must be childfree!
@@ -51,8 +51,8 @@ class CoreTester < MiniTest::Unit::TestCase
     vm = XfOOrth.virtual_machine
 
     inst1 = XfOOrth.object_class.create_foorth_instance(vm)
-    assert_equal(inst1.foorth_class.name, 'Object')
-    assert_equal(inst1.name, 'Object instance')
+    assert_equal(inst1.foorth_class.foorth_name, 'Object')
+    assert_equal(inst1.foorth_name, 'Object instance')
 
     inst2 = XfOOrth.object_class.create_foorth_instance(vm)
     assert(inst1 != inst2)
@@ -63,7 +63,7 @@ class CoreTester < MiniTest::Unit::TestCase
   #Test that VM instances behave too.
   def test_vm_instances
     vm = XfOOrth.virtual_machine
-    assert_equal(vm.name, "VirtualMachine instance <Main>.")
+    assert_equal(vm.foorth_name, "VirtualMachine instance <Main>.")
   end
 
 
