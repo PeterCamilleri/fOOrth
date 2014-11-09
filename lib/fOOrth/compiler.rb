@@ -9,7 +9,6 @@ require_relative 'compiler/modes'
 require_relative 'compiler/word_specs'
 require_relative 'compiler/context'
 require_relative 'compiler/process'
-require_relative 'compiler/pop_compile_class'
 
 #* compiler.rb - The compiler portion of the fOOrth language system.
 module XfOOrth
