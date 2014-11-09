@@ -205,26 +205,26 @@ class CoreTester < MiniTest::Unit::TestCase
   end
 
   def test_creating_subclasses
-    new_class = XfOOrth.object_class.create_foorth_subclass("NewClass")
-    assert_equal('NewClass', new_class.foorth_name)
-    assert_equal('Object', new_class.foorth_parent.foorth_name)
-    assert_equal('Class', new_class.foorth_class.foorth_name)
+    a_class = XfOOrth.object_class.create_foorth_subclass("AClass")
+    assert_equal('AClass', a_class.foorth_name)
+    assert_equal('Object', a_class.foorth_parent.foorth_name)
+    assert_equal('Class', a_class.foorth_class.foorth_name)
 
-    mew_class = new_class.create_foorth_subclass("MewClass")
-    assert_equal('MewClass', mew_class.foorth_name)
-    assert_equal('NewClass', mew_class.foorth_parent.foorth_name)
-    assert_equal('Class', mew_class.foorth_class.foorth_name)
+    b_class = a_class.create_foorth_subclass("BClass")
+    assert_equal('BClass', b_class.foorth_name)
+    assert_equal('AClass', b_class.foorth_parent.foorth_name)
+    assert_equal('Class', b_class.foorth_class.foorth_name)
 
 
-    lew_class = XfOOrth.class_class.create_foorth_subclass("LewClass")
-    assert_equal('LewClass', lew_class.foorth_name)
-    assert_equal('Class', lew_class.foorth_parent.foorth_name)
-    assert_equal('Class', lew_class.foorth_class.foorth_name)
+    c_class = XfOOrth.class_class.create_foorth_subclass("CClass")
+    assert_equal('CClass', c_class.foorth_name)
+    assert_equal('Class', c_class.foorth_parent.foorth_name)
+    assert_equal('Class', c_class.foorth_class.foorth_name)
 
-    kew_class = lew_class.create_foorth_subclass("KewClass")
-    assert_equal('KewClass', kew_class.foorth_name)
-    assert_equal('LewClass', kew_class.foorth_parent.foorth_name)
-    assert_equal('Class', kew_class.foorth_class.foorth_name)
+    d_class = c_class.create_foorth_subclass("DClass")
+    assert_equal('DClass', d_class.foorth_name)
+    assert_equal('CClass', d_class.foorth_parent.foorth_name)
+    assert_equal('Class', d_class.foorth_class.foorth_name)
   end
 
 end
