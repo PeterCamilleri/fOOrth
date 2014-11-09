@@ -204,4 +204,27 @@ class CoreTester < MiniTest::Unit::TestCase
 
   end
 
+  def test_creating_subclasses
+    new_class = XfOOrth.object_class.create_foorth_subclass("NewClass")
+    assert_equal('NewClass', new_class.foorth_name)
+    assert_equal('Object', new_class.foorth_parent.foorth_name)
+    assert_equal('Class', new_class.foorth_class.foorth_name)
+
+    mew_class = new_class.create_foorth_subclass("MewClass")
+    assert_equal('MewClass', mew_class.foorth_name)
+    assert_equal('NewClass', mew_class.foorth_parent.foorth_name)
+    assert_equal('Class', mew_class.foorth_class.foorth_name)
+
+
+    lew_class = XfOOrth.class_class.create_foorth_subclass("LewClass")
+    assert_equal('LewClass', lew_class.foorth_name)
+    assert_equal('Class', lew_class.foorth_parent.foorth_name)
+    assert_equal('Class', lew_class.foorth_class.foorth_name)
+
+    kew_class = lew_class.create_foorth_subclass("KewClass")
+    assert_equal('KewClass', kew_class.foorth_name)
+    assert_equal('LewClass', kew_class.foorth_parent.foorth_name)
+    assert_equal('Class', kew_class.foorth_class.foorth_name)
+  end
+
 end
