@@ -14,6 +14,11 @@ module XfOOrth
       XObject
     end
 
+    #The base Ruby class for this class and its sub_classes.
+    def class_base_class
+      XClass
+    end
+
     #The foorth_name of the fOOrth class.
     attr_reader :foorth_name
 
@@ -57,12 +62,20 @@ module XfOOrth
     #* class_class - The foorth_class of the class being created. This must be
     #  derived from the class Class or really weird stuff is going to happen.
     #  If omitted, this will default to the Class class.
+    #* class_base - The Ruby class used to create this class and its subclasses.
+    #  If omitted, the base_class of class_class will be used. If class_class
+    #  is also omitted, then XClass will be used.
     #<br>Note:
     #* If a sub-class with the given name already exists, that class is returned.
-    def create_foorth_subclass(foorth_name, class_class=nil)
-      class_class ||= XfOOrth.class_class
-      anon = Class.new(XClass) {@foorth_class = class_class}
+    def create_foorth_subclass(foorth_name, class_class=nil, class_base=nil)
+      class_class ||= self.foorth_class
+      base_class  ||= (class_class && class_class.class_base_class) || self.class_base_class
+
+      anon = Class.new(base_class) {@foorth_class = class_class}
+
       new_class = anon.new(foorth_name, self)
+
+      XfOOrth.const_set('XfOOrth_' + foorth_name, anon) #Anonymous no longer!
       foorth_child_classes[foorth_name] = new_class
     end
 
