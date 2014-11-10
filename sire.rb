@@ -1,45 +1,25 @@
 # coding: utf-8
 # A Simple Interactive Ruby Environment
 
-require 'readline'
+require 'readline' #YUK
 require 'pp'
-
-
 
 class Object
   #Generate the class lineage of the object.
   def classes
     begin
-      klass = self
+      result = ""
+      klass  = self.instance_of?(Class) ? self : self.class
 
       begin
-        klass = klass.class unless klass.instance_of?(Class)
-        print klass
+        result << klass.to_s
         klass = klass.superclass
-        print " < " if klass
+        result << " < " if klass
       end while klass
 
-      puts
+      result
     end
   end
-end
-
-module Foobar
-  def hello
-    puts 'Hello!'
-    self
-  end
-
-  Fixnum.send(:include, self)
-end
-
-module Bluebar
-  def ahoy
-    puts 'Ahoy!'
-    self
-  end
-
-  Fixnum.extend(self)
 end
 
 class SIRE
