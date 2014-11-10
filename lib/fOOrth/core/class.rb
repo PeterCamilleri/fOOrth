@@ -54,13 +54,16 @@ module XfOOrth
     #Create a new fOOrth subclass of this class.
     #<br>Parameters:
     #* foorth_name - The foorth_name of the new sub-class.
+    #* class_class - The foorth_class of the class being created. This must be
+    #  derived from the class Class or really weird stuff is going to happen.
+    #  If omitted, this will default to the Class class.
     #<br>Note:
     #* If a sub-class with the given name already exists, that class is returned.
-    def create_foorth_subclass(foorth_name)
-      anon = Class.new(XClass) {@foorth_class = XfOOrth.class_class}
+    def create_foorth_subclass(foorth_name, class_class=nil)
+      class_class ||= XfOOrth.class_class
+      anon = Class.new(XClass) {@foorth_class = class_class}
       new_class = anon.new(foorth_name, self)
       foorth_child_classes[foorth_name] = new_class
-      new_class
     end
 
     #Create an instance of this fOOrth class.
