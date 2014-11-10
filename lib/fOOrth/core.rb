@@ -24,6 +24,7 @@ module XfOOrth
   #to allow it to define methods independently. The fOOrth class of this
   #class is set to nil as a stand in.
   class_anon = Class.new(XClass, &lambda {|vm| @foorth_class = nil})
+  XfOOrth.const_set("XfOOrth_Class", class_anon)
 
   #Create the instance of fOOrth class for fOOrth Class class. At this point
   #there is no way to set the foorth_parent because it does not yet exist. So
@@ -38,6 +39,7 @@ module XfOOrth
   #Create the anonymous template class for the fOOrth Object class.
   #Note that it is also an instance of fOOrth class.
   object_anon = Class.new(XClass, &lambda {|vm| @foorth_class = XfOOrth.class_class})
+  XfOOrth.const_set("XfOOrth_Object", object_anon)
 
   #Create the instance of fOOrth class for fOOrth Object class. The fOOrth
   #Object class has no parent, so nil is the actual parent, not a stand in.
