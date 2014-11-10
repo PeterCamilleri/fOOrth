@@ -62,12 +62,12 @@ module XfOOrth
     #* class_class - The foorth_class of the class being created. This must be
     #  derived from the class Class or really weird stuff is going to happen.
     #  If omitted, this will default to the Class class.
-    #* class_base - The Ruby class used to create this class and its subclasses.
+    #* base_class - The Ruby class used to create this class and its subclasses.
     #  If omitted, the base_class of class_class will be used. If class_class
     #  is also omitted, then XClass will be used.
     #<br>Note:
     #* If a sub-class with the given name already exists, that class is returned.
-    def create_foorth_subclass(foorth_name, class_class=nil, class_base=nil)
+    def create_foorth_subclass(foorth_name, class_class=nil, base_class=nil)
       class_class ||= self.foorth_class
       base_class  ||= (class_class && class_class.class_base_class) || self.class_base_class
 
