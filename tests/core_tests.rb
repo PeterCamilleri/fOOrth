@@ -221,10 +221,15 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal('Class', c_class.foorth_parent.foorth_name)
     assert_equal('Class', c_class.foorth_class.foorth_name)
 
-    d_class = c_class.create_foorth_subclass("DClass")
+    d_class = c_class.create_foorth_subclass("DClass", c_class)
     assert_equal('DClass', d_class.foorth_name)
     assert_equal('CClass', d_class.foorth_parent.foorth_name)
-    assert_equal('Class', d_class.foorth_class.foorth_name)
+    assert_equal('CClass', d_class.foorth_class.foorth_name)
+
+    e_class = XfOOrth.object_class.create_foorth_subclass("EClass", d_class)
+    assert_equal('EClass', e_class.foorth_name)
+    assert_equal('Object', e_class.foorth_parent.foorth_name)
+    assert_equal('DClass', e_class.foorth_class.foorth_name)
   end
 
 end
