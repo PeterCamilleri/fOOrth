@@ -63,7 +63,7 @@ class CoreTester < MiniTest::Unit::TestCase
   #Test that VM instances behave too.
   def test_vm_instances
     vm = XfOOrth.virtual_machine
-    assert_equal(vm.foorth_name, "VirtualMachine instance <Main>.")
+    assert_equal(vm.foorth_name, "VirtualMachine instance <Main>")
   end
 
 

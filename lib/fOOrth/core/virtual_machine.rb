@@ -53,7 +53,7 @@ module XfOOrth
 
     #The name of the virtual machine instance
     def foorth_name
-      "#{foorth_class.foorth_name} instance <#{@name}>."
+      "#{foorth_class.foorth_name} instance <#{@name}>"
     end
   end
 end
