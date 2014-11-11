@@ -19,10 +19,10 @@ module XfOOrth
   #Set up a hash for all fOOrth class objects.
   @all_classes = Hash.new
 
-  #Create the anonymous template class for the fOOrth Class class. Each
-  #instance of fOOrth class will be wrapped in one of these anonymous classes
-  #to allow it to define methods independently. The fOOrth class of this
-  #class is set to nil as a stand in.
+  #Create the named shadow class for the fOOrth Class class. Each
+  #instance of fOOrth class will be wrapped in one of these classes
+  #to allow them to define methods independently. Also, the fOOrth
+  #class of this class is set to nil as a stand in.
   class_anon = Class.new(XClass, &lambda {|vm| @foorth_class = nil})
   XfOOrth.const_set("XfOOrth_Class", class_anon)
 
@@ -36,8 +36,8 @@ module XfOOrth
   #classes, it is unique in this respect.
   class_anon.foorth_class = @class_class
 
-  #Create the anonymous template class for the fOOrth Object class.
-  #Note that it is also an instance of fOOrth class.
+  #Create the named shadow class for the fOOrth Object class.
+  #Note that it is also an instance of fOOrth Class class.
   object_anon = Class.new(XClass, &lambda {|vm| @foorth_class = XfOOrth.class_class})
   XfOOrth.const_set("XfOOrth_Object", object_anon)
 
