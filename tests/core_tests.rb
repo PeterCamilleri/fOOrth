@@ -20,6 +20,20 @@ class CoreTester < MiniTest::Unit::TestCase
     super(*all)
   end
 
+  def test_that_object_handles_no_method_errors
+    obj = Object.new
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      obj.foorth_init
+    end
+
+    assert_raises(NoMethodError) do
+      obj.qwertyuiop
+    end
+  end
+
+# Core Tsunami -- Most of what follows will be swept away... eventually...
+
   #Test out the bare minimum core elements
   def test_core_essentials
     assert_equal(XfOOrth.object_class.foorth_name, "Object")

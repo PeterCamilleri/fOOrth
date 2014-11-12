@@ -1,5 +1,7 @@
 # coding: utf-8
 
+# Core Tsunami -- Most of what follows will be swept away... eventually...
+
 require_relative 'compiler/word_specs'
 require_relative 'core/core_access'
 require_relative 'core/object'

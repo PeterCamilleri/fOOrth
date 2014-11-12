@@ -1,5 +1,7 @@
 # coding: utf-8
 
+# Core Tsunami -- All that follows will be swept away... eventually...
+
 require_relative 'shared'
 
 #* core/class.rb - The generic class class of the fOOrth language system.

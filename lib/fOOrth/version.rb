@@ -4,5 +4,5 @@
 
 module XfOOrth
   #The version string for fOOrth.
-  VERSION = "0.0.1"
+  VERSION = "0.0.2"
 end
