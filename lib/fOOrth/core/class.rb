@@ -1,5 +1,41 @@
 # coding: utf-8
 
+#* The additions to the Ruby Class class required to support fOOrth.
+class Class
+
+  #==========================================================================
+  # Shared Method Support
+  #==========================================================================
+
+  #Access/create the class's shared fOOrth dictionary.
+  #<br>Decree!
+  #* This is to be the only reference to @_private_foorth_shared!
+  def foorth_shared
+    @_private_foorth_shared ||= Hash.new
+  end
+
+  #Create a shared method on this fOOrth class.
+  #<br>Parameters:
+  #* name - The name of the method to create.
+  #* spec_class - The specification class to use.
+  #* options - An array of options.
+  #* block - A block to associate with the name.
+  #<br>Returns
+  #* The spec created for the shared method.
+  def create_shared_method(name, spec_class, options, &block)
+    sym = SymbolMap.add_entry(name)
+    spec = spec_class.new(name, sym, options, &block)
+    define_method(symbol, &block)
+    foorth_shared[symbol] = spec
+  end
+
+  #Map the symbol to a specification or nil if there is no mapping.
+  def map_foorth_shared(symbol)
+    foorth_shared[symbol] || ((sc = superclass) && sc.map_foorth_shared(symbol))
+  end
+
+end
+
 # Core Tsunami -- All that follows will be swept away... eventually...
 
 require_relative 'shared'

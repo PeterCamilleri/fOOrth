@@ -9,7 +9,7 @@ class Object
 
   #Access/create the object's exclusive fOOrth dictionary.
   #<br>Decree!
-  #* Avoid using @_foorth_exclusive any more than it already is!
+  #* This is to be the only reference to @_private_foorth_exclusive!
   def foorth_exclusive
     @_private_foorth_exclusive ||= Hash.new
   end
@@ -20,6 +20,8 @@ class Object
   #* spec_class - The specification class to use.
   #* options - An array of options.
   #* block - A block to associate with the name.
+  #<br>Returns
+  #* The spec created for the shared method.
   def create_exclusive_method(name, spec_class, options, &block)
     sym = SymbolMap.add_entry(name)
     spec = spec_class.new(name, sym, options, &block)
