@@ -4,11 +4,11 @@
 module XfOOrth
 
   #Connect the Numeric classes to the fOOrth class system.
-  create_proxy(Numeric,  XfOOrth.object_class)
-  create_proxy(Integer,  Numeric)
-  create_proxy(Fixnum,   Integer)
-  create_proxy(Bignum,   Integer)
-  create_proxy(Rational, Numeric)
-  create_proxy(Complex,  Numeric)
+  Numeric.create_foorth_proxy
+  Integer.create_foorth_proxy
+  Fixnum.create_foorth_proxy
+  Bignum.create_foorth_proxy
+  Rational.create_foorth_proxy
+  Complex.create_foorth_proxy
 
 end

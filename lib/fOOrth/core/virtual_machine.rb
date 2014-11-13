@@ -1,11 +1,5 @@
 # coding: utf-8
 
-require_relative 'exclusive'
-require_relative 'shared'
-require_relative 'shared_cache'
-require_relative 'method_missing'
-require_relative 'proxy_method_missing'
-
 #* core/virtual_machine.rb - The core connection to the virtual machine.
 module XfOOrth
 
@@ -17,8 +11,12 @@ module XfOOrth
       "#{self.class.foorth_name} instance <#{@name}>"
     end
 
-    #Class definitions stand in for the fOOrth virtual machine class.
     class << self
+
+      #The name of the virtual machine fOOrth class.
+      def foorth_name
+        "VirtualMachine"
+      end
 
       #Create a new fOOrth subclass of this class. This is not allowed for the
       #VirtualMachine class so this stub merely raises an exception.
@@ -26,43 +24,6 @@ module XfOOrth
         error "Forbidden operation: (VirtualMachine.create_foorth_subclass)."
       end
 
-    end
-
-# Core Tsunami -- All that follows will be swept away... eventually...
-
-    include Exclusive
-    extend  Exclusive
-    extend  Shared
-    extend  SharedCache
-    include MethodMissing
-    extend  ProxyMethodMissing
-
-    @instance_template = self
-
-    #Class definitions stand in for the fOOrth virtual machine class.
-    class << self
-      #The fOOrth parent class of VirtualMachine is Object.
-      def foorth_parent
-        XfOOrth.object_class
-      end
-
-      #What foorth class is the virtual machine's class? For now we maintain
-      #the illusion of normalcy by saying that it is the fOOrth Class class.
-      def foorth_class
-        XfOOrth.class_class
-      end
-
-      #The name of the virtual machine fOOrth class. We don't care if we
-      #clobber the Ruby name.
-      def foorth_name
-        "VirtualMachine"
-      end
-
-    end
-
-    #Get the fOOrth class of this virtual machine
-    def foorth_class
-      VirtualMachine
     end
 
   end

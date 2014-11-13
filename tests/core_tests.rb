@@ -40,7 +40,7 @@ class CoreTester < MiniTest::Unit::TestCase
     obj = Object.new
 
     #Get the virtual machine.
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
 
     XfOOrth::SymbolMap.add_entry("a_test_one", :a_test_one)
 
@@ -60,7 +60,7 @@ class CoreTester < MiniTest::Unit::TestCase
     obj = Object.new
 
     #Get the virtual machine.
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
 
     XfOOrth::SymbolMap.add_entry("a_test_two", :a_test_two)
 
@@ -82,7 +82,7 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal("Class",          Class.foorth_name)
     assert_equal("VirtualMachine", XfOOrth::VirtualMachine.foorth_name)
 
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
     assert_equal("VirtualMachine instance <Main>", vm.foorth_name)
   end
 
@@ -90,7 +90,7 @@ class CoreTester < MiniTest::Unit::TestCase
     obj = Object.new
     assert_equal("Object instance", obj.foorth_name)
 
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
     assert_equal("VirtualMachine instance <Main>", vm.foorth_name)
   end
 
@@ -119,38 +119,5 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal('String', new_proxy.foorth_name)
     #more needed!
   end
-
-# Core Tsunami -- Most of what follows will be swept away... eventually...
-
-  #Test out some instances of Object
-  def test_object_instances
-    vm = XfOOrth.virtual_machine
-
-    inst1 = XfOOrth.object_class.create_foorth_instance(vm)
-    assert_equal(inst1.foorth_class.foorth_name, 'Object')
-    assert_equal(inst1.foorth_name, 'Object instance')
-
-    inst2 = XfOOrth.object_class.create_foorth_instance(vm)
-    assert(inst1 != inst2)
-    assert_equal(inst1.class, inst2.class)
-    assert_equal(inst1.foorth_class, inst2.foorth_class)
-  end
-
-  def test_proxy_classes
-    XfOOrth.create_proxy(Numeric,  XfOOrth.object_class)
-    XfOOrth.create_proxy(Integer,  Numeric)
-    XfOOrth.create_proxy(Fixnum,   Integer)
-
-    assert_equal('Numeric', Numeric.foorth_name)
-    assert_equal('Integer', Integer.foorth_name)
-    assert_equal('Fixnum',  Fixnum.foorth_name)
-
-    assert_equal(XfOOrth.object_class, Numeric.foorth_parent)
-    assert_equal(Numeric, Integer.foorth_parent)
-    assert_equal(Integer, Fixnum.foorth_parent)
-
-    assert_equal('Fixnum instance',  (42).foorth_name)
-  end
-
 
 end

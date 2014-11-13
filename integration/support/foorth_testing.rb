@@ -9,7 +9,7 @@ module XfOOrthTestExtensions
   #* remainder - An array with the expected stack contents after execution.
   #* debug - Set to true to display debug info.
   def foorth_equal(source, remainder=[], debug=false)
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
     vm.debug = debug
     vm.process_string(source)
     assert_equal(remainder, vm.data_stack)
@@ -24,7 +24,7 @@ module XfOOrthTestExtensions
   #* err - The type of exception expected during execution.
   #* debug - Set to true to display debug info.
   def foorth_raises(source, err=XfOOrth::XfOOrthError, debug=false)
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
     vm.debug = debug
 
     assert_raises(err) do
@@ -40,7 +40,7 @@ module XfOOrthTestExtensions
   #* source - A string containing fOOrth source code to execute.
   #* stdout_output - A string with the expected console output.
   def foorth_output(source, stdout_output)
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
 
     assert_output(stdout_output) do
       vm.process_string(source)

@@ -50,7 +50,7 @@ module XfOOrth
     })
   }
 
-  class_class.create_shared_method('.::', PublicWordSpec, [],  &compile_action)
+  Class.create_shared_method('.::', PublicWordSpec, [],  &compile_action)
 
   #The standard end-compile adapter word: ';' semi-colon.
   VirtualMachine.create_shared_method(';', VmWordSpec, [:immediate],

@@ -21,7 +21,7 @@ class DataStackMapTester < MiniTest::Unit::TestCase
 
   #Test data stack functionality.
   def test_data_stack_ops
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
     refute(vm == nil)
 
     vm.interpreter_reset
@@ -42,7 +42,7 @@ class DataStackMapTester < MiniTest::Unit::TestCase
 
   #Test data stack boolean operations
   def test_boolean_stack_data
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
     refute(vm == nil)
 
     vm.interpreter_reset
@@ -71,7 +71,7 @@ class DataStackMapTester < MiniTest::Unit::TestCase
 
   #Test data stack pop multiple operations
   def test_pop_multiple
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
     refute(vm == nil)
 
     vm.interpreter_reset
@@ -91,7 +91,7 @@ class DataStackMapTester < MiniTest::Unit::TestCase
 
   #Test dyadic operator support.
   def test_swap_pop
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
     refute(vm == nil)
 
     vm.interpreter_reset

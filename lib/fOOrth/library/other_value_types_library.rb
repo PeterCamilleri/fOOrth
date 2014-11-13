@@ -5,12 +5,12 @@
 module XfOOrth
 
   #Connect the TrueClass class to the fOOrth class system.
-  create_proxy(TrueClass, XfOOrth.object_class)
+  TrueClass.create_foorth_proxy
 
   #Connect the FalseClass class to the fOOrth class system.
-  create_proxy(FalseClass, XfOOrth.object_class)
+  FalseClass.create_foorth_proxy
 
   #Connect the NilClass class to the fOOrth class system.
-  create_proxy(NilClass, XfOOrth.object_class)
+  NilClass.create_foorth_proxy
 
 end

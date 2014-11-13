@@ -14,7 +14,7 @@ module XfOOrth
   #<br>Endemic Code Smells
   #* :reek:TooManyStatements
   def self.main
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
     running = false
 
     begin

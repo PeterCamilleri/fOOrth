@@ -8,19 +8,19 @@ module XfOOrth
   #===================================================
 
   #The self method.
-  object_class.create_shared_method('self', MacroWordSpec,
+  Object.create_shared_method('self', MacroWordSpec,
     ["vm.push(self); "])
 
   #The true method.
-  object_class.create_shared_method('true', MacroWordSpec,
+  Object.create_shared_method('true', MacroWordSpec,
     ["vm.push(true); "])
 
   #The false method.
-  object_class.create_shared_method('false', MacroWordSpec,
+  Object.create_shared_method('false', MacroWordSpec,
     ["vm.push(false); "])
 
   #The nil method.
-  object_class.create_shared_method('nil', MacroWordSpec,
+  Object.create_shared_method('nil', MacroWordSpec,
     ["vm.push(nil); "])
 
 
@@ -41,7 +41,7 @@ module XfOOrth
     ["vm.push(vm.peek.full_clone); "])
 
   # [a] .clone [a']
-  object_class.create_shared_method('.clone', MonadicWordSpec, [],
+  Object.create_shared_method('.clone', MonadicWordSpec, [],
     &lambda {|vm| vm.push(self.full_clone); })
 
   # [a] ?dup if a is true then [a,a] else [a]
@@ -77,27 +77,27 @@ module XfOOrth
   #===================================================
 
   # [b,a] + [b+a]
-  object_class.create_shared_method('+', DyadicWordSpec, [],
+  Object.create_shared_method('+', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self + vm.pop()); })
 
   # [b,a] - [b-a]
-  object_class.create_shared_method('-', DyadicWordSpec, [],
+  Object.create_shared_method('-', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self - vm.pop()); })
 
   # [b,a] * [b+a]
-  object_class.create_shared_method('*', DyadicWordSpec, [],
+  Object.create_shared_method('*', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self * vm.pop()); })
 
   # [b,a] / [b-a]
-  object_class.create_shared_method('/', DyadicWordSpec, [],
+  Object.create_shared_method('/', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self / vm.pop()); })
 
   # [b,a] mod [b-a]
-  object_class.create_shared_method('mod', DyadicWordSpec, [],
+  Object.create_shared_method('mod', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self % vm.pop()); })
 
   # [a] 0- [0-a]
-  object_class.create_shared_method('0-', MonadicWordSpec, [],
+  Object.create_shared_method('0-', MonadicWordSpec, [],
     &lambda {|vm| vm.push(0-self); })
 
   #===================================================
@@ -105,19 +105,19 @@ module XfOOrth
   #===================================================
 
   # [b,a] and [b&a]
-  object_class.create_shared_method('and', DyadicWordSpec, [],
+  Object.create_shared_method('and', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self.to_i & vm.pop.to_i); })
 
   # [b,a] or [b|a]
-  object_class.create_shared_method('or', DyadicWordSpec, [],
+  Object.create_shared_method('or', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self.to_i | vm.pop.to_i); })
 
   # [b,a] xor [b^a]
-  object_class.create_shared_method('xor', DyadicWordSpec, [],
+  Object.create_shared_method('xor', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self.to_i ^ vm.pop.to_i); })
 
   # [a] not [~a]
-  object_class.create_shared_method('not', MonadicWordSpec, [],
+  Object.create_shared_method('not', MonadicWordSpec, [],
     &lambda {|vm| vm.push(~(self.to_i)); })
 
   #===================================================
@@ -125,19 +125,19 @@ module XfOOrth
   #===================================================
 
   # [b,a] && [b&a]
-  object_class.create_shared_method('&&', DyadicWordSpec, [],
+  Object.create_shared_method('&&', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self.to_foorth_b & vm.pop.to_foorth_b); })
 
   # [b,a] || [b|a]
-  object_class.create_shared_method('||', DyadicWordSpec, [],
+  Object.create_shared_method('||', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self.to_foorth_b | vm.pop.to_foorth_b); })
 
   # [b,a] ^^ [b^a]
-  object_class.create_shared_method('^^', DyadicWordSpec, [],
+  Object.create_shared_method('^^', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self.to_foorth_b ^ vm.pop.to_foorth_b); })
 
   # [a] ! [!a]
-  object_class.create_shared_method('!', MonadicWordSpec, [],
+  Object.create_shared_method('!', MonadicWordSpec, [],
     &lambda {|vm| vm.push(!(self.to_foorth_b)); })
 
   #===================================================
@@ -145,31 +145,31 @@ module XfOOrth
   #===================================================
 
   # [b,a] = if b == a then [true] else [false]
-  object_class.create_shared_method('=', DyadicWordSpec, [],
+  Object.create_shared_method('=', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self == vm.pop()); })
 
   # [b,a] <> if b != a then [true] else [false]
-  object_class.create_shared_method('<>', DyadicWordSpec, [],
+  Object.create_shared_method('<>', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self != vm.pop()); })
 
   # [b,a] > if b > a then [true] else [false]
-  @object_class.create_shared_method('>', DyadicWordSpec, [],
+  Object.create_shared_method('>', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self > vm.pop()); })
 
   # [b,a] < if b < a then [true] else [false]
-  object_class.create_shared_method('<', DyadicWordSpec, [],
+  Object.create_shared_method('<', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self < vm.pop()); })
 
   # [b,a] >= if b >= a then [true] else [false]
-  object_class.create_shared_method('>=', DyadicWordSpec, [],
+  Object.create_shared_method('>=', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self >= vm.pop()); })
 
   # [b,a] <= if b <= a then [true] else [false]
-  object_class.create_shared_method('<=', DyadicWordSpec, [],
+  Object.create_shared_method('<=', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self <= vm.pop()); })
 
   # [b,a] 0<=> b < a [-1], b = a [0], b > a [1]
-  object_class.create_shared_method('<=>', DyadicWordSpec, [],
+  Object.create_shared_method('<=>', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self <=> vm.pop()); })
 
   #===================================================
@@ -177,11 +177,11 @@ module XfOOrth
   #===================================================
 
   # [b,a] identical? if b.object_id == a.object_id then [true] else [false]
-  object_class.create_shared_method('identical?', DyadicWordSpec, [],
+  Object.create_shared_method('identical?', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self.object_id == vm.pop.object_id); })
 
   # [b,a] distinct? if b.object_id != a.object_id then [true] else [false]
-  object_class.create_shared_method('distinct?', DyadicWordSpec, [],
+  Object.create_shared_method('distinct?', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self.object_id != vm.pop.object_id); })
 
   #===================================================
@@ -189,31 +189,31 @@ module XfOOrth
   #===================================================
 
   # [b,a] 0= if b == 0 then [true] else [false]
-  object_class.create_shared_method('0=', MonadicWordSpec, [],
+  Object.create_shared_method('0=', MonadicWordSpec, [],
     &lambda {|vm| vm.push(self == 0); })
 
   # [b,a] 0<> if b != 0 then [true] else [false]
-  object_class.create_shared_method('0<>', MonadicWordSpec, [],
+  Object.create_shared_method('0<>', MonadicWordSpec, [],
     &lambda {|vm| vm.push(self != 0); })
 
   # [b,a] 0> if b > 0 then [true] else [false]
-  object_class.create_shared_method('0>', MonadicWordSpec, [],
+  Object.create_shared_method('0>', MonadicWordSpec, [],
     &lambda {|vm| vm.push(self > 0); })
 
   # [b,a] 0< if b < 0 then [true] else [false]
-  object_class.create_shared_method('0<', MonadicWordSpec, [],
+  Object.create_shared_method('0<', MonadicWordSpec, [],
     &lambda {|vm| vm.push(self < 0); })
 
   # [b,a] 0>= if b >= 0 then [true] else [false]
-  object_class.create_shared_method('0>=', MonadicWordSpec, [],
+  Object.create_shared_method('0>=', MonadicWordSpec, [],
     &lambda {|vm| vm.push(self >= 0); })
 
   # [b,a] 0<= if b <= 0 then [true] else [false]
-  object_class.create_shared_method('0<=', MonadicWordSpec, [],
+  Object.create_shared_method('0<=', MonadicWordSpec, [],
     &lambda {|vm| vm.push(self <= 0); })
 
   # [b] 0<=> b < 0 [-1], b = 0 [0], b > 0 [1]
-  object_class.create_shared_method('0<=>', MonadicWordSpec, [],
+  Object.create_shared_method('0<=>', MonadicWordSpec, [],
     &lambda {|vm| vm.push(self <=> 0); })
 
 end

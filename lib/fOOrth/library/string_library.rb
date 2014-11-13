@@ -4,6 +4,6 @@
 module XfOOrth
 
   #Connect the String class to the fOOrth class system.
-  create_proxy(String, XfOOrth.object_class)
+  String.create_foorth_proxy
 
 end

@@ -21,7 +21,7 @@ class CtrlStackMapTester < MiniTest::Unit::TestCase
 
   #Test control stack functionality.
   def test_control_stack_ops
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
     refute(vm == nil)
 
     vm.interpreter_reset

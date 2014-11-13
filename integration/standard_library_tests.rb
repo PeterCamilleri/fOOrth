@@ -23,7 +23,7 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_basic_constants
-    foorth_equal("self", [XfOOrth.virtual_machine])
+    foorth_equal("self", [Thread.current[:vm]])
     foorth_equal("true", [true])
     foorth_equal("false", [false])
     foorth_equal("nil", [nil])

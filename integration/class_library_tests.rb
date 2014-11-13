@@ -23,7 +23,7 @@ class ClassLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_that_the_class_class_is_available
-    foorth_equal("Class", [XfOOrth.class_class])
+    foorth_equal("Class", [Class])
   end
 
   def test_that_we_can_tell_classes_from_non_classes
@@ -31,22 +31,22 @@ class ClassLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("Object .is_class?",      [true])
     foorth_equal("Object .new .is_class?", [false])
 
-    foorth_equal("Fixnum .is_class?",      [true])
-    foorth_equal("42     .is_class?",      [false])
+    foorth_equal("Numeric .is_class?",     [true])
+    foorth_equal("42      .is_class?",     [false])
   end
 
   def test_that_we_can_find_the_class_of_a_thing
-    foorth_equal("Class       .class",     [XfOOrth.class_class])
-    foorth_equal("Object      .class",     [XfOOrth.class_class])
+    foorth_equal("Class       .class",     [Class])
+    foorth_equal("Object      .class",     [Class])
 
-    foorth_equal("Object .new .class",     [XfOOrth.object_class])
+    foorth_equal("Object .new .class",     [Object])
     foorth_equal("42          .class",     [Fixnum])
     foorth_equal('"foobar"    .class',     [String])
   end
 
   def test_that_we_can_find_the_parent_of_a_class
-    foorth_equal("Class  .parent_class",   [XfOOrth.object_class])
-    foorth_equal("Object .parent_class",   [nil])
+    foorth_equal("Class  .parent_class",   [Module])
+    foorth_equal("Object .parent_class",   [BasicObject])
   end
 
 end

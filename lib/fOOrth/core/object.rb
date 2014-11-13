@@ -35,7 +35,7 @@ class Object
   def create_exclusive_method(name, spec_class, options, &block)
     sym = XfOOrth::SymbolMap.add_entry(name)
     spec = spec_class.new(name, sym, options, &block)
-    cache_exclusive_method(sym, &block)
+    cache_exclusive_method(sym, &spec.does)
     foorth_exclusive[sym] = spec
   end
 
@@ -80,39 +80,4 @@ class Object
     end
   end
 
-end
-
-# Core Tsunami -- All that follows will be swept away... eventually...
-
-require_relative 'exclusive'
-require_relative 'shared_cache'
-require_relative 'method_missing'
-
-#* core/object.rb - The generic object class of the fOOrth language system.
-module XfOOrth
-
-  #The \XObject class is basis for all fOOrth objects.
-  class XObject
-    include Exclusive
-    extend  SharedCache
-    include MethodMissing
-
-    class << self
-
-      #A class instance variable to get the \foorth_class of this object.
-      attr_accessor :foorth_class
-
-    end
-
-    #Get the fOOrth class of this object.
-    def foorth_class
-      self.class.foorth_class
-    end
-
-    #Get the name of this object.
-    def foorth_name
-      "#{foorth_class.foorth_name} instance"
-    end
-
-  end
 end

@@ -25,7 +25,7 @@ class VMLibraryTester < MiniTest::Unit::TestCase
   def test_that_the_VM_class_and_instance_are_available
     foorth_equal("VirtualMachine", [XfOOrth::VirtualMachine])
 
-    vm = XfOOrth.virtual_machine
+    vm = Thread.current[:vm]
     foorth_equal("vm", [vm])
   end
 

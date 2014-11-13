@@ -107,6 +107,7 @@ module XfOOrth
         @data[@symbol]         ||
         do_object_class_map    ||
         do_vm_target_map       ||
+        $ALL_CLASSES[@name]    ||
         spec_error
       end
 
@@ -114,7 +115,7 @@ module XfOOrth
 
     #Do a search of the Object class for the item.
     def do_object_class_map
-      XfOOrth.object_maps_symbol(@symbol)
+      Object.map_foorth_shared(@symbol)
     end
 
     #Do a search of the :cls tag if it is specified.

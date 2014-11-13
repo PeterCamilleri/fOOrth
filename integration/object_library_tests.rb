@@ -23,7 +23,7 @@ class ObjectLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_that_the_object_class_is_available
-    foorth_equal("Object", [XfOOrth.object_class])
+    foorth_equal("Object", [Object])
   end
 
   def test_getting_a_things_name
