@@ -11,7 +11,7 @@ class Class
   #<br>Decree!
   #* This is to be the only reference to @_private_foorth_name!
   def foorth_name
-    @_private_foorth_name ||= "Ruby::#{self.name}"
+    @_private_foorth_name ||= name
   end
 
 
@@ -45,6 +45,54 @@ class Class
   def map_foorth_shared(symbol)
     foorth_shared[symbol] || ((sc = superclass) && sc.map_foorth_shared(symbol))
   end
+
+  #==========================================================================
+  # Instance Creation Support
+  #==========================================================================
+
+  #Create an instance of this fOOrth class.
+  #<br>Parameters:
+  #* vm - The current fOOrth virtual machine.
+  def create_foorth_instance(vm)
+    (obj = self.new).foorth_init(vm)
+    obj
+  end
+
+
+  #==========================================================================
+  # Subclass/Proxy Creation Support
+  #==========================================================================
+
+  #Create a new fOOrth subclass of this class.
+  #<br>Parameters:
+  #* foorth_name - The foorth_name of the new sub-class.
+  #<br>Note:
+  #* If a sub-class with the given name already exists, that class is returned.
+  def create_foorth_subclass(foorth_name)
+    unless (result = $ALL_CLASSES[foorth_name])
+      result = Class.new(self) {
+        @foorth_name = foorth_name
+      }
+
+      ruby_name = 'XfOOrth_' + foorth_name
+      XfOOrth.const_set(ruby_name, result)
+      $ALL_CLASSES[foorth_name] = ClassWordSpec.new(ruby_name, nil, [])
+    end
+
+    result
+  end
+
+  #Add this class as a proxy class in the foorth class system.
+  #<br>Note:
+  #* If a proxy already exists, it is returned.
+  def create_foorth_proxy
+    unless $ALL_CLASSES[foorth_name]
+      $ALL_CLASSES[foorth_name] = ClassWordSpec.new(foorth_name, nil, [])
+    end
+
+    self
+  end
+
 
 end
 

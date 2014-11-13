@@ -11,6 +11,11 @@ require_relative 'core/proxy'
 
 #* core.rb - The fOOrth language OO core.
 module XfOOrth
+
+  $ALL_CLASSES = Hash.new
+
+# Core Tsunami -- All that follows will be swept away... eventually...
+
   extend CoreAccess
 
   #==========================================================================
