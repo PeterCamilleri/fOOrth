@@ -66,33 +66,44 @@ class Class
   #Create a new fOOrth subclass of this class.
   #<br>Parameters:
   #* foorth_name - The foorth_name of the new sub-class.
+  #<br>Returns:
+  #* The subclass.
   #<br>Note:
   #* If a sub-class with the given name already exists, that class is returned.
   def create_foorth_subclass(foorth_name)
     unless (result = $ALL_CLASSES[foorth_name])
+      error "Invalid class name" unless /^[A-Z][A-Za-z]*$/ =~ foorth_name
+
       result = Class.new(self) {
         @_private_foorth_name = foorth_name
       }
 
       ruby_name = 'XfOOrth_' + foorth_name
       XfOOrth.const_set(ruby_name, result)
-      XfOOrth::SymbolMap.add_entry(foorth_name)
-      $ALL_CLASSES[foorth_name] = XfOOrth::ClassWordSpec.new(ruby_name, nil, [])
+
+      install_foorth_class(foorth_name)
     end
 
     result
   end
 
   #Add this class as a proxy class in the foorth class system.
-  #<br>Note:
-  #* If a proxy already exists, it is returned.
+  #<br>Returns:
+  #* The proxy class.
   def create_foorth_proxy
-    unless $ALL_CLASSES[foorth_name]
-      XfOOrth::SymbolMap.add_entry(foorth_name)
-      $ALL_CLASSES[foorth_name] = XfOOrth::ClassWordSpec.new(foorth_name, nil, [])
-    end
+    install_foorth_class(foorth_name) unless $ALL_CLASSES[foorth_name]
 
     self
+  end
+
+  private
+
+  #Connect the class named foorth_name to the foorth system.
+  #<br> Endemic Code Smells
+  #* :reek:UtilityFunction
+  def install_foorth_class(foorth_name)
+    XfOOrth::SymbolMap.add_entry(foorth_name)
+    $ALL_CLASSES[foorth_name] = XfOOrth::ClassWordSpec.new(foorth_name, nil, [])
   end
 
 end

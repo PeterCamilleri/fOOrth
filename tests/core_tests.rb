@@ -110,6 +110,11 @@ class CoreTester < MiniTest::Unit::TestCase
     new_class = Object.create_foorth_subclass('MyClass')
     assert($ALL_CLASSES['MyClass'])
     assert_equal('MyClass', new_class.foorth_name)
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      no_class = Object.create_foorth_subclass('No Class')
+    end
+
     #more needed!
   end
 
