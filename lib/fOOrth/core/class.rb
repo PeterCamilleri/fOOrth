@@ -93,7 +93,6 @@ class Class
     self
   end
 
-
 end
 
 # Core Tsunami -- All that follows will be swept away... eventually...

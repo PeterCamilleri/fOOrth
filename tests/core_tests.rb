@@ -92,7 +92,6 @@ class CoreTester < MiniTest::Unit::TestCase
   end
 
   def test_that_virtual_machine_rejects_new
-    #This really should raise an exception, and it does!
     assert_raises(XfOOrth::XfOOrthError) do
       XfOOrth::VirtualMachine.new('Fails')
     end
@@ -106,8 +105,16 @@ class CoreTester < MiniTest::Unit::TestCase
 
   def test_creating_subclasses
     new_class = Object.create_foorth_subclass('MyClass')
-
+    assert($ALL_CLASSES['MyClass'])
     assert_equal('MyClass', new_class.foorth_name)
+    #more needed!
+  end
+
+  def test_creating_proxies
+    new_proxy = String.create_foorth_proxy
+    assert($ALL_CLASSES['String'])
+    assert_equal('String', new_proxy.foorth_name)
+    #more needed!
   end
 
 # Core Tsunami -- Most of what follows will be swept away... eventually...
