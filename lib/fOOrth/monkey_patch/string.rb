@@ -24,7 +24,7 @@ class String
   def to_foorth_n
     if /\di$/ =~ self      #Check for a trailing '<digit>i'.
       #Check for the internal '+' or '-'sign.
-      if (/(?<=\d)\+/ =~ self) || (/(?<=\d)\-/ =~ self)
+      if /(?<=\d)[+-]/ =~ self
         Complex(($`).to_foorth_n, ($& + $').chop.to_foorth_n)
       else
         Complex(0, self.chop.to_foorth_n)
