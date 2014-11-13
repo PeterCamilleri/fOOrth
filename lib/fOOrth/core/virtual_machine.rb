@@ -11,6 +11,25 @@ module XfOOrth
 
   #* core/virtual_machine.rb - The core connection to the virtual machine.
   class VirtualMachine
+
+    #The name of the virtual machine instance
+    def foorth_name
+      "#{self.class.foorth_name} instance <#{@name}>"
+    end
+
+    #Class definitions stand in for the fOOrth virtual machine class.
+    class << self
+
+      #Create a new fOOrth subclass of this class. This is not allowed for the
+      #VirtualMachine class so this stub merely raises an exception.
+      def create_foorth_subclass(_name)
+        error "Forbidden operation: (VirtualMachine.create_foorth_subclass)."
+      end
+
+    end
+
+# Core Tsunami -- All that follows will be swept away... eventually...
+
     include Exclusive
     extend  Exclusive
     extend  Shared
@@ -39,11 +58,6 @@ module XfOOrth
         "VirtualMachine"
       end
 
-      #Create a new fOOrth subclass of this class. This is not allowed for the
-      #VirtualMachine class so this stub merely raises an exception.
-      def create_foorth_subclass(_name)
-        error "Forbidden operation: (VirtualMachine.create_foorth_subclass)."
-      end
     end
 
     #Get the fOOrth class of this virtual machine
@@ -51,9 +65,5 @@ module XfOOrth
       VirtualMachine
     end
 
-    #The name of the virtual machine instance
-    def foorth_name
-      "#{foorth_class.foorth_name} instance <#{@name}>"
-    end
   end
 end

@@ -81,6 +81,9 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal("Object",         Object.foorth_name)
     assert_equal("Class",          Class.foorth_name)
     assert_equal("VirtualMachine", XfOOrth::VirtualMachine.foorth_name)
+
+    vm = XfOOrth.virtual_machine
+    assert_equal("VirtualMachine instance <Main>", vm.foorth_name)
   end
 
   def test_instance_naming
