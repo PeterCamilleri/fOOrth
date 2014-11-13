@@ -23,10 +23,10 @@ class Object
   #<br>Returns
   #* The spec created for the shared method.
   def create_exclusive_method(name, spec_class, options, &block)
-    sym = SymbolMap.add_entry(name)
+    sym = XfOOrth::SymbolMap.add_entry(name)
     spec = spec_class.new(name, sym, options, &block)
-    cache_exclusive_method(symbol, &block)
-    foorth_exclusive[symbol] = spec
+    cache_exclusive_method(sym, &block)
+    foorth_exclusive[sym] = spec
   end
 
   #Load the new exclusive method into the object.

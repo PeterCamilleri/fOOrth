@@ -23,10 +23,10 @@ class Class
   #<br>Returns
   #* The spec created for the shared method.
   def create_shared_method(name, spec_class, options, &block)
-    sym = SymbolMap.add_entry(name)
+    sym = XfOOrth::SymbolMap.add_entry(name)
     spec = spec_class.new(name, sym, options, &block)
-    define_method(symbol, &block)
-    foorth_shared[symbol] = spec
+    define_method(sym, &block)
+    foorth_shared[sym] = spec
   end
 
   #Map the symbol to a specification or nil if there is no mapping.

@@ -21,6 +21,7 @@ class CoreTester < MiniTest::Unit::TestCase
   end
 
   def test_that_object_handles_no_method_errors
+    #Get an object instance to test with.
     obj = Object.new
 
     assert_raises(XfOOrth::XfOOrthError) do
@@ -30,6 +31,48 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_raises(NoMethodError) do
       obj.qwertyuiop
     end
+  end
+
+  def test_that_shared_methods_can_be_defined
+    #Get an object instance to test with.
+    obj = Object.new
+
+    #Get the virtual machine.
+    vm = XfOOrth.virtual_machine
+
+    XfOOrth::SymbolMap.add_entry("a_test_one", :a_test_one)
+
+    spec = Object.create_shared_method("a_test_one", XfOOrth::PublicWordSpec, []) {|vm| vm.push(9671111) }
+
+    obj.a_test_one(vm)
+
+    assert_equal(9671111, vm.pop)
+    assert_equal(spec, Object.map_foorth_shared(:a_test_one))
+    assert_equal(spec, Class.map_foorth_shared(:a_test_one))
+    assert_equal(spec, Object.foorth_shared[:a_test_one])
+    assert_equal(nil,  Class.foorth_shared[:a_test_one])
+  end
+
+  def test_that_exclusive_methods_can_be_defined
+    #Get an object instance to test with.
+    obj = Object.new
+
+    #Get the virtual machine.
+    vm = XfOOrth.virtual_machine
+
+    XfOOrth::SymbolMap.add_entry("a_test_two", :a_test_two)
+
+    spec = obj.create_exclusive_method("a_test_two", XfOOrth::PublicWordSpec, []) do |vm|
+      vm.push(9686668)
+    end
+
+    obj.a_test_two(vm)
+
+    assert_equal(9686668, vm.pop)
+    assert_equal(spec, obj.map_foorth_exclusive(:a_test_two))
+    assert_equal(spec, obj.foorth_exclusive[:a_test_two])
+    assert_equal(nil, Object.map_foorth_shared(:a_test_two))
+    assert_equal(nil, Class.map_foorth_shared(:a_test_two))
   end
 
 # Core Tsunami -- Most of what follows will be swept away... eventually...
