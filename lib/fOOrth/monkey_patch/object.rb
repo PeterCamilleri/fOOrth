@@ -2,10 +2,6 @@
 
 #Extensions to the \Object class required by the fOOrth language system.
 class Object
-  #Get the foorth name of this object.
-  def foorth_name
-    "#{self.class.foorth_name} instance"
-  end
 
   #Raise a fOOrth language internal exception as this operation is not allowed.
   def embed

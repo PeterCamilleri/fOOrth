@@ -76,9 +76,4 @@ class ObjectMonkeyPatchTester < MiniTest::Unit::TestCase
     assert_equal(test.read_var(:@my_var), "after")
   end
 
-  def test_object_naming
-    assert_equal("Ruby::Object", Object.foorth_name)
-    assert_equal("Ruby::Regexp instance", (/ABC/).foorth_name)
-  end
-
 end

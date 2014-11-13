@@ -4,6 +4,18 @@
 class Class
 
   #==========================================================================
+  # fOOrth Name Support
+  #==========================================================================
+
+  #Get the foorth name of this class.
+  #<br>Decree!
+  #* This is to be the only reference to @_private_foorth_name!
+  def foorth_name
+    @_private_foorth_name ||= "Ruby::#{self.name}"
+  end
+
+
+  #==========================================================================
   # Shared Method Support
   #==========================================================================
 

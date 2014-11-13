@@ -4,6 +4,16 @@
 class Object
 
   #==========================================================================
+  # fOOrth Name Support
+  #==========================================================================
+
+  #Get the foorth name of this object.
+  def foorth_name
+    "#{self.class.foorth_name} instance"
+  end
+
+
+  #==========================================================================
   # Exclusive Method Support
   #==========================================================================
 
@@ -60,6 +70,7 @@ class Object
       super
     end
   end
+
 end
 
 # Core Tsunami -- All that follows will be swept away... eventually...

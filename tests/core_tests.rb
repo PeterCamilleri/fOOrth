@@ -75,6 +75,20 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal(nil, Class.map_foorth_shared(:a_test_two))
   end
 
+  def test_class_naming
+    assert_equal("Ruby::Object",   Object.foorth_name)
+    assert_equal("Ruby::Class",    Class.foorth_name)
+    assert_equal("VirtualMachine", XfOOrth::VirtualMachine.foorth_name)
+  end
+
+  def test_instance_naming
+    obj = Object.new
+    assert_equal("Ruby::Object instance", obj.foorth_name)
+
+    vm = XfOOrth.virtual_machine
+    assert_equal("VirtualMachine instance <Main>", vm.foorth_name)
+  end
+
 # Core Tsunami -- Most of what follows will be swept away... eventually...
 
   #Test out the bare minimum core elements
