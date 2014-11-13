@@ -71,12 +71,12 @@ class Class
   def create_foorth_subclass(foorth_name)
     unless (result = $ALL_CLASSES[foorth_name])
       result = Class.new(self) {
-        @foorth_name = foorth_name
+        @_private_foorth_name = foorth_name
       }
 
       ruby_name = 'XfOOrth_' + foorth_name
       XfOOrth.const_set(ruby_name, result)
-      $ALL_CLASSES[foorth_name] = ClassWordSpec.new(ruby_name, nil, [])
+      $ALL_CLASSES[foorth_name] = XfOOrth::ClassWordSpec.new(ruby_name, nil, [])
     end
 
     result
@@ -87,7 +87,7 @@ class Class
   #* If a proxy already exists, it is returned.
   def create_foorth_proxy
     unless $ALL_CLASSES[foorth_name]
-      $ALL_CLASSES[foorth_name] = ClassWordSpec.new(foorth_name, nil, [])
+      $ALL_CLASSES[foorth_name] = XfOOrth::ClassWordSpec.new(foorth_name, nil, [])
     end
 
     self

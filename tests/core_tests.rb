@@ -104,6 +104,12 @@ class CoreTester < MiniTest::Unit::TestCase
     end
   end
 
+  def test_creating_subclasses
+    new_class = Object.create_foorth_subclass('MyClass')
+
+    assert_equal('MyClass', new_class.foorth_name)
+  end
+
 # Core Tsunami -- Most of what follows will be swept away... eventually...
 
   #Test out some instances of Object
@@ -136,32 +142,5 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal('Fixnum instance',  (42).foorth_name)
   end
 
-  def test_creating_subclasses
-    a_class = XfOOrth.object_class.create_foorth_subclass("AClass")
-    assert_equal('AClass', a_class.foorth_name)
-    assert_equal('Object', a_class.foorth_parent.foorth_name)
-    assert_equal('Class', a_class.foorth_class.foorth_name)
-
-    b_class = a_class.create_foorth_subclass("BClass")
-    assert_equal('BClass', b_class.foorth_name)
-    assert_equal('AClass', b_class.foorth_parent.foorth_name)
-    assert_equal('Class', b_class.foorth_class.foorth_name)
-
-
-    c_class = XfOOrth.class_class.create_foorth_subclass("CClass")
-    assert_equal('CClass', c_class.foorth_name)
-    assert_equal('Class', c_class.foorth_parent.foorth_name)
-    assert_equal('Class', c_class.foorth_class.foorth_name)
-
-    d_class = c_class.create_foorth_subclass("DClass", c_class)
-    assert_equal('DClass', d_class.foorth_name)
-    assert_equal('CClass', d_class.foorth_parent.foorth_name)
-    assert_equal('CClass', d_class.foorth_class.foorth_name)
-
-    e_class = XfOOrth.object_class.create_foorth_subclass("EClass", d_class)
-    assert_equal('EClass', e_class.foorth_name)
-    assert_equal('Object', e_class.foorth_parent.foorth_name)
-    assert_equal('DClass', e_class.foorth_class.foorth_name)
-  end
 
 end
