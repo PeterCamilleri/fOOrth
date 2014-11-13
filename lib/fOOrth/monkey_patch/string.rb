@@ -23,10 +23,9 @@ class String
   #Convert this string to a numeric. Return a number or nil on fail.
   def to_foorth_n
     if /\di$/ =~ self      #Check for a trailing '<digit>i'.
-      if /(?<=\d)\+/ =~ self      #Check for the internal '+' sign.
-        Complex(($`).to_foorth_n, ($').chop.to_foorth_n)
-      elsif /(?<=\d)\-/ =~ self   #Check for the internal '-' sign.
-        Complex(($`).to_foorth_n, -(($').chop.to_foorth_n))
+      #Check for the internal '+' or '-'sign.
+      if (/(?<=\d)\+/ =~ self) || (/(?<=\d)\-/ =~ self)
+        Complex(($`).to_foorth_n, ($& + $').chop.to_foorth_n)
       else
         Complex(0, self.chop.to_foorth_n)
       end

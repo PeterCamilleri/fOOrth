@@ -1,7 +1,3 @@
 lib/fOOrth/compiler/modes.rb -- 1 warning:
   [16, 32, 46, 58, 72, 101]:XfOOrth::VirtualMachine tests debug at least 6 times (RepeatedConditional)
-lib/fOOrth/monkey_patch/string.rb -- 3 warnings:
-  [27, 29]:String#to_foorth_n calls $'.chop twice (DuplicateMethodCall)
-  [27, 29]:String#to_foorth_n calls $'.chop.to_foorth_n twice (DuplicateMethodCall)
-  [27, 29]:String#to_foorth_n calls $`.to_foorth_n twice (DuplicateMethodCall)
-4 total warnings
+1 total warning
