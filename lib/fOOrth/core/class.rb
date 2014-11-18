@@ -9,10 +9,18 @@ class Class
 
   #Get the foorth name of this class.
   #<br>Decree!
-  #* This is to be the only reference to @_private_foorth_name!
+  #* These are to be the only references to @_private_foorth_name!
   def foorth_name
     @_private_foorth_name ||= name
   end
+
+  #Set the foorth name of this class.
+  #<br>Decree!
+  #* These are to be the only references to @_private_foorth_name!
+  def foorth_name=(new_name)
+    @_private_foorth_name = new_name
+  end
+
 
 
   #==========================================================================
@@ -75,7 +83,7 @@ class Class
       error "Invalid class name" unless /^[A-Z][A-Za-z]*$/ =~ foorth_name
 
       result = Class.new(self) {
-        @_private_foorth_name = foorth_name
+        self.foorth_name = foorth_name
       }
 
       ruby_name = 'XfOOrth_' + foorth_name
