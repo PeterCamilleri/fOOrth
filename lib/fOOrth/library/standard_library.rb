@@ -3,10 +3,7 @@
 #* library/standard_library.rb - The standard fOOrth library.
 module XfOOrth
 
-  #===================================================
   # Some basic "constant" value words.
-  #===================================================
-
   #The self method.
   Object.create_shared_method('self', MacroWordSpec,
     ["vm.push(self); "])
@@ -23,11 +20,7 @@ module XfOOrth
   Object.create_shared_method('nil', MacroWordSpec,
     ["vm.push(nil); "])
 
-
-  #===================================================
   # Some stack manipulation words.
-  #===================================================
-
   # [a] drop []
   VirtualMachine.create_shared_method('drop', MacroWordSpec,
     ["vm.pop(); "])
@@ -72,10 +65,7 @@ module XfOOrth
   VirtualMachine.create_shared_method('tuck', VmWordSpec, [],
     &lambda {|vm| vb,va = popm(2); push(va); push(vb); push(va); })
 
-  #===================================================
   # Some stack arithmetic words.
-  #===================================================
-
   # [b,a] + [b+a]
   Object.create_shared_method('+', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self + vm.pop()); })
@@ -100,10 +90,7 @@ module XfOOrth
   Object.create_shared_method('0-', MonadicWordSpec, [],
     &lambda {|vm| vm.push(0-self); })
 
-  #===================================================
   # Some bitwise operation words.
-  #===================================================
-
   # [b,a] and [b&a]
   Object.create_shared_method('and', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self.to_i & vm.pop.to_i); })
@@ -120,10 +107,7 @@ module XfOOrth
   Object.create_shared_method('not', MonadicWordSpec, [],
     &lambda {|vm| vm.push(~(self.to_i)); })
 
-  #===================================================
   # Some boolean operation words.
-  #===================================================
-
   # [b,a] && [b&a]
   Object.create_shared_method('&&', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self.to_foorth_b & vm.pop.to_foorth_b); })
@@ -140,10 +124,7 @@ module XfOOrth
   Object.create_shared_method('!', MonadicWordSpec, [],
     &lambda {|vm| vm.push(!(self.to_foorth_b)); })
 
-  #===================================================
   # Some comparison words.
-  #===================================================
-
   # [b,a] = if b == a then [true] else [false]
   Object.create_shared_method('=', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self == vm.pop()); })
@@ -172,10 +153,7 @@ module XfOOrth
   Object.create_shared_method('<=>', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self <=> vm.pop()); })
 
-  #===================================================
   # Some identity comparison words.
-  #===================================================
-
   # [b,a] identical? if b.object_id == a.object_id then [true] else [false]
   Object.create_shared_method('identical?', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self.object_id == vm.pop.object_id); })
@@ -184,10 +162,7 @@ module XfOOrth
   Object.create_shared_method('distinct?', DyadicWordSpec, [],
     &lambda {|vm| vm.push(self.object_id != vm.pop.object_id); })
 
-  #===================================================
   # Some comparison with zero words.
-  #===================================================
-
   # [b,a] 0= if b == 0 then [true] else [false]
   Object.create_shared_method('0=', MonadicWordSpec, [],
     &lambda {|vm| vm.push(self == 0); })

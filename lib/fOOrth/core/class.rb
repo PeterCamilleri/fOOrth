@@ -3,10 +3,6 @@
 #* The additions to the Ruby Class class required to support fOOrth.
 class Class
 
-  #==========================================================================
-  # fOOrth Name Support
-  #==========================================================================
-
   #Get the foorth name of this class.
   #<br>Decree!
   #* These are to be the only references to @_private_foorth_name!
@@ -20,12 +16,6 @@ class Class
   def foorth_name=(new_name)
     @_private_foorth_name = new_name
   end
-
-
-
-  #==========================================================================
-  # Shared Method Support
-  #==========================================================================
 
   #Access/create the class's shared fOOrth dictionary.
   #<br>Decree!
@@ -54,10 +44,6 @@ class Class
     foorth_shared[symbol] || ((sc = superclass) && sc.map_foorth_shared(symbol))
   end
 
-  #==========================================================================
-  # Instance Creation Support
-  #==========================================================================
-
   #Create an instance of this fOOrth class.
   #<br>Parameters:
   #* vm - The current fOOrth virtual machine.
@@ -65,11 +51,6 @@ class Class
     (obj = self.new).foorth_init(vm)
     obj
   end
-
-
-  #==========================================================================
-  # Subclass/Proxy Creation Support
-  #==========================================================================
 
   #Create a new fOOrth subclass of this class.
   #<br>Parameters:

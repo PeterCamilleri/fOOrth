@@ -3,12 +3,7 @@
 #* library/ctrl_struct_library.rb - The control structures fOOrth library.
 module XfOOrth
 
-  #===================================================
-  # Support for the classic if else then construct!
-  #===================================================
-
   # [boolean] if (boolean true code) else (boolean false code) then
-
   VirtualMachine.create_shared_method('if', VmWordSpec, [:immediate],
     &lambda {|vm| suspend_execute_mode('if vm.pop? then ', :if) })
 
@@ -19,10 +14,7 @@ module XfOOrth
     &lambda {|vm| resume_execute_mode('end; ', [:if]) })
 
 
-  #===================================================
-  # Support for the classic begin until constructs!
-  #===================================================
-
+  # Looping contructs for fOOrth.
   VirtualMachine.create_shared_method('begin', VmWordSpec, [:immediate],
     &lambda {|vm| suspend_execute_mode('begin ', :begin) })
 
@@ -39,7 +31,6 @@ module XfOOrth
     &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
 
 
-  #===================================================
   # Support for the classic do loop constructs!
   #
   # NOTE: The do loop must always be configured to
@@ -47,8 +38,6 @@ module XfOOrth
   # access the reverse count. This differs from the
   # classic FORTH version to avoid its tendency to
   # fly off into endless loops.
-  #===================================================
-
   VirtualMachine.create_shared_method('do', VmWordSpec, [:immediate],
     &lambda {|vm|
       jvar =  context[:jloop].to_s

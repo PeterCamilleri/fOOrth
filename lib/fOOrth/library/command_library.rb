@@ -3,10 +3,6 @@
 #* library/command_library.rb - The utility command fOOrth library.
 module XfOOrth
 
-  #===================================================
-  # Some utility commands.
-  #===================================================
-
   #The quit out of fOOrth method.
   Object.create_shared_method(')quit', MacroWordSpec,
     ["raise ForceExit; "])

@@ -3,10 +3,7 @@
 #* library/stdio_library.rb - The standard I/O fOOrth library.
 module XfOOrth
 
-  #===================================================
   # Some basic console I/O words.
-  #===================================================
-
   #Print out an object.
   Object.create_shared_method('.', MonadicWordSpec, [],
     &lambda {|vm| print self.to_s})

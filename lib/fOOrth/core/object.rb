@@ -3,19 +3,10 @@
 #* The additions to the Ruby Object class required to support fOOrth.
 class Object
 
-  #==========================================================================
-  # fOOrth Name Support
-  #==========================================================================
-
   #Get the foorth name of this object.
   def foorth_name
     "#{self.class.foorth_name} instance"
   end
-
-
-  #==========================================================================
-  # Exclusive Method Support
-  #==========================================================================
 
   #Access/create the object's exclusive fOOrth dictionary.
   #<br>Decree!
@@ -51,19 +42,9 @@ class Object
     foorth_exclusive[symbol] || self.class.map_foorth_shared(symbol)
   end
 
-
-  #==========================================================================
-  # The default foorth_init method
-  #==========================================================================
-
   #The default foorth_init method does nothing.
   def foorth_init(_vm)
   end
-
-
-  #==========================================================================
-  # Missing Method Handler
-  #==========================================================================
 
   #The \method_missing hook is used to provide meaningful error messages
   #when problems are encountered.
