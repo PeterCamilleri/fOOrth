@@ -63,14 +63,12 @@ class Class
     unless (result = $ALL_CLASSES[foorth_name])
       error "Invalid class name" unless /^[A-Z][A-Za-z]*$/ =~ foorth_name
 
-      result = Class.new(self) {
+      new_class = Class.new(self) {
         self.foorth_name = foorth_name
       }
 
-      ruby_name = 'XfOOrth_' + foorth_name
-      XfOOrth.const_set(ruby_name, result)
-
-      install_foorth_class(foorth_name)
+      XfOOrth.const_set('XfOOrth_' + foorth_name, new_class)
+      result = install_foorth_class(foorth_name)
     end
 
     result
