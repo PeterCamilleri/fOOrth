@@ -83,6 +83,8 @@ class Class
   private
 
   #Connect the class named foorth_name to the foorth system.
+  #<br>Returns:
+  #* The newly created spec object.
   #<br> Endemic Code Smells
   #* :reek:UtilityFunction
   def install_foorth_class(foorth_name, new_class)
