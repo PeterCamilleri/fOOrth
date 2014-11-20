@@ -103,8 +103,8 @@ module XfOOrth
   Object.create_shared_method('xor', NosSpec, [],
     &lambda {|vm| vm.push(self.to_i ^ vm.pop.to_i); })
 
-  # [a] not [~a]
-  Object.create_shared_method('not', TosSpec, [],
+  # [a] com [~a]
+  Object.create_shared_method('com', TosSpec, [],
     &lambda {|vm| vm.push(~(self.to_i)); })
 
   # Some boolean operation words.
@@ -120,8 +120,8 @@ module XfOOrth
   Object.create_shared_method('^^', NosSpec, [],
     &lambda {|vm| vm.push(self.to_foorth_b ^ vm.pop.to_foorth_b); })
 
-  # [a] ! [!a]
-  Object.create_shared_method('!', TosSpec, [],
+  # [a] not [!a]
+  Object.create_shared_method('not', TosSpec, [],
     &lambda {|vm| vm.push(!(self.to_foorth_b)); })
 
   # Some comparison words.

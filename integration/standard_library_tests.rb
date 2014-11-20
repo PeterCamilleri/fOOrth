@@ -172,7 +172,7 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("5 3 and", [1])
     foorth_equal("5 3 or",  [7])
     foorth_equal("5 3 xor", [6])
-    foorth_equal("5 not",  [-6])
+    foorth_equal("5 com",  [-6])
   end
 
   def test_some_logical_ops
@@ -191,8 +191,8 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("true  false ^^", [true ])
     foorth_equal("true  true  ^^", [false])
 
-    foorth_equal("false !", [true ])
-    foorth_equal("true  !", [false])
+    foorth_equal("false not", [true ])
+    foorth_equal("true  not", [false])
   end
 
 end
