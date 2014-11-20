@@ -17,7 +17,7 @@ module XfOOrth
   #exist at this point in order to proceed further.
   name = '.init'
   sym = SymbolMap.add_entry(name, :foorth_init)
-  Object.create_shared_method(name, PublicWordSpec, [], &lambda {|vm| })
+  Object.create_shared_method(name, TosSpec, [], &lambda {|vm| })
 
   #Create a virtual machine instance for the main thread. The constructor
   #connects the new instance to a thread variable so we don't need to do

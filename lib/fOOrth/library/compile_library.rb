@@ -16,16 +16,16 @@ module XfOOrth
   })
 
   #An array of types allowed for a method.
-  AllowedMethodTypes = [PublicWordSpec,
+  AllowedMethodTypes = [TosSpec,
                         PrivateWordSpec,
-                        PublicWordSpec,
+                        TosSpec,
                         DyadicWordSpec]
 
   #Determine the type of word being created.
   def self.name_to_type(name)
     case name[0]
     when '.'
-      PublicWordSpec
+      TosSpec
 
     when '~'
       PrivateWordSpec
@@ -50,7 +50,7 @@ module XfOOrth
     })
   }
 
-  Class.create_shared_method('.::', PublicWordSpec, [],  &compile_action)
+  Class.create_shared_method('.::', TosSpec, [],  &compile_action)
 
   #The standard end-compile adapter word: ';' semi-colon.
   VirtualMachine.create_shared_method(';', VmSpec, [:immediate],

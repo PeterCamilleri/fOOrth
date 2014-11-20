@@ -133,9 +133,9 @@ class ContextTester < MiniTest::Unit::TestCase
 
     name = '.c'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::PublicWordSpec.new(name, sym)
+    mk[sym] = XfOOrth::TosSpec.new(name, sym)
     spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::PublicWordSpec))
+    assert(spec.is_a?(XfOOrth::TosSpec))
   end
 
   #Test the singleton mapping of symbols
@@ -145,9 +145,9 @@ class ContextTester < MiniTest::Unit::TestCase
 
     name = '.d'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::PublicWordSpec.new(name, sym)
+    mk[sym] = XfOOrth::TosSpec.new(name, sym)
     spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::PublicWordSpec))
+    assert(spec.is_a?(XfOOrth::TosSpec))
   end
 
   #Test verification testing.

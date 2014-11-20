@@ -4,19 +4,19 @@
 module XfOOrth
 
   #Create a new instance of this class of objects.
-  Object.create_shared_method('.new', PublicWordSpec, [],
+  Object.create_shared_method('.new', TosSpec, [],
     &lambda {|vm| vm.push(self.create_foorth_instance(vm)); })
 
   #The .parent_class method. Retrieves the parent class of a class.
-  Class.create_shared_method('.parent_class', PublicWordSpec, [],
+  Class.create_shared_method('.parent_class', TosSpec, [],
     &lambda {|vm| vm.push(self.superclass)})
 
   #The .is_class? method. Is the object a class object?
   SymbolMap.add_entry('.is_class?', :foorth_is_class?)
-  Object.create_shared_method('.is_class?', PublicWordSpec, [],
+  Object.create_shared_method('.is_class?', TosSpec, [],
     &lambda {|vm| vm.push(false)})
 
-  Class.create_shared_method('.is_class?', PublicWordSpec, [],
+  Class.create_shared_method('.is_class?', TosSpec, [],
     &lambda {|vm| vm.push(true)})
 
 end

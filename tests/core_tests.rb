@@ -44,7 +44,7 @@ class CoreTester < MiniTest::Unit::TestCase
 
     XfOOrth::SymbolMap.add_entry("a_test_one", :a_test_one)
 
-    spec = Object.create_shared_method("a_test_one", XfOOrth::PublicWordSpec, []) {|vm| vm.push(9671111) }
+    spec = Object.create_shared_method("a_test_one", XfOOrth::TosSpec, []) {|vm| vm.push(9671111) }
 
     obj.a_test_one(vm)
 
@@ -64,7 +64,7 @@ class CoreTester < MiniTest::Unit::TestCase
 
     XfOOrth::SymbolMap.add_entry("a_test_two", :a_test_two)
 
-    spec = obj.create_exclusive_method("a_test_two", XfOOrth::PublicWordSpec, []) do |vm|
+    spec = obj.create_exclusive_method("a_test_two", XfOOrth::TosSpec, []) do |vm|
       vm.push(9686668)
     end
 
