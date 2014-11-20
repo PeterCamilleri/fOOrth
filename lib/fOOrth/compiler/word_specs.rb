@@ -101,9 +101,12 @@ module XfOOrth
     #<br>Parameters:
     #* name - The string that maps to the symbol.
     #* _symbol - The symbol that the name maps to. Unused
-    def build_builds_string(name, _symbol)
-      @builds = "vm.push(#{name}); "
+    def build_builds_string(new_class, _symbol)
+      @new_class = new_class
+      @builds = "vm.push(#{new_class.name}); "
     end
+
+    attr_reader :new_class
   end
 
   #A class used to specify the compile of fOOrth variable.

@@ -49,4 +49,12 @@ class ClassLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("Object .parent_class",   [BasicObject])
   end
 
+  def test_the_creation_of_a_class
+    foorth_equal("class: T1",        [])
+    foorth_equal("T1",               [XfOOrth::XfOOrth_T1])
+    foorth_equal("T1 .parent_class", [Object])
+    foorth_equal("T1 .name",         ['T1'])
+    foorth_equal("T1 .new .name",    ['T1 instance'])
+  end
+
 end

@@ -19,4 +19,16 @@ module XfOOrth
   Class.create_shared_method('.is_class?', TosSpec, [],
     &lambda {|vm| vm.push(true)})
 
+  #Create a new subclass of an existing class.
+  Class.create_shared_method('.subclass:', TosSpec, [], &lambda {|vm|
+    name = vm.parser.get_word()
+    self.create_foorth_subclass(name)
+  })
+
+  #Create a new subclass of the Object class.
+  VirtualMachine.create_shared_method('class:', VmSpec, [], &lambda {|vm|
+    name = vm.parser.get_word()
+    Object.create_foorth_subclass(name)
+  })
+
 end
