@@ -16,16 +16,7 @@ module XfOOrth
       target.create_shared_method(name, type, [], &eval(src))
     })
 
-    #Support for local variables.
-    vm.context.create_local_method('local:', [:immediate], &Local_Var_Action)
-
-    #The standard end-compile adapter word: ';' semi-colon.
-    vm.context.create_local_method(';', [:immediate],
-      &lambda {|vm| vm.end_compile_mode([':']) })
-
-    #The immediate end-compile adapter word: ;immediate.
-    vm.context.create_local_method(';immediate', [:immediate],
-      &lambda {|vm| vm.end_compile_mode([':']).tags << :immediate })
+    XfOOrth.add_common_compiler_locals(vm, ':')
   })
 
 
@@ -64,18 +55,26 @@ module XfOOrth
       target.create_shared_method(name, type, [], &eval(src))
     })
 
+    XfOOrth.add_common_compiler_locals(vm, '.::')
+  }
+
+  Class.create_shared_method('.::', TosSpec, [],  &compile_action)
+
+
+  # COMMON LOCAL DEFNS ==========================
+
+  #Set up the common local defns.
+  def self.add_common_compiler_locals(vm, tag)
     #Support for local variables.
     vm.context.create_local_method('local:', [:immediate], &Local_Var_Action)
 
     #The standard end-compile adapter word: ';' semi-colon.
     vm.context.create_local_method(';', [:immediate],
-      &lambda {|vm| vm.end_compile_mode(['.::']) })
+      &lambda {|vm| vm.end_compile_mode([tag]) })
 
     #The immediate end-compile adapter word: ;immediate.
     vm.context.create_local_method(';immediate', [:immediate],
-      &lambda {|vm| vm.end_compile_mode(['.::']).tags << :immediate })
-  }
-
-  Class.create_shared_method('.::', TosSpec, [],  &compile_action)
+      &lambda {|vm| vm.end_compile_mode([tag]).tags << :immediate })
+  end
 
 end
