@@ -19,7 +19,7 @@ module XfOOrth
   AllowedMethodTypes = [TosSpec,
                         SelfSpec,
                         TosSpec,
-                        DyadicWordSpec]
+                        NosSpec]
 
   #Determine the type of word being created.
   def self.name_to_type(name)

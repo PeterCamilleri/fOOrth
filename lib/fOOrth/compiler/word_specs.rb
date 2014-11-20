@@ -85,7 +85,7 @@ module XfOOrth
   end
 
   #A class used to specify the compile of dyadic operators.
-  class DyadicWordSpec < AbstractWordSpec
+  class NosSpec < AbstractWordSpec
     #Generate the Ruby code for this dyadic operator.
     #<br>Parameters:
     #* _name - The string that maps to the symbol. Unused

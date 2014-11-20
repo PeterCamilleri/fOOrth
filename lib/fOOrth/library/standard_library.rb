@@ -67,23 +67,23 @@ module XfOOrth
 
   # Some stack arithmetic words.
   # [b,a] + [b+a]
-  Object.create_shared_method('+', DyadicWordSpec, [],
+  Object.create_shared_method('+', NosSpec, [],
     &lambda {|vm| vm.push(self + vm.pop()); })
 
   # [b,a] - [b-a]
-  Object.create_shared_method('-', DyadicWordSpec, [],
+  Object.create_shared_method('-', NosSpec, [],
     &lambda {|vm| vm.push(self - vm.pop()); })
 
   # [b,a] * [b+a]
-  Object.create_shared_method('*', DyadicWordSpec, [],
+  Object.create_shared_method('*', NosSpec, [],
     &lambda {|vm| vm.push(self * vm.pop()); })
 
   # [b,a] / [b-a]
-  Object.create_shared_method('/', DyadicWordSpec, [],
+  Object.create_shared_method('/', NosSpec, [],
     &lambda {|vm| vm.push(self / vm.pop()); })
 
   # [b,a] mod [b-a]
-  Object.create_shared_method('mod', DyadicWordSpec, [],
+  Object.create_shared_method('mod', NosSpec, [],
     &lambda {|vm| vm.push(self % vm.pop()); })
 
   # [a] 0- [0-a]
@@ -92,15 +92,15 @@ module XfOOrth
 
   # Some bitwise operation words.
   # [b,a] and [b&a]
-  Object.create_shared_method('and', DyadicWordSpec, [],
+  Object.create_shared_method('and', NosSpec, [],
     &lambda {|vm| vm.push(self.to_i & vm.pop.to_i); })
 
   # [b,a] or [b|a]
-  Object.create_shared_method('or', DyadicWordSpec, [],
+  Object.create_shared_method('or', NosSpec, [],
     &lambda {|vm| vm.push(self.to_i | vm.pop.to_i); })
 
   # [b,a] xor [b^a]
-  Object.create_shared_method('xor', DyadicWordSpec, [],
+  Object.create_shared_method('xor', NosSpec, [],
     &lambda {|vm| vm.push(self.to_i ^ vm.pop.to_i); })
 
   # [a] not [~a]
@@ -109,15 +109,15 @@ module XfOOrth
 
   # Some boolean operation words.
   # [b,a] && [b&a]
-  Object.create_shared_method('&&', DyadicWordSpec, [],
+  Object.create_shared_method('&&', NosSpec, [],
     &lambda {|vm| vm.push(self.to_foorth_b & vm.pop.to_foorth_b); })
 
   # [b,a] || [b|a]
-  Object.create_shared_method('||', DyadicWordSpec, [],
+  Object.create_shared_method('||', NosSpec, [],
     &lambda {|vm| vm.push(self.to_foorth_b | vm.pop.to_foorth_b); })
 
   # [b,a] ^^ [b^a]
-  Object.create_shared_method('^^', DyadicWordSpec, [],
+  Object.create_shared_method('^^', NosSpec, [],
     &lambda {|vm| vm.push(self.to_foorth_b ^ vm.pop.to_foorth_b); })
 
   # [a] ! [!a]
@@ -126,40 +126,40 @@ module XfOOrth
 
   # Some comparison words.
   # [b,a] = if b == a then [true] else [false]
-  Object.create_shared_method('=', DyadicWordSpec, [],
+  Object.create_shared_method('=', NosSpec, [],
     &lambda {|vm| vm.push(self == vm.pop()); })
 
   # [b,a] <> if b != a then [true] else [false]
-  Object.create_shared_method('<>', DyadicWordSpec, [],
+  Object.create_shared_method('<>', NosSpec, [],
     &lambda {|vm| vm.push(self != vm.pop()); })
 
   # [b,a] > if b > a then [true] else [false]
-  Object.create_shared_method('>', DyadicWordSpec, [],
+  Object.create_shared_method('>', NosSpec, [],
     &lambda {|vm| vm.push(self > vm.pop()); })
 
   # [b,a] < if b < a then [true] else [false]
-  Object.create_shared_method('<', DyadicWordSpec, [],
+  Object.create_shared_method('<', NosSpec, [],
     &lambda {|vm| vm.push(self < vm.pop()); })
 
   # [b,a] >= if b >= a then [true] else [false]
-  Object.create_shared_method('>=', DyadicWordSpec, [],
+  Object.create_shared_method('>=', NosSpec, [],
     &lambda {|vm| vm.push(self >= vm.pop()); })
 
   # [b,a] <= if b <= a then [true] else [false]
-  Object.create_shared_method('<=', DyadicWordSpec, [],
+  Object.create_shared_method('<=', NosSpec, [],
     &lambda {|vm| vm.push(self <= vm.pop()); })
 
   # [b,a] 0<=> b < a [-1], b = a [0], b > a [1]
-  Object.create_shared_method('<=>', DyadicWordSpec, [],
+  Object.create_shared_method('<=>', NosSpec, [],
     &lambda {|vm| vm.push(self <=> vm.pop()); })
 
   # Some identity comparison words.
   # [b,a] identical? if b.object_id == a.object_id then [true] else [false]
-  Object.create_shared_method('identical?', DyadicWordSpec, [],
+  Object.create_shared_method('identical?', NosSpec, [],
     &lambda {|vm| vm.push(self.object_id == vm.pop.object_id); })
 
   # [b,a] distinct? if b.object_id != a.object_id then [true] else [false]
-  Object.create_shared_method('distinct?', DyadicWordSpec, [],
+  Object.create_shared_method('distinct?', NosSpec, [],
     &lambda {|vm| vm.push(self.object_id != vm.pop.object_id); })
 
   # Some comparison with zero words.
