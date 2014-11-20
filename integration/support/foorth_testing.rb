@@ -16,6 +16,7 @@ module XfOOrthTestExtensions
   ensure
     vm.debug = false
     vm.interpreter_reset
+    vm.compiler_reset
   end
 
   #When the source is executed, does it raise err?
@@ -33,6 +34,7 @@ module XfOOrthTestExtensions
   ensure
     vm.debug = false
     vm.interpreter_reset
+    vm.compiler_reset
   end
 
   #When the source is executed, does the stdout match?
@@ -47,6 +49,7 @@ module XfOOrthTestExtensions
     end
   ensure
     vm.interpreter_reset
+    vm.compiler_reset
   end
 
 end
