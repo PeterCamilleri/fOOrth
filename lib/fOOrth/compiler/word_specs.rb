@@ -109,14 +109,14 @@ module XfOOrth
     attr_reader :new_class
   end
 
-  #A class used to specify the compile of fOOrth variable.
-  class LocalVarSpec < AbstractWordSpec
+  #A class used to specify the compile of fOOrth instances variables.
+  class InstanceVarSpec < AbstractWordSpec
     #Generate the Ruby code for this fOOrth variable.
     #<br>Parameters:
     #* _name - The string that maps to the symbol.  Unused
     #* symbol - The symbol that the name maps to.
     def build_builds_string(_name, symbol)
-      @builds = "vm.push(#{symbol}); "
+      @builds = "vm.push(#{'@'+(symbol.to_s)}); "
     end
   end
 
