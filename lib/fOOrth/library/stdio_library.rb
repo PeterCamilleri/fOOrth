@@ -5,7 +5,7 @@ module XfOOrth
 
   # Some basic console I/O words.
   #Print out an object.
-  Object.create_shared_method('.', MonadicWordSpec, [],
+  Object.create_shared_method('.', PublicWordSpec, [],
     &lambda {|vm| print self.to_s})
 
   #Print out a string.

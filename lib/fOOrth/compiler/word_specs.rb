@@ -84,17 +84,6 @@ module XfOOrth
     end
   end
 
-  #A class used to specify the compile of monadic operators.
-  class MonadicWordSpec < AbstractWordSpec
-    #Generate the Ruby code for this dyadic operator.
-    #<br>Parameters:
-    #* _name - The string that maps to the symbol. Unused
-    #* symbol - The symbol that the name maps to.
-    def build_builds_string(_name, symbol)
-      @builds = "vm.pop.#{symbol}(vm); "
-    end
-  end
-
   #A class used to specify the compile of dyadic operators.
   class DyadicWordSpec < AbstractWordSpec
     #Generate the Ruby code for this dyadic operator.

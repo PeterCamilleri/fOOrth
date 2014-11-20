@@ -34,7 +34,7 @@ module XfOOrth
     ["vm.push(vm.peek.full_clone); "])
 
   # [a] .clone [a']
-  Object.create_shared_method('.clone', MonadicWordSpec, [],
+  Object.create_shared_method('.clone', PublicWordSpec, [],
     &lambda {|vm| vm.push(self.full_clone); })
 
   # [a] ?dup if a is true then [a,a] else [a]
@@ -87,7 +87,7 @@ module XfOOrth
     &lambda {|vm| vm.push(self % vm.pop()); })
 
   # [a] 0- [0-a]
-  Object.create_shared_method('0-', MonadicWordSpec, [],
+  Object.create_shared_method('0-', PublicWordSpec, [],
     &lambda {|vm| vm.push(0-self); })
 
   # Some bitwise operation words.
@@ -104,7 +104,7 @@ module XfOOrth
     &lambda {|vm| vm.push(self.to_i ^ vm.pop.to_i); })
 
   # [a] not [~a]
-  Object.create_shared_method('not', MonadicWordSpec, [],
+  Object.create_shared_method('not', PublicWordSpec, [],
     &lambda {|vm| vm.push(~(self.to_i)); })
 
   # Some boolean operation words.
@@ -121,7 +121,7 @@ module XfOOrth
     &lambda {|vm| vm.push(self.to_foorth_b ^ vm.pop.to_foorth_b); })
 
   # [a] ! [!a]
-  Object.create_shared_method('!', MonadicWordSpec, [],
+  Object.create_shared_method('!', PublicWordSpec, [],
     &lambda {|vm| vm.push(!(self.to_foorth_b)); })
 
   # Some comparison words.
@@ -164,31 +164,31 @@ module XfOOrth
 
   # Some comparison with zero words.
   # [b,a] 0= if b == 0 then [true] else [false]
-  Object.create_shared_method('0=', MonadicWordSpec, [],
+  Object.create_shared_method('0=', PublicWordSpec, [],
     &lambda {|vm| vm.push(self == 0); })
 
   # [b,a] 0<> if b != 0 then [true] else [false]
-  Object.create_shared_method('0<>', MonadicWordSpec, [],
+  Object.create_shared_method('0<>', PublicWordSpec, [],
     &lambda {|vm| vm.push(self != 0); })
 
   # [b,a] 0> if b > 0 then [true] else [false]
-  Object.create_shared_method('0>', MonadicWordSpec, [],
+  Object.create_shared_method('0>', PublicWordSpec, [],
     &lambda {|vm| vm.push(self > 0); })
 
   # [b,a] 0< if b < 0 then [true] else [false]
-  Object.create_shared_method('0<', MonadicWordSpec, [],
+  Object.create_shared_method('0<', PublicWordSpec, [],
     &lambda {|vm| vm.push(self < 0); })
 
   # [b,a] 0>= if b >= 0 then [true] else [false]
-  Object.create_shared_method('0>=', MonadicWordSpec, [],
+  Object.create_shared_method('0>=', PublicWordSpec, [],
     &lambda {|vm| vm.push(self >= 0); })
 
   # [b,a] 0<= if b <= 0 then [true] else [false]
-  Object.create_shared_method('0<=', MonadicWordSpec, [],
+  Object.create_shared_method('0<=', PublicWordSpec, [],
     &lambda {|vm| vm.push(self <= 0); })
 
   # [b] 0<=> b < 0 [-1], b = 0 [0], b > 0 [1]
-  Object.create_shared_method('0<=>', MonadicWordSpec, [],
+  Object.create_shared_method('0<=>', PublicWordSpec, [],
     &lambda {|vm| vm.push(self <=> 0); })
 
 end

@@ -18,7 +18,7 @@ module XfOOrth
   #An array of types allowed for a method.
   AllowedMethodTypes = [PublicWordSpec,
                         PrivateWordSpec,
-                        MonadicWordSpec,
+                        PublicWordSpec,
                         DyadicWordSpec]
 
   #Determine the type of word being created.
