@@ -16,6 +16,9 @@ module XfOOrth
       target.create_shared_method(name, type, [], &eval(src))
     })
 
+    #Support for local variables.
+    vm.context.create_local_method('local:', [:immediate], &Local_Var_Action)
+
     #The standard end-compile adapter word: ';' semi-colon.
     vm.context.create_local_method(';', [:immediate],
       &lambda {|vm| vm.end_compile_mode([':']) })
@@ -29,10 +32,7 @@ module XfOOrth
   # DOT COLON COLON =============================
 
   #An array of types allowed for a method.
-  AllowedMethodTypes = [TosSpec,
-                        SelfSpec,
-                        TosSpec,
-                        NosSpec]
+  AllowedMethodTypes = [TosSpec, SelfSpec, NosSpec]
 
   #Determine the type of word being created.
   def self.name_to_type(name)
@@ -44,7 +44,7 @@ module XfOOrth
       SelfSpec
 
     else
-      type = (spec = object_maps_name(name)) && spec.does
+      type = (spec = object_maps_name(name)) && spec.class
       type = nil unless AllowedMethodTypes.include?(type)
       error "Invalid name for a method: #{name}" unless type
       type
