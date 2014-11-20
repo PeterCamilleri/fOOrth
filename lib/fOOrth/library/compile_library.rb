@@ -17,7 +17,7 @@ module XfOOrth
 
   #An array of types allowed for a method.
   AllowedMethodTypes = [TosSpec,
-                        PrivateWordSpec,
+                        SelfSpec,
                         TosSpec,
                         DyadicWordSpec]
 
@@ -28,7 +28,7 @@ module XfOOrth
       TosSpec
 
     when '~'
-      PrivateWordSpec
+      SelfSpec
 
     else
       type = (spec = object_maps_name(name)) && spec.does
