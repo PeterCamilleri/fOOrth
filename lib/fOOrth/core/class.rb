@@ -56,7 +56,7 @@ class Class
   #<br>Parameters:
   #* foorth_name - The foorth_name of the new sub-class.
   #<br>Returns:
-  #* The subclass.
+  #* The spec of the subclass.
   #<br>Note:
   #* If a sub-class with the given name already exists, an exception is raised.
   def create_foorth_subclass(foorth_name)
@@ -73,7 +73,7 @@ class Class
 
   #Add this class as a proxy class in the foorth class system.
   #<br>Returns:
-  #* The proxy class.
+  #* The spec of the proxy class.
   def create_foorth_proxy
     error "The class #{foorth_name} already exists." if $ALL_CLASSES[foorth_name]
 
