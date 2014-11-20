@@ -22,7 +22,6 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
     super(*all)
   end
 
-
   def test_creating_simple_words
     foorth_equal(': dbl dup + ; 4 dbl', [8])
     foorth_equal('9 dbl', [18])
@@ -45,6 +44,16 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('5 .foo', [15])
     foorth_equal('Numeric .:: .foo self 4 * ; 4 .foo', [16])
     foorth_equal('5 .foo', [20])
+  end
+
+  def test_words_with_local_vars
+    foorth_equal(': lvt1 dup local: lv lv @ * ;' , [])
+    foorth_equal('10 lvt1 ' , [100])
+  end
+
+  def test_methods_with_local_vars
+    foorth_equal('Object .:: .lvt2 dup local: lv lv @ * ;' , [])
+    foorth_equal('10 Object .new .lvt2 ' , [100])
   end
 
 end

@@ -44,7 +44,9 @@ module XfOOrth
       SelfSpec
 
     else
-      type = (spec = object_maps_name(name)) && spec.class
+      type = (symbol = XfOOrth::SymbolMap.map(name))   &&
+             (spec = Object.map_foorth_shared(symbol)) &&
+             spec.class
       type = nil unless AllowedMethodTypes.include?(type)
       error "Invalid name for a method: #{name}" unless type
       type
@@ -61,6 +63,9 @@ module XfOOrth
       puts "#{target.name} #{name} => #{src}" if vm.debug
       target.create_shared_method(name, type, [], &eval(src))
     })
+
+    #Support for local variables.
+    vm.context.create_local_method('local:', [:immediate], &Local_Var_Action)
 
     #The standard end-compile adapter word: ';' semi-colon.
     vm.context.create_local_method(';', [:immediate],
