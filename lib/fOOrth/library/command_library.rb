@@ -11,9 +11,12 @@ module XfOOrth
   Object.create_shared_method(')"', MacroSpec,
     ["system(vm.pop()); "])
 
-  #Execute a command to the shell.
+  #Enter debug mode. Warning! This is really verbose!
   Object.create_shared_method(')debug', MacroSpec,
     ["vm.debug = true; "])
 
+  #Display the current fOOrth language version.
+  Object.create_shared_method(')version', MacroSpec,
+    ["puts XfOOrth::VERSION; "])
 
 end
