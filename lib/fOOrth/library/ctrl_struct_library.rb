@@ -5,39 +5,40 @@ module XfOOrth
 
   # [boolean] if (boolean true code) else (boolean false code) then
   VirtualMachine.create_shared_method('if', VmWordSpec, [:immediate],
-    &lambda {|vm| suspend_execute_mode('if vm.pop? then ', :if) })
+    &lambda {|vm|
+      suspend_execute_mode('if vm.pop? then ', :if)
 
-  VirtualMachine.create_shared_method('else', VmWordSpec, [:immediate],
-    &lambda {|vm| check_deferred_mode('else ', [:if]) })
+      context.create_local_method('else', [:immediate],
+        &lambda {|vm| check_deferred_mode('else ', [:if]) })
 
-  VirtualMachine.create_shared_method('then', VmWordSpec, [:immediate],
-    &lambda {|vm| resume_execute_mode('end; ', [:if]) })
+      context.create_local_method('then', [:immediate],
+        &lambda {|vm| resume_execute_mode('end; ', [:if]) })
+    })
 
-
-  # Looping contructs for fOOrth.
+  # Looping constructs for fOOrth.
   VirtualMachine.create_shared_method('begin', VmWordSpec, [:immediate],
-    &lambda {|vm| suspend_execute_mode('begin ', :begin) })
+    &lambda {|vm|
+      suspend_execute_mode('begin ', :begin)
 
-  VirtualMachine.create_shared_method('while', VmWordSpec, [:immediate],
-    &lambda {|vm| check_deferred_mode('break unless pop?; ', [:begin]) })
+      context.create_local_method('while', [:immediate],
+        &lambda {|vm| check_deferred_mode('break unless vm.pop?; ', [:begin]) })
 
-  VirtualMachine.create_shared_method('until', VmWordSpec, [:immediate],
-    &lambda {|vm| resume_execute_mode('end until vm.pop?; ', [:begin]) })
+      context.create_local_method('until', [:immediate],
+        &lambda {|vm| resume_execute_mode('end until vm.pop?; ', [:begin]) })
 
-  VirtualMachine.create_shared_method('again', VmWordSpec, [:immediate],
-    &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
+      context.create_local_method('again', [:immediate],
+        &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
 
-  VirtualMachine.create_shared_method('repeat', VmWordSpec, [:immediate],
-    &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
-
+      context.create_local_method('repeat', [:immediate],
+        &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
+    })
 
   # Support for the classic do loop constructs!
   #
-  # NOTE: The do loop must always be configured to
-  # count upward. To count backward use -i or -j to
-  # access the reverse count. This differs from the
-  # classic FORTH version to avoid its tendency to
-  # fly off into endless loops.
+  # NOTE: The do loop must always be configured to count upward. This is due
+  # the the end condition being count > limit instead of count == limit. To
+  # count backward use -i or -j to access the reverse count. This change from
+  # the classic FORTH version is to avoid its tendency to loop forever.
   VirtualMachine.create_shared_method('do', VmWordSpec, [:immediate],
     &lambda {|vm|
       jvar =  context[:jloop].to_s
