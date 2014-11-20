@@ -5,32 +5,32 @@ module XfOOrth
 
   # Some basic "constant" value words.
   #The self method.
-  Object.create_shared_method('self', MacroWordSpec,
+  Object.create_shared_method('self', MacroSpec,
     ["vm.push(self); "])
 
   #The true method.
-  Object.create_shared_method('true', MacroWordSpec,
+  Object.create_shared_method('true', MacroSpec,
     ["vm.push(true); "])
 
   #The false method.
-  Object.create_shared_method('false', MacroWordSpec,
+  Object.create_shared_method('false', MacroSpec,
     ["vm.push(false); "])
 
   #The nil method.
-  Object.create_shared_method('nil', MacroWordSpec,
+  Object.create_shared_method('nil', MacroSpec,
     ["vm.push(nil); "])
 
   # Some stack manipulation words.
   # [a] drop []
-  VirtualMachine.create_shared_method('drop', MacroWordSpec,
+  VirtualMachine.create_shared_method('drop', MacroSpec,
     ["vm.pop(); "])
 
   # [a] dup [a, a]
-  VirtualMachine.create_shared_method('dup', MacroWordSpec,
+  VirtualMachine.create_shared_method('dup', MacroSpec,
     ["vm.push(vm.peek()); "])
 
   # [a] clone [a, a']
-  VirtualMachine.create_shared_method('clone', MacroWordSpec,
+  VirtualMachine.create_shared_method('clone', MacroSpec,
     ["vm.push(vm.peek.full_clone); "])
 
   # [a] .clone [a']
@@ -50,15 +50,15 @@ module XfOOrth
     &lambda {|vm| vc,vb,va = popm(3); push(vb); push(va); push(vc); })
 
   # [b,a] over [b,a,b]
-  VirtualMachine.create_shared_method('over', MacroWordSpec,
+  VirtualMachine.create_shared_method('over', MacroSpec,
     ["vm.push(vm.peek(2)); "])
 
   # [di,..d2,d1,i] pick [di,..d2,d1,di]
-  VirtualMachine.create_shared_method('pick', MacroWordSpec,
+  VirtualMachine.create_shared_method('pick', MacroSpec,
     ["vm.push(vm.peek(vm.pop())); "])
 
   # [b,a] nip [a]
-  VirtualMachine.create_shared_method('nip', MacroWordSpec,
+  VirtualMachine.create_shared_method('nip', MacroSpec,
     ["vm.swap_pop(); "])
 
   # [b,a] tuck [a,b,a]

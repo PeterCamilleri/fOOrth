@@ -13,15 +13,15 @@ module XfOOrth
     &lambda {|vm| print pop})
 
   #Force a new line.
-  VirtualMachine.create_shared_method('.cr', MacroWordSpec,
+  VirtualMachine.create_shared_method('.cr', MacroSpec,
     ["puts; "])
 
   #Force a space.
-  VirtualMachine.create_shared_method('space', MacroWordSpec,
+  VirtualMachine.create_shared_method('space', MacroSpec,
     ["print ' '; "])
 
   #Force multiple spaces.
-  VirtualMachine.create_shared_method('spaces', MacroWordSpec,
+  VirtualMachine.create_shared_method('spaces', MacroSpec,
     ["print ' ' * vm.pop(); "])
 
 end

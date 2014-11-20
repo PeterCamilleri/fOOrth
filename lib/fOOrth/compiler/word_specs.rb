@@ -129,7 +129,7 @@ module XfOOrth
   end
 
   #A class used to specify the compile of fOOrth macros.
-  class MacroWordSpec < AbstractWordSpec
+  class MacroSpec < AbstractWordSpec
     #Generate the Ruby code for this macro.
     #<br>Parameters:
     #* _name - The string that maps to the symbol. Unused

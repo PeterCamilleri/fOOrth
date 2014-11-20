@@ -4,15 +4,15 @@
 module XfOOrth
 
   #The quit out of fOOrth method.
-  Object.create_shared_method(')quit', MacroWordSpec,
+  Object.create_shared_method(')quit', MacroSpec,
     ["raise ForceExit; "])
 
   #Execute a command to the shell.
-  Object.create_shared_method(')"', MacroWordSpec,
+  Object.create_shared_method(')"', MacroSpec,
     ["system(vm.pop()); "])
 
   #Execute a command to the shell.
-  Object.create_shared_method(')debug', MacroWordSpec,
+  Object.create_shared_method(')debug', MacroSpec,
     ["vm.debug = true; "])
 
 
