@@ -90,7 +90,7 @@ class Class
   #* :reek:UtilityFunction
   def install_foorth_class(foorth_name)
     XfOOrth::SymbolMap.add_entry(foorth_name)
-    $ALL_CLASSES[foorth_name] = XfOOrth::ClassWordSpec.new(foorth_name, nil, [])
+    $ALL_CLASSES[foorth_name] = XfOOrth::ClassSpec.new(foorth_name, nil, [])
   end
 
 end

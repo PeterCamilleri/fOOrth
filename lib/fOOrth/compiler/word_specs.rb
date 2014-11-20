@@ -62,7 +62,7 @@ module XfOOrth
     end
   end
 
-  #A class used to specify the compile of methods of a class or object.
+  #A class used to specify the compile of public methods of a class or object.
   class TosSpec < AbstractWordSpec
     #Generate the Ruby code for this method.
     #<br>Parameters:
@@ -73,7 +73,7 @@ module XfOOrth
     end
   end
 
-  #A class used to specify the compile of methods of a class or object.
+  #A class used to specify the compile of private methods of a class or object.
   class SelfSpec < AbstractWordSpec
     #Generate the Ruby code for this method.
     #<br>Parameters:
@@ -96,7 +96,7 @@ module XfOOrth
   end
 
   #A class used to specify the compile of fOOrth classes.
-  class ClassWordSpec < AbstractWordSpec
+  class ClassSpec < AbstractWordSpec
     #Generate the Ruby code for this fOOrth class.
     #<br>Parameters:
     #* name - The string that maps to the symbol.
