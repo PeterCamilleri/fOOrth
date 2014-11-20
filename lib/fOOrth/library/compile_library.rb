@@ -3,6 +3,8 @@
 #* library/compile_library.rb - The compile support fOOrth library.
 module XfOOrth
 
+  # COLON =======================================
+
   #The classic colon definition that creates a word in the Virtual Machine class.
   VirtualMachine.create_shared_method(':', VmSpec, [],  &lambda {|vm|
     target = VirtualMachine
@@ -13,7 +15,18 @@ module XfOOrth
       puts "#{name} => #{src}" if vm.debug
       target.create_shared_method(name, type, [], &eval(src))
     })
+
+    #The standard end-compile adapter word: ';' semi-colon.
+    vm.context.create_local_method(';', [:immediate],
+      &lambda {|vm| vm.end_compile_mode([':']) })
+
+    #The immediate end-compile adapter word: ;immediate.
+    vm.context.create_local_method(';immediate', [:immediate],
+      &lambda {|vm| vm.end_compile_mode([':']).tags << :immediate })
   })
+
+
+  # DOT COLON COLON =============================
 
   #An array of types allowed for a method.
   AllowedMethodTypes = [TosSpec,
@@ -44,20 +57,20 @@ module XfOOrth
     name   = vm.parser.get_word()
     type   = XfOOrth.name_to_type(name)
 
-    vm.begin_compile_mode('x::', cls: target, &lambda {|vm, src|
+    vm.begin_compile_mode('.::', cls: target, &lambda {|vm, src|
       puts "#{target.name} #{name} => #{src}" if vm.debug
       target.create_shared_method(name, type, [], &eval(src))
     })
+
+    #The standard end-compile adapter word: ';' semi-colon.
+    vm.context.create_local_method(';', [:immediate],
+      &lambda {|vm| vm.end_compile_mode(['.::']) })
+
+    #The immediate end-compile adapter word: ;immediate.
+    vm.context.create_local_method(';immediate', [:immediate],
+      &lambda {|vm| vm.end_compile_mode(['.::']).tags << :immediate })
   }
 
   Class.create_shared_method('.::', TosSpec, [],  &compile_action)
-
-  #The standard end-compile adapter word: ';' semi-colon.
-  VirtualMachine.create_shared_method(';', VmSpec, [:immediate],
-    &lambda {|vm| end_compile_mode([':', 'x::']) })
-
-  #The immediate end-compile adapter word: ;immediate.
-  VirtualMachine.create_shared_method(';immediate', VmSpec, [:immediate],
-    &lambda {|vm| end_compile_mode([':', 'x::']).tags << :immediate })
 
 end
