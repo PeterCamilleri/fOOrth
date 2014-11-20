@@ -77,7 +77,7 @@ module XfOOrth
     #* The spec created for the shared method.
     def create_local_method(name, options, &block)
       sym = SymbolMap.add_entry(name)
-      self[sym] = LocalWordSpec.new(name, sym, options, &block)
+      self[sym] = LocalSpec.new(name, sym, options, &block)
     end
 
     #Private methods follow.

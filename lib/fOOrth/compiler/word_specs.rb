@@ -118,7 +118,7 @@ module XfOOrth
   end
 
   #A class used to specify the compile of fOOrth variable.
-  class LocalWordSpec < AbstractWordSpec
+  class LocalSpec < AbstractWordSpec
     #Generate the Ruby code for this fOOrth variable.
     #<br>Parameters:
     #* _name  - The string that maps to the symbol. Unused
