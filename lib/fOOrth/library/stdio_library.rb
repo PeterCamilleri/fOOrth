@@ -9,7 +9,7 @@ module XfOOrth
     &lambda {|vm| print self.to_s})
 
   #Print out a string.
-  VirtualMachine.create_shared_method('."', VmWordSpec, [],
+  VirtualMachine.create_shared_method('."', VmSpec, [],
     &lambda {|vm| print pop})
 
   #Force a new line.

@@ -4,7 +4,7 @@
 module XfOOrth
 
   # [boolean] if (boolean true code) else (boolean false code) then
-  VirtualMachine.create_shared_method('if', VmWordSpec, [:immediate],
+  VirtualMachine.create_shared_method('if', VmSpec, [:immediate],
     &lambda {|vm|
       suspend_execute_mode('if vm.pop? then ', :if)
 
@@ -16,7 +16,7 @@ module XfOOrth
     })
 
   # Looping constructs for fOOrth.
-  VirtualMachine.create_shared_method('begin', VmWordSpec, [:immediate],
+  VirtualMachine.create_shared_method('begin', VmSpec, [:immediate],
     &lambda {|vm|
       suspend_execute_mode('begin ', :begin)
 
@@ -39,7 +39,7 @@ module XfOOrth
   # the the end condition being count > limit instead of count == limit. To
   # count backward use -i or -j to access the reverse count. This change from
   # the classic FORTH version is to avoid its tendency to loop forever.
-  VirtualMachine.create_shared_method('do', VmWordSpec, [:immediate],
+  VirtualMachine.create_shared_method('do', VmSpec, [:immediate],
     &lambda {|vm|
       jvar =  context[:jloop].to_s
       suspend_execute_mode("vm.vm_do(#{jvar}) {|iloop, jloop| ", :do)

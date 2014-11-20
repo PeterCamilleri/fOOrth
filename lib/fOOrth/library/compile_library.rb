@@ -4,10 +4,10 @@
 module XfOOrth
 
   #The classic colon definition that creates a word in the Virtual Machine class.
-  VirtualMachine.create_shared_method(':', VmWordSpec, [],  &lambda {|vm|
+  VirtualMachine.create_shared_method(':', VmSpec, [],  &lambda {|vm|
     target = VirtualMachine
     name   = vm.parser.get_word()
-    type   = VmWordSpec
+    type   = VmSpec
 
     begin_compile_mode(':', vm: vm, &lambda {|vm, src|
       puts "#{name} => #{src}" if vm.debug
@@ -53,11 +53,11 @@ module XfOOrth
   Class.create_shared_method('.::', PublicWordSpec, [],  &compile_action)
 
   #The standard end-compile adapter word: ';' semi-colon.
-  VirtualMachine.create_shared_method(';', VmWordSpec, [:immediate],
+  VirtualMachine.create_shared_method(';', VmSpec, [:immediate],
     &lambda {|vm| end_compile_mode([':', 'x::']) })
 
   #The immediate end-compile adapter word: ;immediate.
-  VirtualMachine.create_shared_method(';immediate', VmWordSpec, [:immediate],
+  VirtualMachine.create_shared_method(';immediate', VmSpec, [:immediate],
     &lambda {|vm| end_compile_mode([':', 'x::']).tags << :immediate })
 
 end

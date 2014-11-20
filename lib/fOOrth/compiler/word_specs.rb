@@ -52,7 +52,7 @@ module XfOOrth
   end
 
   #A class used to specify the compile of VM words.
-  class VmWordSpec < AbstractWordSpec
+  class VmSpec < AbstractWordSpec
     #Generate the Ruby code for this method.
     #<br>Parameters:
     #* _name - The string that maps to the symbol. Unused

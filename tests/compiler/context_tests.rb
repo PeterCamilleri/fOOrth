@@ -121,9 +121,9 @@ class ContextTester < MiniTest::Unit::TestCase
 
     name = 'b'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    context[sym] = XfOOrth::VmWordSpec.new(name, sym)
+    context[sym] = XfOOrth::VmSpec.new(name, sym)
     spec = context.map(name)
-    assert(spec.is_a?(XfOOrth::VmWordSpec))
+    assert(spec.is_a?(XfOOrth::VmSpec))
   end
 
   #Test the class instance mapping of symbols

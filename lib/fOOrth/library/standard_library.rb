@@ -38,15 +38,15 @@ module XfOOrth
     &lambda {|vm| vm.push(self.full_clone); })
 
   # [a] ?dup if a is true then [a,a] else [a]
-  VirtualMachine.create_shared_method('?dup', VmWordSpec, [],
+  VirtualMachine.create_shared_method('?dup', VmSpec, [],
     &lambda {|vm| if peek?() then push(peek()); end; })
 
   # [b,a] swap [a,b]
-  VirtualMachine.create_shared_method('swap', VmWordSpec, [],
+  VirtualMachine.create_shared_method('swap', VmSpec, [],
     &lambda {|vm| vb,va = popm(2); push(va); push(vb); })
 
   # [c,b,a] rot [b,a,c]
-  VirtualMachine.create_shared_method('rot', VmWordSpec, [],
+  VirtualMachine.create_shared_method('rot', VmSpec, [],
     &lambda {|vm| vc,vb,va = popm(3); push(vb); push(va); push(vc); })
 
   # [b,a] over [b,a,b]
@@ -62,7 +62,7 @@ module XfOOrth
     ["vm.swap_pop(); "])
 
   # [b,a] tuck [a,b,a]
-  VirtualMachine.create_shared_method('tuck', VmWordSpec, [],
+  VirtualMachine.create_shared_method('tuck', VmSpec, [],
     &lambda {|vm| vb,va = popm(2); push(va); push(vb); push(va); })
 
   # Some stack arithmetic words.
