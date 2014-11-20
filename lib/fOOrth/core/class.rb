@@ -58,29 +58,26 @@ class Class
   #<br>Returns:
   #* The subclass.
   #<br>Note:
-  #* If a sub-class with the given name already exists, that class is returned.
+  #* If a sub-class with the given name already exists, an exception is raised.
   def create_foorth_subclass(foorth_name)
-    unless (result = $ALL_CLASSES[foorth_name])
-      error "Invalid class name" unless /^[A-Z][A-Za-z0-9]*$/ =~ foorth_name
+    error "The class #{foorth_name} already exists." if $ALL_CLASSES[foorth_name]
+    error "Invalid class name" unless /^[A-Z][A-Za-z0-9]*$/ =~ foorth_name
 
-      new_class = Class.new(self) {
-        self.foorth_name = foorth_name
-      }
+    new_class = Class.new(self) {
+      self.foorth_name = foorth_name
+    }
 
-      XfOOrth.const_set('XfOOrth_' + foorth_name, new_class)
-      result = install_foorth_class(foorth_name, new_class)
-    end
-
-    result
+    XfOOrth.const_set('XfOOrth_' + foorth_name, new_class)
+    install_foorth_class(foorth_name, new_class)
   end
 
   #Add this class as a proxy class in the foorth class system.
   #<br>Returns:
   #* The proxy class.
   def create_foorth_proxy
-    install_foorth_class(foorth_name, self) unless $ALL_CLASSES[foorth_name]
+    error "The class #{foorth_name} already exists." if $ALL_CLASSES[foorth_name]
 
-    self
+    install_foorth_class(foorth_name, self) unless $ALL_CLASSES[foorth_name]
   end
 
   private
