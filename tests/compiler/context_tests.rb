@@ -35,7 +35,6 @@ class ContextTester < MiniTest::Unit::TestCase
     super(*all)
   end
 
-  #Test that it can hold data.
   def test_data_store
     context = XfOOrth::Context.new(45, stuff: 'buy', price: :plenty)
 
@@ -73,7 +72,6 @@ class ContextTester < MiniTest::Unit::TestCase
     assert_equal(context, nil)
   end
 
-  #Test symbol scoping
   def test_the_nesting_of_scopes
     context = XfOOrth::Context.new(nil, stuff: 'buy')
     assert_equal(context[:foo], nil)
@@ -115,7 +113,6 @@ class ContextTester < MiniTest::Unit::TestCase
     assert_equal(context[:stuff], 'buy')
   end
 
-  #Test the local mapping of symbols
   def test_the_local_mapping_of_symbols
     context = XfOOrth::Context.new(nil)
 
@@ -126,7 +123,6 @@ class ContextTester < MiniTest::Unit::TestCase
     assert(spec.is_a?(XfOOrth::VmSpec))
   end
 
-  #Test the class instance mapping of symbols
   def test_the_class_mapping_of_symbols
     mk = MockClass.new
     context = XfOOrth::Context.new(nil, cls: mk)
@@ -138,7 +134,6 @@ class ContextTester < MiniTest::Unit::TestCase
     assert(spec.is_a?(XfOOrth::TosSpec))
   end
 
-  #Test the singleton mapping of symbols
   def test_the_exclusive_mapping_of_symbols
     mk = MockObject.new
     context = XfOOrth::Context.new(nil, obj: mk)
@@ -150,17 +145,33 @@ class ContextTester < MiniTest::Unit::TestCase
     assert(spec.is_a?(XfOOrth::TosSpec))
   end
 
-  #Test verification testing.
   def test_that_it_verifies_sets
     context = XfOOrth::Context.new(nil, mode: :Execute, ctrl: :colon)
 
     assert(context.check_set(:mode, [:Execute, :Compile]))
 
     assert_raises(XfOOrth::XfOOrthError) do
-      assert(context.check_set(:mode, [:Compile, :Deferred]))
+      context.check_set(:mode, [:Compile, :Deferred])
     end
 
     assert(context.check_set(:stuff, [nil]))
+  end
+
+  def test_the_locating_of_the_receiver
+    context = XfOOrth::Context.new(nil, vm: 'vm_sample')
+    assert_equal('vm_sample', context.recvr)
+
+    context = XfOOrth::Context.new(context, cls: 'cls_sample')
+    assert_equal('cls_sample', context.recvr)
+
+    context = XfOOrth::Context.new(context, obj: 'obj_sample')
+    assert_equal('obj_sample', context.recvr)
+
+    context = XfOOrth::Context.new(nil)
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      context.recvr
+    end
   end
 
 end
