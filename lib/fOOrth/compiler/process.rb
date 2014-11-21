@@ -45,7 +45,7 @@ module XfOOrth
     #* token - The token to receive the generated code.
     #* word  - The text of the word.
     def string_parms(token, word)
-      token << "vm.push(#{parser.get_string.embed}); " if word[-1] == '"'
+      token << "vm.push(#{parser.get_string.foorth_embed}); " if word[-1] == '"'
     end
 
     #Finally generate some code!
@@ -57,7 +57,7 @@ module XfOOrth
         if (spec = @context.map(word))
           spec.build_on(token)
         elsif (value = word.to_foorth_n)
-          token << "vm.push(#{value.embed}); "
+          token << "vm.push(#{value.foorth_embed}); "
         else
           abort("?#{word}?")
         end

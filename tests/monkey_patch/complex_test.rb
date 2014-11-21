@@ -21,9 +21,9 @@ class ComplexMonkeyPatchTester < MiniTest::Unit::TestCase
   end
 
   #Test that it embeds
-  def test_embed
+  def test_foorth_embed
     comp = Complex(1,2)
-    assert_equal(comp.embed, 'Complex(1,2)')
+    assert_equal(comp.foorth_embed, 'Complex(1,2)')
   end
 
 end

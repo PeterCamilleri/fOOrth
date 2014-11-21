@@ -21,9 +21,9 @@ class RationalMonkeyPatchTester < MiniTest::Unit::TestCase
   end
 
   #Test that it embeds
-  def test_embed
+  def test_foorth_embed
     rat = '1/2'.to_r
-    assert_equal(rat.embed, "'1/2'.to_r")
+    assert_equal(rat.foorth_embed, "'1/2'.to_r")
   end
 
 end

@@ -28,10 +28,10 @@ class ObjectMonkeyPatchTester < MiniTest::Unit::TestCase
     super(*all)
   end
 
-  #Test that it does NOT embed.
-  def test_embed_error
+  #Test that it does NOT foorth_embed.
+  def test_foorth_embed_error
     obj = Object.new
-    assert_raises(XfOOrth::XfOOrthError) { obj.embed }
+    assert_raises(XfOOrth::XfOOrthError) { obj.foorth_embed }
   end
 
   #Test for conversion to a boolean.

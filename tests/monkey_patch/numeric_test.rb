@@ -20,9 +20,9 @@ class NumericMonkeyPatchTester < MiniTest::Unit::TestCase
   end
 
   #Test that it embeds
-  def test_embed
-    assert_equal(5.embed, '5')
-    assert_equal((5.1).embed, '5.1')
+  def test_foorth_embed
+    assert_equal(5.foorth_embed, '5')
+    assert_equal((5.1).foorth_embed, '5.1')
   end
 
   #Test for conversion to a boolean.

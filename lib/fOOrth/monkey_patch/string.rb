@@ -5,7 +5,7 @@ class String
   #Convert this String to a form suitable for embedding in a source string.
   #<br>Returns
   #* An embeddable form of this string as a string.
-  def embed
+  def foorth_embed
     temp = (self.gsub(/"/)  {|_v| "\\\""}).gsub(/\\/) {|_v| "\\\\"}
     "\"#{temp}\""
   end

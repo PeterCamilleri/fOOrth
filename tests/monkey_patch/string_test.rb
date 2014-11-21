@@ -20,11 +20,11 @@ class StringMonkeyPatchTester < MiniTest::Unit::TestCase
   end
 
   #Test that it embeds
-  def test_embed
-    assert_equal("A big blue cat".embed, "\"A big blue cat\"")
-    assert_equal("The cat's toy".embed,  "\"The cat's toy\"")
-    assert_equal('A dog\cat race'.embed, "\"A dog\\\\cat race\"")
-    assert_equal('A dog/cat race'.embed, "\"A dog/cat race\"")
+  def test_foorth_embed
+    assert_equal("A big blue cat".foorth_embed, "\"A big blue cat\"")
+    assert_equal("The cat's toy".foorth_embed,  "\"The cat's toy\"")
+    assert_equal('A dog\cat race'.foorth_embed, "\"A dog\\\\cat race\"")
+    assert_equal('A dog/cat race'.foorth_embed, "\"A dog/cat race\"")
   end
 
   #Test converting to a boolean.

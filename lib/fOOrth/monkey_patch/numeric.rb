@@ -5,7 +5,7 @@ class Numeric
   #Convert this number to a form suitable for embedding in a source string.
   #<br>Returns
   #* An embeddable form of this number as a string.
-  def embed
+  def foorth_embed
     self.to_s
   end
 

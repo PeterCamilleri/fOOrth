@@ -4,7 +4,7 @@
 class Object
 
   #Raise a fOOrth language internal exception as this operation is not allowed.
-  def embed
+  def foorth_embed
     error "Can't embed class #{self.class.to_s}"
   end
 
