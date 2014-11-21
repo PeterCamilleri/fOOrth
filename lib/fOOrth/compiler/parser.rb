@@ -114,13 +114,6 @@ module XfOOrth
       true
     end
 
-    #Skip till a non-white space or an end of line
-    def skip_white_space_or_to_eoln
-      while (next_char = @source.get)
-        return next_char if next_char > ' ' || @source.eoln?
-      end
-    end
-
     #Skip over a portion of the source text until a ')' detected.
     #<br>Returns:
     #* true
@@ -132,6 +125,13 @@ module XfOOrth
       end
 
       error "Unbalanced comment detected."
+    end
+
+    #Skip till a non-white space or an end of line
+    def skip_white_space_or_to_eoln
+      while (next_char = @source.get)
+        return next_char if (next_char > ' ') || @source.eoln?
+      end
     end
 
   end
