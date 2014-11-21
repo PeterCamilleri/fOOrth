@@ -10,7 +10,7 @@ module XfOOrth
 
   # [value pointer] ! [], variable = [value]
   VirtualMachine.create_shared_method('!', VmSpec, [],
-    &lambda {|vm| v, p = popm(2); p[0] = v; })
+    &lambda {|vm| val, ptr = popm(2); ptr[0] = val; })
 
   # Local Variables
   # [n] local: lv [], lv = [n]

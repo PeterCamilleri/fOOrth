@@ -28,11 +28,11 @@ module XfOOrth
     #* The value of the action block.
     #<br>Note:
     #* Un-nests a context level.
-    def end_compile_mode(ctrls)
+    def end_compile_mode(ctrls, tags)
       puts "  end_compile_mode" if debug
       @context.check_set(:ctrl, ctrls)
       source, @buffer = "lambda {|vm| #{@buffer} }", nil
-      result = instance_exec(self, source, &@context[:action])
+      result = instance_exec(self, source, tags, &@context[:action])
       @context = @context.previous
       result
     end

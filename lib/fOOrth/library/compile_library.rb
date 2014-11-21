@@ -11,9 +11,9 @@ module XfOOrth
     name   = vm.parser.get_word()
     type   = VmSpec
 
-    begin_compile_mode(':', vm: vm, &lambda {|vm, src|
+    begin_compile_mode(':', vm: vm, &lambda {|vm, src, tags|
       puts "#{name} => #{src}" if vm.debug
-      target.create_shared_method(name, type, [], &eval(src))
+      target.create_shared_method(name, type, tags, &eval(src))
     })
 
     XfOOrth.add_common_compiler_locals(vm, ':')
@@ -50,9 +50,9 @@ module XfOOrth
     name   = vm.parser.get_word()
     type   = XfOOrth.name_to_type(name)
 
-    vm.begin_compile_mode('.::', cls: target, &lambda {|vm, src|
+    vm.begin_compile_mode('.::', cls: target, &lambda {|vm, src, tags|
       puts "#{target.name} #{name} => #{src}" if vm.debug
-      target.create_shared_method(name, type, [], &eval(src))
+      target.create_shared_method(name, type, tags, &eval(src))
     })
 
     XfOOrth.add_common_compiler_locals(vm, '.::')
@@ -64,17 +64,22 @@ module XfOOrth
   # COMMON LOCAL DEFNS ==========================
 
   #Set up the common local defns.
-  def self.add_common_compiler_locals(vm, tag)
+  #<br>Parameters:
+  #* vm - The current virtual machine instance.
+  #* ctrl - A list of valid start controls.
+  def self.add_common_compiler_locals(vm, ctrl)
+    context = vm.context
+
     #Support for local variables.
-    vm.context.create_local_method('local:', [:immediate], &Local_Var_Action)
+    context.create_local_method('local:', [:immediate], &Local_Var_Action)
 
     #The standard end-compile adapter word: ';' semi-colon.
-    vm.context.create_local_method(';', [:immediate],
-      &lambda {|vm| vm.end_compile_mode([tag]) })
+    context.create_local_method(';', [:immediate],
+      &lambda {|vm| vm.end_compile_mode([ctrl], []) })
 
     #The immediate end-compile adapter word: ;immediate.
-    vm.context.create_local_method(';immediate', [:immediate],
-      &lambda {|vm| vm.end_compile_mode([tag]).tags << :immediate })
+    context.create_local_method(';immediate', [:immediate],
+      &lambda {|vm| vm.end_compile_mode([ctrl], [:immediate])})
   end
 
 end

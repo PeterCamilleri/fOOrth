@@ -77,7 +77,7 @@ class Class
   def create_foorth_proxy
     error "The class #{foorth_name} already exists." if $ALL_CLASSES[foorth_name]
 
-    install_foorth_class(foorth_name, self) unless $ALL_CLASSES[foorth_name]
+    install_foorth_class(foorth_name, self)
   end
 
   private

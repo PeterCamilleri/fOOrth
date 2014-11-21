@@ -106,6 +106,7 @@ module XfOOrth
       @builds = "vm.push(#{new_class.name}); "
     end
 
+    #Give read access to the class for testing.
     attr_reader :new_class
   end
 
