@@ -1,7 +1,6 @@
 # coding: utf-8
 
 #* compiler/context_map_name.rb - The fOOrth language mapping of names in a context.
-#  language system.
 module XfOOrth
 
   #A class for the management of global, hierarchical, and nested compile

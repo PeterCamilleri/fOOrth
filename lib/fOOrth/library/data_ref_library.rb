@@ -12,8 +12,8 @@ module XfOOrth
   VirtualMachine.create_shared_method('!', VmSpec, [],
     &lambda {|vm| val, ptr = popm(2); ptr[0] = val; })
 
-  # Local Variables
-  # [n] local: lv [], lv = [n]
+  #The Lambda used to define local variables. fOOrth language definition is:
+  # [n] local: lv [], lv = n.to_foorth_p
   Local_Var_Action = lambda {|vm|
     name   = vm.parser.get_word()
     error "Invalid var name #{name}" unless /^[a-z][a-z0-9_]*$/ =~ name
@@ -26,7 +26,7 @@ module XfOOrth
   }
 
   # Instance Variables
-  # [n] ~inst: @iv [], @iv = [n]
+  # [n] ~inst: @iv [], @iv = n.to_foorth_p
   Object.create_shared_method('~inst:', SelfSpec, [:immediate], &lambda { |vm|
     name   = vm.parser.get_word()
     error "Invalid var name #{name}" unless /^@[a-z][a-z0-9_]*$/ =~ name
