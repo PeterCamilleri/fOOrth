@@ -17,7 +17,7 @@ module XfOOrth
         code = token.code
 
         if (@context[:mode] == :execute) || ((token.has_tag?(:immediate)) && (!@force))
-          instance_exec(self, &eval("lambda {|vm| #{code} }"))
+          @context.recvr.instance_exec(self, &eval("lambda {|vm| #{code} }"))
         else
           @buffer << code
           @force = false
