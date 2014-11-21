@@ -77,7 +77,7 @@ class ClassLibraryTester < MiniTest::Unit::TestCase
 
   def test_creating_an_instance_var
     foorth_equal("class: T5", [])
-    foorth_equal("T5 .:: .init ~inst: @a ;", [])
+    foorth_equal("T5 .:: .init inst: @a ;", [])
     foorth_equal("T5 .:: .a@ @a @ ;", [])
     foorth_equal("T5 .:: .a! @a ! ;", [])
 

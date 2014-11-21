@@ -73,6 +73,9 @@ module XfOOrth
     #Support for local variables.
     context.create_local_method('local:', [:immediate], &Local_Var_Action)
 
+    #Support for instance variables.
+    context.create_local_method('inst:', [:immediate], &Inst_Var_Action)
+
     #The standard end-compile adapter word: ';' semi-colon.
     context.create_local_method(';', [:immediate],
       &lambda {|vm| vm.end_compile_mode([ctrl], []) })

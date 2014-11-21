@@ -12,7 +12,7 @@ module XfOOrth
   VirtualMachine.create_shared_method('!', VmSpec, [],
     &lambda {|vm| val, ptr = popm(2); ptr[0] = val; })
 
-  #The Lambda used to define local variables. fOOrth language definition is:
+  #The lambda used to define local variables. fOOrth language definition is:
   # [n] local: lv [], lv = n.to_foorth_p
   Local_Var_Action = lambda {|vm|
     name   = vm.parser.get_word()
@@ -25,17 +25,17 @@ module XfOOrth
       &lambda {|vm| vm << "vm.push(#{symbol}); "} )
   }
 
-  # Instance Variables
-  # [n] ~inst: @iv [], @iv = n.to_foorth_p
-  Object.create_shared_method('~inst:', SelfSpec, [:immediate], &lambda { |vm|
+  #The lambda used to define instance variables. fOOrth language definition is:
+  # [n] inst: @iv [], @iv = n.to_foorth_p
+  Inst_Var_Action = lambda { |vm|
     name   = vm.parser.get_word()
     error "Invalid var name #{name}" unless /^@[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
     vm << "#{'@'+(symbol.to_s)} = vm.pop.to_foorth_p; "
 
     #Add a defn for the instance variable.
-    vm.context[:cls].create_shared_method(name, InstanceVarSpec, [])
-  })
+    vm.context.recvr.create_shared_method(name, InstanceVarSpec, [])
+  }
 
   # Thread Variables
   # [n] thread: #iv [], #iv = [n]
