@@ -8,6 +8,7 @@ require_relative 'compiler/token'
 require_relative 'compiler/modes'
 require_relative 'compiler/word_specs'
 require_relative 'compiler/context'
+require_relative 'compiler/context_map_name'
 require_relative 'compiler/process'
 
 #* compiler.rb - The compiler portion of the fOOrth language system.
