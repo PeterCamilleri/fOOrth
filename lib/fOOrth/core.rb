@@ -8,7 +8,7 @@ require_relative 'core/virtual_machine'
 #* core.rb - The fOOrth language OO core.
 module XfOOrth
 
-  $ALL_CLASSES = Hash.new
+  $FOORTH_GLOBALS = Hash.new
   Object.create_foorth_proxy
   Class.create_foorth_proxy
   VirtualMachine.create_foorth_proxy

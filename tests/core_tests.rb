@@ -109,10 +109,10 @@ class CoreTester < MiniTest::Unit::TestCase
   def test_creating_subclasses
     new_class = Object.create_foorth_subclass('MyClass')
 
-    assert($ALL_CLASSES['MyClass'])
+    assert($FOORTH_GLOBALS['MyClass'])
     assert_equal('XfOOrth::ClassSpec instance', new_class.foorth_name)
     assert_equal(XfOOrth::XfOOrth_MyClass, new_class.new_class)
-    assert_equal(XfOOrth::XfOOrth_MyClass, $ALL_CLASSES['MyClass'].new_class)
+    assert_equal(XfOOrth::XfOOrth_MyClass, $FOORTH_GLOBALS['MyClass'].new_class)
 
     assert_raises(XfOOrth::XfOOrthError) do
       no_class = Object.create_foorth_subclass('No Class')
@@ -126,10 +126,10 @@ class CoreTester < MiniTest::Unit::TestCase
   def test_creating_proxies
     new_proxy = String.create_foorth_proxy
 
-    assert($ALL_CLASSES['String'])
+    assert($FOORTH_GLOBALS['String'])
     assert_equal('String', new_proxy.new_class.foorth_name)
     assert_equal(String, new_proxy.new_class)
-    assert_equal(String, $ALL_CLASSES['String'].new_class)
+    assert_equal(String, $FOORTH_GLOBALS['String'].new_class)
   end
 
 end

@@ -60,7 +60,7 @@ class Class
   #<br>Note:
   #* If a sub-class with the given name already exists, an exception is raised.
   def create_foorth_subclass(foorth_name)
-    error "The class #{foorth_name} already exists." if $ALL_CLASSES[foorth_name]
+    error "The class #{foorth_name} already exists." if $FOORTH_GLOBALS[foorth_name]
     error "Invalid class name" unless /^[A-Z][A-Za-z0-9]*$/ =~ foorth_name
 
     new_class = Class.new(self) {
@@ -75,7 +75,7 @@ class Class
   #<br>Returns:
   #* The spec of the proxy class.
   def create_foorth_proxy
-    error "The class #{foorth_name} already exists." if $ALL_CLASSES[foorth_name]
+    error "The class #{foorth_name} already exists." if $FOORTH_GLOBALS[foorth_name]
 
     install_foorth_class(foorth_name, self)
   end
@@ -89,7 +89,7 @@ class Class
   #* :reek:UtilityFunction
   def install_foorth_class(foorth_name, new_class)
     XfOOrth::SymbolMap.add_entry(foorth_name)
-    $ALL_CLASSES[foorth_name] = XfOOrth::ClassSpec.new(new_class, nil, [])
+    $FOORTH_GLOBALS[foorth_name] = XfOOrth::ClassSpec.new(new_class, nil, [])
   end
 
 end

@@ -107,7 +107,7 @@ module XfOOrth
         @data[@symbol]         ||
         do_object_class_map    ||
         do_vm_target_map       ||
-        $ALL_CLASSES[@name]    ||
+        $FOORTH_GLOBALS[@name] ||
         spec_error
       end
 
