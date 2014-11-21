@@ -42,6 +42,7 @@ module XfOOrth
     #<br>Note:
     #* Throws a XfOOrthError if the value is not valid.
     #* To check for no value, use [nil] for expect.
+    #* Returns true to facilitate testing only.
     def check_set(symbol, expect)
       current = self[symbol]
 
