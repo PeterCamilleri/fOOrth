@@ -36,4 +36,10 @@ class StringLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('"a" 5 .rj ', ['    a'])
     foorth_equal('"too long" 5 .rj ', ['too long'])
   end
+
+  def test_formatted_strings
+    foorth_equal('5 "%03d" .fmt ', ['005'])
+    foorth_equal('5 .fmt"%03d"  ', ['005'])
+  end
+
 end

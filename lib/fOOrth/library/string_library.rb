@@ -18,4 +18,12 @@ module XfOOrth
   VirtualMachine.create_shared_method('.rj', VmSpec, [],
     &lambda {|vm| width = pop.to_i;  poke(peek.to_s.rjust(width)); })
 
+  # [a fmt_str] .fmt ['a formatted string']
+  VirtualMachine.create_shared_method('.fmt', VmSpec, [],
+    &lambda {|vm| fmt_str = pop.to_s;  poke(fmt_str % peek); })
+
+  # [a] .fmt"fmt_str" ['a formatted string']
+  VirtualMachine.create_shared_method('.fmt"', VmSpec, [],
+    &lambda {|vm| fmt_str = pop.to_s;  poke(fmt_str % peek); })
+
 end
