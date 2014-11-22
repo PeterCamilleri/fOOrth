@@ -19,7 +19,6 @@ class DataStackMapTester < MiniTest::Unit::TestCase
     super(*all)
   end
 
-  #Test data stack functionality.
   def test_data_stack_ops
     vm = Thread.current[:vm]
     refute(vm == nil)
@@ -40,7 +39,6 @@ class DataStackMapTester < MiniTest::Unit::TestCase
     assert_equal(vm.data_stack, [])
   end
 
-  #Test data stack boolean operations
   def test_boolean_stack_data
     vm = Thread.current[:vm]
     refute(vm == nil)
@@ -69,7 +67,6 @@ class DataStackMapTester < MiniTest::Unit::TestCase
     refute(vm.pop?)
   end
 
-  #Test data stack pop multiple operations
   def test_pop_multiple
     vm = Thread.current[:vm]
     refute(vm == nil)
@@ -89,7 +86,17 @@ class DataStackMapTester < MiniTest::Unit::TestCase
     assert_equal(vm.data_stack, [])
   end
 
-  #Test dyadic operator support.
+  def test_poke
+    vm = Thread.current[:vm]
+    refute(vm == nil)
+
+    vm.interpreter_reset
+
+    vm.push(42)
+    vm.poke("hello")
+    assert_equal(vm.data_stack, ["hello"])
+  end
+
   def test_swap_pop
     vm = Thread.current[:vm]
     refute(vm == nil)

@@ -71,6 +71,19 @@ module XfOOrth
       @data_stack[-index]
     end
 
+    #Overwrite the TOS with the supplied data.
+    #<br>Parameters:
+    #* datum - The data to be placed in the data stack.
+    #<br>Note:
+    #* Attempting to poke an empty stack will fail with an XfOOrthError exception.
+    def poke(datum)
+      unless @data_stack.length >= 1
+        error "Data Stack Underflow: poke"
+      end
+
+      @data_stack[-1] = datum
+    end
+
     #Read an entry from the data stack as a boolean without modify that stack.
     #<br>Parameters:
     #* index - The (optional) entry to be retrieved. 1 corresponds to the "top"
