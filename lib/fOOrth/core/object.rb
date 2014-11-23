@@ -53,9 +53,8 @@ class Object
   #* args - Any arguments that were passed to that method.
   #* block - Any block that might have passed to the method.
   def method_missing(symbol, *args, &block)
-    if (names = XfOOrth::SymbolMap.unmap(symbol))
-      names = names[0] unless names.length > 1
-      error "A #{self.foorth_name} does not understand #{names} (#{symbol})."
+    if (name = XfOOrth::SymbolMap.unmap(symbol))
+      error "A #{self.foorth_name} does not understand #{name} (#{symbol})."
     else
       super
     end

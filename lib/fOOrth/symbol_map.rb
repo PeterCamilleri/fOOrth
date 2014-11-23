@@ -60,12 +60,9 @@ module XfOOrth
     #Set up the internal workings of the mapping hashes.
     private
     def self.connect(name, symbol)
-      if (rev_entry = @rev_map[symbol])
-        rev_entry << name
-      else
-        @rev_map[symbol] = [name]
-      end
+      error "Attempt to redefine #{name}." if (old = @rev_map[symbol]) && (old != name)
 
+      @rev_map[symbol] = name
       @fwd_map[name] = symbol
     end
   end
