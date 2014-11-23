@@ -43,7 +43,7 @@ module XfOOrth
     #<br>Parameters:
     #* mapped - The mapping of the desired symbol.
     #<br>Returns:
-    #* A [names] or nil if the symbol is not in the map.
+    #* The name or nil if the symbol is not in the map.
     def self.unmap(mapped)
       @rev_map[mapped]
     end
@@ -60,7 +60,9 @@ module XfOOrth
     #Set up the internal workings of the mapping hashes.
     private
     def self.connect(name, symbol)
-      error "Attempt to redefine #{name}." if (old = @rev_map[symbol]) && (old != name)
+      if (old = @rev_map[symbol]) && (old != name)
+        error "Attempt to redefine #{name}."
+      end
 
       @rev_map[symbol] = name
       @fwd_map[name] = symbol
