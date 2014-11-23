@@ -26,4 +26,23 @@ module XfOOrth
   VirtualMachine.create_shared_method('.fmt"', VmSpec, [],
     &lambda {|vm| fmt_str = pop.to_s;  poke(fmt_str % peek); })
 
+
+  # ['abcdefgh' w] .left ['abcd'] // Assumes w = 4
+
+
+  # ['abcdefgh' w] .-left ['cdefgh'] // Assumes w = 2
+
+
+  # ['abcdefgh' n w] .mid ['cdef'] // Assumes n = 2, w = 4
+
+
+  # ['abcdefgh' n w] .-mid ['cdef'] // Assumes n = 2, w = 4
+
+
+  # ['abcdefgh' w] .right ['efgh'] // Assumes w = 4
+
+
+  # ['abcdefgh' w] .-right ['abcdef'] // Assumes w = 2
+
+
 end
