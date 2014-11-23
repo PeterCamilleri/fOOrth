@@ -18,31 +18,56 @@ module XfOOrth
   VirtualMachine.create_shared_method('.rj', VmSpec, [],
     &lambda {|vm| width = pop.to_i;  poke(peek.to_s.rjust(width)); })
 
+  fmt_action = lambda {|vm| fmt_str = pop.to_s;  poke(fmt_str % peek); }
+
   # [a fmt_str] .fmt ['a formatted string']
-  VirtualMachine.create_shared_method('.fmt', VmSpec, [],
-    &lambda {|vm| fmt_str = pop.to_s;  poke(fmt_str % peek); })
+  VirtualMachine.create_shared_method('.fmt', VmSpec, [], &fmt_action)
 
   # [a] .fmt"fmt_str" ['a formatted string']
-  VirtualMachine.create_shared_method('.fmt"', VmSpec, [],
-    &lambda {|vm| fmt_str = pop.to_s;  poke(fmt_str % peek); })
+  VirtualMachine.create_shared_method('.fmt"', VmSpec, [], &fmt_action)
 
+  # ['abcdefgh' w] .left ['ab']         // Assumes w = 2
+  VirtualMachine.create_shared_method('.left', VmSpec, [],
+    &lambda {|vm| width = pop.to_i;  poke(peek[0...width]); })
 
-  # ['abcdefgh' w] .left ['abcd'] // Assumes w = 4
+  # ['abcdefgh' w] .-left ['cdefgh']    // Assumes w = 2
+  VirtualMachine.create_shared_method('.-left', VmSpec, [],
+    &lambda {|vm| width = pop.to_i;  poke(peek[width..-1]); })
 
+  # ['abcdefgh' n w] .mid ['cdef']      // Assumes n = 2, w = 4
+  VirtualMachine.create_shared_method('.mid', VmSpec, [], &lambda {|vm|
+    width = pop.to_i
+    posn = pop.to_i
+    poke(peek[posn...(posn+width)])
+  })
 
-  # ['abcdefgh' w] .-left ['cdefgh'] // Assumes w = 2
+  # ['abcdefgh' n w] .-mid ['abgh']     // Assumes n = 2, w = 4
+  VirtualMachine.create_shared_method('.-mid', VmSpec, [], &lambda {|vm|
+    width = pop.to_i
+    posn = pop.to_i
+    poke(peek[0...posn] + peek[(posn+width)..-1])
+  })
 
+  # ['abcdefgh' l r] .midlr ['bcdefg']  // Assumes l = 1, r = 1
+  VirtualMachine.create_shared_method('.midlr', VmSpec, [], &lambda {|vm|
+    right = pop.to_i
+    left  = pop.to_i
+    poke(peek[left...(0-right)])
+  })
 
-  # ['abcdefgh' n w] .mid ['cdef'] // Assumes n = 2, w = 4
+  # ['abcdefgh' l r] .-midlr ['ah']     // Assumes l = 1, r = 1
+  VirtualMachine.create_shared_method('.-midlr', VmSpec, [], &lambda {|vm|
+    right = pop.to_i
+    left  = pop.to_i
+    poke(peek[0...left] + peek[((0-right))..-1])
+  })
 
+  # ['abcdefgh' w] .right ['gh']        // Assumes w = 2
+  VirtualMachine.create_shared_method('.right', VmSpec, [],
+    &lambda {|vm| width = pop.to_i;  poke(peek[(0-width)..-1]); })
 
-  # ['abcdefgh' n w] .-mid ['cdef'] // Assumes n = 2, w = 4
-
-
-  # ['abcdefgh' w] .right ['efgh'] // Assumes w = 4
-
-
-  # ['abcdefgh' w] .-right ['abcdef'] // Assumes w = 2
-
+  # ['abcdefgh' w] .-right ['abcdef']   // Assumes w = 2
+  VirtualMachine.create_shared_method('.-right', VmSpec, [],
+    &lambda {|vm| width = pop.to_i;  poke(peek[0...(0-width)]); })
 
 end
