@@ -75,13 +75,13 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('5 3 /', [1])
     foorth_equal('5 3 mod', [2])
 
-    foorth_equal('5 0-', [-5])
-    foorth_equal('0 0-', [0])
-    foorth_equal('-5 0-', [5])
+    foorth_equal('5  neg', [-5])
+    foorth_equal('0  neg', [0])
+    foorth_equal('-5 neg', [5])
 
-    foorth_equal('5.0 0-', [-5.0])
-    foorth_equal('0.0 0-', [0.0])
-    foorth_equal('-5.0 0-', [5.0])
+    foorth_equal('5.0  neg', [-5.0])
+    foorth_equal('0.0  neg', [0.0])
+    foorth_equal('-5.0 neg', [5.0])
   end
 
   def test_some_comparisons

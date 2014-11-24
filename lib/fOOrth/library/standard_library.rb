@@ -86,9 +86,9 @@ module XfOOrth
   Object.create_shared_method('mod', NosSpec, [],
     &lambda {|vm| vm.push(self % vm.pop()); })
 
-  # [a] 0- [0-a]
-  Object.create_shared_method('0-', TosSpec, [],
-    &lambda {|vm| vm.push(0-self); })
+  # [a] neg [0-a]
+  Object.create_shared_method('neg', TosSpec, [],
+    &lambda {|vm| vm.push(-self); })
 
   # Some bitwise operation words.
   # [b,a] and [b&a]
