@@ -11,4 +11,30 @@ module XfOOrth
   Rational.create_foorth_proxy
   Complex.create_foorth_proxy
 
+  # Some stack arithmetic words.
+  # [b,a] + [b+a]
+  Numeric.create_shared_method('+', NosSpec, [],
+    &lambda {|vm| vm.push(self + vm.pop()); })
+
+  # [b,a] - [b-a]
+  Numeric.create_shared_method('-', NosSpec, [],
+    &lambda {|vm| vm.push(self - vm.pop()); })
+
+  # [b,a] * [b+a]
+  Numeric.create_shared_method('*', NosSpec, [],
+    &lambda {|vm| vm.push(self * vm.pop()); })
+
+  # [b,a] / [b-a]
+  Numeric.create_shared_method('/', NosSpec, [],
+    &lambda {|vm| vm.push(self / vm.pop()); })
+
+  # [b,a] mod [b-a]
+  Numeric.create_shared_method('mod', NosSpec, [],
+    &lambda {|vm| vm.push(self % vm.pop()); })
+
+  # [a] neg [-a]
+  Numeric.create_shared_method('neg', TosSpec, [],
+    &lambda {|vm| vm.push(-self); })
+
+
 end

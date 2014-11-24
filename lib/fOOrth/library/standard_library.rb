@@ -5,20 +5,16 @@ module XfOOrth
 
   # Some basic "constant" value words.
   #The self method.
-  Object.create_shared_method('self', MacroSpec,
-    ["vm.push(self); "])
+  Object.create_shared_method('self', MacroSpec, ["vm.push(self); "])
 
   #The true method.
-  Object.create_shared_method('true', MacroSpec,
-    ["vm.push(true); "])
+  Object.create_shared_method('true', MacroSpec, ["vm.push(true); "])
 
   #The false method.
-  Object.create_shared_method('false', MacroSpec,
-    ["vm.push(false); "])
+  Object.create_shared_method('false', MacroSpec, ["vm.push(false); "])
 
   #The nil method.
-  Object.create_shared_method('nil', MacroSpec,
-    ["vm.push(nil); "])
+  Object.create_shared_method('nil', MacroSpec, ["vm.push(nil); "])
 
   # Some stack manipulation words.
   # [a] drop []
@@ -65,30 +61,13 @@ module XfOOrth
   VirtualMachine.create_shared_method('tuck', VmSpec, [],
     &lambda {|vm| vb,va = popm(2); push(va); push(vb); push(va); })
 
-  # Some stack arithmetic words.
-  # [b,a] + [b+a]
-  Object.create_shared_method('+', NosSpec, [],
-    &lambda {|vm| vm.push(self + vm.pop()); })
-
-  # [b,a] - [b-a]
-  Object.create_shared_method('-', NosSpec, [],
-    &lambda {|vm| vm.push(self - vm.pop()); })
-
-  # [b,a] * [b+a]
-  Object.create_shared_method('*', NosSpec, [],
-    &lambda {|vm| vm.push(self * vm.pop()); })
-
-  # [b,a] / [b-a]
-  Object.create_shared_method('/', NosSpec, [],
-    &lambda {|vm| vm.push(self / vm.pop()); })
-
-  # [b,a] mod [b-a]
-  Object.create_shared_method('mod', NosSpec, [],
-    &lambda {|vm| vm.push(self % vm.pop()); })
-
-  # [a] neg [0-a]
-  Object.create_shared_method('neg', TosSpec, [],
-    &lambda {|vm| vm.push(-self); })
+  # Stubs for the stack arithmetic words.
+  Object.create_shared_method('+',   NosSpec, [:stub])
+  Object.create_shared_method('-',   NosSpec, [:stub])
+  Object.create_shared_method('*',   NosSpec, [:stub])
+  Object.create_shared_method('/',   NosSpec, [:stub])
+  Object.create_shared_method('mod', NosSpec, [:stub])
+  Object.create_shared_method('neg', TosSpec, [:stub])
 
   # Some bitwise operation words.
   # [b,a] and [b&a]
