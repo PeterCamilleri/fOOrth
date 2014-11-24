@@ -14,23 +14,23 @@ module XfOOrth
   # Some stack arithmetic words.
   # [b,a] + [b+a]
   Numeric.create_shared_method('+', NosSpec, [],
-    &lambda {|vm| vm.push(self + vm.pop()); })
+    &lambda {|vm| vm.poke(self + vm.peek); })
 
   # [b,a] - [b-a]
   Numeric.create_shared_method('-', NosSpec, [],
-    &lambda {|vm| vm.push(self - vm.pop()); })
+    &lambda {|vm| vm.poke(self - vm.peek); })
 
   # [b,a] * [b*a]
   Numeric.create_shared_method('*', NosSpec, [],
-    &lambda {|vm| vm.push(self * vm.pop()); })
+    &lambda {|vm| vm.poke(self * vm.peek); })
 
   # [b,a] / [b/a]
   Numeric.create_shared_method('/', NosSpec, [],
-    &lambda {|vm| vm.push(self / vm.pop()); })
+    &lambda {|vm| vm.poke(self / vm.peek); })
 
   # [b,a] mod [b%a]
   Numeric.create_shared_method('mod', NosSpec, [],
-    &lambda {|vm| vm.push(self % vm.pop()); })
+    &lambda {|vm| vm.poke(self % vm.peek); })
 
   # [a] neg [-a]
   Numeric.create_shared_method('neg', TosSpec, [],
