@@ -6,7 +6,7 @@ module XfOOrth
   # Some basic data access words.
   # [pointer] @ [value]
   Object.create_shared_method('@', MacroSpec,
-    ["vm.push(vm.pop[0] ); "])
+    ["vm.poke(vm.peek[0] ); "])
 
   # [value pointer] ! [], variable = [value]
   VirtualMachine.create_shared_method('!', VmSpec, [],
@@ -38,11 +38,18 @@ module XfOOrth
   }
 
   # Thread Variables
-  # [n] thread: #iv [], #iv = [n]
+  # [n] thread: #tv [], Thread.current[#tv] = n.to_foorth_p
+  VirtualMachine.create_shared_method('thread:', VmSpec, [], &lambda {|vm|
+    name   = vm.parser.get_word()
+    error "Invalid var name #{name}" unless /^#[a-z][a-z0-9_]*$/ =~ name
+    symbol = XfOOrth::SymbolMap.add_entry(name)
+    Thread.current[symbol] = vm.pop.to_foorth_p
 
+    vm.create_exclusive_method(name, ThreadVarSpec, [])
+  })
 
   # Global Variables
-  # [n] global: $iv [], $iv = [n]
+  # [n] global: $gv [], $gv = n.to_foorth_p
 
 
 end

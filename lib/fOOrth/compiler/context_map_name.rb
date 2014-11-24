@@ -39,7 +39,8 @@ module XfOOrth
         spec_error  # Reserved for now.
 
       when '#'
-        spec_error  # Reserved for now.
+        do_vm_target_map       ||
+        spec_error
 
       else
         @data[@symbol]         ||
