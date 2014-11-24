@@ -71,20 +71,12 @@ module XfOOrth
 
   # Some bitwise operation words.
   # [b,a] and [b&a]
-  Object.create_shared_method('and', TosSpec, [],
-    &lambda {|vm| vm.poke(self.to_i & vm.peek.to_i); })
-
-  # [b,a] or [b|a]
-  Object.create_shared_method('or', TosSpec, [],
-    &lambda {|vm| vm.poke(self.to_i | vm.peek.to_i); })
-
-  # [b,a] xor [b^a]
-  Object.create_shared_method('xor', TosSpec, [],
-    &lambda {|vm| vm.poke(self.to_i ^ vm.peek.to_i); })
-
-  # [a] com [~a]
-  Object.create_shared_method('com', TosSpec, [],
-    &lambda {|vm| vm.push(~(self.to_i)); })
+  Object.create_shared_method('and', TosSpec, [:stub])
+  Object.create_shared_method('or',  TosSpec, [:stub])
+  Object.create_shared_method('xor', TosSpec, [:stub])
+  Object.create_shared_method('com', TosSpec, [:stub])
+  Object.create_shared_method('<<',  NosSpec, [:stub])
+  Object.create_shared_method('>>',  NosSpec, [:stub])
 
   # Some boolean operation words.
   # [b,a] && [b&a]

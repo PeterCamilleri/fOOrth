@@ -82,6 +82,9 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('5.0  neg', [-5.0])
     foorth_equal('0.0  neg', [0.0])
     foorth_equal('-5.0 neg', [5.0])
+
+    foorth_equal('5 3 <<', [40])
+    foorth_equal('40 3 >>', [5])
   end
 
   def test_some_comparisons
