@@ -77,5 +77,4 @@ module XfOOrth
   # ["b", n] + ["bbb..."]
   String.create_shared_method('*', NosSpec, [],
     &lambda {|vm| vm.poke(self * vm.peek.to_i); })
-
 end

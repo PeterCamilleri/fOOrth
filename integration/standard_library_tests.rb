@@ -68,25 +68,6 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
     foorth_raises("tuck")
   end
 
-  def test_some_computations
-    foorth_equal('5 3 +', [8])
-    foorth_equal('5 3 -', [2])
-    foorth_equal('5 3 *', [15])
-    foorth_equal('5 3 /', [1])
-    foorth_equal('5 3 mod', [2])
-
-    foorth_equal('5  neg', [-5])
-    foorth_equal('0  neg', [0])
-    foorth_equal('-5 neg', [5])
-
-    foorth_equal('5.0  neg', [-5.0])
-    foorth_equal('0.0  neg', [0.0])
-    foorth_equal('-5.0 neg', [5.0])
-
-    foorth_equal('5 3 <<', [40])
-    foorth_equal('40 3 >>', [5])
-  end
-
   def test_some_comparisons
     foorth_equal('4 4 =', [true])
     foorth_equal('4 5 =', [false])
@@ -169,13 +150,6 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
 
     foorth_equal('"33" dup .clone identical?', [false])
     foorth_equal('"33" dup .clone distinct?', [true])
-  end
-
-  def test_some_bitwise_ops
-    foorth_equal("5 3 and", [1])
-    foorth_equal("5 3 or",  [7])
-    foorth_equal("5 3 xor", [6])
-    foorth_equal("5 com",  [-6])
   end
 
   def test_some_logical_ops
