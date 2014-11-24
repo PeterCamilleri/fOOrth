@@ -79,9 +79,17 @@ class ClassLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("class: T5", [])
     foorth_equal("T5 .:: .init inst: @a ;", [])
     foorth_equal("T5 .:: .a@ @a @ ;", [])
-    foorth_equal("T5 .:: .a! @a ! ;", [])
 
     foorth_equal("10 T5 .new .a@", [10])
+  end
+
+  def test_creating_an_accessor
+    foorth_equal("class: T6", [])
+    foorth_equal("T6 .:: .init inst: @a ;", [])
+    foorth_equal("T6 .:: .a@ @a @ ;", [])
+    foorth_equal("T6 .:: .a! @a ! ;", [])
+
+    foorth_equal("nil T6 .new dup 100 swap .a! .a@", [100])
   end
 
 end
