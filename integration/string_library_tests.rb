@@ -62,4 +62,16 @@ class StringLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('"abcdefgh" 2 2 .-midlr ', ['abgh'])
   end
 
+  def test_replication
+    foorth_equal('"abc" 0 *',  [''])
+    foorth_equal('"abc" 1 *',  ['abc'])
+    foorth_equal('"abc" 2 *',  ['abcabc'])
+    foorth_equal('"abc" 3 *',  ['abcabcabc'])
+  end
+
+  def test_concatenation
+    foorth_equal('"abc" 0     +',  ['abc0'])
+    foorth_equal('"abc" "def" + ',  ['abcdef'])
+  end
+
 end

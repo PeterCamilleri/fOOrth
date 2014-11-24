@@ -70,4 +70,12 @@ module XfOOrth
   VirtualMachine.create_shared_method('.-right', VmSpec, [],
     &lambda {|vm| width = pop.to_i;  poke(peek[0...(0-width)]); })
 
+  # ["b", a] + ["ba"]
+  String.create_shared_method('+', NosSpec, [],
+    &lambda {|vm| vm.poke(self + vm.peek.to_s); })
+
+  # ["b", n] + ["bbb..."]
+  String.create_shared_method('*', NosSpec, [],
+    &lambda {|vm| vm.poke(self * vm.peek.to_i); })
+
 end
