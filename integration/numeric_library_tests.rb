@@ -39,6 +39,9 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
 
     foorth_equal('5 3 <<', [40])
     foorth_equal('40 3 >>', [5])
+
+    foorth_equal('2 10 **', [1024])
+    foorth_equal('2.0 .1/x', [0.5])
   end
 
   def test_some_bitwise_ops

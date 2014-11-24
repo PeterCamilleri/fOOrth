@@ -24,6 +24,10 @@ module XfOOrth
   Numeric.create_shared_method('*', NosSpec, [],
     &lambda {|vm| vm.poke(self * vm.peek); })
 
+  # [b,a] ** [b**a]
+  Numeric.create_shared_method('**', NosSpec, [],
+    &lambda {|vm| vm.poke(self ** vm.peek); })
+
   # [b,a] / [b/a]
   Numeric.create_shared_method('/', NosSpec, [],
     &lambda {|vm| vm.poke(self / vm.peek); })
@@ -35,6 +39,10 @@ module XfOOrth
   # [a] neg [-a]
   Numeric.create_shared_method('neg', TosSpec, [],
     &lambda {|vm| vm.push(-self); })
+
+  # [a] .1/x [-a]
+  Numeric.create_shared_method('.1/x', TosSpec, [],
+    &lambda {|vm| vm.push(1/self); })
 
   # Some bitwise operation words.
   # [b,a] and [b&a]
