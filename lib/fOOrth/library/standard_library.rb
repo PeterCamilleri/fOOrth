@@ -71,16 +71,16 @@ module XfOOrth
 
   # Some bitwise operation words.
   # [b,a] and [b&a]
-  Object.create_shared_method('and', NosSpec, [],
-    &lambda {|vm| vm.push(self.to_i & vm.pop.to_i); })
+  Object.create_shared_method('and', TosSpec, [],
+    &lambda {|vm| vm.poke(self.to_i & vm.peek.to_i); })
 
   # [b,a] or [b|a]
-  Object.create_shared_method('or', NosSpec, [],
-    &lambda {|vm| vm.push(self.to_i | vm.pop.to_i); })
+  Object.create_shared_method('or', TosSpec, [],
+    &lambda {|vm| vm.poke(self.to_i | vm.peek.to_i); })
 
   # [b,a] xor [b^a]
-  Object.create_shared_method('xor', NosSpec, [],
-    &lambda {|vm| vm.push(self.to_i ^ vm.pop.to_i); })
+  Object.create_shared_method('xor', TosSpec, [],
+    &lambda {|vm| vm.poke(self.to_i ^ vm.peek.to_i); })
 
   # [a] com [~a]
   Object.create_shared_method('com', TosSpec, [],
@@ -88,16 +88,16 @@ module XfOOrth
 
   # Some boolean operation words.
   # [b,a] && [b&a]
-  Object.create_shared_method('&&', NosSpec, [],
-    &lambda {|vm| vm.push(self.to_foorth_b & vm.pop.to_foorth_b); })
+  Object.create_shared_method('&&', TosSpec, [],
+    &lambda {|vm| vm.poke(self.to_foorth_b && vm.peek?); })
 
   # [b,a] || [b|a]
-  Object.create_shared_method('||', NosSpec, [],
-    &lambda {|vm| vm.push(self.to_foorth_b | vm.pop.to_foorth_b); })
+  Object.create_shared_method('||', TosSpec, [],
+    &lambda {|vm| vm.poke(self.to_foorth_b || vm.peek?); })
 
   # [b,a] ^^ [b^a]
-  Object.create_shared_method('^^', NosSpec, [],
-    &lambda {|vm| vm.push(self.to_foorth_b ^ vm.pop.to_foorth_b); })
+  Object.create_shared_method('^^', TosSpec, [],
+    &lambda {|vm| vm.poke(self.to_foorth_b ^ vm.peek?); })
 
   # [a] not [!a]
   Object.create_shared_method('not', TosSpec, [],
