@@ -63,6 +63,7 @@ module XfOOrth
   Object.create_shared_method('+',   NosSpec, [:stub])
   Object.create_shared_method('-',   NosSpec, [:stub])
   Object.create_shared_method('*',   NosSpec, [:stub])
+  Object.create_shared_method('**',  NosSpec, [:stub])
   Object.create_shared_method('/',   NosSpec, [:stub])
   Object.create_shared_method('mod', NosSpec, [:stub])
   Object.create_shared_method('neg', TosSpec, [:stub])
