@@ -18,8 +18,7 @@ module XfOOrth
 
   # Some stack manipulation words.
   # [a] drop []
-  VirtualMachine.create_shared_method('drop', MacroSpec,
-    ["vm.pop(); "])
+  VirtualMachine.create_shared_method('drop', MacroSpec, ["vm.pop(); "])
 
   # [a] dup [a, a]
   VirtualMachine.create_shared_method('dup', MacroSpec,
@@ -54,8 +53,7 @@ module XfOOrth
     ["vm.push(vm.peek(vm.pop())); "])
 
   # [b,a] nip [a]
-  VirtualMachine.create_shared_method('nip', MacroSpec,
-    ["vm.swap_pop(); "])
+  VirtualMachine.create_shared_method('nip', MacroSpec, ["vm.swap_pop(); "])
 
   # [b,a] tuck [a,b,a]
   VirtualMachine.create_shared_method('tuck', VmSpec, [],

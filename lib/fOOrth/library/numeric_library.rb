@@ -20,15 +20,15 @@ module XfOOrth
   Numeric.create_shared_method('-', NosSpec, [],
     &lambda {|vm| vm.push(self - vm.pop()); })
 
-  # [b,a] * [b+a]
+  # [b,a] * [b*a]
   Numeric.create_shared_method('*', NosSpec, [],
     &lambda {|vm| vm.push(self * vm.pop()); })
 
-  # [b,a] / [b-a]
+  # [b,a] / [b/a]
   Numeric.create_shared_method('/', NosSpec, [],
     &lambda {|vm| vm.push(self / vm.pop()); })
 
-  # [b,a] mod [b-a]
+  # [b,a] mod [b%a]
   Numeric.create_shared_method('mod', NosSpec, [],
     &lambda {|vm| vm.push(self % vm.pop()); })
 
@@ -53,11 +53,11 @@ module XfOOrth
   Numeric.create_shared_method('com', TosSpec, [],
     &lambda {|vm| vm.push(~(self.to_i)); })
 
-  # [b,a] << [b << a]
+  # [b,a] << [b<<a]
   Numeric.create_shared_method('<<', NosSpec, [],
     &lambda {|vm| vm.poke(self.to_i << vm.peek.to_i); })
 
-  # [b,a] >> [b >> a]
+  # [b,a] >> [b>>a]
   Numeric.create_shared_method('>>', NosSpec, [],
     &lambda {|vm| vm.poke(self.to_i >> vm.peek.to_i); })
 
