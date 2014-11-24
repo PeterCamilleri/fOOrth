@@ -25,28 +25,28 @@ module XfOOrth
     def do_map_name
       case @name[0]
       when '.'
-        do_object_class_map    ||
-        do_vm_target_map       ||
+        do_object_class_map      ||
+        do_vm_target_map         ||
         do_default_public_spec
 
       when '~', '@'
-        do_class_target_map    ||
-        do_object_target_map   ||
-        do_vm_target_map       ||
+        do_class_target_map      ||
+        do_object_target_map     ||
+        do_vm_target_map         ||
         spec_error
 
       when '$'
         spec_error  # Reserved for now.
 
       when '#'
-        do_vm_target_map       ||
+        do_vm_target_map         ||
         spec_error
 
       else
-        @data[@symbol]         ||
-        do_object_class_map    ||
-        do_vm_target_map       ||
-        $FOORTH_GLOBALS[@name] ||
+        @data[@symbol]           ||
+        do_object_class_map      ||
+        do_vm_target_map         ||
+        $FOORTH_GLOBALS[@symbol] ||
         spec_error
       end
 
