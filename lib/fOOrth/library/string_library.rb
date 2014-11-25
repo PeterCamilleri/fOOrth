@@ -70,11 +70,15 @@ module XfOOrth
   VirtualMachine.create_shared_method('.-right', VmSpec, [],
     &lambda {|vm| width = pop.to_i;  poke(peek[0...(0-width)]); })
 
-  # ["b", a] + ["ba"]
+  # ["b", a] + ["ba"]; "ba" is a new object, distinct from "b"
   String.create_shared_method('+', NosSpec, [],
     &lambda {|vm| vm.poke(self + vm.peek.to_s); })
 
-  # ["b", n] + ["bbb..."]
+  # ["b", a] << ["ba"]; "ba" is the same object as "b"
+  String.create_shared_method('<<', NosSpec, [],
+    &lambda {|vm| vm.poke(self << vm.peek.to_s); })
+
+  # ["b", n] * ["bbb..."]
   String.create_shared_method('*', NosSpec, [],
     &lambda {|vm| vm.poke(self * vm.peek.to_i); })
 end
