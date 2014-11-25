@@ -60,7 +60,7 @@ module XfOOrth
 
     #Get the currently define method receiver
     def recvr
-      self[:obj] || self[:cls] || self [:vm] || error("Undefined receiver.")
+      self[:obj] || self[:cls] || self[:vm] || error("Undefined receiver.")
     end
 
     #Create a local method on this context.

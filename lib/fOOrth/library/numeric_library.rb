@@ -61,6 +61,10 @@ module XfOOrth
   Numeric.create_shared_method('.1/x', TosSpec, [],
     &lambda {|vm| vm.push(1/self); })
 
+  # [a] .abs [|a|]
+  Numeric.create_shared_method('.abs', TosSpec, [],
+    &lambda {|vm| vm.push(self.abs); })
+
   # Some bitwise operation words.
   # [b,a] and [b&a]
   Numeric.create_shared_method('and', TosSpec, [],

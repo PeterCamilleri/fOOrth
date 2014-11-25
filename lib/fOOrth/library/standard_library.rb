@@ -63,7 +63,7 @@ module XfOOrth
   VirtualMachine.create_shared_method('tuck', VmSpec, [],
     &lambda {|vm| vb,va = popm(2); push(va); push(vb); push(va); })
 
-  # Stubs for the stack arithmetic words.
+  # Stubs for the stack arithmetic words. See numeric_library.rb
   Object.create_shared_method('+',   NosSpec, [:stub])
   Object.create_shared_method('-',   NosSpec, [:stub])
   Object.create_shared_method('*',   NosSpec, [:stub])
@@ -72,8 +72,7 @@ module XfOOrth
   Object.create_shared_method('mod', NosSpec, [:stub])
   Object.create_shared_method('neg', TosSpec, [:stub])
 
-  # Some bitwise operation words.
-  # [b,a] and [b&a]
+  # Some bitwise operation words. See numeric_library.rb
   Object.create_shared_method('and', TosSpec, [:stub])
   Object.create_shared_method('or',  TosSpec, [:stub])
   Object.create_shared_method('xor', TosSpec, [:stub])
