@@ -52,6 +52,8 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('3+4i .magnitude',  [5])
     foorth_equal('1+1i .angle .r2d', [45.0])
 
+    foorth_equal('42   .conjugate',  [42])
+    foorth_equal('1+1i .conjugate',  [Complex(1,-1)])
   end
 
   def test_some_computations

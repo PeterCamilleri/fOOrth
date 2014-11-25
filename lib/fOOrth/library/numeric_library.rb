@@ -106,9 +106,10 @@ module XfOOrth
   Numeric.create_shared_method('.magnitude', TosSpec, [],
     &lambda {|vm| vm.push(self.magnitude); })
 
-
-
-
+  # [a+bi] .conjugate [a-bi]
+  # Complex convicts the behave well are allowed .conjugate visits.
+  Numeric.create_shared_method('.conjugate', TosSpec, [],
+    &lambda {|vm| vm.push(self.conjugate); })
 
   # Some bitwise operation words.
   # [b,a] and [b&a]
