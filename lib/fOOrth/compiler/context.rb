@@ -8,7 +8,7 @@ module XfOOrth
   #time contexts.
   class Context
 
-    #The previous context object that this one builds on. Set to nil is there
+    #The previous context object that this one builds on. Set to nil if there
     #is none.
     attr_reader :previous
 
