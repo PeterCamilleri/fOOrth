@@ -5,15 +5,19 @@ module XfOOrth
 
   # Some basic "constant" value words.
   #The self method.
+  # [] self [self]
   Object.create_shared_method('self', MacroSpec, ["vm.push(self); "])
 
   #The true method.
+  # [] true [true]
   Object.create_shared_method('true', MacroSpec, ["vm.push(true); "])
 
   #The false method.
+  # [] false [false]
   Object.create_shared_method('false', MacroSpec, ["vm.push(false); "])
 
   #The nil method.
+  # [] nil [nil]
   Object.create_shared_method('nil', MacroSpec, ["vm.push(nil); "])
 
   # Some stack manipulation words.

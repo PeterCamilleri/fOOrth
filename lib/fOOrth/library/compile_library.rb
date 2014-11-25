@@ -6,6 +6,7 @@ module XfOOrth
   # COLON =======================================
 
   #The classic colon definition that creates a word in the Virtual Machine class.
+  # [] : <name> <stuff omitted> ; []; creates <name> on the VirtualMachine
   VirtualMachine.create_shared_method(':', VmSpec, [],  &lambda {|vm|
     target = VirtualMachine
     name   = vm.parser.get_word()
@@ -58,6 +59,7 @@ module XfOOrth
     XfOOrth.add_common_compiler_locals(vm, '.::')
   }
 
+  # [a_class] .:: <name> <stuff omitted> ; []; creates <name> on a_class
   Class.create_shared_method('.::', TosSpec, [],  &compile_action)
 
 
