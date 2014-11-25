@@ -81,4 +81,18 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
 
   end
 
+  def test_some_powers
+    foorth_equal("0 .e**",     [1.0])
+    foorth_equal("1 .ln",      [0.0])
+
+    foorth_equal("2 .10**",    [100.0])
+    foorth_equal("100 .log10", [2.0])
+
+    foorth_equal("10 .2**",    [1024.0])
+    foorth_equal("1024 .log2", [10.0])
+
+    foorth_equal("1024 .sqrt", [32.0])
+    foorth_equal("8    .cbrt", [ 2.0])
+  end
+
 end

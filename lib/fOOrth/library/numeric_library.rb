@@ -131,4 +131,37 @@ module XfOOrth
   # [y x] .atan2 [radians]
   Numeric.create_shared_method('.atan2', TosSpec, [],
     &lambda {|vm| vm.poke(Math::atan2(vm.peek, self)); })
+
+  # [x] .e** [e**x]
+  Numeric.create_shared_method('.e**', TosSpec, [],
+    &lambda {|vm| vm.push(Math::exp(self)); })
+
+  # [x] .ln [ln(x)]
+  Numeric.create_shared_method('.ln', TosSpec, [],
+    &lambda {|vm| vm.push(Math::log(self)); })
+
+  # [x] .10** [10**x]
+  Numeric.create_shared_method('.10**', TosSpec, [],
+    &lambda {|vm| vm.push(10.0**self); })
+
+  # [x] .log10 [log10(x)]
+  Numeric.create_shared_method('.log10', TosSpec, [],
+    &lambda {|vm| vm.push(Math::log10(self)); })
+
+  # [x] .2** [2**x]
+  Numeric.create_shared_method('.2**', TosSpec, [],
+    &lambda {|vm| vm.push(2.0**self); })
+
+  # [x] .log2 [log2(x)]
+  Numeric.create_shared_method('.log2', TosSpec, [],
+    &lambda {|vm| vm.push(Math::log2(self)); })
+
+  # [x] .sqrt [square root(x)]
+  Numeric.create_shared_method('.sqrt', TosSpec, [],
+    &lambda {|vm| vm.push(Math::sqrt(self)); })
+
+  # [x] .cbrt [cube root(x)]
+  Numeric.create_shared_method('.cbrt', TosSpec, [],
+    &lambda {|vm| vm.push(Math::cbrt(self)); })
+
 end
