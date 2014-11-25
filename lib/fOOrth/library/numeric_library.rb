@@ -98,6 +98,13 @@ module XfOOrth
   Numeric.create_shared_method('.real', TosSpec, [],
     &lambda {|vm| vm.push(self.real); })
 
+  # [a+bi] .angle [atan2(b,a) or 0]
+  Numeric.create_shared_method('.angle', TosSpec, [],
+    &lambda {|vm| vm.push(self.angle); })
+
+  # [a+bi] .magnitude [sqrt(a**2 + b**2)]
+  Numeric.create_shared_method('.magnitude', TosSpec, [],
+    &lambda {|vm| vm.push(self.magnitude); })
 
 
 

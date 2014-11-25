@@ -39,11 +39,18 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
 
     foorth_equal('5 .to_x', [Complex(5,0)])
 
-    foorth_equal('5 .real',      [5])
-    foorth_equal('5 .imaginary', [0])
+    foorth_equal('5 .real',          [5])
+    foorth_equal('5 .imaginary',     [0])
 
-    foorth_equal('5+7i .real',      [5])
-    foorth_equal('5+7i .imaginary', [7])
+    foorth_equal('5+7i .real',       [5])
+    foorth_equal('5+7i .imaginary',  [7])
+
+    foorth_equal('3 .magnitude',     [3])
+    foorth_equal('3 .angle .r2d',    [0])
+    foorth_equal('-3 .angle .r2d',   [180])
+
+    foorth_equal('3+4i .magnitude',  [5])
+    foorth_equal('1+1i .angle .r2d', [45.0])
 
   end
 
