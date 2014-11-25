@@ -65,6 +65,18 @@ module XfOOrth
   Numeric.create_shared_method('.abs', TosSpec, [],
     &lambda {|vm| vm.push(self.abs); })
 
+  # [a] .ceil [a']; where a' is the closest integer >= a
+  Numeric.create_shared_method('.ceil', TosSpec, [],
+    &lambda {|vm| vm.push(self.ceil); })
+
+  # [a] .floor [a']; where a' is the closest integer <= a
+  Numeric.create_shared_method('.floor', TosSpec, [],
+    &lambda {|vm| vm.push(self.floor); })
+
+  # [a] .round [a']; where a' is the integer closest to a
+  Numeric.create_shared_method('.round', TosSpec, [],
+    &lambda {|vm| vm.push(self.round); })
+
   # Some bitwise operation words.
   # [b,a] and [b&a]
   Numeric.create_shared_method('and', TosSpec, [],

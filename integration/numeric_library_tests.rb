@@ -62,6 +62,19 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
 
     foorth_equal(' 2.0 .abs', [2.0])
     foorth_equal('-2.0 .abs', [2.0])
+
+    foorth_equal(' 2.0 .ceil', [2])
+    foorth_equal(' 2.1 .ceil', [3])
+    foorth_equal(' 2.9 .ceil', [3])
+
+    foorth_equal(' 2.0 .floor', [2])
+    foorth_equal(' 2.1 .floor', [2])
+    foorth_equal(' 2.9 .floor', [2])
+
+    foorth_equal(' 2.0 .round', [2])
+    foorth_equal(' 2.1 .round', [2])
+    foorth_equal(' 2.9 .round', [3])
+
   end
 
   def test_some_bitwise_ops
