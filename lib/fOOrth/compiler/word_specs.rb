@@ -133,6 +133,17 @@ module XfOOrth
     end
   end
 
+  #A class used to specify the compile of fOOrth global variables.
+  class GlobalVarSpec < AbstractWordSpec
+    #Generate the Ruby code for this fOOrth variable.
+    #<br>Parameters:
+    #* _name - The string that maps to the symbol.  Unused
+    #* symbol - The symbol that the name maps to.
+    def build_builds_string(_name, symbol)
+      @builds = "vm.push(#{'$' + symbol.to_s}); "
+    end
+  end
+
   #A class used to specify the compile of fOOrth variable.
   class LocalSpec < AbstractWordSpec
     #Generate the Ruby code for this fOOrth variable.

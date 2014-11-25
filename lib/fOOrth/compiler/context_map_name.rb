@@ -36,7 +36,8 @@ module XfOOrth
         spec_error
 
       when '$'
-        spec_error  # Reserved for now.
+        $FOORTH_GLOBALS[@symbol] ||
+        spec_error
 
       when '#'
         do_vm_target_map         ||

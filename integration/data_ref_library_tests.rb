@@ -29,4 +29,10 @@ class DataRefLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('#test1 @',          [20])
   end
 
+  def test_basic_global_variables
+    foorth_equal('10 global: $test1', [])
+    foorth_equal('$test1 @',          [10])
+    foorth_equal('20 $test1 !',       [])
+    foorth_equal('$test1 @',          [20])
+  end
 end
