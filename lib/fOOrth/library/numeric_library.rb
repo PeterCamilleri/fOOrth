@@ -86,4 +86,35 @@ module XfOOrth
   Numeric.create_shared_method('>>', NosSpec, [],
     &lambda {|vm| vm.poke(self.to_i >> vm.peek.to_i); })
 
+  #Advanced math stuff!
+  # [] pi [3.141592653589793]
+  Object.create_shared_method('pi', MacroSpec, ["vm.push(Math::PI)"])
+
+  # [] e [2.718281828459045]
+  Object.create_shared_method('e', MacroSpec, ["vm.push(Math::E)"])
+
+  #The number of degrees in one radian.
+  OneRadian = 180.0/Math::PI
+
+  # [degrees] .d2r [radians]
+  Numeric.create_shared_method('.d2r', TosSpec, [],
+    &lambda {|vm| vm.push(self/OneRadian); })
+
+  # [radians] .r2d [degrees]
+  Numeric.create_shared_method('.r2d', TosSpec, [],
+    &lambda {|vm| vm.push(self*OneRadian); })
+
+  # [radians] .cos [cos(radians)]
+  Numeric.create_shared_method('.cos', TosSpec, [],
+    &lambda {|vm| vm.push(Math::cos(self)); })
+
+  # [radians] .sin [sin(radians)]
+  Numeric.create_shared_method('.sin', TosSpec, [],
+    &lambda {|vm| vm.push(Math::sin(self)); })
+
+  # [radians] .tan [tan(radians)]
+  Numeric.create_shared_method('.tan', TosSpec, [],
+    &lambda {|vm| vm.push(Math::tan(self)); })
+
+
 end

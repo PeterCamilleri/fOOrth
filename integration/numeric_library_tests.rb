@@ -68,4 +68,11 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("5 com",  [-6])
   end
 
+  def test_some_trig
+    foorth_equal("pi", [Math::PI])
+    foorth_equal("e",  [Math::E])
+
+    foorth_equal("45 .d2r dup .sin dup * swap .cos dup * + ",  [1.0])
+  end
+
 end
