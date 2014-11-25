@@ -4,7 +4,7 @@
 module XfOOrth
 
   #Create a new instance of this class of objects.
-  Object.create_shared_method('.new', TosSpec, [],
+  Class.create_shared_method('.new', TosSpec, [],
     &lambda {|vm| vm.push(self.create_foorth_instance(vm)); })
 
   #The .parent_class method. Retrieves the parent class of a class.
