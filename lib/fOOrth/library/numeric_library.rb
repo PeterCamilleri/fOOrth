@@ -94,15 +94,15 @@ module XfOOrth
   Object.create_shared_method('e', MacroSpec, ["vm.push(Math::E)"])
 
   #The number of degrees in one radian.
-  OneRadian = 180.0/Math::PI
+  DegreesPerRadian = 180.0/Math::PI
 
   # [degrees] .d2r [radians]
   Numeric.create_shared_method('.d2r', TosSpec, [],
-    &lambda {|vm| vm.push(self/OneRadian); })
+    &lambda {|vm| vm.push(self/DegreesPerRadian); })
 
   # [radians] .r2d [degrees]
   Numeric.create_shared_method('.r2d', TosSpec, [],
-    &lambda {|vm| vm.push(self*OneRadian); })
+    &lambda {|vm| vm.push(self*DegreesPerRadian); })
 
   # [radians] .cos [cos(radians)]
   Numeric.create_shared_method('.cos', TosSpec, [],
