@@ -93,6 +93,8 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
 
     foorth_equal("1024 .sqrt", [32.0])
     foorth_equal("8    .cbrt", [ 2.0])
+
+    foorth_equal("3 4 .hypot", [5.0])
   end
 
 end

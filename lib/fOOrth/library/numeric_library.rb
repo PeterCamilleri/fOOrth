@@ -164,4 +164,8 @@ module XfOOrth
   Numeric.create_shared_method('.cbrt', TosSpec, [],
     &lambda {|vm| vm.push(Math::cbrt(self)); })
 
+  # [x y] .hypot [sqrt(x**2 + y**2)]
+  Numeric.create_shared_method('.hypot', TosSpec, [],
+    &lambda {|vm| vm.poke(Math::hypot(self, vm.peek)); })
+
 end
