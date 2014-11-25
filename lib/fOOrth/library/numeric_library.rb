@@ -90,6 +90,17 @@ module XfOOrth
   Numeric.create_shared_method('.denominator', TosSpec, [],
     &lambda {|vm| vm.push(self.denominator); })
 
+  # [a+bi] .imaginary [b]
+  Numeric.create_shared_method('.imaginary', TosSpec, [],
+    &lambda {|vm| vm.push(self.imaginary); })
+
+  # [a+bi] .real [a]
+  Numeric.create_shared_method('.real', TosSpec, [],
+    &lambda {|vm| vm.push(self.real); })
+
+
+
+
 
 
   # Some bitwise operation words.
