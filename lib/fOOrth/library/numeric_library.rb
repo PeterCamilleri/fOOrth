@@ -116,5 +116,19 @@ module XfOOrth
   Numeric.create_shared_method('.tan', TosSpec, [],
     &lambda {|vm| vm.push(Math::tan(self)); })
 
+  # [cos(radians)] .acos [radians]
+  Numeric.create_shared_method('.acos', TosSpec, [],
+    &lambda {|vm| vm.push(Math::acos(self)); })
 
+  # [sin(radians)] .asin [radians]
+  Numeric.create_shared_method('.asin', TosSpec, [],
+    &lambda {|vm| vm.push(Math::asin(self)); })
+
+  # [y/x] .atan [radians]
+  Numeric.create_shared_method('.atan', TosSpec, [],
+    &lambda {|vm| vm.push(Math::atan(self)); })
+
+  # [y x] .atan2 [radians]
+  Numeric.create_shared_method('.atan2', TosSpec, [],
+    &lambda {|vm| vm.poke(Math::atan2(vm.peek, self)); })
 end
