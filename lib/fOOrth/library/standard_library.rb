@@ -97,40 +97,40 @@ module XfOOrth
   # Some comparison words.
   # [b,a] = if b == a then [true] else [false]
   Object.create_shared_method('=', NosSpec, [],
-    &lambda {|vm| vm.push(self == vm.pop()); })
+    &lambda {|vm| vm.poke(self == vm.peek); })
 
   # [b,a] <> if b != a then [true] else [false]
   Object.create_shared_method('<>', NosSpec, [],
-    &lambda {|vm| vm.push(self != vm.pop()); })
+    &lambda {|vm| vm.poke(self != vm.peek); })
 
   # [b,a] > if b > a then [true] else [false]
   Object.create_shared_method('>', NosSpec, [],
-    &lambda {|vm| vm.push(self > vm.pop()); })
+    &lambda {|vm| vm.poke(self > vm.peek); })
 
   # [b,a] < if b < a then [true] else [false]
   Object.create_shared_method('<', NosSpec, [],
-    &lambda {|vm| vm.push(self < vm.pop()); })
+    &lambda {|vm| vm.poke(self < vm.peek); })
 
   # [b,a] >= if b >= a then [true] else [false]
   Object.create_shared_method('>=', NosSpec, [],
-    &lambda {|vm| vm.push(self >= vm.pop()); })
+    &lambda {|vm| vm.poke(self >= vm.peek); })
 
   # [b,a] <= if b <= a then [true] else [false]
   Object.create_shared_method('<=', NosSpec, [],
-    &lambda {|vm| vm.push(self <= vm.pop()); })
+    &lambda {|vm| vm.poke(self <= vm.peek); })
 
   # [b,a] 0<=> b < a [-1], b = a [0], b > a [1]
   Object.create_shared_method('<=>', NosSpec, [],
-    &lambda {|vm| vm.push(self <=> vm.pop()); })
+    &lambda {|vm| vm.poke(self <=> vm.peek); })
 
   # Some identity comparison words.
   # [b,a] identical? if b.object_id == a.object_id then [true] else [false]
   Object.create_shared_method('identical?', NosSpec, [],
-    &lambda {|vm| vm.push(self.object_id == vm.pop.object_id); })
+    &lambda {|vm| vm.poke(self.object_id == vm.peek.object_id); })
 
   # [b,a] distinct? if b.object_id != a.object_id then [true] else [false]
   Object.create_shared_method('distinct?', NosSpec, [],
-    &lambda {|vm| vm.push(self.object_id != vm.pop.object_id); })
+    &lambda {|vm| vm.poke(self.object_id != vm.peek.object_id); })
 
   # Some comparison with zero words.
   # [b,a] 0= if b == 0 then [true] else [false]
