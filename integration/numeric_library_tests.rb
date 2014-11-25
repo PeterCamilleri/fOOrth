@@ -75,6 +75,12 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal(' 2.1 .round', [2])
     foorth_equal(' 2.9 .round', [3])
 
+    foorth_equal(' 1.5 .numerator',   [3])
+    foorth_equal(' 1.5 .denominator', [2])
+
+    foorth_equal(' 3/2 .numerator',   [3])
+    foorth_equal(' 3/2 .denominator', [2])
+
   end
 
   def test_some_bitwise_ops
