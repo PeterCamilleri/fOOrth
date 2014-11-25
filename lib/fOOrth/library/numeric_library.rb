@@ -12,21 +12,26 @@ module XfOOrth
   Complex.create_foorth_proxy
 
   # Some conversion words.
-  # [a] .to_n [n]
+  # [a] .to_n [Number]
   Object.create_shared_method('.to_n', TosSpec, [],
     &lambda {|vm| vm.push(self.to_foorth_n); })
 
-  # [a] .to_i [i]
+  # [a] .to_i [Integer]
   Object.create_shared_method('.to_i', TosSpec, [],
     &lambda {|vm| vm.push(self.to_i); })
 
-  # [a] .to_r [r]
+  # [a] .to_r [Rational]
   Object.create_shared_method('.to_r', TosSpec, [],
     &lambda {|vm| vm.push(self.to_r); })
 
-  # [a] .to_f [f]
+  # [a] .to_f [Float]
   Object.create_shared_method('.to_f', TosSpec, [],
     &lambda {|vm| vm.push(self.to_f); })
+
+  # [a] .to_x [compleX]
+  Object.create_shared_method('.to_x', TosSpec, [],
+    &lambda {|vm| vm.push(self.to_c); })
+
 
   # Some stack arithmetic words.
   # [b,a] + [b+a]

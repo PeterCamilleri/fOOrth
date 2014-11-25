@@ -37,6 +37,7 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
 
     foorth_raises('5+3i .to_i', RangeError)
 
+    foorth_equal('5 .to_x', [Complex(5,0)])
   end
 
   def test_some_computations
