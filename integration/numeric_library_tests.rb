@@ -22,6 +22,23 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     super(*all)
   end
 
+  def test_some_conversions
+    foorth_equal('5    .to_n', [5])
+    foorth_equal('5.0  .to_n', [5.0])
+    foorth_equal('5/1  .to_n', ['5/1'.to_r])
+    foorth_equal('5+0i .to_n', [Complex(5,0)])
+    foorth_equal('"xx" .to_n', [nil])
+
+    foorth_equal('5    .to_i', [5])
+    foorth_equal('5.0  .to_i', [5])
+    foorth_equal('5/1  .to_i', [5])
+    foorth_equal('5+0i .to_i', [5])
+    foorth_equal('"xx" .to_i', [0])
+
+    foorth_raises('5+3i .to_i', RangeError)
+
+  end
+
   def test_some_computations
     foorth_equal('5 3 +', [8])
     foorth_equal('5 3 -', [2])
