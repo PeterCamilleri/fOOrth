@@ -42,9 +42,10 @@ class StringLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('5 .fmt"%03d"  ', ['005'])
   end
 
-  def test_left_copy_and_cut
-    foorth_equal('"abcdefgh" 2 .left ', ['ab'])
-    foorth_equal('"abcdefgh" 2 .-left ', ['cdefgh'])
+  def test_left_copy_paste_and_cut
+    foorth_equal('"abcdefgh" 2       .left ',  ['ab'])
+    foorth_equal('"abcdefgh" 2 "123" .+left ', ['123cdefgh'])
+    foorth_equal('"abcdefgh" 2       .-left ', ['cdefgh'])
   end
 
   def test_right_copy_and_cut

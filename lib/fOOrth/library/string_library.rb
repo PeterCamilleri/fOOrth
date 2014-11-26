@@ -34,6 +34,13 @@ module XfOOrth
   VirtualMachine.create_shared_method('.-left', VmSpec, [],
     &lambda {|vm| width = pop.to_i;  poke(peek[width..-1]); })
 
+  # ['abcdefgh' w '123'] .+left ['123cdefgh']    // Assumes w = 2
+  VirtualMachine.create_shared_method('.+left', VmSpec, [], &lambda {|vm|
+    ins = pop.to_s
+    width = pop.to_i
+    poke(ins + peek[width..-1])
+  })
+
   # ['abcdefgh' n w] .mid ['cdef']      // Assumes n = 2, w = 4
   VirtualMachine.create_shared_method('.mid', VmSpec, [], &lambda {|vm|
     width = pop.to_i
