@@ -55,6 +55,14 @@ module XfOOrth
     poke(peek[0...posn] + peek[(posn+width)..-1])
   })
 
+  # ['abcdefgh' n w "123"] .+mid ['ab123gh'] // Assumes n = 2, w = 4
+  VirtualMachine.create_shared_method('.+mid', VmSpec, [], &lambda {|vm|
+    ins = pop.to_s
+    width = pop.to_i
+    posn = pop.to_i
+    poke(peek[0...posn] + ins + peek[(posn+width)..-1])
+  })
+
   # ['abcdefgh' l r] .midlr ['bcdefg']  // Assumes l = 1, r = 1
   VirtualMachine.create_shared_method('.midlr', VmSpec, [], &lambda {|vm|
     right = pop.to_i
@@ -69,6 +77,14 @@ module XfOOrth
     poke(peek[0...left] + peek[((0-right))..-1])
   })
 
+  # ['abcdefgh' l r "123"] .+midlr ['a123h']     // Assumes l = 1, r = 1
+  VirtualMachine.create_shared_method('.+midlr', VmSpec, [], &lambda {|vm|
+    ins = pop.to_s
+    right = pop.to_i
+    left  = pop.to_i
+    poke(peek[0...left] + ins + peek[((0-right))..-1])
+  })
+
   # ['abcdefgh' w] .right ['gh']        // Assumes w = 2
   VirtualMachine.create_shared_method('.right', VmSpec, [],
     &lambda {|vm| width = pop.to_i;  poke(peek[(0-width)..-1]); })
@@ -76,6 +92,13 @@ module XfOOrth
   # ['abcdefgh' w] .-right ['abcdef']   // Assumes w = 2
   VirtualMachine.create_shared_method('.-right', VmSpec, [],
     &lambda {|vm| width = pop.to_i;  poke(peek[0...(0-width)]); })
+
+  # ['abcdefgh' w "123"] .+right ['abcdef123']   // Assumes w = 2
+  VirtualMachine.create_shared_method('.+right', VmSpec, [], &lambda {|vm|
+    ins = pop.to_s
+    width = pop.to_i
+    poke(peek[0...(0-width)] + ins)
+  })
 
   # ["b", a] + ["ba"]; "ba" is a new object, distinct from "b"
   String.create_shared_method('+', NosSpec, [],

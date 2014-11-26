@@ -48,19 +48,23 @@ class StringLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('"abcdefgh" 2       .-left ', ['cdefgh'])
   end
 
-  def test_right_copy_and_cut
-    foorth_equal('"abcdefgh" 2 .right ', ['gh'])
-    foorth_equal('"abcdefgh" 2 .-right ', ['abcdef'])
+  def test_right_copy_paste_and_cut
+    foorth_equal('"abcdefgh" 2       .right ',  ['gh'])
+    foorth_equal('"abcdefgh" 2 "123" .+right ', ['abcdef123'])
+    foorth_equal('"abcdefgh" 2       .-right ', ['abcdef'])
   end
 
-  def test_mid_copy_and_cut
-    foorth_equal('"abcdefgh" 2 4 .mid ', ['cdef'])
-    foorth_equal('"abcdefgh" 2 4 .-mid ', ['abgh'])
+  def test_mid_copy_paste_and_cut
+    foorth_equal('"abcdefgh" 2 4        .mid ', ['cdef'])
+    foorth_equal('"abcdefgh" 2 4       .-mid ', ['abgh'])
+    foorth_equal('"abcdefgh" 2 4 "123" .+mid ', ['ab123gh'])
+    foorth_equal('"abcdefgh" 2 0 "123" .+mid ', ['ab123cdefgh'])
   end
 
-  def test_midlr_copy_and_cut
-    foorth_equal('"abcdefgh" 2 2 .midlr ',  ['cdef'])
-    foorth_equal('"abcdefgh" 2 2 .-midlr ', ['abgh'])
+  def test_midlr_copy_paste_and_cut
+    foorth_equal('"abcdefgh" 2 2       .midlr ',  ['cdef'])
+    foorth_equal('"abcdefgh" 2 2       .-midlr ', ['abgh'])
+    foorth_equal('"abcdefgh" 2 2 "123" .+midlr ', ['ab123gh'])
   end
 
   def test_replication
