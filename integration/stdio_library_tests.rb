@@ -46,4 +46,11 @@ class StdioLibraryTester < MiniTest::Unit::TestCase
     foorth_output('0 spaces', "")
   end
 
+  def test_the_emit
+    foorth_output(' 65 emit', "A")
+    foorth_output('126 emit', "~")
+
+    foorth_alt_output('255 emit', [195, 191])
+  end
+
 end
