@@ -33,4 +33,14 @@ module XfOOrth
   Object.create_shared_method('emit', TosSpec, [],
     &lambda {|vm| print self.to_foorth_c})
 
+  #Get a string from the console.
+  # [] accept [string]; gets a string from the console.
+  VirtualMachine.create_shared_method('accept', MacroSpec,
+    ["vm.push(Readline.readline('? ', true)) "])
+
+  #Get a string from the console.
+  # [] accept"prompt" [string]; gets a string from the console.
+  VirtualMachine.create_shared_method('accept"', MacroSpec,
+    ["vm.poke(Readline.readline(vm.peek.to_s, true)) "])
+
 end
