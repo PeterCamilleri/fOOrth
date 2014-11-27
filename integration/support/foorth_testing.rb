@@ -85,7 +85,7 @@ module XfOOrthTestExtensions
   #When the source is executed, does the stdout match? Special!
   #<br>Parameters:
   #* source - A string containing fOOrth source code to execute.
-  #* stdout_output - A string with the expected console output.
+  #* stdout_output - An array of bytes expected from the console.
   def foorth_alt_output(source, stdout_output)
     vm = Thread.current[:vm]
 
