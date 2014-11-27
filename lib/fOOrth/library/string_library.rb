@@ -100,6 +100,10 @@ module XfOOrth
     poke(peek[0...(0-width)] + ins)
   })
 
+  # ["a"] .length [n]
+  String.create_shared_method('.length', NosSpec, [],
+    &lambda {|vm| vm.push(self.length); })
+
   # ["b", a] + ["ba"]; "ba" is a new object, distinct from "b"
   String.create_shared_method('+', NosSpec, [],
     &lambda {|vm| vm.poke(self + vm.peek.to_s); })

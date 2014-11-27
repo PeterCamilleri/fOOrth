@@ -22,6 +22,10 @@ class StringLibraryTester < MiniTest::Unit::TestCase
     super(*all)
   end
 
+  def test_some_string_basics
+    foorth_equal('"abcdefg" .length ', [7])
+  end
+
   def test_left_justification
     foorth_equal('"a" 5 .lj ', ['a    '])
     foorth_equal('"too long" 5 .lj ', ['too long'])
