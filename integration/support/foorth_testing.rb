@@ -82,11 +82,11 @@ module XfOOrthTestExtensions
     (!stdout || x) && (!stderr || y)
   end
 
-  #When the source is executed, does the stdout match? Special!
+  #When the source is executed, does the stdout match? Forces UTF-8 encoding.
   #<br>Parameters:
   #* source - A string containing fOOrth source code to execute.
-  #* stdout_output - An array of bytes expected from the console.
-  def foorth_alt_output(source, stdout_output)
+  #* stdout_output - An array of bytes expected for the console.
+  def foorth_utf8_output(source, stdout_output)
     vm = Thread.current[:vm]
 
     assert_foorth_output(stdout_output) do
