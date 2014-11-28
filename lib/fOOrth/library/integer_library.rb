@@ -10,10 +10,18 @@ module XfOOrth
 
   # [a b] .gcd [gcd(a,b)]
   Integer.create_shared_method('.gcd', TosSpec, [],
-    &lambda {|vm| vm.poke(self.gcd(vm.peek)); })
+    &lambda {|vm| vm.poke(self.gcd(vm.peek))})
 
   # [a b] .lcm [lcm(a,b)]
   Integer.create_shared_method('.lcm', TosSpec, [],
-    &lambda {|vm| vm.poke(self.lcm(vm.peek)); })
+    &lambda {|vm| vm.poke(self.lcm(vm.peek))})
+
+  # [a] .even? [flag]
+  Integer.create_shared_method('.even?', TosSpec, [],
+    &lambda {|vm| vm.push(self.even?)})
+
+  # [a] .odd? [flag]
+  Integer.create_shared_method('.odd?', TosSpec, [],
+    &lambda {|vm| vm.push(self.odd?)})
 
 end

@@ -140,8 +140,19 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_some_integer_ops
-    foorth_equal("100 64 .gcd", [4])
-    foorth_equal("100 64 .lcm", [1600])
+    foorth_equal("100 64   .gcd",   [4])
+    foorth_equal("100 64   .lcm",   [1600])
+
+    foorth_equal("100      .even?", [true])
+    foorth_equal("101      .even?", [false])
+    foorth_equal("16666600 .even?", [true])
+    foorth_equal("16666601 .even?", [false])
+
+    foorth_equal("100      .odd?",  [false])
+    foorth_equal("101      .odd?",  [true])
+    foorth_equal("16666600 .odd?",  [false])
+    foorth_equal("16666601 .odd?",  [true])
+
   end
 
 end
