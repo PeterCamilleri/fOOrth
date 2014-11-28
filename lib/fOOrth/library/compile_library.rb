@@ -23,30 +23,8 @@ module XfOOrth
 
   # DOT COLON COLON =============================
 
-  #An array of types allowed for a method.
-  AllowedMethodTypes = [TosSpec, SelfSpec, NosSpec]
-
-  #Determine the type of word being created.
-  def self.name_to_type(name)
-    case name[0]
-    when '.'
-      TosSpec
-
-    when '~'
-      SelfSpec
-
-    else
-      type = (symbol = XfOOrth::SymbolMap.map(name))   &&
-             (spec = Object.map_foorth_shared(symbol)) &&
-             spec.class
-      type = nil unless AllowedMethodTypes.include?(type)
-      error "Invalid name for a method: #{name}" unless type
-      type
-    end
-  end
-
-  #A colon definition that creates a word in the specified class.
-  compile_action = lambda {|vm|
+  # [a_class] .:: <name> <stuff omitted> ; []; creates <name> on a_class
+  Class.create_shared_method('.::', TosSpec, [],  &lambda {|vm|
     target = self
     name   = vm.parser.get_word()
     type   = XfOOrth.name_to_type(name)
@@ -57,10 +35,7 @@ module XfOOrth
     })
 
     XfOOrth.add_common_compiler_locals(vm, '.::')
-  }
-
-  # [a_class] .:: <name> <stuff omitted> ; []; creates <name> on a_class
-  Class.create_shared_method('.::', TosSpec, [],  &compile_action)
+  })
 
 
   # COMMON LOCAL DEFNS ==========================
@@ -85,6 +60,28 @@ module XfOOrth
     #The immediate end-compile adapter word: ;immediate.
     context.create_local_method(';immediate', [:immediate],
       &lambda {|vm| vm.end_compile_mode([ctrl], [:immediate])})
+  end
+
+  #An array of types allowed for a method.
+  AllowedMethodTypes = [TosSpec, SelfSpec, NosSpec]
+
+  #Determine the type of word being created.
+  def self.name_to_type(name)
+    case name[0]
+    when '.'
+      TosSpec
+
+    when '~'
+      SelfSpec
+
+    else
+      type = (symbol = XfOOrth::SymbolMap.map(name))   &&
+             (spec = Object.map_foorth_shared(symbol)) &&
+             spec.class
+      type = nil unless AllowedMethodTypes.include?(type)
+      error "Invalid name for a method: #{name}" unless type
+      type
+    end
   end
 
 end
