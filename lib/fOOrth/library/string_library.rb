@@ -6,17 +6,29 @@ module XfOOrth
   #Connect the String class to the fOOrth class system.
   String.create_foorth_proxy
 
-  # [a n] .lj ['a    ']
-  VirtualMachine.create_shared_method('.lj', VmSpec, [],
+  # [a n] .ljust ['a    ']; left justify
+  VirtualMachine.create_shared_method('.ljust', VmSpec, [],
     &lambda {|vm| width = pop.to_i;  poke(peek.to_s.ljust(width)); })
 
-  # [a n] .cj ['  a  ']
-  VirtualMachine.create_shared_method('.cj', VmSpec, [],
+  # [a n] .cjust ['  a  ']; center justify
+  VirtualMachine.create_shared_method('.cjust', VmSpec, [],
     &lambda {|vm| width = pop.to_i;  poke(peek.to_s.center(width)); })
 
-  # [a n] .rj ['    a']
-  VirtualMachine.create_shared_method('.rj', VmSpec, [],
+  # [a n] .rjust ['    a']; right justify
+  VirtualMachine.create_shared_method('.rjust', VmSpec, [],
     &lambda {|vm| width = pop.to_i;  poke(peek.to_s.rjust(width)); })
+
+  # ["  a  " n] .lstrip ["a  "]; left strip
+  VirtualMachine.create_shared_method('.lstrip', VmSpec, [],
+    &lambda {|vm| poke(peek.to_s.lstrip); })
+
+  # ["  a  " n] .strip ["a"]; left and right strip
+  VirtualMachine.create_shared_method('.strip', VmSpec, [],
+    &lambda {|vm| poke(peek.to_s.strip); })
+
+  # ["  a  " n] .rstrip ["  a"]; right strip
+  VirtualMachine.create_shared_method('.rstrip', VmSpec, [],
+    &lambda {|vm| poke(peek.to_s.rstrip); })
 
   fmt_action = lambda {|vm| fmt_str = pop.to_s;  poke(fmt_str % peek); }
 
