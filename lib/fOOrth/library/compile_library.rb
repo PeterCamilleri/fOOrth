@@ -21,17 +21,33 @@ module XfOOrth
   })
 
 
-  # DOT COLON COLON =============================
+  # DOT COLON ===================================
 
-  # [a_class] .:: <name> <stuff omitted> ; []; creates <name> on a_class
-  Class.create_shared_method('.::', TosSpec, [],  &lambda {|vm|
+  # [a_class] .: <name> <stuff omitted> ; []; creates <name> on a_class
+  Class.create_shared_method('.:', TosSpec, [],  &lambda {|vm|
     target = self
     name   = vm.parser.get_word()
     type   = XfOOrth.name_to_type(name)
 
-    vm.begin_compile_mode('.::', cls: target, &lambda {|vm, src, tags|
+    vm.begin_compile_mode('.:', cls: target, &lambda {|vm, src, tags|
       puts "#{target.name} #{name} => #{src}" if vm.debug
       target.create_shared_method(name, type, tags, &eval(src))
+    })
+
+    XfOOrth.add_common_compiler_locals(vm, '.:')
+  })
+
+  # DOT COLON COLON =============================
+
+  # [an_object] .:: <name> <stuff omitted> ; []; creates <name> on an_object
+  Object.create_shared_method('.::', TosSpec, [],  &lambda {|vm|
+    target = self
+    name   = vm.parser.get_word()
+    type   = XfOOrth.name_to_type(name)
+
+    vm.begin_compile_mode('.::', obj: target, &lambda {|vm, src, tags|
+      puts "#{target.name} #{name} => #{src}" if vm.debug
+      target.create_exclusive_method(name, type, tags, &eval(src))
     })
 
     XfOOrth.add_common_compiler_locals(vm, '.::')

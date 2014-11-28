@@ -70,24 +70,24 @@ class ClassLibraryTester < MiniTest::Unit::TestCase
 
   def test_creating_an_init_method
     foorth_equal("class: T4", [])
-    foorth_equal("T4 .:: .init 2 4 6 8 ;", [])
+    foorth_equal("T4 .: .init 2 4 6 8 ;", [])
 
     foorth_equal("T4 .new .name", [2, 4, 6, 8, 'T4 instance'])
   end
 
   def test_creating_an_instance_var
     foorth_equal("class: T5", [])
-    foorth_equal("T5 .:: .init inst: @a ;", [])
-    foorth_equal("T5 .:: .a@ @a @ ;", [])
+    foorth_equal("T5 .: .init inst: @a ;", [])
+    foorth_equal("T5 .: .a@ @a @ ;", [])
 
     foorth_equal("10 T5 .new .a@", [10])
   end
 
   def test_creating_an_accessor
     foorth_equal("class: T6", [])
-    foorth_equal("T6 .:: .init inst: @a ;", [])
-    foorth_equal("T6 .:: .a@ @a @ ;", [])
-    foorth_equal("T6 .:: .a! @a ! ;", [])
+    foorth_equal("T6 .: .init inst: @a ;", [])
+    foorth_equal("T6 .: .a@ @a @ ;", [])
+    foorth_equal("T6 .: .a! @a ! ;", [])
 
     foorth_equal("nil T6 .new dup 100 swap .a! .a@", [100])
   end
