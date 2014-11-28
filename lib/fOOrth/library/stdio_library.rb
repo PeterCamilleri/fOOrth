@@ -35,12 +35,12 @@ module XfOOrth
 
   #Get a string from the console.
   # [] accept [string]; gets a string from the console.
-  VirtualMachine.create_shared_method('accept', MacroSpec,
-    ["vm.push(Readline.readline('? ', true)) "])
+  VirtualMachine.create_shared_method('accept', VmSpec, [],
+    &lambda {|vm| push(Readline.readline('? ', true)); })
 
   #Get a string from the console.
   # [] accept"prompt" [string]; gets a string from the console.
-  VirtualMachine.create_shared_method('accept"', MacroSpec,
-    ["vm.poke(Readline.readline(vm.peek.to_s, true)) "])
+  VirtualMachine.create_shared_method('accept"', VmSpec, [],
+    &lambda {|vm| poke(Readline.readline(peek.to_s, true)); })
 
 end
