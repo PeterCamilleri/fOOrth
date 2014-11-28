@@ -5,9 +5,6 @@ module XfOOrth
 
   #Connect the Numeric classes to the fOOrth class system.
   Numeric.create_foorth_proxy
-  Integer.create_foorth_proxy
-  Fixnum.create_foorth_proxy
-  Bignum.create_foorth_proxy
   Rational.create_foorth_proxy
   Complex.create_foorth_proxy
 
@@ -145,6 +142,9 @@ module XfOOrth
 
   #The number of degrees in one radian.
   DegreesPerRadian = 180.0/Math::PI
+
+  # [] dpr [2.718281828459045]
+  Object.create_shared_method('dpr', MacroSpec, ["vm.push(DegreesPerRadian)"])
 
   # [degrees] .d2r [radians]
   Numeric.create_shared_method('.d2r', TosSpec, [],

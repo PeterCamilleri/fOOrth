@@ -4,7 +4,7 @@ require_relative '../lib/fOOrth'
 require_relative 'support/foorth_testing'
 require          'minitest/autorun'
 
-#Test the standard fOOrth library.
+#Test the standard fOOrth numeric (and related) library.
 class NumericLibraryTester < MiniTest::Unit::TestCase
 
   include XfOOrthTestExtensions
@@ -108,8 +108,9 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_some_trig
-    foorth_equal("pi", [Math::PI])
-    foorth_equal("e",  [Math::E])
+    foorth_equal("pi",  [Math::PI])
+    foorth_equal("e",   [Math::E])
+    foorth_equal("dpr", [XfOOrth::DegreesPerRadian])
 
     foorth_equal("45 .d2r dup .sin dup * swap .cos dup * + ",  [1.0])
 
@@ -121,19 +122,26 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_some_powers
-    foorth_equal("0 .e**",     [1.0])
-    foorth_equal("1 .ln",      [0.0])
+    foorth_equal("0    .e**",   [1.0])
+    foorth_equal("1    .ln",    [0.0])
+    foorth_equal("e    .ln",    [1.0])
 
-    foorth_equal("2 .10**",    [100.0])
-    foorth_equal("100 .log10", [2.0])
+    foorth_equal("2    .10**",  [100.0])
+    foorth_equal("100  .log10", [2.0])
 
-    foorth_equal("10 .2**",    [1024.0])
-    foorth_equal("1024 .log2", [10.0])
+    foorth_equal("10   .2**",   [1024.0])
+    foorth_equal("1024 .log2",  [10.0])
 
-    foorth_equal("1024 .sqrt", [32.0])
-    foorth_equal("8    .cbrt", [ 2.0])
+    foorth_equal("1024 .sqrt",  [32.0])
+    foorth_equal("8    .cbrt",  [ 2.0])
+    foorth_equal("64   .cbrt",  [ 4.0])
 
-    foorth_equal("3 4 .hypot", [5.0])
+    foorth_equal("3 4  .hypot", [5.0])
+  end
+
+  def test_some_integer_ops
+    foorth_equal("100 64 .gcd", [4])
+    foorth_equal("100 64 .lcm", [1600])
   end
 
 end
