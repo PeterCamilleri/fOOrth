@@ -132,6 +132,12 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("10   .2**",   [1024.0])
     foorth_equal("1024 .log2",  [10.0])
 
+    foorth_equal("16   .sqr ",  [256])
+    foorth_equal("16   .cube",  [4096])
+
+    foorth_equal("16.0 .sqr ",  [256.0])
+    foorth_equal("16.0 .cube",  [4096.0])
+
     foorth_equal("1024 .sqrt",  [32.0])
     foorth_equal("8    .cbrt",  [ 2.0])
     foorth_equal("64   .cbrt",  [ 4.0])

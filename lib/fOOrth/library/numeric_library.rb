@@ -206,9 +206,17 @@ module XfOOrth
   Numeric.create_shared_method('.log2', TosSpec, [],
     &lambda {|vm| vm.push(Math::log2(self)); })
 
+  # [x] .sqr [square(x)]
+  Numeric.create_shared_method('.sqr', TosSpec, [],
+    &lambda {|vm| vm.push(self*self); })
+
   # [x] .sqrt [square root(x)]
   Numeric.create_shared_method('.sqrt', TosSpec, [],
     &lambda {|vm| vm.push(Math::sqrt(self)); })
+
+  # [x] .cube [cube(x)]
+  Numeric.create_shared_method('.cube', TosSpec, [],
+    &lambda {|vm| vm.push(self*self*self); })
 
   # [x] .cbrt [cube root(x)]
   Numeric.create_shared_method('.cbrt', TosSpec, [],
