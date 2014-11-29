@@ -186,4 +186,18 @@ module XfOOrth
   Numeric.create_shared_method('.hypot', TosSpec, [],
     &lambda {|vm| vm.poke(Math::hypot(self, vm.peek)); })
 
+  # [r t] .p2c [x y]; Polar to Cartesian.
+  Numeric.create_shared_method('.p2c', TosSpec, [], &lambda {|vm|
+    r,t = vm.pop.to_f, self.to_f
+    vm.push(r * Math::cos(t))
+    vm.push(r * Math::sin(t))
+  })
+
+  # [x y] .c2p [r t]; Cartesian to Polar.
+  Numeric.create_shared_method('.c2p', TosSpec, [], &lambda {|vm|
+    x,y = vm.pop.to_f, self.to_f
+    vm.push(Math::hypot(x,y))
+    vm.push(Math::atan2(y,x))
+  })
+
 end

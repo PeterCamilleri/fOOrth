@@ -173,4 +173,9 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("1+2i .split",   [1, 2])
   end
 
+  def test_the_polar_vortex
+    foorth_equal("1  1 .c2p .r2d", [Math::sqrt(2.0), 45.0])
+    #foorth_equal("2.0 .sqrt 45 .d2r .p2c", [1.0, 1.0])
+  end
+
 end
