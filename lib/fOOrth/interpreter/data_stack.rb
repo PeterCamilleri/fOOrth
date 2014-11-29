@@ -16,6 +16,13 @@ module XfOOrth
       @data_stack << datum
     end
 
+    #Add some entries to the data stack.
+    #<br>Parameters:
+    #* datum - An array of data to be mass added to the data stack.
+    def pushm(datum)
+      @data_stack += datum
+    end
+
     #Remove the "top" entry from the data stack.
     #<br>Returns:
     #* The "top" element of the data stack.
