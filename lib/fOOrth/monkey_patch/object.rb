@@ -37,10 +37,4 @@ class Object
   def abort(msg)
     raise XfOOrth::ForceAbort, msg
   end
-
-  #An alias for reading instance variables.
-  alias :read_var  :instance_variable_get
-
-  #An alias for writing instance variables.
-  alias :write_var :instance_variable_set
 end
