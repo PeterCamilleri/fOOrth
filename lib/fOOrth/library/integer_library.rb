@@ -8,6 +8,10 @@ module XfOOrth
   Fixnum.create_foorth_proxy
   Bignum.create_foorth_proxy
 
+  # [a] .to_i [Integer]
+  Object.create_shared_method('.to_i', TosSpec, [],
+    &lambda {|vm| vm.push(self.to_i); })
+
   # [a b] .gcd [gcd(a,b)]
   Integer.create_shared_method('.gcd', TosSpec, [],
     &lambda {|vm| vm.poke(self.gcd(vm.peek))})
