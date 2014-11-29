@@ -108,6 +108,11 @@ module XfOOrth
   Numeric.create_shared_method('.conjugate', TosSpec, [],
     &lambda {|vm| vm.push(self.conjugate); })
 
+  # [a+bi] .polar [magnitude angle]
+  # Convert a complex number to polar format
+  Numeric.create_shared_method('.polar', TosSpec, [],
+    &lambda {|vm| vm.pushm(self.polar); })
+
   # Some bitwise operation words.
   # [b,a] and [b&a]
   Numeric.create_shared_method('and', TosSpec, [],

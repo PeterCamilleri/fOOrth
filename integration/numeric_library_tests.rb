@@ -54,6 +54,8 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
 
     foorth_equal('42   .conjugate',  [42])
     foorth_equal('1+1i .conjugate',  [Complex(1,-1)])
+
+    foorth_equal('1+1i .polar .r2d', [Math.sqrt(2.0), 45.0])
   end
 
   def test_some_computations
