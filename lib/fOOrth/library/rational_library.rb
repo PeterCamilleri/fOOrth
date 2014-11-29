@@ -18,4 +18,12 @@ module XfOOrth
   Object.create_shared_method('.to_r', TosSpec, [],
     &lambda {|vm| vm.push(self.to_r); })
 
+  # [n/d] .numerator [n]
+  Numeric.create_shared_method('.numerator', TosSpec, [],
+    &lambda {|vm| vm.push(self.numerator); })
+
+  # [n/d] .denominator [d]
+  Numeric.create_shared_method('.denominator', TosSpec, [],
+    &lambda {|vm| vm.push(self.denominator); })
+
 end

@@ -65,14 +65,6 @@ module XfOOrth
   Numeric.create_shared_method('.round', TosSpec, [],
     &lambda {|vm| vm.push(self.round); })
 
-  # [n/d] .numerator [n]
-  Numeric.create_shared_method('.numerator', TosSpec, [],
-    &lambda {|vm| vm.push(self.numerator); })
-
-  # [n/d] .denominator [d]
-  Numeric.create_shared_method('.denominator', TosSpec, [],
-    &lambda {|vm| vm.push(self.denominator); })
-
 
   # Some bitwise operation words.
   # [b,a] and [b&a]
