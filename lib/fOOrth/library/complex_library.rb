@@ -35,7 +35,7 @@ module XfOOrth
     &lambda {|vm| vm.push(self.magnitude); })
 
   # [a+bi] .conjugate [a-bi]
-  # Complex convicts the behave well are allowed .conjugate visits.
+  # Complex convicts that behave well are allowed .conjugate visits.
   Numeric.create_shared_method('.conjugate', TosSpec, [],
     &lambda {|vm| vm.push(self.conjugate); })
 

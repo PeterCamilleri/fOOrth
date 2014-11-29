@@ -5,6 +5,7 @@ module XfOOrth
 
   #Connect the Numeric classes to the fOOrth class system.
   Numeric.create_foorth_proxy
+  Float.create_foorth_proxy
 
   # Some conversion words.
   # [a] .to_n [Number]
