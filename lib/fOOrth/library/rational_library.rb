@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* library/complex_library.rb - Numeric support for the fOOrth library.
+#* library/rational_library.rb - Numeric support for the fOOrth library.
 module XfOOrth
 
   #Connect the Rational class to the fOOrth class system.

@@ -5,7 +5,6 @@ module XfOOrth
 
   #Connect the Numeric classes to the fOOrth class system.
   Numeric.create_foorth_proxy
-  Complex.create_foorth_proxy
 
   # Some conversion words.
   # [a] .to_n [Number]
@@ -15,10 +14,6 @@ module XfOOrth
   # [a] .to_f [Float]
   Object.create_shared_method('.to_f', TosSpec, [],
     &lambda {|vm| vm.push(self.to_f); })
-
-  # [a] .to_x [compleX]
-  Object.create_shared_method('.to_x', TosSpec, [],
-    &lambda {|vm| vm.push(self.to_c); })
 
 
   # Some stack arithmetic words.
@@ -78,31 +73,6 @@ module XfOOrth
   Numeric.create_shared_method('.denominator', TosSpec, [],
     &lambda {|vm| vm.push(self.denominator); })
 
-  # [a+bi] .imaginary [b]
-  Numeric.create_shared_method('.imaginary', TosSpec, [],
-    &lambda {|vm| vm.push(self.imaginary); })
-
-  # [a+bi] .real [a]
-  Numeric.create_shared_method('.real', TosSpec, [],
-    &lambda {|vm| vm.push(self.real); })
-
-  # [a+bi] .angle [atan2(b,a) or 0]
-  Numeric.create_shared_method('.angle', TosSpec, [],
-    &lambda {|vm| vm.push(self.angle); })
-
-  # [a+bi] .magnitude [sqrt(a**2 + b**2)]
-  Numeric.create_shared_method('.magnitude', TosSpec, [],
-    &lambda {|vm| vm.push(self.magnitude); })
-
-  # [a+bi] .conjugate [a-bi]
-  # Complex convicts the behave well are allowed .conjugate visits.
-  Numeric.create_shared_method('.conjugate', TosSpec, [],
-    &lambda {|vm| vm.push(self.conjugate); })
-
-  # [a+bi] .polar [magnitude angle]
-  # Convert a complex number to polar format
-  Numeric.create_shared_method('.polar', TosSpec, [],
-    &lambda {|vm| vm.pushm(self.polar); })
 
   # Some bitwise operation words.
   # [b,a] and [b&a]
@@ -128,6 +98,7 @@ module XfOOrth
   # [b,a] >> [b>>a]
   Numeric.create_shared_method('>>', NosSpec, [],
     &lambda {|vm| vm.poke(self.to_i >> vm.peek.to_i); })
+
 
   #Advanced math stuff!
   # [] pi [3.141592653589793]

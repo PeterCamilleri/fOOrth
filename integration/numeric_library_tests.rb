@@ -168,4 +168,9 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("1/2 .split",   [1, 2])
   end
 
+  def test_being_complex
+    foorth_equal("1 2 complex", [Complex(1,2)])
+    foorth_equal("1+2i .split",   [1, 2])
+  end
+
 end
