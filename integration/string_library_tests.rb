@@ -105,4 +105,9 @@ class StringLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('"abcDEF" .to_upper',  ['ABCDEF'])
     foorth_equal('"abcDEF" .to_lower',  ['abcdef'])
   end
+
+  def test_reversing
+    foorth_equal('"stressed" .reverse',  ['desserts'])
+  end
+
 end

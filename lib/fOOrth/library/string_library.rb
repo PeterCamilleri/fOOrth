@@ -136,4 +136,9 @@ module XfOOrth
   String.create_shared_method('.to_lower', TosSpec, [],
     &lambda {|vm| vm.push(self.downcase); })
 
+  # ["stressed"] .reverse ["desserts"]
+  String.create_shared_method('.reverse', TosSpec, [],
+    &lambda {|vm| vm.push(self.reverse); })
+
+
 end
