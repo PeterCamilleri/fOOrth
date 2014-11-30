@@ -101,4 +101,8 @@ class StringLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('"abc" dup "def" << distinct?', [false])
   end
 
+  def test_case_changing
+    foorth_equal('"abcDEF" .to_upper',  ['ABCDEF'])
+    foorth_equal('"abcDEF" .to_lower',  ['abcdef'])
+  end
 end

@@ -127,4 +127,13 @@ module XfOOrth
   # ["b", n] * ["bbb..."]
   String.create_shared_method('*', NosSpec, [],
     &lambda {|vm| vm.poke(self * vm.peek.to_i); })
+
+  # ["abCD"] .to_upper ["ABCD"]
+  String.create_shared_method('.to_upper', TosSpec, [],
+    &lambda {|vm| vm.push(self.upcase); })
+
+  # ["abCD"] .to_lower ["abcd"]
+  String.create_shared_method('.to_lower', TosSpec, [],
+    &lambda {|vm| vm.push(self.downcase); })
+
 end
