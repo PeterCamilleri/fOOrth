@@ -27,12 +27,6 @@ class StringMonkeyPatchTester < MiniTest::Unit::TestCase
     assert_equal('A dog/cat race'.foorth_embed, "\"A dog/cat race\"")
   end
 
-  #Test converting to a boolean.
-  def test_to_boolean
-    assert('cat'.to_foorth_b)
-    refute(''.to_foorth_b)
-  end
-
   #Test converting to a character.
   def test_to_character
     assert_equal('ABC'.to_foorth_c, 'A')

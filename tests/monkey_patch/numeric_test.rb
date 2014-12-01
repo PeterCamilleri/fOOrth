@@ -25,21 +25,6 @@ class NumericMonkeyPatchTester < MiniTest::Unit::TestCase
     assert_equal((5.1).foorth_embed, '5.1')
   end
 
-  #Test for conversion to a boolean.
-  def test_to_boolean
-    assert(5.to_foorth_b)
-    refute(0.to_foorth_b)
-
-    assert((5.1).to_foorth_b)
-    refute((0.0).to_foorth_b)
-
-    assert(Complex(0,1).to_foorth_b)
-    refute(Complex(0,0).to_foorth_b)
-
-    assert(Rational(1,1).to_foorth_b)
-    refute(Rational(0,1).to_foorth_b)
-  end
-
   #Test for conversion to a character.
   def test_to_character
     assert_equal(65.to_foorth_c, 'A')

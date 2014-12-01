@@ -9,11 +9,6 @@ class Numeric
     self.to_s
   end
 
-  #Convert this number to a fOOrth boolean.
-  def to_foorth_b
-    self != 0
-  end
-
   #Convert this number to a single character string.
   def to_foorth_c
     as_int = self.to_i

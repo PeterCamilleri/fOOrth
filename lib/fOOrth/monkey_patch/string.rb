@@ -10,11 +10,6 @@ class String
     "\"#{temp}\""
   end
 
-  #Convert this string to a fOOrth boolean.
-  def to_foorth_b
-    self != ''
-  end
-
   #Convert this string to a single character string.
   def to_foorth_c
     self[0]

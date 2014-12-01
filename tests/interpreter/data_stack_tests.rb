@@ -60,13 +60,13 @@ class DataStackMapTester < MiniTest::Unit::TestCase
     assert(vm.pop?)
 
     vm.push(0)
-    refute(vm.pop?)
+    assert(vm.pop?)
 
     vm.push(false)
     refute(vm.pop?)
 
     vm.push('')
-    refute(vm.pop?)
+    assert(vm.pop?)
 
     vm.push(nil)
     refute(vm.pop?)
