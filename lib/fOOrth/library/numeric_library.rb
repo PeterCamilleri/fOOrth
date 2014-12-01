@@ -95,16 +95,17 @@ module XfOOrth
 
   #Advanced math stuff!
   # [] pi [3.141592653589793]
-  Object.create_shared_method('pi', MacroSpec, ["vm.push(Math::PI)"])
+  Object.create_shared_method('pi', MacroSpec, [:macro, "vm.push(Math::PI)"])
 
   # [] e [2.718281828459045]
-  Object.create_shared_method('e', MacroSpec, ["vm.push(Math::E)"])
+  Object.create_shared_method('e', MacroSpec, [:macro, "vm.push(Math::E)"])
 
   #The number of degrees in one radian.
   DegreesPerRadian = 180.0/Math::PI
 
   # [] dpr [2.718281828459045]
-  Object.create_shared_method('dpr', MacroSpec, ["vm.push(DegreesPerRadian)"])
+  Object.create_shared_method('dpr', MacroSpec, 
+    [:macro, "vm.push(DegreesPerRadian)"])
 
   # [degrees] .d2r [radians]
   Numeric.create_shared_method('.d2r', TosSpec, [],

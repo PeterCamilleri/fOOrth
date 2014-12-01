@@ -16,17 +16,17 @@ module XfOOrth
   #Force a new line.
   # [] .cr []; prints a new line.
   VirtualMachine.create_shared_method('.cr', MacroSpec,
-    ["puts; "])
+    [:macro, "puts; "])
 
   #Force a space.
   # [] space []; prints a space
   VirtualMachine.create_shared_method('space', MacroSpec,
-    ["print ' '; "])
+    [:macro, "print ' '; "])
 
   #Force multiple spaces.
   # [n] spaces []; prints n spaces.
   VirtualMachine.create_shared_method('spaces', MacroSpec,
-    ["print ' ' * vm.pop(); "])
+    [:macro, "print ' ' * vm.pop(); "])
 
   # Print out a single character.
   #[obj] emit []; print out the object as a character.

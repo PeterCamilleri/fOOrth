@@ -3,34 +3,18 @@
 #* library/standard_library.rb - The standard fOOrth library.
 module XfOOrth
 
-  # Some basic "constant" value words.
-  #The self method.
-  # [] self [self]
-  Object.create_shared_method('self', MacroSpec, ["vm.push(self); "])
-
-  #The true method.
-  # [] true [true]
-  Object.create_shared_method('true', MacroSpec, ["vm.push(true); "])
-
-  #The false method.
-  # [] false [false]
-  Object.create_shared_method('false', MacroSpec, ["vm.push(false); "])
-
-  #The nil method.
-  # [] nil [nil]
-  Object.create_shared_method('nil', MacroSpec, ["vm.push(nil); "])
-
   # Some stack manipulation words.
   # [a] drop []
-  VirtualMachine.create_shared_method('drop', MacroSpec, ["vm.pop(); "])
+  VirtualMachine.create_shared_method('drop', MacroSpec, 
+    [:macro, "vm.pop(); "])
 
   # [a] dup [a, a]
   VirtualMachine.create_shared_method('dup', MacroSpec,
-    ["vm.push(vm.peek()); "])
+    [:macro, "vm.push(vm.peek()); "])
 
   # [a] clone [a, a']
   VirtualMachine.create_shared_method('clone', MacroSpec,
-    ["vm.push(vm.peek.full_clone); "])
+    [:macro, "vm.push(vm.peek.full_clone); "])
 
   # [a] .clone [a']
   Object.create_shared_method('.clone', TosSpec, [],
@@ -50,14 +34,15 @@ module XfOOrth
 
   # [b,a] over [b,a,b]
   VirtualMachine.create_shared_method('over', MacroSpec,
-    ["vm.push(vm.peek(2)); "])
+    [:macro, "vm.push(vm.peek(2)); "])
 
   # [di,..d2,d1,i] pick [di,..d2,d1,di]
   VirtualMachine.create_shared_method('pick', MacroSpec,
-    ["vm.push(vm.peek(vm.pop())); "])
+    [:macro, "vm.push(vm.peek(vm.pop())); "])
 
   # [b,a] nip [a]
-  VirtualMachine.create_shared_method('nip', MacroSpec, ["vm.swap_pop(); "])
+  VirtualMachine.create_shared_method('nip', MacroSpec, 
+    [:macro, "vm.swap_pop(); "])
 
   # [b,a] tuck [a,b,a]
   VirtualMachine.create_shared_method('tuck', VmSpec, [],
@@ -79,89 +64,5 @@ module XfOOrth
   Object.create_shared_method('com', TosSpec, [:stub])
   Object.create_shared_method('<<',  NosSpec, [:stub])
   Object.create_shared_method('>>',  NosSpec, [:stub])
-
-  # Some boolean operation words.
-  # [b,a] && [b&a]
-  Object.create_shared_method('&&', TosSpec, [],
-    &lambda {|vm| vm.poke(self.to_foorth_b && vm.peek?); })
-
-  # [b,a] || [b|a]
-  Object.create_shared_method('||', TosSpec, [],
-    &lambda {|vm| vm.poke(self.to_foorth_b || vm.peek?); })
-
-  # [b,a] ^^ [b^a]
-  Object.create_shared_method('^^', TosSpec, [],
-    &lambda {|vm| vm.poke(self.to_foorth_b ^ vm.peek?); })
-
-  # [a] not [!a]
-  Object.create_shared_method('not', TosSpec, [],
-    &lambda {|vm| vm.push(!(self.to_foorth_b)); })
-
-  # Some comparison words.
-  # [b,a] = if b == a then [true] else [false]
-  Object.create_shared_method('=', NosSpec, [],
-    &lambda {|vm| vm.poke(self == vm.peek); })
-
-  # [b,a] <> if b != a then [true] else [false]
-  Object.create_shared_method('<>', NosSpec, [],
-    &lambda {|vm| vm.poke(self != vm.peek); })
-
-  # [b,a] > if b > a then [true] else [false]
-  Object.create_shared_method('>', NosSpec, [],
-    &lambda {|vm| vm.poke(self > vm.peek); })
-
-  # [b,a] < if b < a then [true] else [false]
-  Object.create_shared_method('<', NosSpec, [],
-    &lambda {|vm| vm.poke(self < vm.peek); })
-
-  # [b,a] >= if b >= a then [true] else [false]
-  Object.create_shared_method('>=', NosSpec, [],
-    &lambda {|vm| vm.poke(self >= vm.peek); })
-
-  # [b,a] <= if b <= a then [true] else [false]
-  Object.create_shared_method('<=', NosSpec, [],
-    &lambda {|vm| vm.poke(self <= vm.peek); })
-
-  # [b,a] 0<=> b < a [-1], b = a [0], b > a [1]
-  Object.create_shared_method('<=>', NosSpec, [],
-    &lambda {|vm| vm.poke(self <=> vm.peek); })
-
-  # Some identity comparison words.
-  # [b,a] identical? if b.object_id == a.object_id then [true] else [false]
-  Object.create_shared_method('identical?', NosSpec, [],
-    &lambda {|vm| vm.poke(self.object_id == vm.peek.object_id); })
-
-  # [b,a] distinct? if b.object_id != a.object_id then [true] else [false]
-  Object.create_shared_method('distinct?', NosSpec, [],
-    &lambda {|vm| vm.poke(self.object_id != vm.peek.object_id); })
-
-  # Some comparison with zero words.
-  # [b,a] 0= if b == 0 then [true] else [false]
-  Object.create_shared_method('0=', TosSpec, [],
-    &lambda {|vm| vm.push(self == 0); })
-
-  # [b,a] 0<> if b != 0 then [true] else [false]
-  Object.create_shared_method('0<>', TosSpec, [],
-    &lambda {|vm| vm.push(self != 0); })
-
-  # [b,a] 0> if b > 0 then [true] else [false]
-  Object.create_shared_method('0>', TosSpec, [],
-    &lambda {|vm| vm.push(self > 0); })
-
-  # [b,a] 0< if b < 0 then [true] else [false]
-  Object.create_shared_method('0<', TosSpec, [],
-    &lambda {|vm| vm.push(self < 0); })
-
-  # [b,a] 0>= if b >= 0 then [true] else [false]
-  Object.create_shared_method('0>=', TosSpec, [],
-    &lambda {|vm| vm.push(self >= 0); })
-
-  # [b,a] 0<= if b <= 0 then [true] else [false]
-  Object.create_shared_method('0<=', TosSpec, [],
-    &lambda {|vm| vm.push(self <= 0); })
-
-  # [b] 0<=> b < 0 [-1], b = 0 [0], b > 0 [1]
-  Object.create_shared_method('0<=>', TosSpec, [],
-    &lambda {|vm| vm.push(self <=> 0); })
 
 end
