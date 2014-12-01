@@ -71,10 +71,10 @@ class StringLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_mid_copy_paste_and_cut
-    foorth_equal('"abcdefgh" 2 4        .mid ', ['cdef'])
-    foorth_equal('"abcdefgh" 2 4       .-mid ', ['abgh'])
-    foorth_equal('"abcdefgh" 2 4 "123" .+mid ', ['ab123gh'])
-    foorth_equal('"abcdefgh" 2 0 "123" .+mid ', ['ab123cdefgh'])
+    foorth_equal('2 4 "abcdefgh"        .mid ', ['cdef'])
+    foorth_equal('2 4 "abcdefgh"        .-mid ', ['abgh'])
+    foorth_equal('2 4 "123" "abcdefgh"  .+mid ', ['ab123gh'])
+    foorth_equal('2 0 "123" "abcdefgh"  .+mid ', ['ab123cdefgh'])
   end
 
   def test_midlr_copy_paste_and_cut

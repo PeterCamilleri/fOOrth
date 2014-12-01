@@ -52,26 +52,26 @@ module XfOOrth
     vm.poke(ins + self[(vm.peek.to_i)..-1])
   })
 
-  # ['abcdefgh' n w] .mid ['cdef']      // Assumes n = 2, w = 4
-  VirtualMachine.create_shared_method('.mid', VmSpec, [], &lambda {|vm|
-    width = pop.to_i
-    posn = pop.to_i
-    poke(peek[posn...(posn+width)])
+  # [n w 'abcdefgh'] .mid ['cdef']      // Assumes n = 2, w = 4
+  String.create_shared_method('.mid', TosSpec, [], &lambda {|vm|
+    width = vm.pop.to_i
+    posn = vm.pop.to_i
+    vm.push(self[posn...(posn+width)])
   })
 
-  # ['abcdefgh' n w] .-mid ['abgh']     // Assumes n = 2, w = 4
-  VirtualMachine.create_shared_method('.-mid', VmSpec, [], &lambda {|vm|
-    width = pop.to_i
-    posn = pop.to_i
-    poke(peek[0...posn] + peek[(posn+width)..-1])
+  # [n w 'abcdefgh'] .-mid ['abgh']     // Assumes n = 2, w = 4
+  String.create_shared_method('.-mid', TosSpec, [], &lambda {|vm|
+    width = vm.pop.to_i
+    posn = vm.pop.to_i
+    vm.push(self[0...posn] + self[(posn+width)..-1])
   })
 
-  # ['abcdefgh' n w "123"] .+mid ['ab123gh'] // Assumes n = 2, w = 4
-  VirtualMachine.create_shared_method('.+mid', VmSpec, [], &lambda {|vm|
-    ins = pop.to_s
-    width = pop.to_i
-    posn = pop.to_i
-    poke(peek[0...posn] + ins + peek[(posn+width)..-1])
+  # [n w "123" "abcdefgh"] .+mid ["ab123gh"] // Assumes n = 2, w = 4
+  String.create_shared_method('.+mid', TosSpec, [], &lambda {|vm|
+    ins = vm.pop.to_s
+    width = vm.pop.to_i
+    posn = vm.pop.to_i
+    vm.push(self[0...posn] + ins + self[(posn+width)..-1])
   })
 
   # ['abcdefgh' l r] .midlr ['bcdefg']  // Assumes l = 1, r = 1
