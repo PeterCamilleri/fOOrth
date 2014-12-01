@@ -78,9 +78,9 @@ class StringLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_midlr_copy_paste_and_cut
-    foorth_equal('"abcdefgh" 2 2       .midlr ',  ['cdef'])
-    foorth_equal('"abcdefgh" 2 2       .-midlr ', ['abgh'])
-    foorth_equal('"abcdefgh" 2 2 "123" .+midlr ', ['ab123gh'])
+    foorth_equal('2 2 "abcdefgh"       .midlr ',  ['cdef'])
+    foorth_equal('2 2 "abcdefgh"       .-midlr ', ['abgh'])
+    foorth_equal('2 2 "123" "abcdefgh" .+midlr ', ['ab123gh'])
   end
 
   def test_replication
