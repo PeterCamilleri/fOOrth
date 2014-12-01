@@ -96,23 +96,23 @@ module XfOOrth
     vm.push(self[0...left] + ins + self[((0-right))..-1])
   })
 
-  # ['abcdefgh' w] .right ['gh']        // Assumes w = 2
-  VirtualMachine.create_shared_method('.right', VmSpec, [],
-    &lambda {|vm| width = pop.to_i;  poke(peek[(0-width)..-1]); })
+  # [w 'abcdefgh'] .right ['gh']        // Assumes w = 2
+  String.create_shared_method('.right', TosSpec, [],
+    &lambda {|vm| vm.poke(self[(0-(vm.peek.to_i))..-1]); })
 
-  # ['abcdefgh' w] .-right ['abcdef']   // Assumes w = 2
-  VirtualMachine.create_shared_method('.-right', VmSpec, [],
-    &lambda {|vm| width = pop.to_i;  poke(peek[0...(0-width)]); })
+  # [w 'abcdefgh'] .-right ['abcdef']   // Assumes w = 2
+  String.create_shared_method('.-right', TosSpec, [],
+    &lambda {|vm| vm.poke(self[0...(0-(vm.peek.to_i))]); })
 
-  # ['abcdefgh' w "123"] .+right ['abcdef123']   // Assumes w = 2
-  VirtualMachine.create_shared_method('.+right', VmSpec, [], &lambda {|vm|
-    ins = pop.to_s
-    width = pop.to_i
-    poke(peek[0...(0-width)] + ins)
+  # [w "123" 'abcdefgh'] .+right ['abcdef123']   // Assumes w = 2
+  String.create_shared_method('.+right', TosSpec, [], &lambda {|vm|
+    ins = vm.pop.to_s
+    width = vm.pop.to_i
+    vm.push(self[0...(0-width)] + ins)
   })
 
   # ["a"] .length [n]
-  String.create_shared_method('.length', NosSpec, [],
+  String.create_shared_method('.length', TosSpec, [],
     &lambda {|vm| vm.push(self.length); })
 
   # ["b", a] + ["ba"]; "ba" is a new object, distinct from "b"
@@ -138,6 +138,5 @@ module XfOOrth
   # ["stressed"] .reverse ["desserts"]
   String.create_shared_method('.reverse', TosSpec, [],
     &lambda {|vm| vm.push(self.reverse); })
-
 
 end

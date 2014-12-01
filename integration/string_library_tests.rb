@@ -65,9 +65,9 @@ class StringLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_right_copy_paste_and_cut
-    foorth_equal('"abcdefgh" 2       .right ',  ['gh'])
-    foorth_equal('"abcdefgh" 2 "123" .+right ', ['abcdef123'])
-    foorth_equal('"abcdefgh" 2       .-right ', ['abcdef'])
+    foorth_equal('2 "abcdefgh"       .right ',  ['gh'])
+    foorth_equal('2 "123" "abcdefgh" .+right ', ['abcdef123'])
+    foorth_equal('2 "abcdefgh"       .-right ', ['abcdef'])
   end
 
   def test_mid_copy_paste_and_cut
