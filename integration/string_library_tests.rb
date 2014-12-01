@@ -23,6 +23,7 @@ class StringLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_some_string_basics
+    foorth_equal('String    .new',     [""])
     foorth_equal('"abcdefg" .length ', [7])
   end
 
