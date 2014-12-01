@@ -81,6 +81,8 @@ class StringLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('2 0 "123" "abcdefgh" .+mid ',   ['ab123cdefgh'])
     foorth_equal('"cde" "abcdefgh"     .mid? ',   [true])
     foorth_equal('"cdx" "abcdefgh"     .mid? ',   [false])
+    foorth_equal('"cde" "abcdefgh"     .posn ',   [2])
+    foorth_equal('"cdx" "abcdefgh"     .posn ',   [nil])
   end
 
   def test_midlr_copy_paste_and_cut

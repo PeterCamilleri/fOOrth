@@ -87,6 +87,10 @@ module XfOOrth
   String.create_shared_method('.mid?', TosSpec, [],
     &lambda {|vm| vm.poke(self.index(vm.peek).to_foorth_b); })
 
+  # ['cde' 'abcdefgh'] .posn [position or nil]
+  String.create_shared_method('.posn', TosSpec, [],
+    &lambda {|vm| vm.poke(self.index(vm.peek)); })
+
 
   #MIDLR Group
 

@@ -1,5 +1,9 @@
 # coding: utf-8
 
+#* This meaningless entry exists to shut up rdoc!
+module Math
+end
+
 #* library/numeric_library.rb - Numeric support for the fOOrth library.
 module XfOOrth
 
@@ -104,7 +108,7 @@ module XfOOrth
   DegreesPerRadian = 180.0/Math::PI
 
   # [] dpr [2.718281828459045]
-  Object.create_shared_method('dpr', MacroSpec, 
+  Object.create_shared_method('dpr', MacroSpec,
     [:macro, "vm.push(DegreesPerRadian)"])
 
   # [degrees] .d2r [radians]
