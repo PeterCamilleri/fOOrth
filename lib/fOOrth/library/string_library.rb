@@ -38,6 +38,8 @@ module XfOOrth
   # [a] .fmt"fmt_str" ['a formatted string']
   String.create_shared_method('.fmt"', TosSpec, [], &fmt_action)
 
+  #LEFT Group
+
   # [w 'abcdefgh'] .left ['ab']         // Assumes w = 2
   String.create_shared_method('.left', TosSpec, [],
     &lambda {|vm| vm.poke(self[0...(vm.peek.to_i)]); })
@@ -51,6 +53,13 @@ module XfOOrth
     ins = vm.pop.to_s
     vm.poke(ins + self[(vm.peek.to_i)..-1])
   })
+
+  # ['abc' 'abcdefgh'] .left? [boolean]
+  String.create_shared_method('.left?', TosSpec, [],
+    &lambda {|vm| vm.poke(self.start_with?(vm.peek)); })
+
+
+  #MID Group
 
   # [n w 'abcdefgh'] .mid ['cdef']      // Assumes n = 2, w = 4
   String.create_shared_method('.mid', TosSpec, [], &lambda {|vm|
@@ -74,6 +83,13 @@ module XfOOrth
     vm.push(self[0...posn] + ins + self[(posn+width)..-1])
   })
 
+  # ['cde' 'abcdefgh'] .mid? [boolean]
+  String.create_shared_method('.mid?', TosSpec, [],
+    &lambda {|vm| vm.poke(self.index(vm.peek).to_foorth_b); })
+
+
+  #MIDLR Group
+
   # [l r 'abcdefgh'] .midlr ['bcdefg']  // Assumes l = 1, r = 1
   String.create_shared_method('.midlr', TosSpec, [], &lambda {|vm|
     right = vm.pop.to_i
@@ -96,6 +112,8 @@ module XfOOrth
     vm.push(self[0...left] + ins + self[((0-right))..-1])
   })
 
+  #RIGHT Group
+
   # [w 'abcdefgh'] .right ['gh']        // Assumes w = 2
   String.create_shared_method('.right', TosSpec, [],
     &lambda {|vm| vm.poke(self[(0-(vm.peek.to_i))..-1]); })
@@ -110,6 +128,11 @@ module XfOOrth
     width = vm.pop.to_i
     vm.push(self[0...(0-width)] + ins)
   })
+
+  # ['fgh' 'abcdefgh'] .right? [boolean]
+  String.create_shared_method('.right?', TosSpec, [],
+    &lambda {|vm| vm.poke(self.end_with?(vm.peek)); })
+
 
   # ["a"] .length [n]
   String.create_shared_method('.length', TosSpec, [],

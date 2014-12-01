@@ -59,26 +59,32 @@ class StringLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_left_copy_paste_and_cut
-    foorth_equal('2 "abcdefgh"       .left ',  ['ab'])
-    foorth_equal('2 "123" "abcdefgh" .+left ', ['123cdefgh'])
-    foorth_equal('2 "abcdefgh"       .-left ', ['cdefgh'])
+    foorth_equal('2 "abcdefgh"         .left  ',  ['ab'])
+    foorth_equal('2 "123" "abcdefgh"   .+left ',  ['123cdefgh'])
+    foorth_equal('2 "abcdefgh"         .-left ',  ['cdefgh'])
+    foorth_equal('"abc" "abcdefgh"     .left? ',  [true])
+    foorth_equal('"abx" "abcdefgh"     .left? ',  [false])
   end
 
   def test_right_copy_paste_and_cut
-    foorth_equal('2 "abcdefgh"       .right ',  ['gh'])
-    foorth_equal('2 "123" "abcdefgh" .+right ', ['abcdef123'])
-    foorth_equal('2 "abcdefgh"       .-right ', ['abcdef'])
+    foorth_equal('2 "abcdefgh"         .right  ', ['gh'])
+    foorth_equal('2 "123" "abcdefgh"   .+right ', ['abcdef123'])
+    foorth_equal('2 "abcdefgh"         .-right ', ['abcdef'])
+    foorth_equal('"fgh" "abcdefgh"     .right? ', [true])
+    foorth_equal('"fgx" "abcdefgh"     .right? ', [false])
   end
 
   def test_mid_copy_paste_and_cut
-    foorth_equal('2 4 "abcdefgh"        .mid ', ['cdef'])
-    foorth_equal('2 4 "abcdefgh"        .-mid ', ['abgh'])
-    foorth_equal('2 4 "123" "abcdefgh"  .+mid ', ['ab123gh'])
-    foorth_equal('2 0 "123" "abcdefgh"  .+mid ', ['ab123cdefgh'])
+    foorth_equal('2 4 "abcdefgh"       .mid  ',   ['cdef'])
+    foorth_equal('2 4 "abcdefgh"       .-mid ',   ['abgh'])
+    foorth_equal('2 4 "123" "abcdefgh" .+mid ',   ['ab123gh'])
+    foorth_equal('2 0 "123" "abcdefgh" .+mid ',   ['ab123cdefgh'])
+    foorth_equal('"cde" "abcdefgh"     .mid? ',   [true])
+    foorth_equal('"cdx" "abcdefgh"     .mid? ',   [false])
   end
 
   def test_midlr_copy_paste_and_cut
-    foorth_equal('2 2 "abcdefgh"       .midlr ',  ['cdef'])
+    foorth_equal('2 2 "abcdefgh"       .midlr  ', ['cdef'])
     foorth_equal('2 2 "abcdefgh"       .-midlr ', ['abgh'])
     foorth_equal('2 2 "123" "abcdefgh" .+midlr ', ['ab123gh'])
   end
