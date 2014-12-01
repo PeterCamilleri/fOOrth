@@ -30,27 +30,26 @@ module XfOOrth
   String.create_shared_method('.rstrip', TosSpec, [],
     &lambda {|vm| vm.push(self.rstrip); })
 
-  fmt_action = lambda {|vm| fmt_str = pop.to_s;  poke(fmt_str % peek); }
+  fmt_action = lambda {|vm| vm.poke(self % vm.peek); }
 
   # [a fmt_str] .fmt ['a formatted string']
-  VirtualMachine.create_shared_method('.fmt', VmSpec, [], &fmt_action)
+  String.create_shared_method('.fmt', TosSpec, [], &fmt_action)
 
   # [a] .fmt"fmt_str" ['a formatted string']
-  VirtualMachine.create_shared_method('.fmt"', VmSpec, [], &fmt_action)
+  String.create_shared_method('.fmt"', TosSpec, [], &fmt_action)
 
-  # ['abcdefgh' w] .left ['ab']         // Assumes w = 2
-  VirtualMachine.create_shared_method('.left', VmSpec, [],
-    &lambda {|vm| width = pop.to_i;  poke(peek[0...width]); })
+  # [w 'abcdefgh'] .left ['ab']         // Assumes w = 2
+  String.create_shared_method('.left', TosSpec, [],
+    &lambda {|vm| vm.poke(self[0...(vm.peek.to_i)]); })
 
-  # ['abcdefgh' w] .-left ['cdefgh']    // Assumes w = 2
-  VirtualMachine.create_shared_method('.-left', VmSpec, [],
-    &lambda {|vm| width = pop.to_i;  poke(peek[width..-1]); })
+  # [w 'abcdefgh'] .-left ['cdefgh']    // Assumes w = 2
+  String.create_shared_method('.-left', TosSpec, [],
+    &lambda {|vm| vm.poke(self[(vm.peek.to_i)..-1]); })
 
-  # ['abcdefgh' w '123'] .+left ['123cdefgh']    // Assumes w = 2
-  VirtualMachine.create_shared_method('.+left', VmSpec, [], &lambda {|vm|
-    ins = pop.to_s
-    width = pop.to_i
-    poke(ins + peek[width..-1])
+  # [w '123''abcdefgh'] .+left ['123cdefgh']    // Assumes w = 2
+  String.create_shared_method('.+left', TosSpec, [], &lambda {|vm|
+    ins = vm.pop.to_s
+    vm.poke(ins + self[(vm.peek.to_i)..-1])
   })
 
   # ['abcdefgh' n w] .mid ['cdef']      // Assumes n = 2, w = 4
