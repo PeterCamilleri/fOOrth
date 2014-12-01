@@ -6,29 +6,29 @@ module XfOOrth
   #Connect the String class to the fOOrth class system.
   String.create_foorth_proxy
 
-  # [a n] .ljust ['a    ']; left justify
-  VirtualMachine.create_shared_method('.ljust', VmSpec, [],
-    &lambda {|vm| width = pop.to_i;  poke(peek.to_s.ljust(width)); })
+  # [n a] .ljust ['a    ']; left justify
+  String.create_shared_method('.ljust', TosSpec, [],
+    &lambda {|vm| vm.poke(self.ljust(vm.peek.to_i)); })
 
-  # [a n] .cjust ['  a  ']; center justify
-  VirtualMachine.create_shared_method('.cjust', VmSpec, [],
-    &lambda {|vm| width = pop.to_i;  poke(peek.to_s.center(width)); })
+  # [n a] .cjust ['  a  ']; center justify
+  String.create_shared_method('.cjust', TosSpec, [],
+    &lambda {|vm| vm.poke(self.center(vm.peek.to_i)); })
 
-  # [a n] .rjust ['    a']; right justify
-  VirtualMachine.create_shared_method('.rjust', VmSpec, [],
-    &lambda {|vm| width = pop.to_i;  poke(peek.to_s.rjust(width)); })
+  # [n a] .rjust ['    a']; right justify
+  String.create_shared_method('.rjust', TosSpec, [],
+    &lambda {|vm| vm.poke(self.rjust(vm.peek.to_i)); })
 
-  # ["  a  " n] .lstrip ["a  "]; left strip
-  VirtualMachine.create_shared_method('.lstrip', VmSpec, [],
-    &lambda {|vm| poke(peek.to_s.lstrip); })
+  # ["  a  "] .lstrip ["a  "]; left strip
+  String.create_shared_method('.lstrip', TosSpec, [],
+    &lambda {|vm| vm.push(self.lstrip); })
 
-  # ["  a  " n] .strip ["a"]; left and right strip
-  VirtualMachine.create_shared_method('.strip', VmSpec, [],
-    &lambda {|vm| poke(peek.to_s.strip); })
+  # ["  a  "] .strip ["a"]; left and right strip
+  String.create_shared_method('.strip', TosSpec, [],
+    &lambda {|vm| vm.push(self.strip); })
 
-  # ["  a  " n] .rstrip ["  a"]; right strip
-  VirtualMachine.create_shared_method('.rstrip', VmSpec, [],
-    &lambda {|vm| poke(peek.to_s.rstrip); })
+  # ["  a  "] .rstrip ["  a"]; right strip
+  String.create_shared_method('.rstrip', TosSpec, [],
+    &lambda {|vm| vm.push(self.rstrip); })
 
   fmt_action = lambda {|vm| fmt_str = pop.to_s;  poke(fmt_str % peek); }
 

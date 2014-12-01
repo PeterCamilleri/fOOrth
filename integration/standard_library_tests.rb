@@ -40,8 +40,7 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
 
     foorth_equal("false ?dup", [false])
     foorth_equal("nil ?dup", [nil])
-    foorth_equal('"" ?dup', [""])
-    foorth_equal("0 ?dup", [0])
+    foorth_equal('"" ?dup', ["", ""])
     foorth_equal("true  ?dup", [true, true])
     foorth_equal('"A" ?dup', ["A", "A"])
     foorth_equal("1 ?dup", [1,1])

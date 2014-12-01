@@ -27,18 +27,18 @@ class StringLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_left_justification
-    foorth_equal('"a" 5 .ljust ', ['a    '])
-    foorth_equal('"too long" 5 .ljust ', ['too long'])
+    foorth_equal('5 "a"        .ljust ', ['a    '])
+    foorth_equal('5 "too long" .ljust ', ['too long'])
   end
 
   def test_center_justification
-    foorth_equal('"a" 5 .cjust ', ['  a  '])
-    foorth_equal('"too long" 5 .cjust ', ['too long'])
+    foorth_equal('5 "a"        .cjust ', ['  a  '])
+    foorth_equal('5 "too long" .cjust ', ['too long'])
   end
 
   def test_right_justification
-    foorth_equal('"a" 5 .rjust ', ['    a'])
-    foorth_equal('"too long" 5 .rjust ', ['too long'])
+    foorth_equal('5 "a"        .rjust ', ['    a'])
+    foorth_equal('5 "too long" .rjust ', ['too long'])
   end
 
   def test_left_strip
