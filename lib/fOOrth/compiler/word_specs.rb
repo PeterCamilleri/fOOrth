@@ -23,6 +23,7 @@ module XfOOrth
     #* tags - A an array of tags.
     #<br>These may include:
     #* :immediate - The word is executed, even in compile modes.
+    #* :macro - Identifies the spec as a macro spec to assist debugging.
     #* :stub - The word is a place holder in the hierarchy.
     def initialize(name, symbol, tags=[], &block)
       @tags = tags
