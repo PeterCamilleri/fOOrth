@@ -22,8 +22,11 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     super(*all)
   end
 
-  def test_some_string_basics
-    foorth_equal('Array .new ', [[]])
+  def test_some_array_basics
+    foorth_equal('    Array .new        ', [[]])
+    foorth_equal('3   Array .new_size   ', [[0,0,0]])
+    foorth_equal('3   Array .new_value  ', [[3]])
+    foorth_equal('3 2 Array .new_values ', [[3,3]])
   end
 
 end

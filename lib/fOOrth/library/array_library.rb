@@ -7,5 +7,15 @@ module XfOOrth
   #Connect the Array class to the fOOrth class system.
   Array.create_foorth_proxy
 
-  
+  # [n] Array .new_size [[0,0,...0]]; create an array of n zeros.
+  Array.create_exclusive_method('.new_size', TosSpec, [],
+    &lambda {|vm| vm.poke(self.new(vm.peek.to_i, 0)); })
+
+  # [v] Array .new_value [[v]]; create an array of a single value.
+  Array.create_exclusive_method('.new_value', TosSpec, [],
+    &lambda {|vm| vm.poke(self.new(1, vm.peek)); })
+
+  # [v n] Array .new_values [[v,v,...v]]; create an array of a n values.
+  Array.create_exclusive_method('.new_values', TosSpec, [],
+    &lambda {|vm| count = vm.pop.to_i; vm.poke(self.new(count, vm.peek)); })
 end
