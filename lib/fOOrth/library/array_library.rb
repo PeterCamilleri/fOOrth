@@ -19,6 +19,14 @@ module XfOOrth
   Array.create_exclusive_method('.new_values', TosSpec, [],
     &lambda {|vm| count = vm.pop.to_i; vm.poke(self.new(count, vm.peek)); })
 
+  # [i a] .[]@ [a[i]]
+  Array.create_shared_method('.[]@', TosSpec, [],
+    &lambda {|vm| vm.poke(self[vm.peek.to_i]); })
+
+  # [v i a] .[]! []; a[i]=v
+  Array.create_shared_method('.[]!', TosSpec, [],
+    &lambda {|vm| value, index = vm.popm(2); self[index] = value; })
+
 end
 
 #* Runtime library support for fOOrth constructs.

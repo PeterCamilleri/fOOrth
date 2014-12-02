@@ -55,4 +55,17 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('tte',                                       [1,4,9,16])
   end
 
+  def test_simple_array_indexing
+    foorth_equal('4 Array .new{ x 1 + dup * } global: $tte ', [])
+    foorth_equal('$tte',                                      [[1,4,9,16]])
+
+    foorth_equal('$tte @ ',                                   [1])
+    foorth_equal('10 $tte ! ',                                [])
+    foorth_equal('$tte @ ',                                   [10])
+
+    foorth_equal('  0 $tte .[]@ ',                            [10])
+    foorth_equal('1 0 $tte .[]! ',                            [])
+    foorth_equal('$tte @ ',                                   [1])
+  end
+
 end
