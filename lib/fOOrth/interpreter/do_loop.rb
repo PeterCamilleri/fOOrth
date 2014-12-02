@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* do_loop.rb - The fOOrth language do loop support module.
+#* interpreter/do_loop.rb - The fOOrth language do loop support module.
 module XfOOrth
 
   #* interpreter/do_loop.rb - The fOOrth language do loop support module.

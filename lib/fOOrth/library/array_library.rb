@@ -21,6 +21,14 @@ module XfOOrth
   Array.create_exclusive_method('.new_values', TosSpec, [],
     &lambda {|vm| count = vm.pop.to_i; vm.poke(self.new(count, vm.peek)); })
 
+  # [] [ v1 v2 ... vn ] [[v1,v2,...vn]]; an array literal value
+  VirtualMachine.create_shared_method('[', VmSpec, [:immediate], &lambda { |vm|
+    vm.suspend_execute_mode('vm.squash; ', :array_literal)
+
+    vm.context.create_local_method(']', [:immediate],
+      &lambda {|vm| vm.resume_execute_mode('vm.unsquash; ', [:array_literal]) })
+  })
+
   # [i a] .[]@ [a[i]]
   Array.create_shared_method('.[]@', TosSpec, [],
     &lambda {|vm| vm.poke(self[vm.peek.to_i]); })

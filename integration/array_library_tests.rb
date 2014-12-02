@@ -39,9 +39,17 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_equal(': tt03 3 2 Array .new_values ; ', [])
     foorth_equal('tt03                           ', [[3,3]])
 
-    foorth_equal('       3 Array .new{ x }       ', [[0,1,2]], true)
+    foorth_equal('       3 Array .new{ x }       ', [[0,1,2]])
     foorth_equal(': tt04 3 Array .new{ x } ;     ', [])
     foorth_equal('tt04                           ', [[0,1,2]])
+
+    foorth_equal('        [ 0 1 2 ]              ', [[0,1,2]])
+    foorth_equal(': tt05  [ 0 1 2 ] ;            ', [])
+    foorth_equal('tt05                           ', [[0,1,2]])
+
+    foorth_equal('        [ 3 6 do i loop ]      ', [[3,4,5]])
+    foorth_equal(': tt06  [ 3 6 do i loop ] ;    ', [])
+    foorth_equal('tt06                           ', [[3,4,5]])
   end
 
   def test_the_each
