@@ -33,12 +33,7 @@ module XfOOrth
         &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
     })
 
-  # Support for the classic do loop constructs!
-  #
-  # NOTE: The do loop must always be configured to count upward. This is due
-  # the the end condition being count > limit instead of count == limit. To
-  # count backward use -i or -j to access the reverse count. This change from
-  # the classic FORTH version is to avoid its tendency to loop forever.
+  # Support for the sanitized do loop constructs!
   VirtualMachine.create_shared_method('do', VmSpec, [:immediate],
     &lambda {|vm|
       jvar =  context[:jloop].to_s
