@@ -27,6 +27,7 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('3   Array .new_size   ', [[0,0,0]])
     foorth_equal('3   Array .new_value  ', [[3]])
     foorth_equal('3 2 Array .new_values ', [[3,3]])
+    foorth_equal('3   Array .new{ x }   ', [[0,1,2]])
   end
 
 end
