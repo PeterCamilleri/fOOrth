@@ -9,7 +9,7 @@ module XfOOrth
   # Some conversion words.
   # [n d] rational [n/d]
   VirtualMachine.create_shared_method('complex', VmSpec, [],
-    &lambda {|vm| r,i = popm(2); push(Complex(r,i)); })
+    &lambda {|vm| real,imag = popm(2); push(Complex(real,imag)); })
 
   Complex.create_shared_method('.split', TosSpec, [],
     &lambda {|vm| vm.push(self.real); vm.push(self.imaginary); })

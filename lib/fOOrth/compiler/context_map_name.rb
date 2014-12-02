@@ -36,7 +36,7 @@ module XfOOrth
         spec_error
 
       when '$'
-        $FOORTH_GLOBALS[@symbol] ||
+        do_global_target_map     ||
         spec_error
 
       when '#'
@@ -47,7 +47,7 @@ module XfOOrth
         @data[@symbol]           ||
         do_object_class_map      ||
         do_vm_target_map         ||
-        $FOORTH_GLOBALS[@symbol] ||
+        do_global_target_map     ||
         spec_error
       end
 
@@ -71,6 +71,11 @@ module XfOOrth
     #Do a search of the :vm tag if it is specified.
     def do_vm_target_map
       (vm = self[:vm]) && vm.map_foorth_exclusive(@symbol)
+    end
+
+    #Do a search of the globals.
+    def do_global_target_map
+      $FOORTH_GLOBALS[@symbol]
     end
 
     #Create a default entry for a method

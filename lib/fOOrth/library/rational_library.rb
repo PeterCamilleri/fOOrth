@@ -9,7 +9,7 @@ module XfOOrth
   # Some conversion words.
   # [n d] rational [n/d]
   VirtualMachine.create_shared_method('rational', VmSpec, [],
-    &lambda {|vm| n,d = popm(2); push(Rational(n,d)); })
+    &lambda {|vm| num,den = popm(2); push(Rational(num,den)); })
 
   Rational.create_shared_method('.split', TosSpec, [],
     &lambda {|vm| vm.push(self.numerator); vm.push(self.denominator); })
