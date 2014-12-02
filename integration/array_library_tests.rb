@@ -23,11 +23,36 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_some_array_basics
-    foorth_equal('    Array .new        ', [[]])
-    foorth_equal('3   Array .new_size   ', [[0,0,0]])
-    foorth_equal('3   Array .new_value  ', [[3]])
-    foorth_equal('3 2 Array .new_values ', [[3,3]])
-    foorth_equal('3   Array .new{ x }   ', [[0,1,2]])
+    foorth_equal('       Array .new              ', [[]])
+    foorth_equal(': tt00 Array .new  ;           ', [])
+    foorth_equal('tt00                           ', [[]])
+
+    foorth_equal('       3 Array .new_size       ', [[0,0,0]])
+    foorth_equal(': tt01 3 Array .new_size ;     ', [])
+    foorth_equal('tt01                           ', [[0,0,0]])
+
+    foorth_equal('       3 Array .new_value      ', [[3]])
+    foorth_equal(': tt02 3 Array .new_value ;    ', [])
+    foorth_equal('tt02                           ', [[3]])
+
+    foorth_equal('       3 2 Array .new_values   ', [[3,3]])
+    foorth_equal(': tt03 3 2 Array .new_values ; ', [])
+    foorth_equal('tt03                           ', [[3,3]])
+
+    foorth_equal('       3 Array .new{ x }       ', [[0,1,2]], true)
+    foorth_equal(': tt04 3 Array .new{ x } ;     ', [])
+    foorth_equal('tt04                           ', [[0,1,2]])
+  end
+
+  def test_the_each
+    foorth_equal('4 Array .new{ x 1 + dup * } global: $tte ', [])
+    foorth_equal('$tte',                                      [[1,4,9,16]])
+
+    foorth_equal('$tte .each{ x } ',                          [0,1,2,3])
+    foorth_equal('$tte .each{ v } ',                          [1,4,9,16])
+
+    foorth_equal(': tte $tte .each{ v } ;',                   [])
+    foorth_equal('tte',                                       [1,4,9,16])
   end
 
 end

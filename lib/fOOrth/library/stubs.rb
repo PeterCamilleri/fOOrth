@@ -20,4 +20,11 @@ module XfOOrth
   Object.create_shared_method('<<',  NosSpec, [:stub])
   Object.create_shared_method('>>',  NosSpec, [:stub])
 
+  # Some control structure stubs.
+  SymbolMap.add_entry('do_foorth_new_block', :do_foorth_new_block)
+  Object.create_shared_method('do_foorth_new_block', TosSpec, [:stub])
+
+  SymbolMap.add_entry('do_foorth_each', :do_foorth_each)
+  Object.create_shared_method('do_foorth_each', TosSpec, [:stub])
+
 end

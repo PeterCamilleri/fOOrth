@@ -64,4 +64,29 @@ module XfOOrth
         &lambda {|vm| resume_execute_mode('iloop[0] += vm.pop}; ', [:do]) })
     })
 
+  #The object oriented .new{  } construct.
+  VirtualMachine.create_shared_method('.new{', VmSpec, [:immediate], &lambda { |vm|
+    vm.suspend_execute_mode('vm.push(vm.pop.do_foorth_new_block(vm) {|xloop| ', :new_block)
+
+    vm.context.create_local_method('x', [:immediate],
+      &lambda {|vm| vm << "vm.push(xloop); "} )
+
+    vm.context.create_local_method('}', [:immediate],
+      &lambda {|vm| vm.resume_execute_mode('vm.pop}); ', [:new_block]) })
+  })
+
+  #The object oriented .each{  } construct.
+  VirtualMachine.create_shared_method('.each{', VmSpec, [:immediate], &lambda { |vm|
+    suspend_execute_mode('vm.pop.do_foorth_each{|vloop, xloop| ', :each_block)
+
+    context.create_local_method('v', [:immediate],
+      &lambda {|vm| vm << "vm.push(vloop); "} )
+
+    context.create_local_method('x', [:immediate],
+      &lambda {|vm| vm << "vm.push(xloop); "} )
+
+    context.create_local_method('}', [:immediate],
+      &lambda {|vm| vm.resume_execute_mode('}; ', [:each_block]) })
+  })
+
 end
