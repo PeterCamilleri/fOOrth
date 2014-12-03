@@ -83,6 +83,7 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
 
   def test_the_right_group
     foorth_equal('2   [ 9 3 5 ] .right  ', [[3,5]])
+    foorth_equal('2   [ 9 3 5 ] .-right ', [[9]])
   end
 
   def test_the_mid_group
