@@ -8,6 +8,11 @@ module XfOOrth
   Class.create_shared_method('.new', TosSpec, [],
     &lambda {|vm| vm.push(self.create_foorth_instance(vm)); })
 
+  #Get the class as a string.
+  # [cls] .to_s ["cls as a string"]
+  Class.create_shared_method('.to_s', TosSpec, [],
+    &lambda {|vm| vm.push(self.foorth_name)})
+
   #The .parent_class method. Retrieves the parent class of a class.
   # [a_class] .parent_class [parent_class or nil]
   Class.create_shared_method('.parent_class', TosSpec, [],

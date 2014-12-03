@@ -35,4 +35,11 @@ class ObjectLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('"Foobar"    .name', ['String instance'])
   end
 
+  def test_getting_an_object_as_a_string
+    foorth_equal("4              .to_s", ['4'])
+    foorth_equal("Object         .to_s", ['Object'])
+    foorth_equal("VirtualMachine .to_s", ['VirtualMachine'])
+
+  end
+
 end
