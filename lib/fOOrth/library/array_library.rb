@@ -57,6 +57,10 @@ module XfOOrth
   Array.create_shared_method('+', NosSpec, [],
     &lambda {|vm| vm.poke(self + vm.peek.to_foorth_p); })
 
+  # [w [3 1 2]] .left [[3 1]]; assumes w = 2
+  Array.create_shared_method('.left', TosSpec, [],
+    &lambda {|vm| vm.poke(self.first(vm.peek.to_i)); })
+
 end
 
 #* Runtime library support for fOOrth constructs.

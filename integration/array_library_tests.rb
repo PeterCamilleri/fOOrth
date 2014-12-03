@@ -86,6 +86,9 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
 
     foorth_equal('[ 9 3 5 ] 0       + ', [[9,3,5,0]])
     foorth_equal('[ 9 3 5 ] [ 4 1 ] + ', [[9,3,5,4,1]])
+
+    foorth_equal('2 [ 9 3 5 ] .left   ', [[9,3]])
+
   end
 
 
