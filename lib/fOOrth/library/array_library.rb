@@ -45,6 +45,10 @@ module XfOOrth
   Array.create_shared_method('.sort', TosSpec, [],
     &lambda {|vm| vm.push(self.sort); })
 
+  # [[3 1 2]] .length [3]]
+  Array.create_shared_method('.length', TosSpec, [],
+    &lambda {|vm| vm.push(self.length); })
+
 end
 
 #* Runtime library support for fOOrth constructs.
