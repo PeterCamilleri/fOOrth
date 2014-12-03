@@ -45,6 +45,10 @@ module XfOOrth
   Array.create_shared_method('.sort', TosSpec, [],
     &lambda {|vm| vm.push(self.sort); })
 
+  # [[ 1 2 3]] .shuffle [[x y z]]
+  Array.create_shared_method('.shuffle', TosSpec, [],
+    &lambda {|vm| vm.push(self.shuffle); })
+
   # [[3 1 2]] .length [3]]
   Array.create_shared_method('.length', TosSpec, [],
     &lambda {|vm| vm.push(self.length); })
