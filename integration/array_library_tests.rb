@@ -76,6 +76,23 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('$tte @ ',                                   [1])
   end
 
+  def test_the_left_group
+    foorth_equal('2   [ 9 3 5 ] .left   ', [[9,3]])
+    foorth_equal('2   [ 9 3 5 ] .-left  ', [[5]])
+  end
+
+  def test_the_right_group
+    foorth_equal('2   [ 9 3 5 ] .right  ', [[3,5]])
+  end
+
+  def test_the_mid_group
+    foorth_equal('1 2 [ 9 3 5 7 ] .mid  ', [[3,5]])
+  end
+
+  def test_the_midlr_group
+    foorth_equal('1 1 [ 9 3 5 7 ] .midlr', [[3,5]])
+  end
+
   def test_other_array_ops
     foorth_equal('[ 0 1 2 ] .reverse   ', [[2,1,0]])
     foorth_equal('[ 9 3 5 ] .sort      ', [[3,5,9]])
@@ -86,13 +103,6 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
 
     foorth_equal('[ 9 3 5 ] 0       + ', [[9,3,5,0]])
     foorth_equal('[ 9 3 5 ] [ 4 1 ] + ', [[9,3,5,4,1]])
-
-    foorth_equal('2   [ 9 3 5 ] .left   ', [[9,3]])
-    foorth_equal('2   [ 9 3 5 ] .right  ', [[3,5]])
-    foorth_equal('1 2 [ 9 3 5 7 ] .mid  ', [[3,5]])
-    foorth_equal('1 1 [ 9 3 5 7 ] .midlr', [[3,5]])
-
   end
-
 
 end
