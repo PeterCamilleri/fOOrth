@@ -101,7 +101,7 @@ module XfOOrth
     vm.push(self[left...(0-right)])
   })
 
-  # ['abcdefgh' l r] .-midlr ['ah']     // Assumes l = 1, r = 1
+  # [l r 'abcdefgh'] .-midlr ['ah']     // Assumes l = 1, r = 1
   String.create_shared_method('.-midlr', TosSpec, [], &lambda {|vm|
     right = vm.pop.to_i
     left  = vm.pop.to_i
