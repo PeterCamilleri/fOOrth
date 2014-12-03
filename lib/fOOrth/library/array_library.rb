@@ -72,7 +72,7 @@ module XfOOrth
     vm.push(self[posn...(posn+width)])
   })
 
-  # [l r [1 2 3 4 5 6 7 8]] .mid [[2 3 4 5 6 7]] // Assumes n = 1, w = 1
+  # [l r [1 2 3 4 5 6 7 8]] .midlr [[2 3 4 5 6 7]] // Assumes n = 1, w = 1
   Array.create_shared_method('.midlr', TosSpec, [], &lambda {|vm|
     right = vm.pop.to_i
     left  = vm.pop.to_i
