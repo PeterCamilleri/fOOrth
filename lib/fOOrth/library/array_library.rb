@@ -65,6 +65,20 @@ module XfOOrth
   Array.create_shared_method('.right', TosSpec, [],
     &lambda {|vm| vm.poke(self.last(vm.peek.to_i)); })
 
+  # [n w [1 2 3 4 5 6 7 8]] .mid [[3 4 5 6]] // Assumes n = 2, w = 4
+  Array.create_shared_method('.mid', TosSpec, [], &lambda {|vm|
+    width = vm.pop.to_i
+    posn = vm.pop.to_i
+    vm.push(self[posn...(posn+width)])
+  })
+
+  # [l r [1 2 3 4 5 6 7 8]] .mid [[2 3 4 5 6 7]] // Assumes n = 1, w = 1
+  Array.create_shared_method('.midlr', TosSpec, [], &lambda {|vm|
+    right = vm.pop.to_i
+    left  = vm.pop.to_i
+    vm.push(self[left...(0-right)])
+  })
+
 end
 
 #* Runtime library support for fOOrth constructs.
