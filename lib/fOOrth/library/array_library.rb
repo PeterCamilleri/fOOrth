@@ -41,6 +41,10 @@ module XfOOrth
   Array.create_shared_method('.reverse', TosSpec, [],
     &lambda {|vm| vm.push(self.reverse); })
 
+  # [[3 1 2]] .sort [[1 2 3]]
+  Array.create_shared_method('.sort', TosSpec, [],
+    &lambda {|vm| vm.push(self.sort); })
+
 end
 
 #* Runtime library support for fOOrth constructs.
