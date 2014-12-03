@@ -76,4 +76,9 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('$tte @ ',                                   [1])
   end
 
+  def test_other_array_ops
+    foorth_equal('[ 0 1 2 ] .reverse        ', [[2,1,0]])
+  end
+
+
 end
