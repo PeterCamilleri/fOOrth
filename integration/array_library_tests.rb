@@ -80,6 +80,12 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('[ 0 1 2 ] .reverse   ', [[2,1,0]])
     foorth_equal('[ 9 3 5 ] .sort      ', [[3,5,9]])
     foorth_equal('[ 9 3 5 ] .length    ', [3])
+
+    foorth_equal('[ 9 3 5 ] 0       << ', [[9,3,5,0]])
+    foorth_equal('[ 9 3 5 ] [ 4 1 ] << ', [[9,3,5,[4,1]]])
+
+    foorth_equal('[ 9 3 5 ] 0       + ', [[9,3,5,0]])
+    foorth_equal('[ 9 3 5 ] [ 4 1 ] + ', [[9,3,5,4,1]])
   end
 
 
