@@ -17,6 +17,6 @@ module XfOOrth
 
   # [proc] .call [unspecified]
   Proc.create_shared_method('.call', TosSpec, [],
-    &lambda {|vm| vm.poke(self.call(vm)); })
+    &lambda {|vm| self.call(vm); })
 
 end
