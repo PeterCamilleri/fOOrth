@@ -10,24 +10,17 @@ module XfOOrth
     attr_accessor :debug
 
     #The descriptive name of this virtual machine.
-    attr_reader :name
+    attr_accessor :name
 
     #Create an new instance of a fOOrth virtual machine
     #<br>Parameters:
     #* name - An optional string that describes this virtual machine instance.
-    #* source - The exclusive dictionary used as a source template for the new
-    #  new virtual machine instance. By default an empty dictionary is used.
     #<br>Note
     #* A XfOOrthError will be raised if an attempt is made to create more than
     #  one virtual machine on a thread.
-    def initialize(name='-', source=nil)
+    def initialize(name='-')
       @name  = name
       @debug = false
-
-      if (source)
-        @_foorth_exclusive = source
-        cache_all_exclusives
-      end
 
       #Bring the major sub-systems to a known state.
       self.interpreter_reset
