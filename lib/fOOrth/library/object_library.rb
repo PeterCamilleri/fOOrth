@@ -26,7 +26,7 @@ module XfOOrth
   #Get the length of the object as a string.
   # [obj] .strlen [n]; the length of the object's to_s string
   Object.create_shared_method('.strlen', TosSpec, [],
-    &lambda {|vm| vm.push(self.to_foorth_s.length)})
+    &lambda {|vm| self.to_foorth_s(vm); vm.poke(vm.peek.length)})
 
   # Some boolean operation words.
   # [b,a] && [b&a]

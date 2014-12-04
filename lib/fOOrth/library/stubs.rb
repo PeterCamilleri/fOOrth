@@ -27,4 +27,5 @@ module XfOOrth
   SymbolMap.add_entry('do_foorth_each', :do_foorth_each)
   Object.create_shared_method('do_foorth_each', TosSpec, [:stub])
 
+  SymbolMap.add_entry('.to_s', :to_foorth_s)
 end

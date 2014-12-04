@@ -40,6 +40,7 @@ class ObjectLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("Object         .to_s", ['Object'])
     foorth_equal("VirtualMachine .to_s", ['VirtualMachine'])
 
+    foorth_equal("4              .strlen", [1])
   end
 
 end
