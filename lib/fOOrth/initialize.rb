@@ -10,7 +10,7 @@ module XfOOrth
     attr_accessor :debug
 
     #The descriptive name of this virtual machine.
-    attr_accessor :name
+    attr_reader :name
 
     #Create an new instance of a fOOrth virtual machine
     #<br>Parameters:
@@ -23,9 +23,34 @@ module XfOOrth
       @debug = false
 
       #Bring the major sub-systems to a known state.
-      self.interpreter_reset
-      self.compiler_reset
+      interpreter_reset
+      compiler_reset
 
+      install_thread
+    end
+
+    #Create a copy of a donor vm instance.
+    #<br>Parameters:
+    #* name - An optional string that describes this virtual machine instance.
+    def foorth_copy(name='-')
+      copy = self.clone
+      copy.install_vm(name)
+      copy
+    end
+
+    private
+
+    #Get the vm ready for operation
+    #<br>Parameters:
+    #* name - A string that describes this virtual machine instance.
+    def install_vm(name)
+      @data_stack = @data_stack.clone
+
+      install_thread
+    end
+
+    #Connect the vm to a thread variable.
+    def install_thread
       #Check for duplicates.
       current = Thread.current
       error "Only one virtual machine allowed per thread" if current[:vm]
@@ -33,7 +58,6 @@ module XfOOrth
       #This virtual machine is associated with this thread.
       current[:vm] = self
     end
-
   end
 
 end
