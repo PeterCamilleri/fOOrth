@@ -20,7 +20,6 @@ module XfOOrth
 
   #The .is_class? method. Is the object a class object?
   # [obj] .is_class? [boolean]
-  SymbolMap.add_entry('.is_class?', :foorth_is_class?)
   Object.create_shared_method('.is_class?', TosSpec, [],
     &lambda {|vm| vm.push(false)})
 
