@@ -38,15 +38,12 @@ module XfOOrth
       copy
     end
 
-    private
-
     #Get the vm ready for operation
     #<br>Parameters:
     #* name - A string that describes this virtual machine instance.
     def install_vm(name)
       @data_stack = @data_stack.clone
-
-      install_thread
+      @name = name
     end
 
     #Connect the vm to a thread variable.
