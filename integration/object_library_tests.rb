@@ -43,4 +43,12 @@ class ObjectLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("4              .strlen", [1])
   end
 
+  def test_max_and_min
+    foorth_equal(" 4   2       max", [4])
+    foorth_equal(" 4   2       min", [2])
+
+    foorth_equal('"4" "2"      max', ["4"])
+    foorth_equal('"4" "2"      min', ["2"])
+  end
+
 end

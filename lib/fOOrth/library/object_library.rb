@@ -112,4 +112,12 @@ module XfOOrth
   Object.create_shared_method('0<=>', TosSpec, [],
     &lambda {|vm| vm.push(self <=> 0); })
 
+  # [b,a] max [max(b,a)]
+  Object.create_shared_method('max', TosSpec, [],
+    &lambda {|vm| t = vm.peek; vm.poke(self > t ? self : t); })
+
+  # [b,a] min [min(b,a)]
+  Object.create_shared_method('min', TosSpec, [],
+    &lambda {|vm| t = vm.peek; vm.poke(self < t ? self : t); })
+
 end

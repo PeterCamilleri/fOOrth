@@ -43,7 +43,7 @@ module XfOOrth
     #* name - A string that describes this virtual machine instance.
     def install_vm(name)
       @data_stack = @data_stack.clone
-      @name = name
+      @name       = name
     end
 
     #Connect the vm to a thread variable.
