@@ -108,4 +108,10 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('[ 9 3 5 ] [ 4 1 ] + ', [[9,3,5,4,1]])
   end
 
+  def test_formatting_and_related
+    foorth_equal('[ 0 1 "hello" ] .strmax', [5])
+
+
+  end
+
 end

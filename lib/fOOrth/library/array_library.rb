@@ -105,6 +105,19 @@ module XfOOrth
     vm.push(self[0...left] + self[((0-right))..-1])
   })
 
+  # [l 2 3 ... n] .strmax [widest]
+  Array.create_shared_method('.strmax', TosSpec, [], &lambda {|vm|
+    result = 0
+
+    self.each {|item|
+      item.foorth_strlen(vm)
+      temp = vm.pop
+      result = result > temp ? result : temp
+    }
+
+    vm.push(result)
+  })
+
 end
 
 #* Runtime library support for fOOrth constructs.
