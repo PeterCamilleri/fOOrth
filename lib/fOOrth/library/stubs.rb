@@ -12,6 +12,13 @@ module XfOOrth
   Object.create_shared_method('mod', NosSpec, [:stub])
   Object.create_shared_method('neg', TosSpec, [:stub])
 
+  Object.create_shared_method('1+',  TosSpec, [:stub])
+  Object.create_shared_method('1-',  TosSpec, [:stub])
+  Object.create_shared_method('2+',  TosSpec, [:stub])
+  Object.create_shared_method('2-',  TosSpec, [:stub])
+  Object.create_shared_method('2*',  TosSpec, [:stub])
+  Object.create_shared_method('2/',  TosSpec, [:stub])
+
   # Some bitwise operation stubs. See numeric_library.rb
   Object.create_shared_method('and', TosSpec, [:stub])
   Object.create_shared_method('or',  TosSpec, [:stub])

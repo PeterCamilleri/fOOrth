@@ -58,6 +58,30 @@ module XfOOrth
   Numeric.create_shared_method('.abs', TosSpec, [],
     &lambda {|vm| vm.push(self.abs); })
 
+  # [a] 1+ [|a|]
+  Numeric.create_shared_method('1+', TosSpec, [],
+    &lambda {|vm| vm.push(self+1); })
+
+  # [a] 1- [|a|]
+  Numeric.create_shared_method('1-', TosSpec, [],
+    &lambda {|vm| vm.push(self-1); })
+
+  # [a] 2+ [|a|]
+  Numeric.create_shared_method('2+', TosSpec, [],
+    &lambda {|vm| vm.push(self+2); })
+
+  # [a] 2- [|a|]
+  Numeric.create_shared_method('2-', TosSpec, [],
+    &lambda {|vm| vm.push(self-2); })
+
+  # [a] 2* [|a|]
+  Numeric.create_shared_method('2*', TosSpec, [],
+    &lambda {|vm| vm.push(self*2); })
+
+  # [a] 2/ [|a|]
+  Numeric.create_shared_method('2/', TosSpec, [],
+    &lambda {|vm| vm.push(self/2); })
+
   # [a] .ceil [a']; where a' is the closest integer >= a
   Numeric.create_shared_method('.ceil', TosSpec, [],
     &lambda {|vm| vm.push(self.ceil); })

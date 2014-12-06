@@ -28,4 +28,11 @@ module XfOOrth
   Integer.create_shared_method('.odd?', TosSpec, [],
     &lambda {|vm| vm.push(self.odd?)})
 
+  # [a] 2* [|a|]
+  Integer.create_shared_method('2*', TosSpec, [],
+    &lambda {|vm| vm.push(self << 1); })
+
+  # [a] 2/ [|a|]
+  Integer.create_shared_method('2/', TosSpec, [],
+    &lambda {|vm| vm.push(self >> 1); })
 end

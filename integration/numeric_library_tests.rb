@@ -178,4 +178,25 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     #foorth_equal("2.0 .sqrt 45 .d2r .p2c", [1.0, 1.0])
   end
 
+  def test_short_cut_methods
+    foorth_equal('10   1+' , [11])
+    foorth_equal('10   1-' , [9])
+
+    foorth_equal('10   2+' , [12])
+    foorth_equal('10   2-' , [8])
+
+    foorth_equal('10   2*' , [20])
+    foorth_equal('10   2/' , [5])
+
+    foorth_equal('10.0 1+' , [11.0])
+    foorth_equal('10.0 1-' , [9.0])
+
+    foorth_equal('10.0 2+' , [12.0])
+    foorth_equal('10.0 2-' , [8.0])
+
+    foorth_equal('10.0 2*' , [20.0])
+    foorth_equal('10.0 2/' , [5.0])
+  end
+
+
 end
