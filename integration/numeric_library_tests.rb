@@ -116,10 +116,24 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
 
     foorth_equal("45 .d2r dup .sin dup * swap .cos dup * + ",  [1.0])
 
+    foorth_equal("0   .tan       ", [0.0])
+
     foorth_equal("1   .asin  .r2d", [90.0])
     foorth_equal("1   .acos  .r2d", [ 0.0])
     foorth_equal("1   .atan  .r2d", [45.0])
     foorth_equal("1 1 .atan2 .r2d", [45.0])
+
+    foorth_equal("0   .sinh      ", [0.0])
+    foorth_equal("0   .cosh      ", [1.0])
+    foorth_equal("0   .tanh      ", [0.0])
+
+    foorth_equal("0   .asinh     ", [0.0])
+    foorth_equal("1   .acosh     ", [0.0])
+    foorth_equal("0   .atanh     ", [0.0])
+
+  end
+
+  def test_some_exagerated_trig
 
   end
 

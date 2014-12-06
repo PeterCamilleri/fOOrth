@@ -171,6 +171,30 @@ module XfOOrth
   Numeric.create_shared_method('.atan2', TosSpec, [],
     &lambda {|vm| vm.poke(Math::atan2(vm.peek, self)); })
 
+  # [radians] .cosh [cosh(radians)]
+  Numeric.create_shared_method('.cosh', TosSpec, [],
+    &lambda {|vm| vm.push(Math::cosh(self)); })
+
+  # [radians] .sinh [sinh(radians)]
+  Numeric.create_shared_method('.sinh', TosSpec, [],
+    &lambda {|vm| vm.push(Math::sinh(self)); })
+
+  # [radians] .tanh [tanh(radians)]
+  Numeric.create_shared_method('.tanh', TosSpec, [],
+    &lambda {|vm| vm.push(Math::tanh(self)); })
+
+  # [cosh(radians)] .acosh [radians]
+  Numeric.create_shared_method('.acosh', TosSpec, [],
+    &lambda {|vm| vm.push(Math::acosh(self)); })
+
+  # [sinh(radians)] .asinh [radians]
+  Numeric.create_shared_method('.asinh', TosSpec, [],
+    &lambda {|vm| vm.push(Math::asinh(self)); })
+
+  # [y/x] .atanh [radians]
+  Numeric.create_shared_method('.atanh', TosSpec, [],
+    &lambda {|vm| vm.push(Math::atanh(self)); })
+
   # [x] .e** [e**x]
   Numeric.create_shared_method('.e**', TosSpec, [],
     &lambda {|vm| vm.push(Math::exp(self)); })
