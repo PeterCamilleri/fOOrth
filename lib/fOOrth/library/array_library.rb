@@ -83,6 +83,13 @@ module XfOOrth
   Array.create_shared_method('.-right', TosSpec, [],
     &lambda {|vm| vm.poke(self[0...(0-(vm.peek.to_i))]); })
 
+  # [w [0 8 9] [1 2 3 4]] .+right [[1 2 0 8 9]] // Assumes w = 2
+  Array.create_shared_method('.+right', TosSpec, [], &lambda {|vm|
+    ins = vm.pop
+    width = vm.pop.to_i
+    vm.push(self[0...(0-width)] + ins)
+  })
+
   # [n w [1 2 3 4 5 6 7 8]] .mid [[3 4 5 6]] // Assumes n = 2, w = 4
   Array.create_shared_method('.mid', TosSpec, [], &lambda {|vm|
     width = vm.pop.to_i
