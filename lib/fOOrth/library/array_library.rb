@@ -104,6 +104,14 @@ module XfOOrth
     vm.push(self[0...posn] + self[(posn+width)..-1])
   })
 
+  # [n w [0 8 9] [1 2 3 4 5 6 7 8]] .+mid [[1 2 0 8 9 7 8]] // Assumes n = 2, w = 4
+  Array.create_shared_method('.+mid', TosSpec, [], &lambda {|vm|
+    ins = vm.pop
+    width = vm.pop.to_i
+    posn = vm.pop.to_i
+    vm.push(self[0...posn] + ins + self[(posn+width)..-1])
+  })
+
   # [l r [1 2 3 4 5 6 7 8]] .midlr [[2 3 4 5 6 7]] // Assumes n = 1, w = 1
   Array.create_shared_method('.midlr', TosSpec, [], &lambda {|vm|
     right = vm.pop.to_i

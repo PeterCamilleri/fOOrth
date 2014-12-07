@@ -89,8 +89,9 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_the_mid_group
-    foorth_equal('1 2 [ 9 3 5 7 ] .mid  ', [[3,5]])
-    foorth_equal('1 2 [ 9 3 5 7 ] .-mid ', [[9,7]])
+    foorth_equal('1 2           [ 9 3 5 7 ] .mid  ', [[3,5]])
+    foorth_equal('1 2           [ 9 3 5 7 ] .-mid ', [[9,7]])
+    foorth_equal('1 2 [ 0 8 9 ] [ 9 3 5 7 ] .+mid ', [[9,0,8,9,7]])
   end
 
   def test_the_midlr_group
