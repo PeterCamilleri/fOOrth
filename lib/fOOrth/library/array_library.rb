@@ -126,6 +126,14 @@ module XfOOrth
     vm.push(self[0...left] + self[((0-right))..-1])
   })
 
+  # [l r [0 8 9] [1 2 3 4 5 6 7 8]] .+midlr [[1 0 8 9 8]] // Assumes l = 1, r = 1
+  Array.create_shared_method('.+midlr', TosSpec, [], &lambda {|vm|
+    ins = vm.pop
+    right = vm.pop.to_i
+    left  = vm.pop.to_i
+    vm.push(self[0...left] + ins + self[((0-right))..-1])
+  })
+
   # [l 2 3 ... n] .strmax [widest]
   Array.create_shared_method('.strmax', TosSpec, [], &lambda {|vm|
     result = 0
