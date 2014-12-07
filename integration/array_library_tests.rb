@@ -77,8 +77,9 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_the_left_group
-    foorth_equal('2   [ 9 3 5 ] .left   ', [[9,3]])
-    foorth_equal('2   [ 9 3 5 ] .-left  ', [[5]])
+    foorth_equal('2           [ 9 3 5 ] .left   ', [[9,3]])
+    foorth_equal('2           [ 9 3 5 ] .-left  ', [[5]])
+    foorth_equal('2 [ 0 8 9 ] [ 9 3 5 ] .+left  ', [[0,8,9,5]])
   end
 
   def test_the_right_group

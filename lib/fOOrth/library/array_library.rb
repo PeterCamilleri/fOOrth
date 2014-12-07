@@ -69,6 +69,12 @@ module XfOOrth
   Array.create_shared_method('.-left', TosSpec, [],
     &lambda {|vm| vm.poke(self[(vm.peek.to_i)..-1]); })
 
+  # [w [0 8 9] [1 2 3 4]] .+left [[0 8 9 3 4]] // Assumes w = 2
+  Array.create_shared_method('.+left', TosSpec, [], &lambda {|vm|
+    ins = vm.pop
+    vm.poke(ins + self[(vm.peek.to_i)..-1])
+  })
+
   # [w [3 1 2]] .right [[1 2]]; assumes w = 2
   Array.create_shared_method('.right', TosSpec, [],
     &lambda {|vm| vm.poke(self.last(vm.peek.to_i)); })
