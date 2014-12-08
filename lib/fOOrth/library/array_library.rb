@@ -147,6 +147,23 @@ module XfOOrth
     vm.push(result)
   })
 
+  # [l 2 3 ... n] .pp []; pretty print the array!
+  Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
+    self.foorth_strmax(vm)
+    width = vm.pop + 1
+    cols  = 79 / width
+    rows  = (self.length + cols - 1) / cols
+
+    (0...rows).each do |row|
+      (0...cols).each do |col|
+        self[col*rows + row].to_foorth_s(vm)
+        print vm.pop.rjust(width)
+      end
+
+      puts
+    end
+  })
+
 end
 
 #* Runtime library support for fOOrth constructs.
