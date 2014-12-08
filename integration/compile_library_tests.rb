@@ -72,4 +72,20 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('$b @ .foobar' , ['bar'])
   end
 
+  def test_the_super_method
+    foorth_equal('class: X2 ' , [])
+    foorth_equal('X2 .new global: $c' , [])
+    foorth_equal('X2 .: .foo 1 ; ' , [])
+    foorth_equal('$c @ .foo' , [1])
+
+    foorth_equal('X2 .subclass: X3 ' , [])
+    foorth_equal('X3 .new global: $d' , [])
+    foorth_equal('X3 .: .foo if super else 2 then ; ' , [])
+
+    foorth_equal('true  $d @ .foo' , [1])
+    foorth_equal('false $d @ .foo' , [2])
+
+    foorth_equal('$c @ .foo' , [1])
+  end
+
 end

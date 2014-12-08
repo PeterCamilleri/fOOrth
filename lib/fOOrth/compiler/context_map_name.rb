@@ -44,7 +44,7 @@ module XfOOrth
         spec_error
 
       else
-        @data[@symbol]           ||
+        self[@symbol]            ||
         do_object_class_map      ||
         do_vm_target_map         ||
         do_global_target_map     ||

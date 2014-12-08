@@ -69,6 +69,10 @@ module XfOOrth
     #Support for instance variables.
     context.create_local_method('inst:', [:immediate], &Inst_Var_Action)
 
+    #Support for super methods.
+    context.create_local_method('super', [:immediate],
+      &lambda {|vm| vm << 'super(vm); ' })
+
     #The standard end-compile adapter word: ';' semi-colon.
     context.create_local_method(';', [:immediate],
       &lambda {|vm| vm.end_compile_mode([ctrl], []) })
