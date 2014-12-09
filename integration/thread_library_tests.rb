@@ -27,4 +27,9 @@ class ThreadLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('Thread .current .vm .name', ['VirtualMachine instance <Main>'])
   end
 
+  def test_the_main_thread
+    foorth_equal('Thread .main        .name', ['Thread instance'])
+    foorth_equal('Thread .main    .vm .name', ['VirtualMachine instance <Main>'])
+  end
+
 end

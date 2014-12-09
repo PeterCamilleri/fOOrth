@@ -12,6 +12,11 @@ module XfOOrth
     vm.push(Thread.current)
   })
 
+  # [Thread] .main [the main thread]
+  Thread.create_exclusive_method('.main', TosSpec, [], &lambda {|vm|
+    vm.push(Thread.main)
+  })
+
   # [Thread] .list [[threads]]
   Thread.create_exclusive_method('.list', TosSpec, [], &lambda {|vm|
     vm.push(Thread.list)
