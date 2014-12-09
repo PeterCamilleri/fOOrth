@@ -33,4 +33,8 @@ module XfOOrth
   #Other methods
   VirtualMachine.create_shared_method('pause', MacroSpec,
     [:macro, 'Thread.pass; '])
+
+  Numeric.create_shared_method('.sleep', TosSpec, [], &lambda {|vm|
+    sleep(self)
+  })
 end

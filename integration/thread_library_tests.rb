@@ -32,4 +32,11 @@ class ThreadLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('Thread .main    .vm .name', ['VirtualMachine instance <Main>'])
   end
 
+  def test_sleeping
+    start = Time.now
+    foorth_equal('0.1 .sleep', [])
+    finish = Time.now
+    assert(finish-start > 0.05)
+    assert(finish-start < 0.15)
+  end
 end
