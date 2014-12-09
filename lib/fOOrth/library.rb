@@ -15,6 +15,7 @@ require_relative 'library/complex_library'
 require_relative 'library/string_library'
 require_relative 'library/array_library'
 require_relative 'library/lambda_library'
+require_relative 'library/thread_library'
 require_relative 'library/other_value_types_library'
 require_relative 'library/command_library'
 
