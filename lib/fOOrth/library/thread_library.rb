@@ -24,4 +24,8 @@ module XfOOrth
     vm.push(self[:vm])
   })
 
+
+  #Other methods
+  VirtualMachine.create_shared_method('pause', MacroSpec,
+    [:macro, 'Thread.pass; '])
 end
