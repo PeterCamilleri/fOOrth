@@ -8,6 +8,10 @@ module XfOOrth
   VirtualMachine.create_shared_method('vm', MacroSpec,
     [:macro, "vm.push(vm); "])
 
+  # [vm] .vm_name ['name']
+  VirtualMachine.create_shared_method('.vm_name', TosSpec, [],
+    &lambda {|vm| vm.push(self.name); })
+
   # Some stack manipulation words.
   # [a] drop []
   VirtualMachine.create_shared_method('drop', MacroSpec,

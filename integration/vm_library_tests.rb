@@ -27,7 +27,11 @@ class VMLibraryTester < MiniTest::Unit::TestCase
 
     vm = Thread.current[:vm]
     foorth_equal("vm", [vm])
+
   end
 
+  def test_for_the_vm_name
+    foorth_equal("vm .vm_name", ['Main'])
+  end
 
 end
