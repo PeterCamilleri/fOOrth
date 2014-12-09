@@ -5,6 +5,15 @@ module XfOOrth
 
   #A module used to map strings to unique symbols
   module SymbolMap
+
+    class << self
+      #Access to the mapping of names to symbols.
+      attr_reader :fwd_map
+
+      #Access to the mapping of symbols to names.
+      attr_reader :rev_map
+    end
+
     @sync = Mutex.new
     @incrementer = '_000'
     @fwd_map = Hash.new
