@@ -121,3 +121,18 @@ module XfOOrth
     &lambda {|vm| t = vm.peek; vm.poke(self < t ? self : t); })
 
 end
+
+#* Runtime library support stubs.
+class Object
+
+  # Runtime stub for the .new{ } construct.
+  def do_foorth_new_block(vm, &block)
+    error "A #{self.foorth_name} does not support .new{ ... }."
+  end
+
+  # Runtime stub for the .each{ } construct.
+  def do_foorth_each(&block)
+    error "A #{self.foorth_name} does not support .each{ ... }."
+  end
+
+end
