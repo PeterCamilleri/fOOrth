@@ -52,6 +52,23 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('tt06                           ', [[3,4,5]])
   end
 
+  def test_some_basic_operators
+    foorth_equal('[ 3 6 9 ] [ 3 6 9 ]  = ', [true])
+    foorth_equal('[ 3 6 9 ] [ 3 6 8 ]  = ', [false])
+
+    foorth_equal('[ 3 6 9 ] [ 3 6 9 ]  <>', [false])
+    foorth_equal('[ 3 6 9 ] [ 3 6 8 ]  <>', [true])
+
+    foorth_equal('[ 3 6 9 ] [ 3 6 9 ] identical?', [false])
+    foorth_equal('[ 3 6 9 ] [ 3 6 9 ] distinct?', [true])
+
+    foorth_equal('[ 3 6 9 ] dup       identical?', [true])
+    foorth_equal('[ 3 6 9 ] dup       distinct?', [false])
+
+    foorth_equal('[ 3 6 9 ] clone     identical?', [false])
+    foorth_equal('[ 3 6 9 ] clone     distinct?', [true])
+  end
+
   def test_the_each
     foorth_equal('4 Array .new{ x 1 + dup * } global: $tte ', [])
     foorth_equal('$tte',                                      [[1,4,9,16]])
