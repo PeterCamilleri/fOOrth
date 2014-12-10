@@ -98,4 +98,18 @@ module XfOOrth
       &lambda {|vm| vm.resume_execute_mode('vm.pop}); ', [:map_block]) })
   })
 
+  #The object oriented .select{  } construct.
+  VirtualMachine.create_shared_method('.select{', VmSpec, [:immediate], &lambda { |vm|
+    suspend_execute_mode('vm.push(vm.pop.do_foorth_select{|vloop, xloop| ', :select_block)
+
+    context.create_local_method('v', [:immediate],
+      &lambda {|vm| vm << "vm.push(vloop); "} )
+
+    context.create_local_method('x', [:immediate],
+      &lambda {|vm| vm << "vm.push(xloop); "} )
+
+    context.create_local_method('}', [:immediate],
+      &lambda {|vm| vm.resume_execute_mode('vm.pop}); ', [:select_block]) })
+  })
+
 end

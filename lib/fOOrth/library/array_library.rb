@@ -190,4 +190,16 @@ class Array
       value
     end
   end
+
+  # Runtime support for the .select{ } construct.
+  def do_foorth_select(&block)
+    index = 0
+    self.select do |value|
+      value = block.call(value, index)
+      index += 1
+      value
+    end
+  end
+
+
 end

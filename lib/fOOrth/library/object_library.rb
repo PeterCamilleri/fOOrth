@@ -140,4 +140,9 @@ class Object
     error "A #{self.foorth_name} does not support .map{ ... }."
   end
 
+  # Runtime stub for the .select{ } construct.
+  def do_foorth_select(&block)
+    error "A #{self.foorth_name} does not support .select{ ... }."
+  end
+
 end
