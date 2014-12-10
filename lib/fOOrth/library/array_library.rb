@@ -171,10 +171,9 @@ class Array
 
   # Runtime support for the .new{ } construct.
   def self.do_foorth_new_block(vm, &block)
-    Array.new(vm.pop()) { |xloop|
+    Array.new(vm.pop()) do |xloop|
       block.call(vm, xloop)
-    }
-
+    end
   end
 
   # Runtime support for the .each{ } construct.
@@ -182,4 +181,13 @@ class Array
     self.each_with_index(&block)
   end
 
+  # Runtime support for the .map{ } construct.
+  def do_foorth_map(&block)
+    index = 0
+    self.map do |value|
+      value = block.call(value, index)
+      index += 1
+      value
+    end
+  end
 end

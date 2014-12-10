@@ -135,4 +135,9 @@ class Object
     error "A #{self.foorth_name} does not support .each{ ... }."
   end
 
+  # Runtime stub for the .map{ } construct.
+  def do_foorth_map(&block)
+    error "A #{self.foorth_name} does not support .map{ ... }."
+  end
+
 end

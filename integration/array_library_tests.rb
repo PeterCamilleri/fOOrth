@@ -80,6 +80,10 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('tte',                                       [1,4,9,16])
   end
 
+  def test_the_map
+    foorth_equal('[ 2 3 4 ] .map{ v 1+ }', [[3,4,5]])
+  end
+
   def test_simple_array_indexing
     foorth_equal('4 Array .new{ x 1 + dup * } global: $tte ', [])
     foorth_equal('$tte',                                      [[1,4,9,16]])
