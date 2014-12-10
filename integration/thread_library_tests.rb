@@ -34,9 +34,9 @@ class ThreadLibraryTester < MiniTest::Unit::TestCase
 
   def test_sleeping
     start = Time.now
-    foorth_equal('0.1 .sleep', [])
+    foorth_equal('0.05 .sleep', [])
     finish = Time.now
-    assert(finish-start > 0.05)
-    assert(finish-start < 0.15)
+    assert(finish-start > 0.04)
+    assert(finish-start < 0.06)
   end
 end
