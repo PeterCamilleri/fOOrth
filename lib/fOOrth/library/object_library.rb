@@ -114,11 +114,11 @@ module XfOOrth
 
   # [b,a] max [max(b,a)]
   Object.create_shared_method('max', TosSpec, [],
-    &lambda {|vm| t = vm.peek; vm.poke(self > t ? self : t); })
+    &lambda {|vm| other = vm.peek; vm.poke(self > other ? self : other); })
 
   # [b,a] min [min(b,a)]
   Object.create_shared_method('min', TosSpec, [],
-    &lambda {|vm| t = vm.peek; vm.poke(self < t ? self : t); })
+    &lambda {|vm| other = vm.peek; vm.poke(self < other ? self : other); })
 
 end
 
@@ -126,7 +126,7 @@ end
 class Object
 
   # Runtime stub for the .new{ } construct.
-  def do_foorth_new_block(vm, &block)
+  def do_foorth_new_block(_vm, &block)
     error "A #{self.foorth_name} does not support .new{ ... }."
   end
 

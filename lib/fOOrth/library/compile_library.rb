@@ -60,6 +60,8 @@ module XfOOrth
   #<br>Parameters:
   #* vm - The current virtual machine instance.
   #* ctrl - A list of valid start controls.
+  #<br>Endemic Code Smells
+  #* :reek:TooManyStatements
   def self.add_common_compiler_locals(vm, ctrl)
     context = vm.context
 
