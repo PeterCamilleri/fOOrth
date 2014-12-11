@@ -26,6 +26,11 @@ module MaxNumeric
       true
     end
 
+    #The min max < operator
+    def mnmx_lt(_other)
+      false
+    end
+
 
   end
 
