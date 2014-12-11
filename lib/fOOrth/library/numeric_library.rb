@@ -88,39 +88,51 @@ module XfOOrth
   # Some stack arithmetic words.
   # [b,a] + [b+a]
   Numeric.create_shared_method('+', NosSpec, [],
-    &lambda {|vm| vm.poke(self + vm.peek); })
+    &lambda {|vm| vm.poke(self + vm.peek.to_foorth_n); })
 
   # [b,a] - [b-a]
   Numeric.create_shared_method('-', NosSpec, [],
-    &lambda {|vm| vm.poke(self - vm.peek); })
+    &lambda {|vm| vm.poke(self - vm.peek.to_foorth_n); })
 
   # [b,a] * [b*a]
   Numeric.create_shared_method('*', NosSpec, [],
-    &lambda {|vm| vm.poke(self * vm.peek); })
+    &lambda {|vm| vm.poke(self * vm.peek.to_foorth_n); })
 
   # [b,a] ** [b**a]
   Numeric.create_shared_method('**', NosSpec, [],
-    &lambda {|vm| vm.poke(self ** vm.peek); })
+    &lambda {|vm| vm.poke(self ** vm.peek.to_foorth_n); })
 
   # [b,a] / [b/a]
   Numeric.create_shared_method('/', NosSpec, [],
-    &lambda {|vm| vm.poke(self / vm.peek); })
+    &lambda {|vm| vm.poke(self / vm.peek.to_foorth_n); })
 
   # [b,a] mod [b%a]
   Numeric.create_shared_method('mod', NosSpec, [],
-    &lambda {|vm| vm.poke(self % vm.peek); })
+    &lambda {|vm| vm.poke(self % vm.peek.to_foorth_n); })
 
   # [a] neg [-a]
   Numeric.create_shared_method('neg', TosSpec, [],
     &lambda {|vm| vm.push(-self); })
+  MaxNumeric.create_exclusive_method('neg', TosSpec, [],
+    &lambda {|vm| vm.push(MinNumeric); })
+  MinNumeric.create_exclusive_method('neg', TosSpec, [],
+    &lambda {|vm| vm.push(MaxNumeric); })
 
   # [a] .1/x [-a]
   Numeric.create_shared_method('.1/x', TosSpec, [],
     &lambda {|vm| vm.push(1/self); })
+  MaxNumeric.create_exclusive_method('.1/x', TosSpec, [],
+    &lambda {|vm| vm.push(0); })
+  MinNumeric.create_exclusive_method('.1/x', TosSpec, [],
+    &lambda {|vm| vm.push(0); })
 
   # [a] .abs [|a|]
   Numeric.create_shared_method('.abs', TosSpec, [],
     &lambda {|vm| vm.push(self.abs); })
+  MaxNumeric.create_exclusive_method('.abs', TosSpec, [],
+    &lambda {|vm| vm.push(MaxNumeric); })
+  MinNumeric.create_exclusive_method('.abs', TosSpec, [],
+    &lambda {|vm| vm.push(MaxNumeric); })
 
   # [a] 1+ [|a|]
   Numeric.create_shared_method('1+', TosSpec, [],

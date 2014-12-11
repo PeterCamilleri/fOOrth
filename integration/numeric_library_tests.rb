@@ -99,6 +99,43 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('min_num  0<=>', [-1])
   end
 
+  def test_some_min_max_exclusions
+    foorth_raises('max_num .to_i')
+    foorth_raises('min_num .to_i')
+
+    foorth_raises('max_num 1 +')
+    foorth_raises('1 max_num +')
+    foorth_raises('min_num 1 +')
+    foorth_raises('1 min_num +')
+
+    foorth_raises('max_num 1 -')
+    foorth_raises('1 max_num -')
+    foorth_raises('min_num 1 -')
+    foorth_raises('1 min_num -')
+
+    foorth_raises('max_num 1 *')
+    foorth_raises('1 max_num *')
+    foorth_raises('min_num 1 *')
+    foorth_raises('1 min_num *')
+
+    foorth_raises('max_num 1 /')
+    foorth_raises('1 max_num /')
+    foorth_raises('min_num 1 /')
+    foorth_raises('1 min_num /')
+
+    foorth_raises('max_num 1 **')
+    foorth_raises('1 max_num **')
+    foorth_raises('min_num 1 **')
+    foorth_raises('1 min_num **')
+
+    foorth_raises('max_num 1 mod')
+    foorth_raises('1 max_num mod')
+    foorth_raises('min_num 1 mod')
+    foorth_raises('1 min_num mod')
+
+
+  end
+
   def test_some_conversions
     foorth_equal('5    .to_n', [5])
     foorth_equal('5.0  .to_n', [5.0])
@@ -149,15 +186,21 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('5.0  neg', [-5.0])
     foorth_equal('0.0  neg', [0.0])
     foorth_equal('-5.0 neg', [5.0])
+    foorth_equal('max_num neg', [MinNumeric])
+    foorth_equal('min_num neg', [MaxNumeric])
 
     foorth_equal('5 3 <<', [40])
     foorth_equal('40 3 >>', [5])
 
     foorth_equal('2 10 **', [1024])
     foorth_equal('2.0 .1/x', [0.5])
+    foorth_equal('max_num .1/x', [0])
+    foorth_equal('min_num .1/x', [0])
 
     foorth_equal(' 2.0 .abs', [2.0])
     foorth_equal('-2.0 .abs', [2.0])
+    foorth_equal('max_num .abs', [MaxNumeric])
+    foorth_equal('min_num .abs', [MaxNumeric])
 
     foorth_equal(' 2.0 .ceil', [2])
     foorth_equal(' 2.1 .ceil', [3])
