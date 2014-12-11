@@ -79,6 +79,10 @@ module XfOOrth
   # [b] 0<=> b < 0 [-1], b = 0 [0], b > 0 [1]
   Numeric.create_shared_method('0<=>', TosSpec, [],
     &lambda {|vm| vm.push(self <=> 0); })
+  MaxNumeric.create_exclusive_method('0<=>', TosSpec, [],
+    &lambda {|vm| vm.push(1); })
+  MinNumeric.create_exclusive_method('0<=>', TosSpec, [],
+    &lambda {|vm| vm.push(-1); })
 
 
   # Some stack arithmetic words.
