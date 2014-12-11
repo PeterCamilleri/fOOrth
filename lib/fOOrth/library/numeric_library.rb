@@ -55,6 +55,10 @@ module XfOOrth
   # [b,a] 0< if b < 0 then [true] else [false]
   Numeric.create_shared_method('0<', TosSpec, [],
     &lambda {|vm| vm.push(self < 0); })
+  MaxNumeric.create_exclusive_method('0<', TosSpec, [],
+    &lambda {|vm| vm.push(false); })
+  MinNumeric.create_exclusive_method('0<', TosSpec, [],
+    &lambda {|vm| vm.push(true); })
 
   # [b,a] 0>= if b >= 0 then [true] else [false]
   Numeric.create_shared_method('0>=', TosSpec, [],
