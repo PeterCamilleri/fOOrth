@@ -22,6 +22,64 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     super(*all)
   end
 
+  def test_some_comparisons
+    foorth_equal('4 4 =', [true])
+    foorth_equal('4 5 =', [false])
+
+    foorth_equal('4 4 <>', [false])
+    foorth_equal('4 5 <>', [true])
+
+    foorth_equal('4 4  >', [false])
+    foorth_equal('4 5  >', [false])
+    foorth_equal('5 4  >', [true])
+
+    foorth_equal('4 4  <', [false])
+    foorth_equal('4 5  <', [true])
+    foorth_equal('5 4  <', [false])
+
+    foorth_equal('4 4 >=', [true])
+    foorth_equal('4 5 >=', [false])
+    foorth_equal('5 4 >=', [true])
+
+    foorth_equal('4 4 <=', [true])
+    foorth_equal('4 5 <=', [true])
+    foorth_equal('5 4 <=', [false])
+
+    foorth_equal('4 4 <=>', [0])
+    foorth_equal('4 5 <=>', [-1])
+    foorth_equal('5 4 <=>', [1])
+  end
+
+  def test_some_comparisons_with_zero
+    foorth_equal('-2 0=', [false])
+    foorth_equal('0  0=', [true])
+    foorth_equal('4  0=', [false])
+
+    foorth_equal('-4 0<>', [true])
+    foorth_equal('0  0<>', [false])
+    foorth_equal('5  0<>', [true])
+
+    foorth_equal('-1 0>', [false])
+    foorth_equal('0  0>', [false])
+    foorth_equal('4  0>', [true])
+
+    foorth_equal('4  0<', [false])
+    foorth_equal('-5 0<', [true])
+    foorth_equal('0  0<', [false])
+
+    foorth_equal('4  0>=', [true])
+    foorth_equal('-5 0>=', [false])
+    foorth_equal('0  0>=', [true])
+
+    foorth_equal('-4 0<=', [true])
+    foorth_equal('0  0<=', [true])
+    foorth_equal('4  0<=', [false])
+
+    foorth_equal('0  0<=>', [0])
+    foorth_equal('-5 0<=>', [-1])
+    foorth_equal('4  0<=>', [1])
+  end
+
   def test_some_conversions
     foorth_equal('5    .to_n', [5])
     foorth_equal('5.0  .to_n', [5.0])
@@ -122,7 +180,9 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("1   .acos  .r2d", [ 0.0])
     foorth_equal("1   .atan  .r2d", [45.0])
     foorth_equal("1 1 .atan2 .r2d", [45.0])
+  end
 
+  def test_some_exagerated_trig
     foorth_equal("0   .sinh      ", [0.0])
     foorth_equal("0   .cosh      ", [1.0])
     foorth_equal("0   .tanh      ", [0.0])
@@ -130,11 +190,6 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("0   .asinh     ", [0.0])
     foorth_equal("1   .acosh     ", [0.0])
     foorth_equal("0   .atanh     ", [0.0])
-
-  end
-
-  def test_some_exagerated_trig
-
   end
 
   def test_some_powers

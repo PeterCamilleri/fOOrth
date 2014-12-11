@@ -67,64 +67,6 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
     foorth_raises("tuck")
   end
 
-  def test_some_comparisons
-    foorth_equal('4 4 =', [true])
-    foorth_equal('4 5 =', [false])
-
-    foorth_equal('4 4 <>', [false])
-    foorth_equal('4 5 <>', [true])
-
-    foorth_equal('4 4  >', [false])
-    foorth_equal('4 5  >', [false])
-    foorth_equal('5 4  >', [true])
-
-    foorth_equal('4 4  <', [false])
-    foorth_equal('4 5  <', [true])
-    foorth_equal('5 4  <', [false])
-
-    foorth_equal('4 4 >=', [true])
-    foorth_equal('4 5 >=', [false])
-    foorth_equal('5 4 >=', [true])
-
-    foorth_equal('4 4 <=', [true])
-    foorth_equal('4 5 <=', [true])
-    foorth_equal('5 4 <=', [false])
-
-    foorth_equal('4 4 <=>', [0])
-    foorth_equal('4 5 <=>', [-1])
-    foorth_equal('5 4 <=>', [1])
-  end
-
-  def test_some_comparisons_with_zero
-    foorth_equal('-2 0=', [false])
-    foorth_equal('0  0=', [true])
-    foorth_equal('4  0=', [false])
-
-    foorth_equal('-4 0<>', [true])
-    foorth_equal('0  0<>', [false])
-    foorth_equal('5  0<>', [true])
-
-    foorth_equal('-1 0>', [false])
-    foorth_equal('0  0>', [false])
-    foorth_equal('4  0>', [true])
-
-    foorth_equal('4  0<', [false])
-    foorth_equal('-5 0<', [true])
-    foorth_equal('0  0<', [false])
-
-    foorth_equal('4  0>=', [true])
-    foorth_equal('-5 0>=', [false])
-    foorth_equal('0  0>=', [true])
-
-    foorth_equal('-4 0<=', [true])
-    foorth_equal('0  0<=', [true])
-    foorth_equal('4  0<=', [false])
-
-    foorth_equal('0  0<=>', [0])
-    foorth_equal('-5 0<=>', [-1])
-    foorth_equal('4  0<=>', [1])
-  end
-
   def test_for_the_bored_identity
     foorth_equal("33 33 identical?", [true])
     foorth_equal("33 33 distinct?", [false])
