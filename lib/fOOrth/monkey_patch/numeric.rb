@@ -1,5 +1,8 @@
 # coding: utf-8
 
+require_relative 'numeric/max_numeric'
+require_relative 'numeric/min_numeric'
+
 #Extensions to the \Numeric class required by the fOOrth language system.
 class Numeric
   #Convert this number to a form suitable for embedding in a source string.
@@ -24,4 +27,11 @@ class Numeric
   def to_foorth_n
     self
   end
+
+  #New math methods. The mnmx_ prefix is short for min_max_.
+  #These methods process and handle the special MaxNumeric and
+  #MinNumeric modules.
+
+
+
 end

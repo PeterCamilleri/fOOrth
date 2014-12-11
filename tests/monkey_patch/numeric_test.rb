@@ -48,6 +48,15 @@ class NumericMonkeyPatchTester < MiniTest::Unit::TestCase
     assert_equal((65.1).to_foorth_n, 65.1)
     assert_equal(Complex(65,0).to_foorth_n, Complex(65,0))
     assert_equal(Rational(65,1).to_foorth_n, Rational(65,1))
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      MaxNumeric.to_foorth_n
+    end
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      MinNumeric.to_foorth_n
+    end
+
   end
 
 end
