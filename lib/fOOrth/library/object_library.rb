@@ -83,34 +83,6 @@ module XfOOrth
   Object.create_shared_method('distinct?', NosSpec, [],
     &lambda {|vm| vm.poke(self.object_id != vm.peek.object_id); })
 
-  # Some comparison with zero words.
-  # [b,a] 0= if b == 0 then [true] else [false]
-  Object.create_shared_method('0=', TosSpec, [],
-    &lambda {|vm| vm.push(self == 0); })
-
-  # [b,a] 0<> if b != 0 then [true] else [false]
-  Object.create_shared_method('0<>', TosSpec, [],
-    &lambda {|vm| vm.push(self != 0); })
-
-  # [b,a] 0> if b > 0 then [true] else [false]
-  Object.create_shared_method('0>', TosSpec, [],
-    &lambda {|vm| vm.push(self > 0); })
-
-  # [b,a] 0< if b < 0 then [true] else [false]
-  Object.create_shared_method('0<', TosSpec, [],
-    &lambda {|vm| vm.push(self < 0); })
-
-  # [b,a] 0>= if b >= 0 then [true] else [false]
-  Object.create_shared_method('0>=', TosSpec, [],
-    &lambda {|vm| vm.push(self >= 0); })
-
-  # [b,a] 0<= if b <= 0 then [true] else [false]
-  Object.create_shared_method('0<=', TosSpec, [],
-    &lambda {|vm| vm.push(self <= 0); })
-
-  # [b] 0<=> b < 0 [-1], b = 0 [0], b > 0 [1]
-  Object.create_shared_method('0<=>', TosSpec, [],
-    &lambda {|vm| vm.push(self <=> 0); })
 
   # [b,a] max [max(b,a)]
   Object.create_shared_method('max', NosSpec, [],
