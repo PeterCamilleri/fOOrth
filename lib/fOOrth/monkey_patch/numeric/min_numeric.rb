@@ -22,11 +22,15 @@ module MinNumeric
     end
 
     #The min max >= operator
+    #<br>Endemic Code Smells
+    #* :reek:FeatureEnvy
     def mnmx_ge(other)
       other == MinNumeric
     end
 
     #The min max < operator
+    #<br>Endemic Code Smells
+    #* :reek:FeatureEnvy
     def mnmx_lt(other)
       other != MinNumeric
     end

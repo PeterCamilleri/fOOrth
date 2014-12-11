@@ -17,6 +17,8 @@ module MaxNumeric
     #MinNumeric modules.
 
     #The min max > operator
+    #<br>Endemic Code Smells
+    #* :reek:FeatureEnvy
     def mnmx_gt(other)
       other != MaxNumeric
     end
@@ -32,6 +34,8 @@ module MaxNumeric
     end
 
     #The min max <= operator
+    #<br>Endemic Code Smells
+    #* :reek:FeatureEnvy
     def mnmx_le(other)
       other == MaxNumeric
     end
