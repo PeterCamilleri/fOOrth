@@ -56,6 +56,15 @@ class NumericMonkeyPatchTester < MiniTest::Unit::TestCase
     assert_raises(XfOOrth::XfOOrthError) do
       MinNumeric.to_foorth_n
     end
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      MaxNumeric.to_i
+    end
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      MinNumeric.to_i
+    end
+
   end
 
   def test_mnmx_gt
