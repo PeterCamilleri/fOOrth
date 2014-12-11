@@ -15,6 +15,11 @@ module MaxNumeric
     #Convert to an integer. An error.
     alias to_i invalid
 
+    #Convert to a string.
+    def to_s
+      "max_num"
+    end
+
     #New math methods. The mnmx_ prefix is short for min_max_.
     #These methods process and handle the special MaxNumeric and
     #MinNumeric modules.

@@ -42,6 +42,11 @@ class NumericMonkeyPatchTester < MiniTest::Unit::TestCase
     assert_equal(1120.to_foorth_c, "\u0460")
   end
 
+  def test_to_string
+    assert_equal(MinNumeric.to_s, "min_num")
+    assert_equal(MaxNumeric.to_s, "max_num")
+  end
+
   #Test for conversion to a numeric.
   def test_to_number
     assert_equal(65.to_foorth_n, 65)
