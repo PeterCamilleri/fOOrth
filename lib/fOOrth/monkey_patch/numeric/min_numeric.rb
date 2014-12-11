@@ -31,6 +31,11 @@ module MinNumeric
       other != MinNumeric
     end
 
+    #The min max <= operator
+    def mnmx_le(_other)
+      true
+    end
+
   end
 
 end

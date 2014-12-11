@@ -47,5 +47,9 @@ class Numeric
     (other != MinNumeric) && ((other == MaxNumeric) || (self < other))
   end
 
+  #The min max <= operator
+  def mnmx_le(other)
+    (other != MinNumeric) && ((other == MaxNumeric) || (self <= other))
+  end
 
 end
