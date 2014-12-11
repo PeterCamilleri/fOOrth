@@ -52,4 +52,9 @@ class Numeric
     (other != MinNumeric) && ((other == MaxNumeric) || (self <= other))
   end
 
+  #The min max <=> operator
+  def mnmx_cp(other)
+    ((other == MinNumeric) && 1) || ((other == MaxNumeric) && -1) || (self <=> other)
+  end
+
 end

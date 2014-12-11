@@ -40,6 +40,13 @@ module MaxNumeric
       other == MaxNumeric
     end
 
+    #The min max <=> operator
+    #<br>Endemic Code Smells
+    #* :reek:FeatureEnvy
+    #* :reek:ControlParameter
+    def mnmx_cp(other)
+      other == MaxNumeric ? 0 : 1
+    end
   end
 
 end

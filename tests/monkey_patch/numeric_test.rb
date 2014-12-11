@@ -138,6 +138,25 @@ class NumericMonkeyPatchTester < MiniTest::Unit::TestCase
     assert((MaxNumeric).mnmx_le(MaxNumeric))
   end
 
+  def test_mnmx_cp
+    assert_equal( 1, (4).mnmx_cp(0))
+    assert_equal( 0, (4).mnmx_cp(4))
+    assert_equal(-1, (4).mnmx_cp(8))
+    assert_equal( 1, (4).mnmx_cp(MinNumeric))
+    assert_equal(-1, (4).mnmx_cp(MaxNumeric))
+
+    assert_equal(-1, (MinNumeric).mnmx_cp(0))
+    assert_equal(-1, (MinNumeric).mnmx_cp(4))
+    assert_equal(-1, (MinNumeric).mnmx_cp(8))
+    assert_equal( 0, (MinNumeric).mnmx_cp(MinNumeric))
+    assert_equal(-1, (MinNumeric).mnmx_cp(MaxNumeric))
+
+    assert_equal( 1, (MaxNumeric).mnmx_cp(0))
+    assert_equal( 1, (MaxNumeric).mnmx_cp(4))
+    assert_equal( 1, (MaxNumeric).mnmx_cp(8))
+    assert_equal( 1, (MaxNumeric).mnmx_cp(MinNumeric))
+    assert_equal( 0, (MaxNumeric).mnmx_cp(MaxNumeric))
+  end
 
 
 

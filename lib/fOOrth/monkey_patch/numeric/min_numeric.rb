@@ -40,6 +40,13 @@ module MinNumeric
       true
     end
 
+    #The min max <=> operator
+    #<br>Endemic Code Smells
+    #* :reek:FeatureEnvy
+    #* :reek:ControlParameter
+    def mnmx_cp(other)
+      other == MinNumeric ? 0 : -1
+    end
   end
 
 end
