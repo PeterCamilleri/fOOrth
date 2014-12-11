@@ -22,6 +22,11 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     super(*all)
   end
 
+  def test_some_extreme_numbers
+    foorth_equal('max_num', [MaxNumeric])
+    foorth_equal('min_num', [MinNumeric])
+  end
+
   def test_some_comparisons
     foorth_equal('4 4 =', [true])
     foorth_equal('4 5 =', [false])

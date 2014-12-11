@@ -42,6 +42,16 @@ class NumericMonkeyPatchTester < MiniTest::Unit::TestCase
     assert_equal(1120.to_foorth_c, "\u0460")
   end
 
+  def test_that_min_and_max_are_solo_acts
+    assert_raises(XfOOrth::XfOOrthError) do
+      MaxNumeric.new
+    end
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      MinNumeric.new
+    end
+  end
+
   def test_to_string
     assert_equal(MinNumeric.to_s, "min_num")
     assert_equal(MaxNumeric.to_s, "max_num")

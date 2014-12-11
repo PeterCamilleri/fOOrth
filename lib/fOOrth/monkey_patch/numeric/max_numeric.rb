@@ -1,6 +1,11 @@
 # coding: utf-8
 
-module MaxNumeric
+class MaxNumeric
+
+  #Creating instances is not allowed.
+  def initialize
+    MaxNumeric.invalid
+  end
 
   class << self
 

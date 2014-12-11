@@ -1,6 +1,11 @@
 # coding: utf-8
 
-module MinNumeric
+class MinNumeric
+
+  #Creating instances is not allowed.
+  def initialize
+    MinNumeric.invalid
+  end
 
   class << self
 

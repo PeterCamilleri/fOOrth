@@ -10,6 +10,12 @@ module XfOOrth
   #Connect the Numeric classes to the fOOrth class system.
   Numeric.create_foorth_proxy
   Float.create_foorth_proxy
+  MaxNumeric.create_foorth_proxy
+  MinNumeric.create_foorth_proxy
+
+  # Some extreme numeric constants
+  Object.create_shared_method('max_num', MacroSpec, [:macro, "vm.push(MaxNumeric); "])
+  Object.create_shared_method('min_num', MacroSpec, [:macro, "vm.push(MinNumeric); "])
 
   # Some conversion words.
   # [a] .to_n [Number]
