@@ -21,6 +21,10 @@ module MaxNumeric
       other != MaxNumeric
     end
 
+    #The min max >= operator
+    def mnmx_ge(_other)
+      true
+    end
 
 
   end

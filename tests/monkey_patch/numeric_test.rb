@@ -78,5 +78,28 @@ class NumericMonkeyPatchTester < MiniTest::Unit::TestCase
     refute((MaxNumeric).mnmx_gt(MaxNumeric))
   end
 
+  def test_mnmx_ge
+    assert((4).mnmx_ge(0))
+    assert((4).mnmx_ge(4))
+    refute((4).mnmx_ge(8))
+    assert((4).mnmx_ge(MinNumeric))
+    refute((4).mnmx_ge(MaxNumeric))
+
+    refute((MinNumeric).mnmx_ge(0))
+    refute((MinNumeric).mnmx_ge(4))
+    refute((MinNumeric).mnmx_ge(8))
+    assert((MinNumeric).mnmx_ge(MinNumeric))
+    refute((MinNumeric).mnmx_ge(MaxNumeric))
+
+    assert((MaxNumeric).mnmx_ge(0))
+    assert((MaxNumeric).mnmx_ge(4))
+    assert((MaxNumeric).mnmx_ge(8))
+    assert((MaxNumeric).mnmx_ge(MinNumeric))
+    assert((MaxNumeric).mnmx_ge(MaxNumeric))
+  end
+
+
+
+
 end
 
