@@ -12,6 +12,14 @@ module MaxNumeric
     #Convert to a numeric. An error.
     alias to_foorth_n invalid
 
+    #New math methods. The mnmx_ prefix is short for min_max_.
+    #These methods process and handle the special MaxNumeric and
+    #MinNumeric modules.
+
+    #The min max > operator
+    def mnmx_gt(other)
+      other != MaxNumeric
+    end
 
 
 

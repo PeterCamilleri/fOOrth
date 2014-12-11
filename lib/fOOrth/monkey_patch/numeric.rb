@@ -32,6 +32,10 @@ class Numeric
   #These methods process and handle the special MaxNumeric and
   #MinNumeric modules.
 
+  #The min max > operator
+  def mnmx_gt(other)
+    (other != MaxNumeric) && ((other == MinNumeric) || (self > other))
+  end
 
 
 end
