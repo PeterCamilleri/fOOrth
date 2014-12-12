@@ -60,4 +60,11 @@ class ObjectLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('"4" "2"      min', ["2"])
   end
 
+  def test_more_holistically
+    foorth_equal("[ 2 4 -2 1/2 555 8 -33 17 ] global: $tmw", [])
+
+    foorth_equal("max_num $tmw .each{ v min }  ", [-33])
+    foorth_equal("min_num $tmw .each{ v max }  ", [555])
+  end
+
 end
