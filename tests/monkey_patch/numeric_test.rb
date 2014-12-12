@@ -182,7 +182,5 @@ class NumericMonkeyPatchTester < MiniTest::Unit::TestCase
     assert_equal( 0, (MaxNumeric).mnmx_cp(MaxNumeric))
   end
 
-
-
 end
 

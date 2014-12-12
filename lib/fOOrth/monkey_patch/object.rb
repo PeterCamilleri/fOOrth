@@ -37,4 +37,33 @@ class Object
   def abort(msg)
     raise XfOOrth::ForceAbort, msg
   end
+
+  #New math methods. The mnmx_ prefix is short for min_max_.
+  #These methods handle the default case for non-numeric data.
+
+  #The min max > operator
+  def mnmx_gt(other)
+    self > other
+  end
+
+  #The min max >= operator
+  def mnmx_ge(other)
+    self >= other
+  end
+
+  #The min max < operator
+  def mnmx_lt(other)
+    self < other
+  end
+
+  #The min max <= operator
+  def mnmx_le(other)
+    self <= other
+  end
+
+  #The min max <=> operator
+  def mnmx_cp(other)
+    self <=> other
+  end
+
 end
