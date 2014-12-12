@@ -44,8 +44,17 @@ class ObjectLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_max_and_min
-    foorth_equal(" 4   2       max", [4])
-    foorth_equal(" 4   2       min", [2])
+    foorth_equal("4       2       max", [4])
+    foorth_equal("min_num 2       max", [2])
+    foorth_equal("2       min_num max", [2])
+    foorth_equal("max_num 2       max", [MaxNumeric])
+    foorth_equal("2       max_num max", [MaxNumeric])
+
+    foorth_equal("4       2       min", [2])
+    foorth_equal("min_num 2       min", [MinNumeric])
+    foorth_equal("2       min_num min", [MinNumeric])
+    foorth_equal("max_num 2       min", [2])
+    foorth_equal("2       max_num min", [2])
 
     foorth_equal('"4" "2"      max', ["4"])
     foorth_equal('"4" "2"      min', ["2"])
