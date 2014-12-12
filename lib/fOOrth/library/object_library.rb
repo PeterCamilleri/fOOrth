@@ -56,23 +56,23 @@ module XfOOrth
 
   # [b,a] > if b > a then [true] else [false]
   Object.create_shared_method('>', NosSpec, [],
-    &lambda {|vm| vm.poke(self > vm.peek); })
+    &lambda {|vm| vm.poke(self.mnmx_gt(vm.peek)); })
 
   # [b,a] < if b < a then [true] else [false]
   Object.create_shared_method('<', NosSpec, [],
-    &lambda {|vm| vm.poke(self < vm.peek); })
+    &lambda {|vm| vm.poke(self.mnmx_lt(vm.peek)); })
 
   # [b,a] >= if b >= a then [true] else [false]
   Object.create_shared_method('>=', NosSpec, [],
-    &lambda {|vm| vm.poke(self >= vm.peek); })
+    &lambda {|vm| vm.poke(self.mnmx_ge(vm.peek)); })
 
   # [b,a] <= if b <= a then [true] else [false]
   Object.create_shared_method('<=', NosSpec, [],
-    &lambda {|vm| vm.poke(self <= vm.peek); })
+    &lambda {|vm| vm.poke(self.mnmx_le(vm.peek)); })
 
   # [b,a] 0<=> b < a [-1], b = a [0], b > a [1]
   Object.create_shared_method('<=>', NosSpec, [],
-    &lambda {|vm| vm.poke(self <=> vm.peek); })
+    &lambda {|vm| vm.poke(self.mnmx_cp(vm.peek)); })
 
   # Some identity comparison words.
   # [b,a] identical? if b.object_id == a.object_id then [true] else [false]
