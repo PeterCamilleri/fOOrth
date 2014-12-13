@@ -228,6 +228,12 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('5 3 /', [1])
     foorth_equal('5 3 mod', [2])
 
+    foorth_equal('5 "3" +', [8])
+    foorth_equal('5 "3" -', [2])
+    foorth_equal('5 "3" *', [15])
+    foorth_equal('5 "3" /', [1])
+    foorth_equal('5 "3" mod', [2])
+
     foorth_equal('5  neg', [-5])
     foorth_equal('0  neg', [0])
     foorth_equal('-5 neg', [5])
