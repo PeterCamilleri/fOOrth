@@ -26,6 +26,8 @@ module XfOOrth
     #* presym - A pre-assigned symbol value or nil to generate a symbol.
     #<br>Returns:
     #* The symbol that corresponds to the name.
+    #<br>Endemic Code Smells
+    #* :reek:ControlParameter  -- reek is on crack!
     def self.add_entry(name, presym=nil)
       @sync.synchronize do
         unless (symbol = @fwd_map[name])

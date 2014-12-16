@@ -25,6 +25,8 @@ module XfOOrth
     #* :immediate - The word is executed, even in compile modes.
     #* :macro - Identifies the spec as a macro spec to assist debugging.
     #* :stub - The word is a place holder in the hierarchy.
+    #<br>Endemic Code Smells
+    #* :reek:ControlParameter  -- reek is on crack!
     def initialize(name, symbol, tags=[], &block)
       @tags = tags
       @does = block || lambda { |*_any|

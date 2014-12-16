@@ -1,5 +1,6 @@
 # coding: utf-8
 
+#The largest possible negative numeric value.
 class MinNumeric
 
   #Creating instances is not allowed.

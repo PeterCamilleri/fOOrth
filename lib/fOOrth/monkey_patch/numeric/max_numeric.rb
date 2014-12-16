@@ -1,5 +1,6 @@
 # coding: utf-8
 
+#The largest possible positive numeric value.
 class MaxNumeric
 
   #Creating instances is not allowed.
