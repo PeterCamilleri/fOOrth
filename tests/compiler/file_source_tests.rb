@@ -3,22 +3,13 @@
 require_relative '../../lib/fOOrth/compiler/string_source'
 require_relative '../../lib/fOOrth/compiler/file_source'
 require          'minitest/autorun'
+require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
 class FileSourceTester < MiniTest::Unit::TestCase
 
-  #Special initialize to track rake progress.
-  def initialize(*all)
-    $do_this_only_one_time = "" unless defined? $do_this_only_one_time
-
-    if $do_this_only_one_time != __FILE__
-      puts
-      puts "Running test file: #{File.split(__FILE__)[1]}"
-      $do_this_only_one_time = __FILE__
-    end
-
-    super(*all)
-  end
+  #Track mini-test progress.
+  MinitestVisible.track self, __FILE__
 
   #Test that we can read from a single line string
   def test_single_line_file

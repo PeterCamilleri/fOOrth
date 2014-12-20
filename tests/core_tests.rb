@@ -3,22 +3,13 @@
 $exclude_fOOrth_library = true
 require_relative '../lib/fOOrth'
 require          'minitest/autorun'
+require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
 class CoreTester < MiniTest::Unit::TestCase
 
-  #Special initialize to track rake progress.
-  def initialize(*all)
-    $do_this_only_one_time = "" unless defined? $do_this_only_one_time
-
-    if $do_this_only_one_time != __FILE__
-      puts
-      puts "Running test file: #{File.split(__FILE__)[1]}"
-      $do_this_only_one_time = __FILE__
-    end
-
-    super(*all)
-  end
+  #Track mini-test progress.
+  MinitestVisible.track self, __FILE__
 
   def test_that_object_handles_no_method_errors
     #Get an object instance to test with.
