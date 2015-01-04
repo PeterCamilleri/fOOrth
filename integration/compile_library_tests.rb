@@ -18,6 +18,14 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('9 dbl', [18])
   end
 
+  def test_creating_immediate_words
+    foorth_equal('!: five 5 ;', [])
+    foorth_equal('five', [5])
+
+    foorth_equal(': six five 6 ;', [5])
+    foorth_equal('six', [6])
+  end
+
   def test_simple_word_override
     foorth_equal(': foo 3 * ; 4 foo', [12])
     foorth_equal('5 foo', [15])

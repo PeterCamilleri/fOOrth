@@ -20,6 +20,24 @@ module XfOOrth
     XfOOrth.add_common_compiler_locals(vm, ':')
   })
 
+  # BANG COLON ==================================
+
+  #A special colon definition that creates an immediate word in the
+  #Virtual Machine class.
+  # [] !: <name> <stuff omitted> ; []; creates <name> on the VirtualMachine
+  VirtualMachine.create_shared_method('!:', VmSpec, [],  &lambda {|vm|
+    target = VirtualMachine
+    name   = vm.parser.get_word()
+    type   = VmSpec
+
+    begin_compile_mode('!:', vm: vm, tags: [:immediate], &lambda {|vm, src, tags|
+      vm.dbg_puts "#{name} => #{src}"
+      target.create_shared_method(name, type, tags, &eval(src))
+    })
+
+    XfOOrth.add_common_compiler_locals(vm, '!:')
+  })
+
 
   # DOT COLON ===================================
 
