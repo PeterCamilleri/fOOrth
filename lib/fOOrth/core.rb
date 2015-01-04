@@ -11,7 +11,7 @@ module XfOOrth
   $FOORTH_GLOBALS = Hash.new
   Object.create_foorth_proxy
   Class.create_foorth_proxy
-  VirtualMachine.create_foorth_proxy
+  VirtualMachine.create_foorth_proxy('VirtualMachine')
 
   #Predefine the default implementation of the .init method. This method must
   #exist at this point in order to proceed further.
