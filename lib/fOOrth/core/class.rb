@@ -73,6 +73,8 @@ class Class
   end
 
   #Add this class as a proxy class in the foorth class system.
+  #<br>Parameters:
+  #* proxy_name - the optional name of the proxy. Defaults to the Ruby name.
   #<br>Returns:
   #* The spec of the proxy class.
   def create_foorth_proxy(proxy_name = nil)
