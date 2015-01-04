@@ -30,6 +30,11 @@ module XfOOrth
       @data[index] = value
     end
 
+    #Get the compile tags in effect.
+    def tags
+      @data[:tags] || []
+    end
+
     #Merge in a hash of tag data.
     def merge(new_data)
       @data.merge!(new_data)

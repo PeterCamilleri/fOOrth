@@ -77,11 +77,7 @@ module XfOOrth
 
     #The standard end-compile adapter word: ';' semi-colon.
     context.create_local_method(';', [:immediate],
-      &lambda {|vm| vm.end_compile_mode([ctrl], []) })
-
-    #The immediate end-compile adapter word: ;immediate.
-    context.create_local_method(';immediate', [:immediate],
-      &lambda {|vm| vm.end_compile_mode([ctrl], [:immediate])})
+      &lambda {|vm| vm.end_compile_mode([ctrl]) })
   end
 
   #An array of types allowed for a method.
