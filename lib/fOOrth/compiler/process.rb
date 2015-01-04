@@ -13,7 +13,7 @@ module XfOOrth
       save, @parser = @parser, Parser.new(source)
 
       while (token = get_token)
-        puts token.to_s if @debug
+        dbg_puts token.to_s
         code = token.code
 
         if (@context[:mode] == :execute) || ((token.has_tag?(:immediate)) && (!@force))

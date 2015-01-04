@@ -13,7 +13,7 @@ module XfOOrth
     #<br>Note:
     #* Adds a nested context level to be un-nested at a later point.
     def begin_compile_mode(ctrl, defs={}, &action)
-      puts "  begin_compile_mode" if debug
+      dbg_puts "  begin_compile_mode"
       @context.check_set(:mode, [:execute])
       @context = Context.new(@context, mode: :compile, ctrl: ctrl, action: action)
       @context.merge(defs)
@@ -29,7 +29,7 @@ module XfOOrth
     #<br>Note:
     #* Un-nests a context level.
     def end_compile_mode(ctrls, tags)
-      puts "  end_compile_mode" if debug
+      dbg_puts "  end_compile_mode"
       @context.check_set(:ctrl, ctrls)
       source, @buffer = "lambda {|vm| #{@buffer} }", nil
       result = instance_exec(self, source, tags, &@context[:action])
@@ -43,7 +43,7 @@ module XfOOrth
     #<br>Note:
     #* Adds a nested context level to be un-nested at a later point.
     def suspend_compile_mode(ctrl)
-      puts "  suspend_compile_mode" if debug
+      dbg_puts "  suspend_compile_mode"
       @context.check_set(:mode, [:compile])
       @context = Context.new(@context, mode: :execute, ctrl: ctrl)
     end
@@ -55,7 +55,7 @@ module XfOOrth
     #<br>Note:
     #* Un-nests a context level.
     def resume_compile_mode(ctrls)
-      puts "  resume_compile_mode" if debug
+      dbg_puts "  resume_compile_mode"
       @context.check_set(:ctrl, ctrls)
       @context = @context.previous
     end
@@ -69,7 +69,7 @@ module XfOOrth
     #<br>Note:
     #* Adds a nested context level to be un-nested at a later point.
     def suspend_execute_mode(text, ctrl)
-      puts "  suspend_execute_mode" if debug
+      dbg_puts "  suspend_execute_mode"
       @context = Context.new(@context, ctrl: ctrl)
 
       if @context[:mode] == :execute
@@ -98,7 +98,7 @@ module XfOOrth
     #<br>Note:
     #* Un-nests a context level.
     def resume_execute_mode(text, ctrls)
-      puts "  resume_execute_mode" if debug
+      dbg_puts "  resume_execute_mode"
       check_deferred_mode(text, ctrls)
       @context = @context.previous
 

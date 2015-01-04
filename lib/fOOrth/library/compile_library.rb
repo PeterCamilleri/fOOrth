@@ -13,7 +13,7 @@ module XfOOrth
     type   = VmSpec
 
     begin_compile_mode(':', vm: vm, &lambda {|vm, src, tags|
-      puts "#{name} => #{src}" if vm.debug
+      vm.dbg_puts "#{name} => #{src}"
       target.create_shared_method(name, type, tags, &eval(src))
     })
 
@@ -30,7 +30,7 @@ module XfOOrth
     type   = XfOOrth.name_to_type(name)
 
     vm.begin_compile_mode('.:', cls: target, &lambda {|vm, src, tags|
-      puts "#{target.name} #{name} => #{src}" if vm.debug
+      vm.dbg_puts "#{target.foorth_name} #{name} => #{src}"
       target.create_shared_method(name, type, tags, &eval(src))
     })
 
@@ -46,7 +46,7 @@ module XfOOrth
     type   = XfOOrth.name_to_type(name)
 
     vm.begin_compile_mode('.::', obj: target, &lambda {|vm, src, tags|
-      puts "#{target.name} #{name} => #{src}" if vm.debug
+      vm.dbg_puts "#{target.foorth_name} {name} => #{src}"
       target.create_exclusive_method(name, type, tags, &eval(src))
     })
 

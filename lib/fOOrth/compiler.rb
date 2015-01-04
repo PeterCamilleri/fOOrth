@@ -52,7 +52,7 @@ module XfOOrth
 
     #Append text to the compile buffer.
     def <<(text)
-      puts "  Append=#{text.inspect}" if @debug
+      dbg_puts "  Append=#{text.inspect}"
       @buffer << text
     end
 
