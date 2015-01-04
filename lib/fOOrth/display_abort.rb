@@ -14,8 +14,10 @@ module XfOOrth
 
       if debug
         puts "Data Stack Contents: #{data_stack.inspect}"
-        puts "Control Stack Contents: #{ctrl_stack.inspect}"
-#       puts "Mode = #{mode.inspect},  Level = #{level}"   ???
+      end
+
+      unless @context
+        puts "Error: No context is available!"
       end
 
       interpreter_reset
