@@ -6,7 +6,7 @@ require          'full_clone'
 
 require_relative 'fOOrth/version'
 require_relative 'fOOrth/exceptions'
-require_relative 'fOOrth/display_abort'
+require_relative 'fOOrth/debug'
 require_relative 'fOOrth/monkey_patch'
 require_relative 'fOOrth/symbol_map'
 require_relative 'fOOrth/interpreter'
