@@ -14,7 +14,7 @@ class LambdaLibraryTester < MiniTest::Unit::TestCase
   MinitestVisible.track self, __FILE__
 
   def test_lambda_basics
-    foorth_equal("{{   }} .name ", ["Proc instance"])
+    foorth_equal("{{   }} .name ", ["Procedure instance"])
   end
 
   def test_calling_lambdas

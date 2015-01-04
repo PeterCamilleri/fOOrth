@@ -4,7 +4,7 @@
 module XfOOrth
 
   #Connect the Proc class to the fOOrth class system.
-  Proc.create_foorth_proxy
+  Proc.create_foorth_proxy('Procedure')
 
   #Lambda literals in fOOrth.
   VirtualMachine.create_shared_method('{{', VmSpec, [:immediate],

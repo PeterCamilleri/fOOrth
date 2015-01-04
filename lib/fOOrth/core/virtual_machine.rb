@@ -8,7 +8,7 @@ module XfOOrth
 
     #The name of the virtual machine instance
     def foorth_name
-      "#{self.class.foorth_name} instance <#{@name}>"
+      "VirtualMachine instance <#{@name}>"
     end
 
     class << self

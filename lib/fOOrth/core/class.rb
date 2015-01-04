@@ -75,7 +75,11 @@ class Class
   #Add this class as a proxy class in the foorth class system.
   #<br>Returns:
   #* The spec of the proxy class.
-  def create_foorth_proxy
+  def create_foorth_proxy(proxy_name = nil)
+    if proxy_name
+      self.foorth_name = proxy_name
+    end
+
     error "The class #{foorth_name} already exists." if $FOORTH_GLOBALS[foorth_name]
 
     install_foorth_class(foorth_name, self)
@@ -88,8 +92,9 @@ class Class
   #* The newly created spec object.
   #<br> Endemic Code Smells
   #* :reek:UtilityFunction
-  def install_foorth_class(foorth_name, new_class)
-    symbol = XfOOrth::SymbolMap.add_entry(foorth_name)
+  def install_foorth_class(new_name, new_class)
+    fail "Bad name" unless new_name
+    symbol = XfOOrth::SymbolMap.add_entry(new_name)
     $FOORTH_GLOBALS[symbol] = XfOOrth::ClassSpec.new(new_class, nil, [])
   end
 
