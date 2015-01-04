@@ -31,7 +31,7 @@ module XfOOrth
     type   = VmSpec
 
     begin_compile_mode('!:', vm: vm, tags: [:immediate], &lambda {|vm, src, tags|
-      vm.dbg_puts "#{name} => #{src}"
+      vm.dbg_puts "(!) #{name} => #{src}"
       target.create_shared_method(name, type, tags, &eval(src))
     })
 
