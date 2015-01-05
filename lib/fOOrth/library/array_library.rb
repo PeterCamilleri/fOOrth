@@ -6,7 +6,7 @@ module XfOOrth
   #Connect the Array class to the fOOrth class system.
   Array.create_foorth_proxy
 
-  # [] Array .new [[]]; create an array of n zeros.
+  # [] Array .new [[]]; create an empty array.
   # The default implementation from Object is used for this.
 
   # [n] Array .new_size [[0,0,...0]]; create an array of n zeros.
