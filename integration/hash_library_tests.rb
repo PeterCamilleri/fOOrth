@@ -17,9 +17,14 @@ class HashLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('Hash                    ', [Hash])
     foorth_equal('Hash .new               ', [{}])
     foorth_equal('{                    }  ', [{}])
-    foorth_equal('{ 4 "A" ->  5 "B" -> }  ', [{4=>"A", 5=>"B"}], true)
+    foorth_equal('{ 4 "A" ->  5 "B" -> }  ', [{4=>"A", 5=>"B"}])
+    foorth_equal('{ 1 4 do i dup 3 * -> loop }', [{1=>3, 2=>6, 3=>9}])
   end
 
+  def test_hashes_in_variables
+    foorth_equal('{ 1 3 -> 2 6 -> 3 9 -> } global: $thiv1 ', [])
+    foorth_equal('$thiv1', [{1=>3, 2=>6, 3=>9}])
+  end
 
 
 end

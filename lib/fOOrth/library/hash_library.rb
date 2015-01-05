@@ -14,7 +14,7 @@ module XfOOrth
     vm.suspend_execute_mode('vm.push(Hash.new); ', :hash_literal)
 
     vm.context.create_local_method('->', [:immediate],
-      &lambda {|vm| vm.check_deferred_mode('vm.add_to_hash; ', [:hash_literal]) })
+      &lambda {|vm| vm << 'vm.add_to_hash; ' })
 
     vm.context.create_local_method('}', [:immediate],
       &lambda {|vm| vm.resume_execute_mode('', [:hash_literal]) })

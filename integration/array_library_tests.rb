@@ -45,6 +45,11 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('tt06                           ', [[3,4,5]])
   end
 
+  def test_arrays_in_variables
+    foorth_equal('[ 3 6 9 ] global: $taiv1 ', [])
+    foorth_equal('$taiv1                   ', [[3,6,9]])
+  end
+
   def test_some_basic_operators
     foorth_equal('[ 3 6 9 ] [ 3 6 9 ]  = ', [true])
     foorth_equal('[ 3 6 9 ] [ 3 6 8 ]  = ', [false])
