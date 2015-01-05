@@ -35,7 +35,7 @@ module XfOOrth
 
   # [v i a] .[]! []; a[i]=v
   Array.create_shared_method('.[]!', TosSpec, [],
-    &lambda {|vm| value, index = vm.popm(2); self[index] = value; })
+    &lambda {|vm| value, index = vm.popm(2); self[index.to_i] = value; })
 
   # [[1 2 3]] .reverse [[3 2 1]]
   Array.create_shared_method('.reverse', TosSpec, [],

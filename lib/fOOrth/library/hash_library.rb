@@ -20,4 +20,12 @@ module XfOOrth
       &lambda {|vm| vm.resume_execute_mode('', [:hash_literal]) })
   })
 
+  # [i h] .[]@ [h[i]]
+  Hash.create_shared_method('.[]@', TosSpec, [],
+    &lambda {|vm| vm.poke(self[vm.peek.to_i]); })
+
+  # [v i h] .[]! []; h[i]=v
+  Hash.create_shared_method('.[]!', TosSpec, [],
+    &lambda {|vm| value, index = vm.popm(2); self[index] = value; })
+
 end
