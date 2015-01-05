@@ -14,12 +14,10 @@ class HashLibraryTester < MiniTest::Unit::TestCase
   MinitestVisible.track self, __FILE__
 
   def test_some_hash_basics
-    foorth_equal('       Hash                    ', [Hash])
-
-    foorth_equal('       Hash .new               ', [{}])
-
-    foorth_equal(' {                    }        ', [{}])
-    foorth_equal(' { 4 "A" ->  5 "B" -> }        ', [{4=>"A", 5=>"B"}], true)
+    foorth_equal('Hash                    ', [Hash])
+    foorth_equal('Hash .new               ', [{}])
+    foorth_equal('{                    }  ', [{}])
+    foorth_equal('{ 4 "A" ->  5 "B" -> }  ', [{4=>"A", 5=>"B"}], true)
   end
 
 
