@@ -22,10 +22,20 @@ module XfOOrth
 
   # [i h] .[]@ [h[i]]
   Hash.create_shared_method('.[]@', TosSpec, [],
-    &lambda {|vm| vm.poke(self[vm.peek.to_i]); })
+    &lambda {|vm| vm.poke(self[vm.peek]); })
 
   # [v i h] .[]! []; h[i]=v
   Hash.create_shared_method('.[]!', TosSpec, [],
     &lambda {|vm| value, index = vm.popm(2); self[index] = value; })
+
+end
+
+#* Runtime library support for fOOrth constructs.
+class Hash
+
+  # Runtime support for the .each{ } construct.
+  def do_foorth_each(&block)
+    self.each {|key, value| block.call(value, key) }
+  end
 
 end
