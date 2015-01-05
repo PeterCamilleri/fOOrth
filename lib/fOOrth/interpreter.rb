@@ -4,6 +4,7 @@ require_relative 'interpreter/data_stack'
 require_relative 'interpreter/ctrl_stack'
 require_relative 'interpreter/do_loop'
 require_relative 'interpreter/squash'
+require_relative 'interpreter/add_to_hash'
 
 #* interpreter.rb - The run time interpreter portion of the fOOrth language system.
 module XfOOrth

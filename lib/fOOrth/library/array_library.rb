@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* library/array_library.rb - Numeric support for the fOOrth library.
+#* library/array_library.rb - Array support for the fOOrth library.
 module XfOOrth
 
   #Connect the Array class to the fOOrth class system.

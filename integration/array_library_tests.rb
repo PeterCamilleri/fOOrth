@@ -14,6 +14,8 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
   MinitestVisible.track self, __FILE__
 
   def test_some_array_basics
+    foorth_equal('       Array                   ', [Array])
+
     foorth_equal('       Array .new              ', [[]])
     foorth_equal(': tt00 Array .new  ;           ', [])
     foorth_equal('tt00                           ', [[]])
