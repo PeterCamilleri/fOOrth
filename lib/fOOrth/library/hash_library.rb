@@ -32,7 +32,7 @@ module XfOOrth
   Hash.create_shared_method('.keys', TosSpec, [],
     &lambda {|vm| vm.push(self.keys); })
 
-  # [h] .keys [[values]]
+  # [h] .values [[values]]
   Hash.create_shared_method('.values', TosSpec, [],
     &lambda {|vm| vm.push(self.values); })
 
