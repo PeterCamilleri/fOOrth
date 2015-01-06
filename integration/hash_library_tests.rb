@@ -56,4 +56,11 @@ class HashLibraryTester < MiniTest::Unit::TestCase
 
   end
 
+  def test_pretty_print_and_support
+    foorth_equal('{ 0 11 do i dup dup * -> loop } global: $tppas1', [])
+
+    foorth_equal('$tppas1 .strmax2', [2,3])
+
+  end
+
 end

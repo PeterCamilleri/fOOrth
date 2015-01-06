@@ -36,6 +36,53 @@ module XfOOrth
   Hash.create_shared_method('.values', TosSpec, [],
     &lambda {|vm| vm.push(self.values); })
 
+  # [h] .strmax2 [widest_key widest_value]
+  Hash.create_shared_method('.strmax2', TosSpec, [], &lambda {|vm|
+    widest_key = 0
+    widest_value = 0
+
+    self.each {|key, value|
+      key.foorth_strlen(vm)
+      temp = vm.pop
+      widest_key = widest_key > temp ? widest_key : temp
+
+      value.foorth_strlen(vm)
+      temp = vm.pop
+      widest_value = widest_value > temp ? widest_value : temp
+    }
+
+    vm.push(widest_key)
+    vm.push(widest_value)
+  })
+
+  # [h] .pp []; pretty print the hash!
+  Hash.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
+    self.foorth_strmax2(vm)
+    value_width = vm.pop
+    key_width   = vm.pop
+
+    width = value_width + key_width + 3
+    cols  = (width < 79) ? (79 / width) : 1
+    col   = (1..cols).cycle
+
+    self.each do |key, value|
+      key.to_foorth_s(vm)
+      key_str = vm.pop
+
+      value.to_foorth_s(vm)
+      value_str = vm.pop
+
+      if cols > 1
+        print "#{key_str.rjust(key_width)}=>#{value_str.ljust(value_width)} "
+      else
+        print "#{key_str.rjust(key_width)}=>#{value_str}"
+      end
+
+      puts if col.next == cols
+    end
+  })
+
+
 end
 
 #* Runtime library support for fOOrth constructs.
