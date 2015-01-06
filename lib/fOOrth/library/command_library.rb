@@ -19,6 +19,7 @@ module XfOOrth
   VirtualMachine.create_shared_method(')version', MacroSpec,
     [:macro, 'puts "fOOrth language system version = #{XfOOrth::VERSION}"; '])
 
+  #Dump the SymbolMap entries.
   VirtualMachine.create_shared_method(')entries', VmSpec, [], &lambda {|vm|
     entries = SymbolMap.fwd_map.keys.sort
     puts 'Symbol Map Entries = '
@@ -26,6 +27,7 @@ module XfOOrth
     puts
   })
 
+  #List the methods defined for this object.
   Object.create_shared_method(')methods', TosSpec, [], &lambda {|vm|
     if self.foorth_has_exclusive?
       puts 'Exclusive Methods = '
@@ -36,6 +38,7 @@ module XfOOrth
     self.class.foorth_shared.extract_method_names.sort.foorth_pretty(vm)
   })
 
+  #List the methods defined for this class.
   Class.create_shared_method(')methods', TosSpec, [], &lambda {|vm|
     if self.foorth_has_exclusive?
       puts "#{self.foorth_name} Class Methods = "
