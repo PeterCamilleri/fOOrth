@@ -25,4 +25,25 @@ module XfOOrth
     entries.foorth_pretty(vm)
     puts
   })
+
+  Object.create_shared_method(')methods', TosSpec, [], &lambda {|vm|
+    if self.foorth_has_exclusive?
+      puts 'Exclusive Methods = '
+      self.foorth_exclusive.extract_method_names.sort.foorth_pretty(vm)
+    end
+
+    puts "#{self.class.foorth_name} Shared Methods = "
+    self.class.foorth_shared.extract_method_names.sort.foorth_pretty(vm)
+  })
+
+  Class.create_shared_method(')methods', TosSpec, [], &lambda {|vm|
+    if self.foorth_has_exclusive?
+      puts "#{self.foorth_name} Class Methods = "
+      self.foorth_exclusive.extract_method_names.sort.foorth_pretty(vm)
+    end
+
+    puts "#{self.foorth_name} Shared Methods = "
+    self.foorth_shared.extract_method_names.sort.foorth_pretty(vm)
+  })
+
 end
