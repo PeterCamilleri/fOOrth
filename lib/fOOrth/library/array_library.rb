@@ -177,7 +177,7 @@ class Array
   # Runtime support for the .new{ } construct.
   def self.do_foorth_new_block(vm, &block)
     Array.new(vm.pop()) do |xloop|
-      block.call(vm, xloop)
+      block.call(xloop)
     end
   end
 

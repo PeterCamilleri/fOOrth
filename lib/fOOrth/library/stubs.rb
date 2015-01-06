@@ -36,16 +36,8 @@ module XfOOrth
   Object.create_shared_method('<<',   NosSpec, [:stub])
   Object.create_shared_method('>>',   NosSpec, [:stub])
 
-  # Some control structure stubs.
-  SymbolMap.add_entry('do_new_block', :do_foorth_new_block)
-  Object.create_shared_method('do_new_block', TosSpec, [:stub])
-
-  SymbolMap.add_entry('do_each', :do_foorth_each)
-  Object.create_shared_method('do_each', TosSpec, [:stub])
-
   #Define some "crossover" symbols.
   SymbolMap.add_entry('.is_class?', "foorth_is_class?".to_sym)
-
   SymbolMap.add_entry('.to_s',      :to_foorth_s)
   SymbolMap.add_entry('.strlen',    :foorth_strlen)
   SymbolMap.add_entry('.strmax',    :foorth_strmax)
