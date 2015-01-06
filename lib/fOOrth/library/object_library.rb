@@ -11,7 +11,7 @@ module XfOOrth
   # Some basic "constant" value words.
   #The self method.
   # [] self [self]
-  Object.create_shared_method('self', MacroSpec, [:macro, "vm.push(self); "])
+  VirtualMachine.create_shared_method('self', MacroSpec, [:macro, "vm.push(self); "])
 
   #Get the name of an object or class.
   # [obj] .name ["name of obj"]

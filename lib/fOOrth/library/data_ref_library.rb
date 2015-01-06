@@ -5,7 +5,7 @@ module XfOOrth
 
   # Some basic data access words.
   # [pointer] @ [value]
-  Object.create_shared_method('@', MacroSpec,
+  VirtualMachine.create_shared_method('@', MacroSpec,
     [:macro, "vm.poke(vm.peek[0] ); "])
 
   # [value pointer] ! [], variable = [value]

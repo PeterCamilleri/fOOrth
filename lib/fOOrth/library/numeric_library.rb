@@ -14,8 +14,8 @@ module XfOOrth
   MinNumeric.create_foorth_proxy
 
   # Some extreme numeric constants
-  Object.create_shared_method('max_num', MacroSpec, [:macro, "vm.push(MaxNumeric); "])
-  Object.create_shared_method('min_num', MacroSpec, [:macro, "vm.push(MinNumeric); "])
+  VirtualMachine.create_shared_method('max_num', MacroSpec, [:macro, "vm.push(MaxNumeric); "])
+  VirtualMachine.create_shared_method('min_num', MacroSpec, [:macro, "vm.push(MinNumeric); "])
 
   # Some conversion words.
   # [a] .to_n [Number]
@@ -199,16 +199,16 @@ module XfOOrth
 
   #Advanced math stuff!
   # [] pi [3.141592653589793]
-  Object.create_shared_method('pi', MacroSpec, [:macro, "vm.push(Math::PI)"])
+  VirtualMachine.create_shared_method('pi', MacroSpec, [:macro, "vm.push(Math::PI)"])
 
   # [] e [2.718281828459045]
-  Object.create_shared_method('e', MacroSpec, [:macro, "vm.push(Math::E)"])
+  VirtualMachine.create_shared_method('e', MacroSpec, [:macro, "vm.push(Math::E)"])
 
   #The number of degrees in one radian.
   DegreesPerRadian = 180.0/Math::PI
 
   # [] dpr [2.718281828459045]
-  Object.create_shared_method('dpr', MacroSpec,
+  VirtualMachine.create_shared_method('dpr', MacroSpec,
     [:macro, "vm.push(DegreesPerRadian)"])
 
   # [degrees] .d2r [radians]
