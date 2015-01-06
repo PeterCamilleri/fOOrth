@@ -28,6 +28,14 @@ module XfOOrth
   Hash.create_shared_method('.[]!', TosSpec, [],
     &lambda {|vm| value, index = vm.popm(2); self[index] = value; })
 
+  # [h] .keys [[keys]]
+  Hash.create_shared_method('.keys', TosSpec, [],
+    &lambda {|vm| vm.push(self.keys); })
+
+  # [h] .keys [[values]]
+  Hash.create_shared_method('.values', TosSpec, [],
+    &lambda {|vm| vm.push(self.values); })
+
 end
 
 #* Runtime library support for fOOrth constructs.

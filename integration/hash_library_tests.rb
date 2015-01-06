@@ -48,4 +48,12 @@ class HashLibraryTester < MiniTest::Unit::TestCase
 
   end
 
+  def test_keys_and_values
+    foorth_equal('{ 0 3 do i dup 3 * -> loop } global: $tshi3', [])
+
+    foorth_equal('$tshi3 .keys',                         [[0,1,2]])
+    foorth_equal('$tshi3 .values',                       [[0,3,6]])
+
+  end
+
 end
