@@ -151,13 +151,18 @@ module XfOOrth
   Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
     self.foorth_strmax(vm)
     width = vm.pop + 1
-    cols  = 79 / width
+    cols  = (width < 79) ? (79 / width) : 1
     rows  = (self.length + cols - 1) / cols
 
     (0...rows).each do |row|
       (0...cols).each do |col|
         self[col*rows + row].to_foorth_s(vm)
-        print vm.pop.rjust(width)
+
+        if cols > 1
+          print vm.pop.rjust(width)
+        else
+          print vm.pop
+        end
       end
 
       puts
