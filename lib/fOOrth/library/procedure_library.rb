@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* library/lambda_library.rb - Proc support for the fOOrth library.
+#* library/procedure_library.rb - Proc support for the fOOrth library.
 module XfOOrth
 
   #Connect the Proc class to the fOOrth class system.
