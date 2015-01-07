@@ -29,11 +29,11 @@ module XfOOrth
     vm.push(self[:vm])
   })
 
-
-  #Other methods
+  #Pause the current thread.
   VirtualMachine.create_shared_method('pause', MacroSpec,
     [:macro, 'Thread.pass; '])
 
+  #Put the current thread to sleep for the specified number of seconds.
   Numeric.create_shared_method('.sleep', TosSpec, [], &lambda {|vm|
     sleep(self)
   })
