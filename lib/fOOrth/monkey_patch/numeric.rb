@@ -18,8 +18,10 @@ class Numeric
 
     if as_int < 128
       as_int.chr.force_encoding("utf-8")
-    else
+    elsif as_int < 65536
       eval("\"\\u#{'%04X' % as_int}\"")
+    else
+      error "Can't convert #{self} to a character."
     end
   end
 
