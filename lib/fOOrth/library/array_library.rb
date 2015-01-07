@@ -134,6 +134,24 @@ module XfOOrth
     vm.push(self[0...left] + ins + self[((0-right))..-1])
   })
 
+  # [a] .min [smallest_element]
+  Array.create_shared_method('.min', TosSpec, [], &lambda {|vm|
+    result = self[0]
+
+    self.each {|value| result = value if value.mnmx_lt(result)}
+
+    vm.push(result)
+  })
+
+  # [a] .max [largest_element]
+  Array.create_shared_method('.max', TosSpec, [], &lambda {|vm|
+    result = self[0]
+
+    self.each {|value| result = value if value.mnmx_gt(result)}
+
+    vm.push(result)
+  })
+
   # [l 2 3 ... n] .strmax [widest]
   Array.create_shared_method('.strmax', TosSpec, [], &lambda {|vm|
     result = 0

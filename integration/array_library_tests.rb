@@ -137,8 +137,16 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
 
   def test_formatting_and_related
     foorth_equal('[ 0 1 "hello" ] .strmax', [5])
+  end
 
+  def test_array_min_max
+    foorth_equal('[ 9 0 1 12 2 ] .min', [0])
+    foorth_equal('[ 9 0 1 12 2 ] .max', [12])
+
+    foorth_equal('[ "c" "d" "a" "g" "f" ] .min', ["a"])
+    foorth_equal('[ "c" "d" "a" "g" "f" ] .max', ["g"])
 
   end
+
 
 end
