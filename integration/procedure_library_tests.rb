@@ -21,5 +21,9 @@ class ProcedureLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("1 {{ 99 + }} .call ", [100])
   end
 
+  def test_creating_a_thread
+    foorth_equal('0 global: $tcat2', [])
+    foorth_equal('{{ 1 $tcat2 ! }} .start drop 0.01 .sleep $tcat2 @', [1])
+  end
 
 end

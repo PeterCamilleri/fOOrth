@@ -6,6 +6,9 @@ module XfOOrth
   #Connect the Thread class to the fOOrth class system.
   Thread.create_foorth_proxy
 
+  # [] Thread .new{ ... } [a_thread]
+  #Uses the default implementation of .new{ ... }
+
   #Class Methods
   # [Thread] .current [the current thread]
   Thread.create_exclusive_method('.current', TosSpec, [], &lambda {|vm|

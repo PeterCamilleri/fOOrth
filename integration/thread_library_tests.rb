@@ -30,4 +30,11 @@ class ThreadLibraryTester < MiniTest::Unit::TestCase
     assert(finish-start > 0.04)
     assert(finish-start < 0.06)
   end
+
+  def test_creating_a_thread
+    foorth_equal('0 global: $tcat1', [])
+    foorth_equal('Thread .new{ 1 $tcat1 ! } drop 0.01 .sleep $tcat1 @', [1])
+  end
+
+
 end

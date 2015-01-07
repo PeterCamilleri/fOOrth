@@ -61,7 +61,7 @@ module XfOOrth
 
   #The object oriented .new{  } construct.
   VirtualMachine.create_shared_method('.new{', VmSpec, [:immediate], &lambda { |vm|
-    vm.suspend_execute_mode('vm.push(vm.pop.do_foorth_new_block(vm) {|xloop| ', :new_block)
+    vm.suspend_execute_mode('vm.push(vm.pop.do_foorth_new_block(vm) {|vm, xloop| ', :new_block)
 
     vm.context.create_local_method('x', [:immediate],
       &lambda {|vm| vm << "vm.push(xloop); "} )
