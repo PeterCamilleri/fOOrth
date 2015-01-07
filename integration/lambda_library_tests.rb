@@ -6,7 +6,7 @@ require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the standard fOOrth library.
-class LambdaLibraryTester < MiniTest::Unit::TestCase
+class ProcedureLibraryTester < MiniTest::Unit::TestCase
 
   include XfOOrthTestExtensions
 
