@@ -169,6 +169,11 @@ module XfOOrth
   # ["abc\\ndef\\n123"] .lines [["abc", "def", "123"]]
   String.create_shared_method('.lines', TosSpec, [],
     &lambda {|vm| vm.push(self.lines.to_a.collect {|line| line.chomp}) })
+
+  # ["abc def 123"] .split [["abc", "def", "123"]]
+  String.create_shared_method('.split', TosSpec, [],
+    &lambda {|vm| vm.push(self.split(' ')) })
+
 end
 
 #* Runtime library support for fOOrth constructs.
