@@ -167,3 +167,17 @@ module XfOOrth
     &lambda {|vm| vm.push(self.reverse); })
 
 end
+
+#* Runtime library support for fOOrth constructs.
+class String
+
+  # Runtime support for the .each{ } construct.
+  def do_foorth_each(&block)
+    key = 0
+    self.chars do |value|
+      block.call(value, key)
+      key += 1
+    end
+  end
+
+end

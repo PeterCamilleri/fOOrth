@@ -110,4 +110,8 @@ class StringLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('"stressed" .reverse',  ['desserts'])
   end
 
+  def test_the_each
+    foorth_equal('"abc" .each{ v x 1+ * } ', ['a', 'bb', 'ccc'])
+  end
+
 end
