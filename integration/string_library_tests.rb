@@ -19,15 +19,23 @@ class StringLibraryTester < MiniTest::Unit::TestCase
     foorth_equal(' "a\\\\c" ',  ["a\\c"])
     foorth_equal(' "a\\nb" ',  ["a\nb"])
 
-    test_src = <<-'END'
+    test_src1 = <<-'ONE'
     "abc\
      def"
-    END
+    ONE
 
-    foorth_equal(test_src,  ["abcdef"])
+    assert_equal("    \"abc\\\n     def\"\n", test_src1)
+    foorth_equal(test_src1,  ["abcdef"])
+
+    test_src2 = <<-'TWO'
+    "abc
+    TWO
+
+    assert_equal("    \"abc\n", test_src2)
+    foorth_equal(test_src2,  ["abc"])
+
     foorth_equal(' "a\\x55b" ',  ["aUb"])
     foorth_equal(' "a\\u5555b" ',  ["a\u5555b"])
-
   end
 
   def test_some_string_basics
