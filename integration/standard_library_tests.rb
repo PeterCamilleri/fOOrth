@@ -82,6 +82,21 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
 
     foorth_equal('"33" dup .clone identical?', [false])
     foorth_equal('"33" dup .clone distinct?', [true])
+
+    foorth_equal('[ "33" ] clone distinct?', [true])
+    foorth_equal('[ "33" ] clone @ swap @ distinct?', [true])
+
+  end
+
+  def test_some_copying_too
+    foorth_equal("33 copy", [33,33])
+    foorth_equal("33 .copy", [33])
+
+    foorth_equal('"33" copy identical?', [false])
+    foorth_equal('"33" copy distinct?', [true])
+
+    foorth_equal('[ "33" ] copy distinct?', [true])
+    foorth_equal('[ "33" ] copy @ swap @ distinct?', [false])
   end
 
   def test_some_logical_ops

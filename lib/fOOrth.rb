@@ -2,6 +2,7 @@
 
 # The fOOrth Language System implemented via a Ruby gem.
 
+require          'safe_clone'
 require          'full_clone'
 
 require_relative 'fOOrth/version'
