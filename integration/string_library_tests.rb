@@ -13,6 +13,23 @@ class StringLibraryTester < MiniTest::Unit::TestCase
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__
 
+  def test_string_literals
+    foorth_equal(' ""     ',  [""])
+    foorth_equal(' "abc"  ',  ["abc"])
+    foorth_equal(' "a\\\\c" ',  ["a\\c"])
+    foorth_equal(' "a\\nb" ',  ["a\nb"])
+
+    test_src = <<-'END'
+    "abc\
+     def"
+    END
+
+    foorth_equal(test_src,  ["abcdef"])
+    foorth_equal(' "a\\x55b" ',  ["aUb"])
+    foorth_equal(' "a\\u5555b" ',  ["a\u5555b"])
+
+  end
+
   def test_some_string_basics
     foorth_equal('String    .new',     [""])
     foorth_equal('"abcdefg" .length ', [7])

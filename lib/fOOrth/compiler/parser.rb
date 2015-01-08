@@ -91,16 +91,48 @@ module XfOOrth
     end
 
     #Process a backlash character found with a string in the source text.
-    #<br>Notes:
-    #* This is going to undergo change when \xFF and \uFFFF character constants
-    #  are added.
     def process_backslash
       next_char = @source.get
 
       if next_char == ' ' && @source.eoln?
         next_char = skip_white_space_or_to_eoln
-      elsif next_char != '\\' && next_char != '"'
-        next_char = ''
+      elsif next_char == 'n'
+        next_char = "\n"
+      elsif next_char == 'x'
+        next_char = process_8_bit
+      elsif next_char == 'u'
+        next_char = process_16_bit
+      elsif next_char != "\\" && next_char != '"'
+        error "Invalid string literal value: '\\#{next_char}'"
+      end
+
+      next_char
+    end
+
+    #Process an 8 bit hex character constant.
+    def process_8_bit
+      hex = process_hex_character +
+            process_hex_character
+
+      eval("\"\\x#{hex}\"")
+    end
+
+    #Process a 16 bit hex character constant.
+    def process_16_bit
+      hex = process_hex_character +
+            process_hex_character +
+            process_hex_character +
+            process_hex_character
+
+      eval("\"\\u#{hex}\"")
+    end
+
+    #Get a hex character from the input stream.
+    def process_hex_character
+      next_char = @source.get
+
+      unless "0123456789ABCDEFabcdef".include?(next_char)
+        error "Invalid hex character: '#{next_char}'"
       end
 
       next_char
