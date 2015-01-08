@@ -38,6 +38,10 @@ class StringLibraryTester < MiniTest::Unit::TestCase
     foorth_equal(' "a\\u5555b" ',  ["a\u5555b"])
   end
 
+  def test_for_lines
+    foorth_equal(' "abc\\ndef\\n123" .lines ',  [["abc", "def", "123"]])
+  end
+
   def test_some_string_basics
     foorth_equal('String    .new',     [""])
     foorth_equal('"abcdefg" .length ', [7])

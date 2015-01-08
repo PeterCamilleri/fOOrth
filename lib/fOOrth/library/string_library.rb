@@ -166,6 +166,9 @@ module XfOOrth
   String.create_shared_method('.reverse', TosSpec, [],
     &lambda {|vm| vm.push(self.reverse); })
 
+  # ["abc\\ndef\\n123"] .lines [["abc", "def", "123"]]
+  String.create_shared_method('.lines', TosSpec, [],
+    &lambda {|vm| vm.push(self.lines.to_a.collect {|line| line.chomp}) })
 end
 
 #* Runtime library support for fOOrth constructs.
