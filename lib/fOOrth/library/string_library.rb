@@ -174,6 +174,10 @@ module XfOOrth
   String.create_shared_method('.split', TosSpec, [],
     &lambda {|vm| vm.push(self.split(' ')) })
 
+  # [string] .eval [undefined]; evaluate the string as source code.
+  String.create_shared_method('.eval', TosSpec, [],
+    &lambda {|vm| vm.process_string(self) })
+
 end
 
 #* Runtime library support for fOOrth constructs.

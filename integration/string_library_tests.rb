@@ -46,6 +46,10 @@ class StringLibraryTester < MiniTest::Unit::TestCase
     foorth_equal(' "abc def 123" .split ',  [["abc", "def", "123"]])
   end
 
+  def test_for_eval
+    foorth_equal(' " 5 " .eval ', [5])
+  end
+
   def test_some_string_basics
     foorth_equal('String    .new',     [""])
     foorth_equal('"abcdefg" .length ', [7])
