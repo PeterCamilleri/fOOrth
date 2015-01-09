@@ -126,6 +126,8 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
   def test_other_array_ops
     foorth_equal('[ 0 1 2 ] .reverse   ', [[2,1,0]])
     foorth_equal('[ 9 3 5 ] .sort      ', [[3,5,9]])
+    foorth_equal('[ 9 max_num 3 min_num 5 ] .sort', [[MinNumeric,3,5,9,MaxNumeric]])
+
     foorth_equal('[ 9 3 5 ] .length    ', [3])
 
     foorth_equal('[ 9 3 5 ] 0       << ', [[9,3,5,0]])

@@ -43,7 +43,7 @@ module XfOOrth
 
   # [[3 1 2]] .sort [[1 2 3]]
   Array.create_shared_method('.sort', TosSpec, [],
-    &lambda {|vm| vm.push(self.sort); })
+    &lambda {|vm| vm.push(self.sort {|va,vb| va.mnmx_cp(vb)} ); })
 
   # [[ 1 2 3]] .shuffle [[x y z]]
   Array.create_shared_method('.shuffle', TosSpec, [],
