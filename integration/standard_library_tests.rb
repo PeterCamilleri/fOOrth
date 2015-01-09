@@ -14,10 +14,17 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
   MinitestVisible.track self, __FILE__
 
   def test_basic_constants
-    foorth_equal("self", [Thread.current[:vm]])
-    foorth_equal("true", [true])
-    foorth_equal("false", [false])
-    foorth_equal("nil", [nil])
+    foorth_equal("self",      [Thread.current[:vm]])
+    foorth_equal("true",      [true])
+    foorth_equal("false",     [false])
+    foorth_equal("nil",       [nil])
+
+    foorth_equal("epsilon",   [Float::EPSILON])
+    foorth_equal("infinity",  [Float::INFINITY]) #and beyond...
+    foorth_equal("-infinity", [-Float::INFINITY])
+    foorth_equal("max_float", [Float::MAX])
+    foorth_equal("min_float", [Float::MIN])
+    foorth_equal("nan",       [Float::NAN])
   end
 
   def test_stack_manipulation
