@@ -1,0 +1,6 @@
+// File Load Test One.
+
+: double dup + ;
+
+// Life, the Universe, and Everything!
+42

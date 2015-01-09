@@ -178,6 +178,26 @@ module XfOOrth
   String.create_shared_method('.eval', TosSpec, [],
     &lambda {|vm| vm.process_string(self) })
 
+  # [file_name_string] .load [undefined]; load the file as source code.
+  String.create_shared_method('.load', TosSpec, [], &lambda {|vm|
+    if File.extname(self) == ''
+      file_name = self + '.foorth'
+    else
+      file_name = self
+    end
+
+    unless File.exists?(file_name)
+      error "Unable to locate file #{file_name}"
+    end
+
+    vm.process_file(file_name)
+  })
+
+  # [] .load"file_name_string" [undefined]; load the file as source code.
+  VirtualMachine.create_shared_method('load"', VmSpec, [], &lambda{|vm|
+    vm.pop.foorth_load_file(vm)
+  })
+
 end
 
 #* Runtime library support for fOOrth constructs.
