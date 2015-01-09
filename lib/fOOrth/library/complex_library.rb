@@ -11,7 +11,7 @@ module XfOOrth
   VirtualMachine.create_shared_method('complex', VmSpec, [],
     &lambda {|vm| real,imag = popm(2); push(Complex(real,imag)); })
 
-  # [a+bi] complex [a b]
+  # [a+bi] .split [a b]
   Complex.create_shared_method('.split', TosSpec, [],
     &lambda {|vm| vm.push(self.real); vm.push(self.imaginary); })
 
