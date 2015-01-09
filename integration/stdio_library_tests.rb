@@ -38,10 +38,13 @@ class StdioLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_the_emit
-    foorth_output(' 65 emit', "A")
-    foorth_output('126 emit', "~")
+    foorth_output(' 65 .emit', "A")
+    foorth_output('126 .emit', "~")
 
-    foorth_utf8_output('255 emit', [195, 191])
+    foorth_utf8_output('255 .emit', [195, 191])
+
+    foorth_output(' "A123" .emit', "A")
+    foorth_raises('1+1i .emit')
   end
 
 end

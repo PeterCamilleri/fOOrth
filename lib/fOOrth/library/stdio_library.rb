@@ -28,10 +28,13 @@ module XfOOrth
   VirtualMachine.create_shared_method('spaces', MacroSpec,
     [:macro, "print ' ' * vm.pop(); "])
 
-  # Print out a single character.
+  #Print out a single character.
   #[obj] emit []; print out the object as a character.
-  Object.create_shared_method('emit', TosSpec, [],
+  Numeric.create_shared_method('.emit', TosSpec, [],
     &lambda {|vm| print self.to_foorth_c})
+  String.create_shared_method('.emit', TosSpec, [],
+    &lambda {|vm| print self.to_foorth_c})
+  Complex.create_shared_method('.emit', TosSpec, [:stub])
 
   #Get a string from the console.
   # [] accept [string]; gets a string from the console.
