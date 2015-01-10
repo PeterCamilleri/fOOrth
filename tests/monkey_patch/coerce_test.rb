@@ -10,7 +10,7 @@ class CoerceProtocolTester < MiniTest::Unit::TestCase
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__
 
-  #Test that it embeds
+  #Test the default stubs.
   def test_object_stubs
     obj = Object.new
 
@@ -84,7 +84,53 @@ class CoerceProtocolTester < MiniTest::Unit::TestCase
 
   end
 
+  def test_coerce_for_rationals
+    obj = Object.new
 
+    assert_equal('42/1'.to_r, ('3/1'.to_r).foorth_coerce(42))
+    assert_equal(Rational, ('3/1'.to_r).foorth_coerce(42).class)
+
+    assert_equal('42/1'.to_r, ('3/1'.to_r).foorth_coerce(42.0))
+    assert_equal(Rational, ('3/1'.to_r).foorth_coerce(42.0).class)
+
+    assert_equal('42/1'.to_r, ('3/1'.to_r).foorth_coerce('42'))
+    assert_equal(Rational, ('3/1'.to_r).foorth_coerce('42').class)
+
+    assert_equal('42/1'.to_r, ('3/1'.to_r).foorth_coerce('42.0'))
+    assert_equal(Rational, ('3/1'.to_r).foorth_coerce('42.0').class)
+
+    assert_equal('42/1'.to_r, ('3/1'.to_r).foorth_coerce('42/1'))
+    assert_equal(Rational, ('3/1'.to_r).foorth_coerce('42/1').class)
+
+    assert_raises(XfOOrth::XfOOrthError) { ('3/1'.to_r).foorth_coerce('turnip') }
+    assert_raises(XfOOrth::XfOOrthError) { ('3/1'.to_r).foorth_coerce(obj) }
+    assert_raises(XfOOrth::XfOOrthError) { ('3/1'.to_r).foorth_coerce(nil) }
+    assert_raises(XfOOrth::XfOOrthError) { ('3/1'.to_r).foorth_coerce(MaxNumeric) }
+    assert_raises(XfOOrth::XfOOrthError) { ('3/1'.to_r).foorth_coerce(MinNumeric) }
+
+    assert_equal('42/1'.to_r, ('3/1'.to_r).foorth_mnmx_coerce(42))
+    assert_equal(Rational, ('3/1'.to_r).foorth_mnmx_coerce(42).class)
+
+    assert_equal('42/1'.to_r, ('3/1'.to_r).foorth_mnmx_coerce(42.0))
+    assert_equal(Rational, ('3/1'.to_r).foorth_mnmx_coerce(42.0).class)
+
+    assert_equal('42/1'.to_r, ('3/1'.to_r).foorth_mnmx_coerce('42'))
+    assert_equal(Rational, ('3/1'.to_r).foorth_mnmx_coerce('42').class)
+
+    assert_equal('42/1'.to_r, ('3/1'.to_r).foorth_mnmx_coerce('42.0'))
+    assert_equal(Rational, ('3/1'.to_r).foorth_mnmx_coerce('42.0').class)
+
+    assert_equal('42/1'.to_r, ('3/1'.to_r).foorth_mnmx_coerce('42/1'))
+    assert_equal(Rational, ('3/1'.to_r).foorth_mnmx_coerce('42/1').class)
+
+    assert_equal(MaxNumeric, ('3/1'.to_r).foorth_mnmx_coerce(MaxNumeric))
+    assert_equal(MinNumeric, ('3/1'.to_r).foorth_mnmx_coerce(MinNumeric))
+
+    assert_raises(XfOOrth::XfOOrthError) { ('3/1'.to_r).foorth_mnmx_coerce('turnip') }
+    assert_raises(XfOOrth::XfOOrthError) { ('3/1'.to_r).foorth_mnmx_coerce(obj) }
+    assert_raises(XfOOrth::XfOOrthError) { ('3/1'.to_r).foorth_mnmx_coerce(nil) }
+
+  end
 
 
 end
