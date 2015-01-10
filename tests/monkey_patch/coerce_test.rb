@@ -132,5 +132,57 @@ class CoerceProtocolTester < MiniTest::Unit::TestCase
 
   end
 
+  def test_coerce_for_complex
+    obj = Object.new
+
+    assert_equal('42+0i'.to_c, ('1+1i'.to_c).foorth_coerce(42))
+    assert_equal(Complex, ('1+1i'.to_c).foorth_coerce(42).class)
+
+    assert_equal('42+0i'.to_c, ('1+1i'.to_c).foorth_coerce(42.0))
+    assert_equal(Complex, ('1+1i'.to_c).foorth_coerce(42.0).class)
+
+    assert_equal('42+0i'.to_c, ('1+1i'.to_c).foorth_coerce('42/1'.to_r))
+    assert_equal(Complex, ('1+1i'.to_c).foorth_coerce('42/1'.to_r).class)
+
+    assert_equal('42+0i'.to_c, ('1+1i'.to_c).foorth_coerce('42'))
+    assert_equal(Complex, ('1+1i'.to_c).foorth_coerce('42').class)
+
+    assert_equal('42+0i'.to_c, ('1+1i'.to_c).foorth_coerce('42.0'))
+    assert_equal(Complex, ('1+1i'.to_c).foorth_coerce('42.0').class)
+
+    assert_equal('42+0i'.to_c, ('1+1i'.to_c).foorth_coerce('42/1'))
+    assert_equal(Complex, ('1+1i'.to_c).foorth_coerce('42/1').class)
+
+    assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_coerce('turnip') }
+    assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_coerce(obj) }
+    assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_coerce(nil) }
+    assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_coerce(MaxNumeric) }
+    assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_coerce(MinNumeric) }
+
+    assert_equal('42+0i'.to_c, ('1+1i'.to_c).foorth_coerce(42))
+    assert_equal(Complex, ('1+1i'.to_c).foorth_mnmx_coerce(42).class)
+
+    assert_equal('42+0i'.to_c, ('1+1i'.to_c).foorth_coerce(42.0))
+    assert_equal(Complex, ('1+1i'.to_c).foorth_mnmx_coerce(42.0).class)
+
+    assert_equal('42+0i'.to_c, ('1+1i'.to_c).foorth_coerce('42/1'.to_r))
+    assert_equal(Complex, ('1+1i'.to_c).foorth_mnmx_coerce('42/1'.to_r).class)
+
+    assert_equal('42+0i'.to_c, ('1+1i'.to_c).foorth_coerce('42'))
+    assert_equal(Complex, ('1+1i'.to_c).foorth_mnmx_coerce('42').class)
+
+    assert_equal('42+0i'.to_c, ('1+1i'.to_c).foorth_coerce('42.0'))
+    assert_equal(Complex, ('1+1i'.to_c).foorth_mnmx_coerce('42.0').class)
+
+    assert_equal('42+0i'.to_c, ('1+1i'.to_c).foorth_coerce('42/1'))
+    assert_equal(Complex, ('1+1i'.to_c).foorth_mnmx_coerce('42/1').class)
+
+    assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_mnmx_coerce('turnip') }
+    assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_mnmx_coerce(obj) }
+    assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_mnmx_coerce(nil) }
+    assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_mnmx_coerce(MaxNumeric) }
+    assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_mnmx_coerce(MinNumeric) }
+
+  end
 
 end

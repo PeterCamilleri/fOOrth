@@ -46,9 +46,7 @@ class Object
   end
 
   #Coerce the argument to match my type with min/max support. Stub
-  def foorth_mnmx_coerce(_arg)
-    error "Cannot min/max coerce to a #{self.foorth_name}"
-  end
+  alias :foorth_mnmx_coerce :foorth_coerce
 
 
   #New math methods. The mnmx_ prefix is short for min_max_.
