@@ -48,4 +48,43 @@ class CoerceProtocolTester < MiniTest::Unit::TestCase
 
   end
 
+  def test_coerce_for_floats
+    obj = Object.new
+
+    assert_equal(42.0, (3.0).foorth_coerce(42))
+    assert_equal(Float, (3.0).foorth_coerce(42).class)
+
+    assert_equal(42.0, (3.0).foorth_coerce(42.0))
+    assert_equal(Float, (3.0).foorth_coerce(42.0).class)
+
+    assert_equal(42.0, (3.0).foorth_coerce('42'))
+    assert_equal(Float, (3.0).foorth_coerce('42').class)
+
+    assert_equal(42.0, (3.0).foorth_coerce('42.0'))
+    assert_equal(Float, (3.0).foorth_coerce('42.0').class)
+
+    assert_raises(XfOOrth::XfOOrthError) { (3.0).foorth_coerce('turnip') }
+    assert_raises(XfOOrth::XfOOrthError) { (3.0).foorth_coerce(obj) }
+    assert_raises(XfOOrth::XfOOrthError) { (3.0).foorth_coerce(nil) }
+    assert_raises(XfOOrth::XfOOrthError) { (3.0).foorth_coerce(MaxNumeric) }
+    assert_raises(XfOOrth::XfOOrthError) { (3.0).foorth_coerce(MinNumeric) }
+
+    assert_equal(42.0, (3.0).foorth_mnmx_coerce(42))
+    assert_equal(Float, (3.0).foorth_mnmx_coerce(42).class)
+
+    assert_equal(42.0, (3.0).foorth_mnmx_coerce('42'))
+    assert_equal(Float, (3.0).foorth_mnmx_coerce('42').class)
+
+    assert_equal(MaxNumeric, (3.0).foorth_mnmx_coerce(MaxNumeric))
+    assert_equal(MinNumeric, (3.0).foorth_mnmx_coerce(MinNumeric))
+
+    assert_raises(XfOOrth::XfOOrthError) { (3.0).foorth_mnmx_coerce('turnip') }
+    assert_raises(XfOOrth::XfOOrthError) { (3.0).foorth_mnmx_coerce(obj) }
+    assert_raises(XfOOrth::XfOOrthError) { (3.0).foorth_mnmx_coerce(nil) }
+
+  end
+
+
+
+
 end
