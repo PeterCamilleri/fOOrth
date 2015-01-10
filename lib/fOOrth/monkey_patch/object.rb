@@ -38,6 +38,19 @@ class Object
     raise XfOOrth::ForceAbort, msg
   end
 
+  #Argument coercion methods. These are stubs.
+
+  #Coerce the argument to match my type. Stub
+  def foorth_coerce(_arg)
+    error "Cannot coerce to a #{self.foorth_name}"
+  end
+
+  #Coerce the argument to match my type with min/max support. Stub
+  def foorth_mnmx_coerce(_arg)
+    error "Cannot min/max coerce to a #{self.foorth_name}"
+  end
+
+
   #New math methods. The mnmx_ prefix is short for min_max_.
   #These methods handle the default case for non-numeric data.
 
