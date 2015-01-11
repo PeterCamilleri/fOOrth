@@ -54,9 +54,6 @@ module XfOOrth
   Object.create_shared_method('<>', NosSpec, [],
     &lambda {|vm| vm.poke(self != vm.peek); })
 
-  # [b,a] 0<=> b < a [-1], b = a [0], b > a [1]
-  Object.create_shared_method('<=>', NosSpec, [],
-    &lambda {|vm| vm.poke(self.mnmx_cp(vm.peek)); })
 
   # Some identity comparison words.
   # [b,a] identical? if b.object_id == a.object_id then [true] else [false]
