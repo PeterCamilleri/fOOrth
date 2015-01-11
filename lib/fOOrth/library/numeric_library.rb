@@ -215,27 +215,27 @@ module XfOOrth
   # Some bitwise operation words.
   # [b,a] and [b&a]
   Numeric.create_shared_method('and', TosSpec, [],
-    &lambda {|vm| vm.poke(self.to_i & vm.peek.to_i); })
+    &lambda {|vm| vm.poke(Integer.foorth_coerce(self) & Integer.foorth_coerce(vm.peek)); })
 
   # [b,a] or [b|a]
   Numeric.create_shared_method('or', TosSpec, [],
-    &lambda {|vm| vm.poke(self.to_i | vm.peek.to_i); })
+    &lambda {|vm| vm.poke(Integer.foorth_coerce(self) | Integer.foorth_coerce(vm.peek)); })
 
   # [b,a] xor [b^a]
   Numeric.create_shared_method('xor', TosSpec, [],
-    &lambda {|vm| vm.poke(self.to_i ^ vm.peek.to_i); })
+    &lambda {|vm| vm.poke(Integer.foorth_coerce(self) ^ Integer.foorth_coerce(vm.peek)); })
 
   # [a] com [~a]
   Numeric.create_shared_method('com', TosSpec, [],
-    &lambda {|vm| vm.push(~(self.to_i)); })
+    &lambda {|vm| vm.push(~(Integer.foorth_coerce(self))); })
 
   # [b,a] << [b<<a]
   Numeric.create_shared_method('<<', NosSpec, [],
-    &lambda {|vm| vm.poke(self.to_i << vm.peek.to_i); })
+    &lambda {|vm| vm.poke(Integer.foorth_coerce(self) << Integer.foorth_coerce(vm.peek)); })
 
   # [b,a] >> [b>>a]
   Numeric.create_shared_method('>>', NosSpec, [],
-    &lambda {|vm| vm.poke(self.to_i >> vm.peek.to_i); })
+    &lambda {|vm| vm.poke(Integer.foorth_coerce(self) >> Integer.foorth_coerce(vm.peek)); })
 
 
   #Advanced math stuff!

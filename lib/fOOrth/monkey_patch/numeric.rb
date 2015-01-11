@@ -14,7 +14,7 @@ class Numeric
 
   #Convert this number to a single character string.
   def to_foorth_c
-    as_int = self.to_i
+    as_int = Integer.foorth_coerce(self)
 
     if as_int < 0 || as_int > 65535
       error "Can't convert #{self} to a character."

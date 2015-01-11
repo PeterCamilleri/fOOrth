@@ -11,15 +11,17 @@ module XfOOrth
 
   # [n] Array .new_size [[0,0,...0]]; create an array of n zeros.
   Array.create_exclusive_method('.new_size', TosSpec, [],
-    &lambda {|vm| vm.poke(self.new(vm.peek.to_i, 0)); })
+    &lambda {|vm| vm.poke(self.new(Integer.foorth_coerce(vm.peek), 0)); })
 
   # [v] Array .new_value [[v]]; create an array of a single value.
   Array.create_exclusive_method('.new_value', TosSpec, [],
     &lambda {|vm| vm.poke(self.new(1, vm.peek)); })
 
   # [v n] Array .new_values [[v,v,...v]]; create an array of a n values.
-  Array.create_exclusive_method('.new_values', TosSpec, [],
-    &lambda {|vm| count = vm.pop.to_i; vm.poke(self.new(count, vm.peek)); })
+  Array.create_exclusive_method('.new_values', TosSpec, [], &lambda {|vm|
+    count = Integer.foorth_coerce(vm.pop)
+    vm.poke(self.new(count, vm.peek))
+  })
 
   # [] [ v1 v2 ... vn ] [[v1,v2,...vn]]; an array literal value
   VirtualMachine.create_shared_method('[', VmSpec, [:immediate], &lambda { |vm|
@@ -31,11 +33,13 @@ module XfOOrth
 
   # [i a] .[]@ [a[i]]
   Array.create_shared_method('.[]@', TosSpec, [],
-    &lambda {|vm| vm.poke(self[vm.peek.to_i]); })
+    &lambda {|vm| vm.poke(self[Integer.foorth_coerce(vm.peek)]); })
 
   # [v i a] .[]! []; a[i]=v
-  Array.create_shared_method('.[]!', TosSpec, [],
-    &lambda {|vm| value, index = vm.popm(2); self[index.to_i] = value; })
+  Array.create_shared_method('.[]!', TosSpec, [], &lambda {|vm|
+    value, index = vm.popm(2)
+    self[Integer.foorth_coerce(index)] = value;
+  })
 
   # [[1 2 3]] .reverse [[3 2 1]]
   Array.create_shared_method('.reverse', TosSpec, [],
@@ -63,74 +67,74 @@ module XfOOrth
 
   # [w [3 1 2]] .left [[3 1]]; assumes w = 2
   Array.create_shared_method('.left', TosSpec, [],
-    &lambda {|vm| vm.poke(self.first(vm.peek.to_i)); })
+    &lambda {|vm| vm.poke(self.first(Integer.foorth_coerce(vm.peek))); })
 
   # [w [3 1 2]] .-left [2]    // Assumes w = 2
   Array.create_shared_method('.-left', TosSpec, [],
-    &lambda {|vm| vm.poke(self[(vm.peek.to_i)..-1]); })
+    &lambda {|vm| vm.poke(self[(Integer.foorth_coerce(vm.peek))..-1]); })
 
   # [w [0 8 9] [1 2 3 4]] .+left [[0 8 9 3 4]] // Assumes w = 2
   Array.create_shared_method('.+left', TosSpec, [], &lambda {|vm|
     ins = vm.pop
-    vm.poke(ins + self[(vm.peek.to_i)..-1])
+    vm.poke(ins + self[(Integer.foorth_coerce(vm.peek))..-1])
   })
 
   # [w [3 1 2]] .right [[1 2]]; assumes w = 2
   Array.create_shared_method('.right', TosSpec, [],
-    &lambda {|vm| vm.poke(self.last(vm.peek.to_i)); })
+    &lambda {|vm| vm.poke(self.last(Integer.foorth_coerce(vm.peek))); })
 
   # [w [3 1 2]] .-right [[3]]   // Assumes w = 2
   Array.create_shared_method('.-right', TosSpec, [],
-    &lambda {|vm| vm.poke(self[0...(0-(vm.peek.to_i))]); })
+    &lambda {|vm| vm.poke(self[0...(0-(Integer.foorth_coerce(vm.peek)))]); })
 
   # [w [0 8 9] [1 2 3 4]] .+right [[1 2 0 8 9]] // Assumes w = 2
   Array.create_shared_method('.+right', TosSpec, [], &lambda {|vm|
     ins = vm.pop
-    width = vm.pop.to_i
+    width = Integer.foorth_coerce(vm.pop)
     vm.push(self[0...(0-width)] + ins)
   })
 
   # [n w [1 2 3 4 5 6 7 8]] .mid [[3 4 5 6]] // Assumes n = 2, w = 4
   Array.create_shared_method('.mid', TosSpec, [], &lambda {|vm|
-    width = vm.pop.to_i
-    posn = vm.pop.to_i
+    width = Integer.foorth_coerce(vm.pop)
+    posn = Integer.foorth_coerce(vm.pop)
     vm.push(self[posn...(posn+width)])
   })
 
   # [n w [1 2 3 4 5 6 7 8]] .-mid [[1 2 7 8]] // Assumes n = 2, w = 4
   Array.create_shared_method('.-mid', TosSpec, [], &lambda {|vm|
-    width = vm.pop.to_i
-    posn = vm.pop.to_i
+    width = Integer.foorth_coerce(vm.pop)
+    posn = Integer.foorth_coerce(vm.pop)
     vm.push(self[0...posn] + self[(posn+width)..-1])
   })
 
   # [n w [0 8 9] [1 2 3 4 5 6 7 8]] .+mid [[1 2 0 8 9 7 8]] // Assumes n = 2, w = 4
   Array.create_shared_method('.+mid', TosSpec, [], &lambda {|vm|
     ins = vm.pop
-    width = vm.pop.to_i
-    posn = vm.pop.to_i
+    width = Integer.foorth_coerce(vm.pop)
+    posn = Integer.foorth_coerce(vm.pop)
     vm.push(self[0...posn] + ins + self[(posn+width)..-1])
   })
 
   # [l r [1 2 3 4 5 6 7 8]] .midlr [[2 3 4 5 6 7]] // Assumes n = 1, w = 1
   Array.create_shared_method('.midlr', TosSpec, [], &lambda {|vm|
-    right = vm.pop.to_i
-    left  = vm.pop.to_i
+    right = Integer.foorth_coerce(vm.pop)
+    left  = Integer.foorth_coerce(vm.pop)
     vm.push(self[left...(0-right)])
   })
 
   # [l r [1 2 3 4 5 6 7 8]] .-midlr [[1 8]] // Assumes l = 1, r = 1
   Array.create_shared_method('.-midlr', TosSpec, [], &lambda {|vm|
-    right = vm.pop.to_i
-    left  = vm.pop.to_i
+    right = Integer.foorth_coerce(vm.pop)
+    left  = Integer.foorth_coerce(vm.pop)
     vm.push(self[0...left] + self[((0-right))..-1])
   })
 
   # [l r [0 8 9] [1 2 3 4 5 6 7 8]] .+midlr [[1 0 8 9 8]] // Assumes l = 1, r = 1
   Array.create_shared_method('.+midlr', TosSpec, [], &lambda {|vm|
     ins = vm.pop
-    right = vm.pop.to_i
-    left  = vm.pop.to_i
+    right = Integer.foorth_coerce(vm.pop)
+    left  = Integer.foorth_coerce(vm.pop)
     vm.push(self[0...left] + ins + self[((0-right))..-1])
   })
 

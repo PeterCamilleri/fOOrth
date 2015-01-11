@@ -31,15 +31,15 @@ module XfOOrth
   #Some string manipulation methods.
   # [n a] .ljust ['a    ']; left justify
   String.create_shared_method('.ljust', TosSpec, [],
-    &lambda {|vm| vm.poke(self.ljust(vm.peek.to_i)); })
+    &lambda {|vm| vm.poke(self.ljust(Integer.foorth_coerce(vm.peek))); })
 
   # [n a] .cjust ['  a  ']; center justify
   String.create_shared_method('.cjust', TosSpec, [],
-    &lambda {|vm| vm.poke(self.center(vm.peek.to_i)); })
+    &lambda {|vm| vm.poke(self.center(Integer.foorth_coerce(vm.peek))); })
 
   # [n a] .rjust ['    a']; right justify
   String.create_shared_method('.rjust', TosSpec, [],
-    &lambda {|vm| vm.poke(self.rjust(vm.peek.to_i)); })
+    &lambda {|vm| vm.poke(self.rjust(Integer.foorth_coerce(vm.peek))); })
 
   # ["  a  "] .lstrip ["a  "]; left strip
   String.create_shared_method('.lstrip', TosSpec, [],
@@ -65,16 +65,16 @@ module XfOOrth
 
   # [w 'abcdefgh'] .left ['ab']         // Assumes w = 2
   String.create_shared_method('.left', TosSpec, [],
-    &lambda {|vm| vm.poke(self[0...(vm.peek.to_i)]); })
+    &lambda {|vm| vm.poke(self[0...(Integer.foorth_coerce(vm.peek))]); })
 
   # [w 'abcdefgh'] .-left ['cdefgh']    // Assumes w = 2
   String.create_shared_method('.-left', TosSpec, [],
-    &lambda {|vm| vm.poke(self[(vm.peek.to_i)..-1]); })
+    &lambda {|vm| vm.poke(self[(Integer.foorth_coerce(vm.peek))..-1]); })
 
   # [w '123''abcdefgh'] .+left ['123cdefgh']    // Assumes w = 2
   String.create_shared_method('.+left', TosSpec, [], &lambda {|vm|
     ins = vm.pop.to_s
-    vm.poke(ins + self[(vm.peek.to_i)..-1])
+    vm.poke(ins + self[(Integer.foorth_coerce(vm.peek))..-1])
   })
 
   # ['abc' 'abcdefgh'] .left? [boolean]
@@ -86,23 +86,23 @@ module XfOOrth
 
   # [n w 'abcdefgh'] .mid ['cdef']      // Assumes n = 2, w = 4
   String.create_shared_method('.mid', TosSpec, [], &lambda {|vm|
-    width = vm.pop.to_i
-    posn = vm.pop.to_i
+    width = Integer.foorth_coerce(vm.pop)
+    posn = Integer.foorth_coerce(vm.pop)
     vm.push(self[posn...(posn+width)])
   })
 
   # [n w 'abcdefgh'] .-mid ['abgh']     // Assumes n = 2, w = 4
   String.create_shared_method('.-mid', TosSpec, [], &lambda {|vm|
-    width = vm.pop.to_i
-    posn = vm.pop.to_i
+    width = Integer.foorth_coerce(vm.pop)
+    posn = Integer.foorth_coerce(vm.pop)
     vm.push(self[0...posn] + self[(posn+width)..-1])
   })
 
   # [n w "123" "abcdefgh"] .+mid ["ab123gh"] // Assumes n = 2, w = 4
   String.create_shared_method('.+mid', TosSpec, [], &lambda {|vm|
     ins = vm.pop.to_s
-    width = vm.pop.to_i
-    posn = vm.pop.to_i
+    width = Integer.foorth_coerce(vm.pop)
+    posn = Integer.foorth_coerce(vm.pop)
     vm.push(self[0...posn] + ins + self[(posn+width)..-1])
   })
 
@@ -119,23 +119,23 @@ module XfOOrth
 
   # [l r 'abcdefgh'] .midlr ['bcdefg']  // Assumes l = 1, r = 1
   String.create_shared_method('.midlr', TosSpec, [], &lambda {|vm|
-    right = vm.pop.to_i
-    left  = vm.pop.to_i
+    right = Integer.foorth_coerce(vm.pop)
+    left  = Integer.foorth_coerce(vm.pop)
     vm.push(self[left...(0-right)])
   })
 
   # [l r 'abcdefgh'] .-midlr ['ah']     // Assumes l = 1, r = 1
   String.create_shared_method('.-midlr', TosSpec, [], &lambda {|vm|
-    right = vm.pop.to_i
-    left  = vm.pop.to_i
+    right = Integer.foorth_coerce(vm.pop)
+    left  = Integer.foorth_coerce(vm.pop)
     vm.push(self[0...left] + self[((0-right))..-1])
   })
 
   # [l r "123" 'abcdefgh'] .+midlr ['a123h']     // Assumes l = 1, r = 1
   String.create_shared_method('.+midlr', TosSpec, [], &lambda {|vm|
     ins = vm.pop.to_s
-    right = vm.pop.to_i
-    left  = vm.pop.to_i
+    right = Integer.foorth_coerce(vm.pop)
+    left  = Integer.foorth_coerce(vm.pop)
     vm.push(self[0...left] + ins + self[((0-right))..-1])
   })
 
@@ -143,16 +143,16 @@ module XfOOrth
 
   # [w 'abcdefgh'] .right ['gh']        // Assumes w = 2
   String.create_shared_method('.right', TosSpec, [],
-    &lambda {|vm| vm.poke(self[(0-(vm.peek.to_i))..-1]); })
+    &lambda {|vm| vm.poke(self[(0-(Integer.foorth_coerce(vm.peek)))..-1]); })
 
   # [w 'abcdefgh'] .-right ['abcdef']   // Assumes w = 2
   String.create_shared_method('.-right', TosSpec, [],
-    &lambda {|vm| vm.poke(self[0...(0-(vm.peek.to_i))]); })
+    &lambda {|vm| vm.poke(self[0...(0-(Integer.foorth_coerce(vm.peek)))]); })
 
   # [w "123" 'abcdefgh'] .+right ['abcdef123']   // Assumes w = 2
   String.create_shared_method('.+right', TosSpec, [], &lambda {|vm|
     ins = vm.pop.to_s
-    width = vm.pop.to_i
+    width = Integer.foorth_coerce(vm.pop)
     vm.push(self[0...(0-width)] + ins)
   })
 
@@ -175,7 +175,7 @@ module XfOOrth
 
   # ["b", n] * ["bbb..."]
   String.create_shared_method('*', NosSpec, [],
-    &lambda {|vm| vm.poke(self * vm.peek.to_i); })
+    &lambda {|vm| vm.poke(self * Integer.foorth_coerce(vm.peek)); })
 
   # ["abCD"] .to_upper ["ABCD"]
   String.create_shared_method('.to_upper', TosSpec, [],

@@ -10,7 +10,7 @@ module XfOOrth
 
   # [a] .to_i [Integer]
   Object.create_shared_method('.to_i', TosSpec, [],
-    &lambda {|vm| vm.push(self.to_i); })
+    &lambda {|vm| vm.push(Integer.foorth_coerce(self)); })
 
   # [a b] .gcd [gcd(a,b)]
   Integer.create_shared_method('.gcd', TosSpec, [],
