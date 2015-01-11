@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'full_clone'
   spec.add_runtime_dependency 'safe_clone'
+  spec.add_runtime_dependency 'in_array'
 end

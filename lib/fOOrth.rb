@@ -4,6 +4,7 @@
 
 require          'safe_clone'
 require          'full_clone'
+require          'in_array'
 
 require_relative 'fOOrth/version'
 require_relative 'fOOrth/exceptions'
