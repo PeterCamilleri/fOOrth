@@ -45,29 +45,4 @@ class Object
     error "Cannot coerce to a #{self.foorth_name}"
   end
 
-
-  #New math methods. The mnmx_ prefix is short for min_max_.
-  #These methods handle the default case for non-numeric data.
-  #TO BE DELETED!
-
-  #The min max >= operator
-  def mnmx_ge(other)
-    self >= other
-  end
-
-  #The min max < operator
-  def mnmx_lt(other)
-    self < other
-  end
-
-  #The min max <= operator
-  def mnmx_le(other)
-    self <= other
-  end
-
-  #The min max <=> operator
-  def mnmx_cp(other)
-    self <=> other
-  end
-
 end
