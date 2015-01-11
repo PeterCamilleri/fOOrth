@@ -63,7 +63,7 @@ module XfOOrth
 
   # [[3 1 2] n] + [[3 1 2 n]]
   Array.create_shared_method('+', NosSpec, [],
-    &lambda {|vm| vm.poke(self + vm.peek.to_foorth_p); })
+    &lambda {|vm| vm.poke(self + vm.peek.in_array); })
 
   # [w [3 1 2]] .left [[3 1]]; assumes w = 2
   Array.create_shared_method('.left', TosSpec, [],
