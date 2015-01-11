@@ -83,5 +83,25 @@ class ComparisonTester < MiniTest::Unit::TestCase
     foorth_equal('"5"       4     <  ', [false])
   end
 
+  def test_greater_or_equal
+    foorth_equal('4       4       >= ', [true])
+    foorth_equal('4       5       >= ', [false])
+    foorth_equal('5       4       >= ', [true])
+    foorth_equal('4       max_num >= ', [false])
+    foorth_equal('max_num max_num >= ', [true])
+    foorth_equal('min_num 4       >= ', [false])
+    foorth_equal('4       min_num >= ', [true])
+    foorth_equal('min_num min_num >= ', [true])
+    foorth_equal('max_num min_num >= ', [true])
+    foorth_equal('min_num max_num >= ', [false])
+
+    foorth_equal('"4"       "4"   >= ', [true])
+    foorth_equal('"4"       4     >= ', [true])
+    foorth_equal('"4"       "5"   >= ', [false])
+    foorth_equal('"4"       5     >= ', [false])
+    foorth_equal('"5"       "4"   >= ', [true])
+    foorth_equal('"5"       4     >= ', [true])
+  end
+
 
 end
