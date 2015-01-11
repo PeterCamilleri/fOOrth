@@ -35,4 +35,31 @@ module XfOOrth
   # [a] 2/ [|a|]
   Integer.create_shared_method('2/', TosSpec, [],
     &lambda {|vm| vm.push(self >> 1); })
+
+  # Some bitwise operation words.
+  # [b,a] and [b&a]
+  Integer.create_shared_method('and', NosSpec, [],
+    &lambda {|vm| vm.poke(self & Integer.foorth_coerce(vm.peek)); })
+
+  # [b,a] or [b|a]
+  Integer.create_shared_method('or', NosSpec, [],
+    &lambda {|vm| vm.poke(self | Integer.foorth_coerce(vm.peek)); })
+
+  # [b,a] xor [b^a]
+  Integer.create_shared_method('xor', NosSpec, [],
+    &lambda {|vm| vm.poke(self ^ Integer.foorth_coerce(vm.peek)); })
+
+  # [a] com [~a]
+  Integer.create_shared_method('com', TosSpec, [],
+    &lambda {|vm| vm.push(~(self)); })
+
+  # [b,a] << [b<<a]
+  Integer.create_shared_method('<<', NosSpec, [],
+    &lambda {|vm| vm.poke(self << Integer.foorth_coerce(vm.peek)); })
+
+  # [b,a] >> [b>>a]
+  Integer.create_shared_method('>>', NosSpec, [],
+    &lambda {|vm| vm.poke(self >> Integer.foorth_coerce(vm.peek)); })
+
+
 end

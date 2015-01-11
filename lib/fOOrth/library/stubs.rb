@@ -36,9 +36,9 @@ module XfOOrth
   Object.create_shared_method('2/',   TosSpec, [:stub])
 
   # Some bitwise operation stubs. See numeric_library.rb
-  Object.create_shared_method('and',  TosSpec, [:stub])
-  Object.create_shared_method('or',   TosSpec, [:stub])
-  Object.create_shared_method('xor',  TosSpec, [:stub])
+  Object.create_shared_method('and',  NosSpec, [:stub])
+  Object.create_shared_method('or',   NosSpec, [:stub])
+  Object.create_shared_method('xor',  NosSpec, [:stub])
   Object.create_shared_method('com',  TosSpec, [:stub])
   Object.create_shared_method('<<',   NosSpec, [:stub])
   Object.create_shared_method('>>',   NosSpec, [:stub])

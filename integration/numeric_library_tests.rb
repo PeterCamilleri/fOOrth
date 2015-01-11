@@ -218,7 +218,7 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("5 3 and", [1])
     foorth_equal("5 3 or",  [7])
     foorth_equal("5 3 xor", [6])
-    foorth_equal("5 com",  [-6])
+    foorth_equal("5   com", [-6])
   end
 
   def test_some_trig
