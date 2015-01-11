@@ -42,4 +42,24 @@ class String
     self > other.to_s
   end
 
+  #The min max >= operator
+  def mnmx_ge(other)
+    self >= other.to_s
+  end
+
+  #The min max < operator
+  def mnmx_lt(other)
+    self < other.to_s
+  end
+
+  #The min max <= operator
+  def mnmx_le(other)
+    self <= other.to_s
+  end
+
+  #The min max <=> operator
+  def mnmx_cp(other)
+    self <=> other.to_s
+  end
+
 end

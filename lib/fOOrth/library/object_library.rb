@@ -54,10 +54,6 @@ module XfOOrth
   Object.create_shared_method('<>', NosSpec, [],
     &lambda {|vm| vm.poke(self != vm.peek); })
 
-  # [b,a] < if b < a then [true] else [false]
-  Object.create_shared_method('<', NosSpec, [],
-    &lambda {|vm| vm.poke(self.mnmx_lt(vm.peek)); })
-
   # [b,a] >= if b >= a then [true] else [false]
   Object.create_shared_method('>=', NosSpec, [],
     &lambda {|vm| vm.poke(self.mnmx_ge(vm.peek)); })

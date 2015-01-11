@@ -41,22 +41,22 @@ class Numeric
 
   #The min max >= operator
   def mnmx_ge(other)
-    (other != MaxNumeric) && ((other == MinNumeric) || (self >= other))
+    (other != MaxNumeric) && ((other == MinNumeric) || (self >= foorth_coerce(other)))
   end
 
   #The min max < operator
   def mnmx_lt(other)
-    (other != MinNumeric) && ((other == MaxNumeric) || (self < other))
+    (other != MinNumeric) && ((other == MaxNumeric) || (self < foorth_coerce(other)))
   end
 
   #The min max <= operator
   def mnmx_le(other)
-    (other != MinNumeric) && ((other == MaxNumeric) || (self <= other))
+    (other != MinNumeric) && ((other == MaxNumeric) || (self <= foorth_coerce(other)))
   end
 
   #The min max <=> operator
   def mnmx_cp(other)
-    ((other == MinNumeric) && 1) || ((other == MaxNumeric) && -1) || (self <=> other)
+    ((other == MinNumeric) && 1) || ((other == MaxNumeric) && -1) || (self <=> foorth_coerce(other))
   end
 
 end

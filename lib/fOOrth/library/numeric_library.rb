@@ -35,6 +35,14 @@ module XfOOrth
   MinNumeric.create_exclusive_method('>', NosSpec, [],
     &lambda {|vm| vm.poke(false); })
 
+  # [b,a] < if b < a then [true] else [false]
+  Numeric.create_shared_method('<', NosSpec, [],
+    &lambda {|vm| vm.poke(self.mnmx_lt(vm.peek)); })
+  MaxNumeric.create_exclusive_method('<', NosSpec, [],
+    &lambda {|vm| vm.poke(false)})
+  MinNumeric.create_exclusive_method('<', NosSpec, [],
+    &lambda {|vm| vm.poke(vm.peek != MinNumeric); })
+
 
   # Some comparison with zero words.
   # [b,a] 0= if b == 0 then [true] else [false]

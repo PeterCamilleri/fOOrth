@@ -9,7 +9,12 @@ module XfOOrth
   #Some comparison operators
   # [b,a] > if b > a then [true] else [false]
   String.create_shared_method('>', NosSpec, [],
-    &lambda {|vm| vm.poke(self.mnmx_gt(vm.peek.to_s)); })
+    &lambda {|vm| vm.poke(self > vm.peek.to_s); })
+
+  # [b,a] < if b < a then [true] else [false]
+  String.create_shared_method('<', NosSpec, [],
+    &lambda {|vm| vm.poke(self < vm.peek.to_s); })
+
 
   # [n a] .ljust ['a    ']; left justify
   String.create_shared_method('.ljust', TosSpec, [],
