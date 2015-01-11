@@ -7,8 +7,7 @@ module XfOOrth
   Object.create_shared_method('>',    NosSpec, [:stub])
   Object.create_shared_method('<',    NosSpec, [:stub])
   Object.create_shared_method('>=',   NosSpec, [:stub])
-
-
+  Object.create_shared_method('<=',   NosSpec, [:stub])
 
   # Some comparison with zero words.  See numeric_library.rb
   Object.create_shared_method('0=',   TosSpec, [:stub])

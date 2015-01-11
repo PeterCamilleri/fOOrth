@@ -19,6 +19,10 @@ module XfOOrth
   String.create_shared_method('>=', NosSpec, [],
     &lambda {|vm| vm.poke(self >= vm.peek.to_s); })
 
+  # [b,a] <= if b <= a then [true] else [false]
+  String.create_shared_method('<=', NosSpec, [],
+    &lambda {|vm| vm.poke(self <= vm.peek.to_s); })
+
 
   #Some string manipulation methods.
   # [n a] .ljust ['a    ']; left justify
