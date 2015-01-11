@@ -129,27 +129,27 @@ module XfOOrth
   # Some stack arithmetic words.
   # [b,a] + [b+a]
   Numeric.create_shared_method('+', NosSpec, [],
-    &lambda {|vm| vm.poke(self + vm.peek.to_foorth_n); })
+    &lambda {|vm| vm.poke(self + self.foorth_coerce(vm.peek)); })
 
   # [b,a] - [b-a]
   Numeric.create_shared_method('-', NosSpec, [],
-    &lambda {|vm| vm.poke(self - vm.peek.to_foorth_n); })
+    &lambda {|vm| vm.poke(self - self.foorth_coerce(vm.peek)); })
 
   # [b,a] * [b*a]
   Numeric.create_shared_method('*', NosSpec, [],
-    &lambda {|vm| vm.poke(self * vm.peek.to_foorth_n); })
+    &lambda {|vm| vm.poke(self * self.foorth_coerce(vm.peek)); })
 
   # [b,a] ** [b**a]
   Numeric.create_shared_method('**', NosSpec, [],
-    &lambda {|vm| vm.poke(self ** vm.peek.to_foorth_n); })
+    &lambda {|vm| vm.poke(self ** self.foorth_coerce(vm.peek)); })
 
   # [b,a] / [b/a]
   Numeric.create_shared_method('/', NosSpec, [],
-    &lambda {|vm| vm.poke(self / vm.peek.to_foorth_n); })
+    &lambda {|vm| vm.poke(self / self.foorth_coerce(vm.peek)); })
 
   # [b,a] mod [b%a]
   Numeric.create_shared_method('mod', NosSpec, [],
-    &lambda {|vm| vm.poke(self % vm.peek.to_foorth_n); })
+    &lambda {|vm| vm.poke(self % self.foorth_coerce(vm.peek)); })
 
   # [a] neg [-a]
   Numeric.create_shared_method('neg', TosSpec, [],

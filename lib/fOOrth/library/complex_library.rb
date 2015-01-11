@@ -6,7 +6,12 @@ module XfOOrth
   #Connect the Complex class to the fOOrth class system.
   Complex.create_foorth_proxy
 
-  # Some conversion words.
+  #Some complex math exceptions
+  # [b,a] mod [b%a]; Not supported for Complex.
+  Complex.create_shared_method('mod', NosSpec, [:stub])
+
+
+  #Some conversion words.
   # [a b] complex [a+bi]
   VirtualMachine.create_shared_method('complex', VmSpec, [],
     &lambda {|vm| real,imag = popm(2); push(Complex(real,imag)); })
