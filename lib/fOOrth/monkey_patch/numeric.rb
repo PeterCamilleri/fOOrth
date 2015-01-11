@@ -30,13 +30,13 @@ class Numeric
     self
   end
 
-  #New math methods. The mnmx_ prefix is short for min_max_.
+  #New comparison methods. The mnmx_ prefix is short for min_max_.
   #These methods process and handle the special MaxNumeric and
   #MinNumeric modules.
 
   #The min max > operator
   def mnmx_gt(other)
-    (other != MaxNumeric) && ((other == MinNumeric) || (self > other))
+    (other != MaxNumeric) && ((other == MinNumeric) || (self > foorth_coerce(other)))
   end
 
   #The min max >= operator

@@ -41,17 +41,6 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('max_num min_num <> ', [true])
     foorth_equal('min_num max_num <> ', [true])
 
-    foorth_equal('4       4       >  ', [false])
-    foorth_equal('4       5       >  ', [false])
-    foorth_equal('5       4       >  ', [true])
-    foorth_equal('4       max_num >  ', [false])
-    foorth_equal('max_num max_num >  ', [false])
-    foorth_equal('min_num 4       >  ', [false])
-    foorth_equal('4       min_num >  ', [true])
-    foorth_equal('min_num min_num >  ', [false])
-    foorth_equal('max_num min_num >  ', [true])
-    foorth_equal('min_num max_num >  ', [false])
-
     foorth_equal('4       4       <  ', [false])
     foorth_equal('4       5       <  ', [true])
     foorth_equal('5       4       <  ', [false])

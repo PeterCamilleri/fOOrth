@@ -34,4 +34,12 @@ class String
   rescue
     nil
   end
+
+  #New comparison methods.
+
+  #The min max > operator
+  def mnmx_gt(other)
+    self > other.to_s
+  end
+
 end

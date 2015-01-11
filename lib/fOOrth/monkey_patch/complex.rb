@@ -18,7 +18,4 @@ class Complex
     error "Cannot coerce a #{arg.foorth_name} to a #{self.foorth_name}"
   end
 
-  #There is no min/max support for Complex.
-  alias :foorth_mnmx_coerce :foorth_coerce
-
 end

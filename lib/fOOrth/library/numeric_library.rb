@@ -26,6 +26,15 @@ module XfOOrth
   Object.create_shared_method('.to_f', TosSpec, [],
     &lambda {|vm| vm.push(self.to_f); })
 
+  # Some comparison words.
+  # [b,a] > if b > a then [true] else [false]
+  Numeric.create_shared_method('>', NosSpec, [],
+    &lambda {|vm| vm.poke(self.mnmx_gt(vm.peek)); })
+  MaxNumeric.create_exclusive_method('>', NosSpec, [],
+    &lambda {|vm| vm.poke(vm.peek != MaxNumeric)})
+  MinNumeric.create_exclusive_method('>', NosSpec, [],
+    &lambda {|vm| vm.poke(false); })
+
 
   # Some comparison with zero words.
   # [b,a] 0= if b == 0 then [true] else [false]

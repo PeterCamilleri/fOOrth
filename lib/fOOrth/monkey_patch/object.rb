@@ -45,17 +45,10 @@ class Object
     error "Cannot coerce to a #{self.foorth_name}"
   end
 
-  #Coerce the argument to match my type with min/max support. Stub
-  alias :foorth_mnmx_coerce :foorth_coerce
-
 
   #New math methods. The mnmx_ prefix is short for min_max_.
   #These methods handle the default case for non-numeric data.
-
-  #The min max > operator
-  def mnmx_gt(other)
-    self > other
-  end
+  #TO BE DELETED!
 
   #The min max >= operator
   def mnmx_ge(other)

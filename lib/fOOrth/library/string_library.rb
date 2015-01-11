@@ -6,6 +6,11 @@ module XfOOrth
   #Connect the String class to the fOOrth class system.
   String.create_foorth_proxy
 
+  #Some comparison operators
+  # [b,a] > if b > a then [true] else [false]
+  String.create_shared_method('>', NosSpec, [],
+    &lambda {|vm| vm.poke(self.mnmx_gt(vm.peek.to_s)); })
+
   # [n a] .ljust ['a    ']; left justify
   String.create_shared_method('.ljust', TosSpec, [],
     &lambda {|vm| vm.poke(self.ljust(vm.peek.to_i)); })
