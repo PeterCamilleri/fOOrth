@@ -228,71 +228,73 @@ module XfOOrth
 
   # [degrees] .d2r [radians]
   Numeric.create_shared_method('.d2r', TosSpec, [],
-    &lambda {|vm| vm.push(self/DegreesPerRadian); })
+    &lambda {|vm| vm.push(Float.foorth_coerce(self)/DegreesPerRadian); })
 
   # [radians] .r2d [degrees]
   Numeric.create_shared_method('.r2d', TosSpec, [],
-    &lambda {|vm| vm.push(self*DegreesPerRadian); })
+    &lambda {|vm| vm.push(Float.foorth_coerce(self)*DegreesPerRadian); })
 
   # [radians] .cos [cos(radians)]
   Numeric.create_shared_method('.cos', TosSpec, [],
-    &lambda {|vm| vm.push(Math::cos(self)); })
+    &lambda {|vm| vm.push(Math::cos(Float.foorth_coerce(self))); })
 
   # [radians] .sin [sin(radians)]
   Numeric.create_shared_method('.sin', TosSpec, [],
-    &lambda {|vm| vm.push(Math::sin(self)); })
+    &lambda {|vm| vm.push(Math::sin(Float.foorth_coerce(self))); })
 
   # [radians] .tan [tan(radians)]
   Numeric.create_shared_method('.tan', TosSpec, [],
-    &lambda {|vm| vm.push(Math::tan(self)); })
+    &lambda {|vm| vm.push(Math::tan(Float.foorth_coerce(self))); })
 
   # [cos(radians)] .acos [radians]
   Numeric.create_shared_method('.acos', TosSpec, [],
-    &lambda {|vm| vm.push(Math::acos(self)); })
+    &lambda {|vm| vm.push(Math::acos(Float.foorth_coerce(self))); })
 
   # [sin(radians)] .asin [radians]
   Numeric.create_shared_method('.asin', TosSpec, [],
-    &lambda {|vm| vm.push(Math::asin(self)); })
+    &lambda {|vm| vm.push(Math::asin(Float.foorth_coerce(self))); })
 
   # [y/x] .atan [radians]
   Numeric.create_shared_method('.atan', TosSpec, [],
-    &lambda {|vm| vm.push(Math::atan(self)); })
+    &lambda {|vm| vm.push(Math::atan(Float.foorth_coerce(self))); })
 
   # [y x] .atan2 [radians]
   Numeric.create_shared_method('.atan2', TosSpec, [],
-    &lambda {|vm| vm.poke(Math::atan2(vm.peek, self)); })
+    &lambda {|vm| vm.poke(Math::atan2(Float.foorth_coerce(vm.peek), Float.foorth_coerce(self))); })
 
   # [radians] .cosh [cosh(radians)]
   Numeric.create_shared_method('.cosh', TosSpec, [],
-    &lambda {|vm| vm.push(Math::cosh(self)); })
+    &lambda {|vm| vm.push(Math::cosh(Float.foorth_coerce(self))); })
 
   # [radians] .sinh [sinh(radians)]
   Numeric.create_shared_method('.sinh', TosSpec, [],
-    &lambda {|vm| vm.push(Math::sinh(self)); })
+    &lambda {|vm| vm.push(Math::sinh(Float.foorth_coerce(self))); })
 
   # [radians] .tanh [tanh(radians)]
   Numeric.create_shared_method('.tanh', TosSpec, [],
-    &lambda {|vm| vm.push(Math::tanh(self)); })
+    &lambda {|vm| vm.push(Math::tanh(Float.foorth_coerce(self))); })
 
   # [cosh(radians)] .acosh [radians]
   Numeric.create_shared_method('.acosh', TosSpec, [],
-    &lambda {|vm| vm.push(Math::acosh(self)); })
+    &lambda {|vm| vm.push(Math::acosh(Float.foorth_coerce(self))); })
 
   # [sinh(radians)] .asinh [radians]
   Numeric.create_shared_method('.asinh', TosSpec, [],
-    &lambda {|vm| vm.push(Math::asinh(self)); })
+    &lambda {|vm| vm.push(Math::asinh(Float.foorth_coerce(self))); })
 
   # [y/x] .atanh [radians]
   Numeric.create_shared_method('.atanh', TosSpec, [],
-    &lambda {|vm| vm.push(Math::atanh(self)); })
+    &lambda {|vm| vm.push(Math::atanh(Float.foorth_coerce(self))); })
 
   # [x] .e** [e**x]
   Numeric.create_shared_method('.e**', TosSpec, [],
     &lambda {|vm| vm.push(Math::exp(self)); })
+  Complex.create_shared_method('.e**', TosSpec, [],
+    &lambda {|vm| vm.push(Math::E ** self); })
 
   # [x] .ln [ln(x)]
   Numeric.create_shared_method('.ln', TosSpec, [],
-    &lambda {|vm| vm.push(Math::log(self)); })
+    &lambda {|vm| vm.push(Math::log(Float.foorth_coerce(self))); })
 
   # [x] .10** [10**x]
   Numeric.create_shared_method('.10**', TosSpec, [],
@@ -300,7 +302,7 @@ module XfOOrth
 
   # [x] .log10 [log10(x)]
   Numeric.create_shared_method('.log10', TosSpec, [],
-    &lambda {|vm| vm.push(Math::log10(self)); })
+    &lambda {|vm| vm.push(Math::log10(Float.foorth_coerce(self))); })
 
   # [x] .2** [2**x]
   Numeric.create_shared_method('.2**', TosSpec, [],
@@ -308,7 +310,7 @@ module XfOOrth
 
   # [x] .log2 [log2(x)]
   Numeric.create_shared_method('.log2', TosSpec, [],
-    &lambda {|vm| vm.push(Math::log2(self)); })
+    &lambda {|vm| vm.push(Math::log2(Float.foorth_coerce(self))); })
 
   # [x] .sqr [square(x)]
   Numeric.create_shared_method('.sqr', TosSpec, [],
@@ -317,6 +319,8 @@ module XfOOrth
   # [x] .sqrt [square root(x)]
   Numeric.create_shared_method('.sqrt', TosSpec, [],
     &lambda {|vm| vm.push(Math::sqrt(self)); })
+  Complex.create_shared_method('.sqrt', TosSpec, [],
+    &lambda {|vm| vm.push(self ** 0.5); })
 
   # [x] .cube [cube(x)]
   Numeric.create_shared_method('.cube', TosSpec, [],
@@ -325,21 +329,26 @@ module XfOOrth
   # [x] .cbrt [cube root(x)]
   Numeric.create_shared_method('.cbrt', TosSpec, [],
     &lambda {|vm| vm.push(Math::cbrt(self)); })
+  Complex.create_shared_method('.cbrt', TosSpec, [],
+    &lambda {|vm| vm.push(self ** Rational(1,3)); })
 
   # [x y] .hypot [sqrt(x**2 + y**2)]
-  Numeric.create_shared_method('.hypot', TosSpec, [],
-    &lambda {|vm| vm.poke(Math::hypot(self, vm.peek)); })
+  Numeric.create_shared_method('.hypot', TosSpec, [], &lambda {|vm|
+    vm.poke(Math::hypot(Float.foorth_coerce(self), Float.foorth_coerce(vm.peek)));
+  })
 
   # [r t] .p2c [x y]; Polar to Cartesian.
   Numeric.create_shared_method('.p2c', TosSpec, [], &lambda {|vm|
-    radius,theta = vm.pop.to_f, self.to_f
+    radius = Float.foorth_coerce(vm.pop)
+    theta  = Float.foorth_coerce(self)
     vm.push(radius * Math::cos(theta))
     vm.push(radius * Math::sin(theta))
   })
 
   # [x y] .c2p [r t]; Cartesian to Polar.
   Numeric.create_shared_method('.c2p', TosSpec, [], &lambda {|vm|
-    real,imag = vm.pop.to_f, self.to_f
+    real = Float.foorth_coerce(vm.pop)
+    imag = Float.foorth_coerce(self)
     vm.push(Math::hypot(real,imag))
     vm.push(Math::atan2(imag,real))
   })

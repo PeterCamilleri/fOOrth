@@ -6,9 +6,11 @@ module XfOOrth
   #Connect the Complex class to the fOOrth class system.
   Complex.create_foorth_proxy
 
-  #Some complex math exceptions
-  # [b,a] mod [b%a]; Not supported for Complex.
-  Complex.create_shared_method('mod', NosSpec, [:stub])
+  #Some complex stubs.
+  Complex.create_shared_method('mod',    NosSpec, [:stub])
+  Complex.create_shared_method('.ceil',  TosSpec, [:stub])
+  Complex.create_shared_method('.floor', TosSpec, [:stub])
+  Complex.create_shared_method('.round', TosSpec, [:stub])
 
 
   #Some conversion words.

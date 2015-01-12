@@ -164,6 +164,8 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('5 3 *', [15])
     foorth_equal('5 3 /', [1])
     foorth_equal('5 3 mod', [2])
+    foorth_raises('1+1i 3 mod')
+    foorth_raises('3 1+1i mod')
 
     foorth_equal('5 "3" +', [8])
     foorth_equal('5 "3" -', [2])
@@ -197,14 +199,17 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal(' 2.0 .ceil', [2])
     foorth_equal(' 2.1 .ceil', [3])
     foorth_equal(' 2.9 .ceil', [3])
+    foorth_raises('1+1i .ceil')
 
     foorth_equal(' 2.0 .floor', [2])
     foorth_equal(' 2.1 .floor', [2])
     foorth_equal(' 2.9 .floor', [2])
+    foorth_raises('1+1i .floor')
 
     foorth_equal(' 2.0 .round', [2])
     foorth_equal(' 2.1 .round', [2])
     foorth_equal(' 2.9 .round', [3])
+    foorth_raises('1+1i .round')
 
     foorth_equal(' 1.5 .numerator',   [3])
     foorth_equal(' 1.5 .denominator', [2])
@@ -238,6 +243,15 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("1   .acos  .r2d", [ 0.0])
     foorth_equal("1   .atan  .r2d", [45.0])
     foorth_equal("1 1 .atan2 .r2d", [45.0])
+
+    foorth_raises('1+1i .sin')
+    foorth_raises('1+1i .cos')
+    foorth_raises('1+1i .tan')
+    foorth_raises('1+1i .asin')
+    foorth_raises('1+1i .acos')
+    foorth_raises('1+1i .atan')
+    foorth_raises('1+1i 3 .atan2')
+    foorth_raises('1 1+1i .atan2')
   end
 
   def test_some_exagerated_trig
@@ -248,6 +262,13 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("0   .asinh     ", [0.0])
     foorth_equal("1   .acosh     ", [0.0])
     foorth_equal("0   .atanh     ", [0.0])
+
+    foorth_raises('1+1i .sinh')
+    foorth_raises('1+1i .cosh')
+    foorth_raises('1+1i .tanh')
+    foorth_raises('1+1i .asinh')
+    foorth_raises('1+1i .acosh')
+    foorth_raises('1+1i .atanh')
   end
 
   def test_some_powers
@@ -262,12 +283,15 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("1024 .log2",  [10.0])
 
     foorth_equal("16   .sqr ",  [256])
-    foorth_equal("16   .cube",  [4096])
-
     foorth_equal("16.0 .sqr ",  [256.0])
+    foorth_equal("1+1i .sqr ",  [Complex(0,2)])
+    foorth_equal("16   .cube",  [4096])
     foorth_equal("16.0 .cube",  [4096.0])
+    foorth_equal("1+1i .cube",  [Complex(-2,2)])
 
     foorth_equal("1024 .sqrt",  [32.0])
+    foorth_equal("0+1i .sqrt",  [Complex(0.7071067811865476, 0.7071067811865475)])
+
     foorth_equal("8    .cbrt",  [ 2.0])
     foorth_equal("64   .cbrt",  [ 4.0])
 
