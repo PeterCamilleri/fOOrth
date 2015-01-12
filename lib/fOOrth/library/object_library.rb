@@ -28,23 +28,6 @@ module XfOOrth
   Object.create_shared_method('.strlen', TosSpec, [],
     &lambda {|vm| self.to_foorth_s(vm); vm.poke(vm.peek.length)})
 
-  # Some boolean operation words.
-  # [b,a] && [b&a]
-  Object.create_shared_method('&&', TosSpec, [],
-    &lambda {|vm| vm.poke(self.to_foorth_b && vm.peek?); })
-
-  # [b,a] || [b|a]
-  Object.create_shared_method('||', TosSpec, [],
-    &lambda {|vm| vm.poke(self.to_foorth_b || vm.peek?); })
-
-  # [b,a] ^^ [b^a]
-  Object.create_shared_method('^^', TosSpec, [],
-    &lambda {|vm| vm.poke(self.to_foorth_b ^ vm.peek?); })
-
-  # [a] not [!a]
-  Object.create_shared_method('not', TosSpec, [],
-    &lambda {|vm| vm.push(!(self.to_foorth_b)); })
-
   # Some comparison words.
   # [b,a] = if b == a then [true] else [false]
   Object.create_shared_method('=', NosSpec, [],

@@ -106,24 +106,60 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('[ "33" ] copy @ swap @ distinct?', [false])
   end
 
-  def test_some_logical_ops
+  def test_some_logical_and
     foorth_equal("false false &&", [false])
     foorth_equal("false true  &&", [false])
     foorth_equal("true  false &&", [false])
     foorth_equal("true  true  &&", [true ])
 
+    foorth_equal("nil   false &&", [false])
+    foorth_equal("nil   true  &&", [false])
+    foorth_equal("true  nil   &&", [false])
+    foorth_equal("42    true  &&", [true ])
+  end
+
+  def test_some_logical_or
     foorth_equal("false false ||", [false])
     foorth_equal("false true  ||", [true ])
     foorth_equal("true  false ||", [true ])
     foorth_equal("true  true  ||", [true ])
 
+    foorth_equal("nil   false ||", [false])
+    foorth_equal("nil   true  ||", [true ])
+    foorth_equal("true  nil   ||", [true ])
+    foorth_equal("42    true  ||", [true ])
+  end
+
+  def test_some_logical_xor
     foorth_equal("false false ^^", [false])
     foorth_equal("false true  ^^", [true ])
     foorth_equal("true  false ^^", [true ])
     foorth_equal("true  true  ^^", [false])
 
+    foorth_equal("nil   false ^^", [false])
+    foorth_equal("nil   true  ^^", [true ])
+    foorth_equal("true  nil   ^^", [true ])
+    foorth_equal("42    true  ^^", [false])
+  end
+
+  def test_some_logical_not
     foorth_equal("false not", [true ])
     foorth_equal("true  not", [false])
   end
+
+  def test_is_nil
+    foorth_equal("false =nil", [false])
+    foorth_equal("true  =nil", [false])
+    foorth_equal("42    =nil", [false])
+    foorth_equal("nil   =nil", [true])
+  end
+
+  def test_is_not_nil
+    foorth_equal("false <>nil", [true])
+    foorth_equal("true  <>nil", [true])
+    foorth_equal("42    <>nil", [true])
+    foorth_equal("nil   <>nil", [false])
+  end
+
 
 end

@@ -4,7 +4,7 @@
 #  the fOOrth library.
 module XfOOrth
 
-  #Connect the TrueClass class to the fOOrth class system.
+  # Connect the TrueClass class to the fOOrth class system.
   TrueClass.create_foorth_proxy
 
   # [] true [true]
@@ -16,11 +16,64 @@ module XfOOrth
   # [] false [false]
   VirtualMachine.create_shared_method('false', MacroSpec, [:macro, "vm.push(false); "])
 
-  #Connect the NilClass class to the fOOrth class system.
+  # Connect the NilClass class to the fOOrth class system.
   NilClass.create_foorth_proxy
 
   # [] nil [nil]
   VirtualMachine.create_shared_method('nil', MacroSpec, [:macro, "vm.push(nil); "])
+
+
+  # Some boolean operation words.
+
+  # [b,a] && [b&a]
+  Object.create_shared_method('&&', TosSpec, [],
+    &lambda {|vm| vm.poke(vm.peek?); })
+  FalseClass.create_shared_method('&&', TosSpec, [],
+    &lambda {|vm| vm.poke(false); })
+  NilClass.create_shared_method('&&', TosSpec, [],
+    &lambda {|vm| vm.poke(false); })
+
+  # [b,a] || [b|a]
+  Object.create_shared_method('||', TosSpec, [],
+    &lambda {|vm| vm.poke(true); })
+  FalseClass.create_shared_method('||', TosSpec, [],
+    &lambda {|vm| vm.poke(vm.peek?); })
+  NilClass.create_shared_method('||', TosSpec, [],
+    &lambda {|vm| vm.poke(vm.peek?); })
+
+  # [b,a] ^^ [b^a]
+  Object.create_shared_method('^^', TosSpec, [],
+    &lambda {|vm| vm.poke(!vm.peek?); })
+  FalseClass.create_shared_method('^^', TosSpec, [],
+    &lambda {|vm| vm.poke(vm.peek?); })
+  NilClass.create_shared_method('^^', TosSpec, [],
+    &lambda {|vm| vm.poke(vm.peek?); })
+
+  # [a] not [!a]
+  Object.create_shared_method('not', TosSpec, [],
+    &lambda {|vm| vm.push(false); })
+  FalseClass.create_shared_method('not', TosSpec, [],
+    &lambda {|vm| vm.push(true); })
+  NilClass.create_shared_method('not', TosSpec, [],
+    &lambda {|vm| vm.push(true); })
+
+
+  # Some nil operation words
+
+  # [a] =nil [true/false]
+  Object.create_shared_method('=nil', TosSpec, [],
+    &lambda {|vm| vm.push(false); })
+  NilClass.create_shared_method('=nil', TosSpec, [],
+    &lambda {|vm| vm.push(true); })
+
+  # [a] <>nil [true/false]
+  Object.create_shared_method('<>nil', TosSpec, [],
+    &lambda {|vm| vm.push(true); })
+  NilClass.create_shared_method('<>nil', TosSpec, [],
+    &lambda {|vm| vm.push(false); })
+
+
+  # Special Float values.
 
   # [] epsilon [Float::EPSILON]
   VirtualMachine.create_shared_method('epsilon', MacroSpec, [:macro, "vm.push(Float::EPSILON); "])
