@@ -148,17 +148,17 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_is_nil
-    foorth_equal("false =nil", [false])
-    foorth_equal("true  =nil", [false])
-    foorth_equal("42    =nil", [false])
-    foorth_equal("nil   =nil", [true])
+    foorth_equal("false nil=", [false])
+    foorth_equal("true  nil=", [false])
+    foorth_equal("42    nil=", [false])
+    foorth_equal("nil   nil=", [true])
   end
 
   def test_is_not_nil
-    foorth_equal("false <>nil", [true])
-    foorth_equal("true  <>nil", [true])
-    foorth_equal("42    <>nil", [true])
-    foorth_equal("nil   <>nil", [false])
+    foorth_equal("false nil<>", [true])
+    foorth_equal("true  nil<>", [true])
+    foorth_equal("42    nil<>", [true])
+    foorth_equal("nil   nil<>", [false])
   end
 
 

@@ -61,15 +61,15 @@ module XfOOrth
   # Some nil operation words
 
   # [a] =nil [true/false]
-  Object.create_shared_method('=nil', TosSpec, [],
+  Object.create_shared_method('nil=', TosSpec, [],
     &lambda {|vm| vm.push(false); })
-  NilClass.create_shared_method('=nil', TosSpec, [],
+  NilClass.create_shared_method('nil=', TosSpec, [],
     &lambda {|vm| vm.push(true); })
 
   # [a] <>nil [true/false]
-  Object.create_shared_method('<>nil', TosSpec, [],
+  Object.create_shared_method('nil<>', TosSpec, [],
     &lambda {|vm| vm.push(true); })
-  NilClass.create_shared_method('<>nil', TosSpec, [],
+  NilClass.create_shared_method('nil<>', TosSpec, [],
     &lambda {|vm| vm.push(false); })
 
 
