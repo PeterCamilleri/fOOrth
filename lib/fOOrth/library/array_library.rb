@@ -181,7 +181,7 @@ module XfOOrth
         self[col*rows + row].to_foorth_s(vm)
 
         if cols > 1
-          print vm.pop.rjust(width)
+          print vm.pop.ljust(width)
         else
           print vm.pop
         end
