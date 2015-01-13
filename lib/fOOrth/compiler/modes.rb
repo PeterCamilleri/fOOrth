@@ -29,11 +29,11 @@ module XfOOrth
     #<br>Note:
     #* Un-nests a context level.
     def end_compile_mode(ctrls)
-      dbg_puts "  end_compile_mode"
       @context.check_set(:ctrl, ctrls)
       source, @buffer = "lambda {|vm| #{@buffer} }", nil
       result = instance_exec(self, source, @context.tags, &@context[:action])
       @context = @context.previous
+      dbg_puts "  end_compile_mode"
       result
     end
 

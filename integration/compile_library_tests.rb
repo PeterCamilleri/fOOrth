@@ -50,6 +50,13 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('10 lvt1 ' , [100])
   end
 
+  def test_private_methods
+    foorth_equal('class: PMTC', [])
+    foorth_equal('PMTC .: ~t10 10 * ; ', [])
+    foorth_equal('PMTC .: .t11  dup ~t10 + ; ', [])
+    foorth_equal('5 PMTC .new   .t11  ', [55])
+  end
+
   def test_methods_with_local_vars
     foorth_equal('Object .: .lvt2 dup local: lv lv @ * ;' , [])
     foorth_equal('10 Object .new .lvt2 ' , [100])

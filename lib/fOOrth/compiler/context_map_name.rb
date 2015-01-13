@@ -80,7 +80,7 @@ module XfOOrth
 
     #Create a default entry for a method
     def do_default_public_spec
-      TosSpec.new(@name, @symbol)
+      TosSpec.new(@name, @symbol, [:temp])
     end
 
     #Error: Unable to find a specification.
