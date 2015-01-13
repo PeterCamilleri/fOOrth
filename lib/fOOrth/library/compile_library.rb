@@ -103,7 +103,12 @@ module XfOOrth
       &lambda {|vm| vm.end_compile_mode([ctrl]) })
   end
 
-  #Determine the type of word being created.
+  #Determine the type of method being created. This only applies to non-vm
+  #methods as vm methods are all of type VmSpec.
+  #<br>Parameters
+  #*name - The name of the method to be created.
+  #<Returns>
+  #* The class of the spec to be used for this method.
   def self.name_to_type(name)
     case name[0]
     when '.'
@@ -120,6 +125,13 @@ module XfOOrth
     end
   end
 
+  #Compare the new method's spec against the specs of other methods of the
+  #same name. If no specs exist, create one on Object if the new spec is not
+  #a virtual machine spec.
+  #<br>Parameters
+  #*vm - The current virtual machine.
+  #*type - The class of the method to be created.
+  #*name - The name of the method to be created.
   def self.validate_type(vm, type, name)
     if (spec = vm.context.map(name))
       if spec.class != type
