@@ -123,12 +123,12 @@ module XfOOrth
     spec = context.map(name)
 
     if spec
-      error "Spec type error!" if spec.class != type
+      if spec.class != type
+        error "Spec type mismatch #{spec.foorth_name} vs #{type.foorth_name}"
+      end
     else
       Object.create_shared_method(name, type, [:stub])
     end
-
-#  rescue XfOOrth::XfOOrthError
 
   end
 

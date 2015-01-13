@@ -89,6 +89,9 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('TempClass .new 10 add ', [52] )
     foorth_equal('TempOther .new 10 add ', [79] )
 
+    foorth_run(': booboo 5 ;')
+    foorth_raises('TempClass .: booboo 6 ;')
+
   end
 
   def test_methods_with_local_vars
