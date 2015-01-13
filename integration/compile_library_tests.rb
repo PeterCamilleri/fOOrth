@@ -97,6 +97,9 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
 
     foorth_raises('TempClass .: .seesaw" 6 ;')
 
+    foorth_equal('String .: .seesaw" self 2 * ; ', [])
+    foorth_equal(' .seesaw"ab" ', ['abab'])
+
   end
 
   def test_methods_with_local_vars
