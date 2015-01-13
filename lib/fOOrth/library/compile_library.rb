@@ -71,7 +71,7 @@ module XfOOrth
     XfOOrth.validate_string_method(type, target.class, name)
 
     vm.begin_compile_mode('.::', obj: target, &lambda {|vm, src, tags|
-      vm.dbg_puts "#{target.foorth_name} {name} => #{src}"
+      vm.dbg_puts "#{target.foorth_name} #{name} => #{src}"
       target.create_exclusive_method(name, type, tags, &eval(src))
     })
 
