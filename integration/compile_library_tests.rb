@@ -67,6 +67,30 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
 
   end
 
+  def test_spec_mapping
+    foorth_run('class:  TempClass')
+    foorth_run('TempClass .: .hi_aaa   42 ; ')
+
+    foorth_run('class:  TempOther')
+    foorth_run('TempOther .: .hi_aaa   69 ; ')
+
+    foorth_equal('TempClass .new .hi_aaa', [42] )
+    foorth_equal('TempOther .new .hi_aaa', [69] )
+
+    foorth_run('TempClass .: + 42 + ; ')
+    foorth_run('TempOther .: + 69 + ; ')
+
+    foorth_equal('TempClass .new 10 + ', [52] )
+    foorth_equal('TempOther .new 10 + ', [79] )
+
+    foorth_run('TempClass .: add 42 + ; ')
+    foorth_run('TempOther .: add 69 + ; ')
+
+    foorth_equal('TempClass .new 10 add ', [52] )
+    foorth_equal('TempOther .new 10 add ', [79] )
+
+  end
+
   def test_methods_with_local_vars
     foorth_equal('Object .: .lvt2 dup local: lv lv @ * ;' , [])
     foorth_equal('10 Object .new .lvt2 ' , [100])

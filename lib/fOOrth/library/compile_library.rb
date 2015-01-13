@@ -46,6 +46,7 @@ module XfOOrth
     target = self
     name   = vm.parser.get_word()
     type   = XfOOrth.name_to_type(name)
+    XfOOrth.validate_type(vm, type, name)
 
     vm.begin_compile_mode('.:', cls: target, &lambda {|vm, src, tags|
       vm.dbg_puts "#{target.foorth_name} #{name} => #{src}"
@@ -55,6 +56,7 @@ module XfOOrth
     XfOOrth.add_common_compiler_locals(vm, '.:')
   })
 
+
   # DOT COLON COLON =============================
 
   # [an_object] .:: <name> <stuff omitted> ; []; creates <name> on an_object
@@ -62,6 +64,7 @@ module XfOOrth
     target = self
     name   = vm.parser.get_word()
     type   = XfOOrth.name_to_type(name)
+    XfOOrth.validate_type(vm, type, name)
 
     vm.begin_compile_mode('.::', obj: target, &lambda {|vm, src, tags|
       vm.dbg_puts "#{target.foorth_name} {name} => #{src}"
@@ -113,6 +116,20 @@ module XfOOrth
     else
       NosSpec
     end
+  end
+
+  def self.validate_type(vm, type, name)
+    context = vm.context
+    spec = context.map(name)
+
+    if spec
+      error "Spec type error!" if spec.class != type
+    else
+      Object.create_shared_method(name, type, [:stub])
+    end
+
+#  rescue XfOOrth::XfOOrthError
+
   end
 
 end
