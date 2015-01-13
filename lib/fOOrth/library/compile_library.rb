@@ -121,10 +121,7 @@ module XfOOrth
   end
 
   def self.validate_type(vm, type, name)
-    context = vm.context
-    spec = context.map(name)
-
-    if spec
+    if (spec = vm.context.map(name))
       if spec.class != type
         error "Spec type mismatch #{spec.foorth_name} vs #{type.foorth_name}"
       end
