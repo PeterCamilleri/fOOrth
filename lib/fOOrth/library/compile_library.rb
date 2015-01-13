@@ -49,6 +49,7 @@ module XfOOrth
     name   = vm.parser.get_word()
     type   = XfOOrth.name_to_type(name)
     XfOOrth.validate_type(vm, type, name)
+    XfOOrth.validate_string_method(type, target, name)
 
     vm.begin_compile_mode('.:', cls: target, &lambda {|vm, src, tags|
       vm.dbg_puts "#{target.foorth_name} #{name} => #{src}"
@@ -67,6 +68,7 @@ module XfOOrth
     name   = vm.parser.get_word()
     type   = XfOOrth.name_to_type(name)
     XfOOrth.validate_type(vm, type, name)
+    XfOOrth.validate_string_method(type, target.class, name)
 
     vm.begin_compile_mode('.::', obj: target, &lambda {|vm, src, tags|
       vm.dbg_puts "#{target.foorth_name} {name} => #{src}"
@@ -141,6 +143,19 @@ module XfOOrth
       Object.create_shared_method(name, type, [:stub]) unless type == VmSpec
     end
 
+  end
+
+  #Check for the case where a string method is created on another class.
+  #<br>Parameters
+  #*type - The class of the method to be created.
+  #*target - The object that is to receive this method.
+  #*name - The name of the method to be created.
+  #<br>Endemic Code Smells
+  #* :reek:ControlParameter
+  def self.validate_string_method(type, target, name)
+    if type == TosSpec && name[-1] == '"' && target != String
+      error "Creating a string method on #{target.foorth_name}"
+    end
   end
 
 end
