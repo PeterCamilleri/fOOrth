@@ -11,6 +11,7 @@ module XfOOrth
     target = VirtualMachine
     name   = vm.parser.get_word()
     type   = VmSpec
+    XfOOrth.validate_type(vm, type, name)
 
     begin_compile_mode(':', vm: vm, &lambda {|vm, src, tags|
       vm.dbg_puts "#{name} => #{src}"
@@ -29,6 +30,7 @@ module XfOOrth
     target = VirtualMachine
     name   = vm.parser.get_word()
     type   = VmSpec
+    XfOOrth.validate_type(vm, type, name)
 
     begin_compile_mode('!:', vm: vm, tags: [:immediate], &lambda {|vm, src, tags|
       vm.dbg_puts "(!) #{name} => #{src}"
@@ -127,7 +129,7 @@ module XfOOrth
         error "Spec type mismatch #{spec.foorth_name} vs #{type.foorth_name}"
       end
     else
-      Object.create_shared_method(name, type, [:stub])
+      Object.create_shared_method(name, type, [:stub]) unless type == VmSpec
     end
 
   end
