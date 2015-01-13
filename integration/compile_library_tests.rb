@@ -57,6 +57,16 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('5 PMTC .new   .t11  ', [55])
   end
 
+  def test_some_invalid_names
+    foorth_run('class: TSIN')
+
+    foorth_raises('TSIN .: Bad ."wow" ; ')
+    foorth_raises('TSIN .: @ad ."wow" ; ')
+    foorth_raises('TSIN .: $ad ."wow" ; ')
+    foorth_raises('TSIN .: #ad ."wow" ; ')
+
+  end
+
   def test_methods_with_local_vars
     foorth_equal('Object .: .lvt2 dup local: lv lv @ * ;' , [])
     foorth_equal('10 Object .new .lvt2 ' , [100])

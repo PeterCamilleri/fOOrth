@@ -98,9 +98,6 @@ module XfOOrth
       &lambda {|vm| vm.end_compile_mode([ctrl]) })
   end
 
-  #An array of types allowed for a method.
-  AllowedMethodTypes = [TosSpec, SelfSpec, NosSpec]
-
   #Determine the type of word being created.
   def self.name_to_type(name)
     case name[0]
@@ -110,13 +107,11 @@ module XfOOrth
     when '~'
       SelfSpec
 
+    when /[A-Z]|\$|\#|\@/
+      error "Invalid name for a method: #{name}"
+
     else
-      type = (symbol = XfOOrth::SymbolMap.map(name))   &&
-             (spec = Object.map_foorth_shared(symbol)) &&
-             spec.class
-      type = nil unless AllowedMethodTypes.include?(type)
-      error "Invalid name for a method: #{name}" unless type
-      type
+      NosSpec
     end
   end
 
