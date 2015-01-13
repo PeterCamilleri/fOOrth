@@ -3,6 +3,21 @@
 #A small group of extensions to facilitate testing in fOOrth.
 module XfOOrthTestExtensions
 
+  #When the source is executed, does it raise err?
+  #<br>Parameters:
+  #* source - A string containing fOOrth source code to execute.
+  #* err - The type of exception expected during execution.
+  #* debug - Set to true to display debug info.
+  def foorth_run(source, debug=false)
+    vm = Thread.current[:vm]
+    vm.debug = debug
+    vm.process_string(source)
+  ensure
+    vm.debug = false
+    vm.interpreter_reset
+    vm.compiler_reset
+  end
+
   #When the source is executed, is the stack as expected?
   #<br>Parameters:
   #* source - A string containing fOOrth source code to execute.
