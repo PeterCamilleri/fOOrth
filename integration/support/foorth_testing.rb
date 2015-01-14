@@ -27,7 +27,11 @@ module XfOOrthTestExtensions
     vm = Thread.current[:vm]
     vm.debug = debug
     vm.process_string(source)
-    assert_equal(remainder, vm.data_stack)
+
+    unless remainder == vm.data_stack
+      msg = "Expected: #{remainder.inspect}\nActual: #{vm.data_stack.inspect}"
+      raise MiniTest::Assertion, msg, caller
+    end
   ensure
     vm.debug = false
     vm.interpreter_reset
@@ -42,10 +46,22 @@ module XfOOrthTestExtensions
   def foorth_raises(source, err=XfOOrth::XfOOrthError, debug=false)
     vm = Thread.current[:vm]
     vm.debug = debug
+    failed, msg = false, ""
 
-    assert_raises(err) do
+    begin
       vm.process_string(source)
+      msg = "Expected: #{err.class}\nActual: None"
+      failed = true
+
+    rescue Exception => e
+      unless e.class == err
+        msg = "Expected: #{err.class}\nActual: #{e.class}"
+        failed = true
+      end
     end
+
+    raise MiniTest::Assertion, msg, caller if failed
+
   ensure
     vm.debug = false
     vm.interpreter_reset
