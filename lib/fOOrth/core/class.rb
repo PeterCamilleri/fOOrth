@@ -99,7 +99,7 @@ class Class
   def install_foorth_class(new_name, new_class)
     fail "Bad name" unless new_name
     symbol = XfOOrth::SymbolMap.add_entry(new_name)
-    $FOORTH_GLOBALS[symbol] = XfOOrth::ClassSpec.new(new_class, nil, [])
+    $FOORTH_GLOBALS[symbol] = XfOOrth::ClassSpec.new(new_class, nil, [:class])
   end
 
   #Is this a valid class name?

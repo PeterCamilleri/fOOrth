@@ -49,4 +49,14 @@ module XfOOrth
     self.foorth_shared.extract_method_names.sort.foorth_pretty(vm)
   })
 
+  #List the classes defined in fOOrth.
+  VirtualMachine.create_shared_method(')classes', VmSpec, [], &lambda {|vm|
+    $FOORTH_GLOBALS.values.
+      select {|entry| entry.has_tag?(:class)}.
+      collect {|spec| spec.new_class.foorth_name}.
+      sort.
+      foorth_pretty(vm)
+  })
+
+
 end
