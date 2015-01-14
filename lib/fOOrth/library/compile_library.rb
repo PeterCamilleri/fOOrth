@@ -154,7 +154,7 @@ module XfOOrth
   #* :reek:ControlParameter
   def self.validate_string_method(type, target, name)
     if type == TosSpec && name[-1] == '"' && target != String
-      error "Creating a string method on #{target.foorth_name}"
+      error "Creating a string method #{name} on a #{target.foorth_name}"
     end
   end
 
