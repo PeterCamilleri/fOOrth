@@ -82,4 +82,7 @@ module XfOOrth
     vm.class.foorth_shared.extract_method_names.sort.foorth_pretty(vm)
   })
 
+  VirtualMachine.create_shared_method(')threads', VmSpec, [], &lambda {|vm|
+    Thread.list.collect {|thrd| "#{thrd} vm = <#{thrd[:vm].name}>" }.foorth_pretty(vm)
+  })
 end
