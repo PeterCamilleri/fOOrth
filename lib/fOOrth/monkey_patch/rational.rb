@@ -15,7 +15,7 @@ class Rational
   def foorth_coerce(arg)
     Rational(arg)
   rescue
-    error "Cannot coerce a #{arg.foorth_name} to a #{self.foorth_name}"
+    error "Cannot coerce a #{arg.foorth_name} to a Rational"
   end
 
 end

@@ -15,7 +15,7 @@ class Complex
   def foorth_coerce(arg)
     Complex(arg)
   rescue
-    error "Cannot coerce a #{arg.foorth_name} to a #{self.foorth_name}"
+    error "Cannot coerce a #{arg.foorth_name} to a Complex"
   end
 
 end
