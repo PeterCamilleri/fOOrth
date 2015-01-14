@@ -60,6 +60,9 @@ module XfOOrth
     })
 
   #The object oriented .new{  } construct.
+  #Note: Since this method is used to launch threads, the vm must be passed
+  #explicitly to the lambda block. Otherwise, the new thread will use the
+  #wrong vm instance. In other cases, this is harmless.
   VirtualMachine.create_shared_method('.new{', VmSpec, [:immediate], &lambda { |vm|
     vm.suspend_execute_mode('vm.push(vm.pop.do_foorth_new_block(vm) {|vm, xloop| ', :new_block)
 
