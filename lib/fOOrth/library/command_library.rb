@@ -66,5 +66,16 @@ module XfOOrth
       foorth_pretty(vm)
   })
 
+  #List the virtual machine methods
+  #List the methods defined for this object.
+  VirtualMachine.create_shared_method(')words', VmSpec, [], &lambda {|vm|
+    if vm.foorth_has_exclusive?
+      puts 'Exclusive Methods = '
+      vm.foorth_exclusive.extract_method_names.sort.foorth_pretty(vm)
+    end
+
+    puts "#{vm.class.foorth_name} Shared Methods = "
+    vm.class.foorth_shared.extract_method_names.sort.foorth_pretty(vm)
+  })
 
 end
