@@ -123,6 +123,15 @@ class CoreTester < MiniTest::Unit::TestCase
     assert_equal('String', new_proxy.new_class.foorth_name)
     assert_equal(String, new_proxy.new_class)
     assert_equal(String, $FOORTH_GLOBALS[symbol].new_class)
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      bad_class = Object.create_foorth_subclass('My Class')
+    end
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      bad_class = Module.create_foorth_proxy('Mod ule')
+    end
+
   end
 
 end

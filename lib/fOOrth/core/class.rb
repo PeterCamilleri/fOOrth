@@ -64,7 +64,7 @@ class Class
       error "The class #{foorth_name} already exists."
     end
 
-    error "Invalid class name" unless /^[A-Z][A-Za-z0-9]*$/ =~ foorth_name
+    validate_class_name(foorth_name)
 
     new_class = Class.new(self) {self.foorth_name = foorth_name}
 
@@ -82,6 +82,8 @@ class Class
       self.foorth_name = proxy_name
     end
 
+    validate_class_name(foorth_name)
+
     error "The class #{foorth_name} already exists." if $FOORTH_GLOBALS[foorth_name]
 
     install_foorth_class(foorth_name, self)
@@ -98,6 +100,13 @@ class Class
     fail "Bad name" unless new_name
     symbol = XfOOrth::SymbolMap.add_entry(new_name)
     $FOORTH_GLOBALS[symbol] = XfOOrth::ClassSpec.new(new_class, nil, [])
+  end
+
+  #Is this a valid class name?
+  def validate_class_name(name)
+    unless /^[A-Z][A-Za-z0-9]+$/ =~ name
+      error "Invalid class name #{name}"
+    end
   end
 
 end
