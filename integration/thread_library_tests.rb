@@ -27,8 +27,8 @@ class ThreadLibraryTester < MiniTest::Unit::TestCase
     start = Time.now
     foorth_equal('0.05 .sleep', [])
     finish = Time.now
-    assert(finish-start > 0.04)
-    assert(finish-start < 0.06)
+    assert(finish-start > 0.03)
+    assert(finish-start < 0.1)
   end
 
   def test_creating_a_thread
