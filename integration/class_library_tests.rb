@@ -36,8 +36,11 @@ class ClassLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_that_we_can_find_the_parent_of_a_class
-    foorth_equal("Class  .parent_class",   [Module])
-    foorth_equal("Object .parent_class",   [BasicObject])
+    foorth_equal("Class  .parent_class",   [Object])
+    foorth_equal("Object .parent_class",   [nil])
+
+    foorth_run('class: TTWCFTPC')
+    foorth_equal("TTWCFTPC .parent_class", [Object])
   end
 
   def test_the_creation_of_a_class

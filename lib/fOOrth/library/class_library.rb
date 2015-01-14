@@ -15,8 +15,17 @@ module XfOOrth
 
   #The .parent_class method. Retrieves the parent class of a class.
   # [a_class] .parent_class [parent_class or nil]
-  Class.create_shared_method('.parent_class', TosSpec, [],
-    &lambda {|vm| vm.push(self.superclass)})
+  Class.create_shared_method('.parent_class', TosSpec, [], &lambda {|vm|
+    #Ugly hack. Sorry :-(
+    if self == Object
+      vm.push(nil)
+    elsif self == Class
+      vm.push(Object)
+    else
+      vm.push(self.superclass)
+    end
+  })
+
 
   #The .is_class? method. Is the object a class object?
   # [obj] .is_class? [boolean]
