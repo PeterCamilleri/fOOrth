@@ -15,6 +15,10 @@ module XfOOrth
   VirtualMachine.create_shared_method(')debug', MacroSpec,
     [:macro, "vm.debug = true; "])
 
+  #Leave debug mode.
+  VirtualMachine.create_shared_method(')nodebug', MacroSpec,
+    [:macro, "vm.debug = false; "])
+
   #Display the current fOOrth language version.
   VirtualMachine.create_shared_method(')version', MacroSpec,
     [:macro, 'puts "fOOrth language system version = #{XfOOrth::VERSION}"; '])
