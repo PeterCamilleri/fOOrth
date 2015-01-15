@@ -4,8 +4,11 @@
 
 begin
   require 'fOOrth'
-rescue LoadError => e
+  puts "\nRunning demo from system gem."
+rescue LoadError
   require './lib/fOOrth'
+  puts "\nRunning demo from local code folder."
 end
 
+puts
 XfOOrth::main
