@@ -26,7 +26,6 @@ module XfOOrth
     end
   })
 
-
   #The .is_class? method. Is the object a class object?
   # [obj] .is_class? [boolean]
   Object.create_shared_method('.is_class?', TosSpec, [],
