@@ -47,6 +47,12 @@ class CtrlStructLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('1 4 do 1 3 do i j * loop loop', [1,2,2,4,3,6])
   end
 
+  def test_with_constructs
+    foorth_equal('4 .with{ self 2* }', [8])
+
+    foorth_raises(': break 4 .with{ self 2* } ;')
+  end
+
   def test_for_unsupported_structures
     foorth_raises('4 .new{   }' )
     foorth_raises('4 .each{   }')

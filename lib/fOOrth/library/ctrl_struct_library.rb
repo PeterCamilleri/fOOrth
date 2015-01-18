@@ -102,7 +102,7 @@ module XfOOrth
   })
 
   #The object oriented .select{  } construct.
-  VirtualMachine.create_shared_method('.select{', VmSpec, [:immediate], &lambda { |vm|
+  VirtualMachine.create_shared_method('.select{', VmSpec, [:immediate], &lambda {|vm|
     suspend_execute_mode('vm.push(vm.pop.do_foorth_select{|vloop, xloop| ', :select_block)
 
     context.create_local_method('v', [:immediate],
@@ -113,6 +113,19 @@ module XfOOrth
 
     context.create_local_method('}', [:immediate],
       &lambda {|vm| vm.resume_execute_mode('vm.pop}); ', [:select_block]) })
+  })
+
+  #The object oriented .with{  } construct.
+  VirtualMachine.create_shared_method('.with{', VmSpec, [:immediate], &lambda {|vm|
+    unless context[:mode] == :execute
+      error "The .with{ } method is only allowed in execute mode."
+    end
+
+    context[:obj] = vm.peek
+    suspend_execute_mode('vm.pop.instance_exec(&lambda {', :with_block)
+
+    context.create_local_method('}', [:immediate],
+      &lambda {|vm| vm.resume_execute_mode('}); ', [:with_block]) })
   })
 
 end
