@@ -19,6 +19,26 @@ module XfOOrth
   VirtualMachine.create_shared_method(')nodebug', MacroSpec,
     [:macro, "vm.debug = false; "])
 
+  #Load the file as source code.
+  VirtualMachine.create_shared_method(')load"', VmSpec, [], &lambda{|vm|
+    start_time = Time.now
+    file_name = vm.pop.to_s
+
+    if File.extname(file_name) == ''
+      file_name = file_name + '.foorth'
+    end
+
+    if File.exists?(file_name)
+      puts "Loading file: #{file_name}"
+    else
+      error "Unable to locate file #{file_name}"
+    end
+
+    vm.process_file(file_name)
+
+    puts "Completed in #{Time.now - start_time} seconds"
+  })
+
   #Display the current fOOrth language version.
   VirtualMachine.create_shared_method(')version', MacroSpec,
     [:macro, 'puts "fOOrth language system version = #{XfOOrth::VERSION}"; '])

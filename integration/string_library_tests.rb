@@ -45,6 +45,9 @@ class StringLibraryTester < MiniTest::Unit::TestCase
 
     foorth_equal('load"integration/load_test_one.foorth"', [42])
     foorth_equal('load"integration/load_test_one"', [42])
+
+    #foorth_equal(')load"integration/load_test_one.foorth"', [42])
+    #foorth_equal(')load"integration/load_test_one"', [42])
   end
 
   def test_for_lines
