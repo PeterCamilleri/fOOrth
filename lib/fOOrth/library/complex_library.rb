@@ -23,8 +23,13 @@ module XfOOrth
     &lambda {|vm| vm.push(self.real); vm.push(self.imaginary); })
 
   # [a] .to_x [compleX]
-  Object.create_shared_method('.to_x', TosSpec, [],
-    &lambda {|vm| vm.push(self.to_c); })
+  Object.create_shared_method('.to_x', TosSpec, [], &lambda {|vm|
+    begin
+      vm.push(Complex(self))
+    rescue
+      vm.push(nil)
+    end
+  })
 
   # [a+bi] .imaginary [b]
   Numeric.create_shared_method('.imaginary', TosSpec, [],
