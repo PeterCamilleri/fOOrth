@@ -73,18 +73,18 @@ module XfOOrthTestExtensions
   #When the source is executed, does the stdout match?
   #<br>Parameters:
   #* source - A string containing fOOrth source code to execute.
-  #* stdout_output - A string with the expected console output.
-  def foorth_output(source, stdout_output)
+  #* expected - A string with the expected console output.
+  def foorth_output(source, expected)
     self._assertions += 1
     failed, msg = false, ""
     vm = Thread.current[:vm]
 
-    out, _nc = capture_io do
+    actual, _nc = capture_io do
       vm.process_string(source)
     end
 
-    if stdout_output != out
-      msg = "Expected: #{stdout_output.inspect}\nActual: #{out.inspect}"
+    if expected != actual
+      msg = "Expected: #{expected.inspect}\nActual: #{actual.inspect}"
       raise MiniTest::Assertion, msg, caller
     end
 
