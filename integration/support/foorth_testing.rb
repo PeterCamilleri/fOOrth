@@ -24,6 +24,7 @@ module XfOOrthTestExtensions
   #* remainder - An array with the expected stack contents after execution.
   #* debug - Set to true to display debug info.
   def foorth_equal(source, remainder=[], debug=false)
+    self._assertions += 1
     vm = Thread.current[:vm]
     vm.debug = debug
     vm.process_string(source)
@@ -44,6 +45,7 @@ module XfOOrthTestExtensions
   #* err - The type of exception expected during execution.
   #* debug - Set to true to display debug info.
   def foorth_raises(source, err=XfOOrth::XfOOrthError, debug=false)
+    self._assertions += 1
     vm = Thread.current[:vm]
     vm.debug = debug
     failed, msg = false, ""
