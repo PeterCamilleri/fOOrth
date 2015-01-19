@@ -18,9 +18,19 @@ module XfOOrth
   VirtualMachine.create_shared_method('min_num', MacroSpec, [:macro, "vm.push(MinNumeric); "])
 
   # Some conversion words.
-  # [a] .to_n [Number]
+  # [a] .to_n [Number or nil]
   Object.create_shared_method('.to_n', TosSpec, [],
     &lambda {|vm| vm.push(self.to_foorth_n); })
+
+  # Some conversion words.
+  # [a] .to_n! [Number]
+  Object.create_shared_method('.to_n!', TosSpec, [], &lambda {|vm|
+    if (result = self.to_foorth_n)
+      vm.push(result);
+    else
+      error "Cannot convert a #{self.foorth_name} to a Numeric instance"
+    end
+  })
 
   # [a] .to_f [Float or nil]
   Object.create_shared_method('.to_f', TosSpec, [], &lambda {|vm|

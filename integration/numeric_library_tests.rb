@@ -132,6 +132,12 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('5+0i .to_n', [Complex(5,0)])
     foorth_equal('"xx" .to_n', [nil])
 
+    foorth_equal('5    .to_n!', [5])
+    foorth_equal('5.0  .to_n!', [5.0])
+    foorth_equal('5/1  .to_n!', ['5/1'.to_r])
+    foorth_equal('5+0i .to_n!', [Complex(5,0)])
+    foorth_raises('"xx" .to_n!')
+
     foorth_equal('5    .to_i', [5])
     foorth_equal('5.0  .to_i', [5])
     foorth_equal('5/1  .to_i', [5])
