@@ -165,4 +165,18 @@ class ContextTester < MiniTest::Unit::TestCase
     end
   end
 
+  def test_adding_and_removing_local_methods
+    context = XfOOrth::Context.new(nil, vm: 'vm_sample')
+    name = 'lm'
+    sym = XfOOrth::SymbolMap.add_entry(name)
+    spec = context.create_local_method(name, [])
+
+    assert_equal(spec, context[sym])
+
+    context.remove_local_method(name)
+
+    assert_equal(nil, context[sym])
+
+  end
+
 end

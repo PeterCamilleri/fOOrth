@@ -80,5 +80,16 @@ module XfOOrth
       self[sym] = LocalSpec.new(name, sym, options, &block)
     end
 
+    #Remove a local method on this context.
+    #<br>Parameters:
+    #* The name of the method to remove.
+    def remove_local_method(name)
+      if (sym = SymbolMap.map(name))
+        self[sym] = nil
+      else
+        error "Unable to remove local method #{name}"
+      end
+    end
+
   end
 end
