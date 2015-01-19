@@ -115,6 +115,7 @@ module XfOOrthTestExtensions
   #* source - A string containing fOOrth source code to execute.
   #* stdout_output - An array of bytes expected for the console.
   def foorth_utf8_output(source, stdout_output)
+    self._assertions += 1
     vm = Thread.current[:vm]
 
     out = capture_foorth_io do
