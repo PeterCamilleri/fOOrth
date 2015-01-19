@@ -88,8 +88,11 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_some_min_max_exclusions
-    foorth_raises('max_num .to_i')
-    foorth_raises('min_num .to_i')
+    foorth_equal('max_num .to_i', [nil])
+    foorth_equal('min_num .to_i', [nil])
+
+    foorth_raises('max_num .to_i!')
+    foorth_raises('min_num .to_i!')
 
     foorth_raises('max_num 1 +')
     foorth_raises('1 max_num +')
@@ -134,11 +137,20 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('5/1  .to_i', [5])
     foorth_equal('5+0i .to_i', [5])
 
-    foorth_raises('"xx" .to_i')
-    foorth_raises('5+3i .to_i')
+    foorth_equal('5    .to_i!', [5])
+    foorth_equal('5.0  .to_i!', [5])
+    foorth_equal('5/1  .to_i!', [5])
+    foorth_equal('5+0i .to_i!', [5])
+
+    foorth_equal('"xx" .to_i', [nil])
+    foorth_equal('5+3i .to_i', [nil])
+
+    foorth_raises('"xx" .to_i!')
+    foorth_raises('5+3i .to_i!')
 
     foorth_equal('"2.0"   .to_f ', [2.0])
     foorth_equal('"apple" .to_f ', [nil])
+    foorth_equal('"2.0"   .to_f!', [2.0])
     foorth_raises('"apple" .to_f!')
 
     foorth_equal('5 .to_x', [Complex(5,0)])
