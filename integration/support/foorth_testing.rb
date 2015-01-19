@@ -52,12 +52,12 @@ module XfOOrthTestExtensions
 
     begin
       vm.process_string(source)
-      msg = "Expected: #{err.class}\nActual: None"
+      msg = "Expected: #{err}\nActual: None"
       failed = true
 
     rescue Exception => e
       unless e.class == err
-        msg = "Expected: #{err.class}\nActual: #{e.class}"
+        msg = "Expected: #{err}\nActual: #{e.class}"
         failed = true
       end
     end
