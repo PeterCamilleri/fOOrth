@@ -111,18 +111,6 @@ module XfOOrthTestExtensions
     $stderr = orig_stderr
   end
 
-  #Copied here for study
-  def assert_foorth_output(stdout = nil, stderr = nil)
-    out, err = capture_foorth_io do
-      yield
-    end
-
-    x = assert_equal stdout, out, "In stdout" if stdout
-    y = assert_equal stderr, err, "In stderr" if stderr
-
-    (!stdout || x) && (!stderr || y)
-  end
-
   #When the source is executed, does the stdout match? Forces UTF-8 encoding.
   #<br>Parameters:
   #* source - A string containing fOOrth source code to execute.
@@ -130,9 +118,15 @@ module XfOOrthTestExtensions
   def foorth_utf8_output(source, stdout_output)
     vm = Thread.current[:vm]
 
-    assert_foorth_output(stdout_output) do
+    out, _nc = capture_foorth_io do
       vm.process_string(source)
     end
+
+    if stdout_output != out
+      msg = "Expected: #{stdout_output.inspect}\nActual: #{out.inspect}"
+      raise MiniTest::Assertion, msg, caller
+    end
+
   ensure
     vm.interpreter_reset
     vm.compiler_reset
