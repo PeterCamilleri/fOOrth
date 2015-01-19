@@ -18,6 +18,8 @@ class CtrlStructLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('false if "yay" then', [])
     foorth_equal('1 if "yay" else "nay" then', ['yay'])
     foorth_equal('nil if "yay" else "nay" then', ['nay'])
+
+    foorth_raises('false if ."yes" else ."no" else ."NO" then ')
   end
 
   def test_begin_until_contructs

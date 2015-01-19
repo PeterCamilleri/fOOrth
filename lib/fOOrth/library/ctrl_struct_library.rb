@@ -8,8 +8,10 @@ module XfOOrth
     &lambda {|vm|
       suspend_execute_mode('if vm.pop? then ', :if)
 
-      context.create_local_method('else', [:immediate],
-        &lambda {|vm| check_deferred_mode('else ', [:if]) })
+      context.create_local_method('else', [:immediate], &lambda {|vm|
+        check_deferred_mode('else ', [:if])
+        vm.context.remove_local_method('else')
+      })
 
       context.create_local_method('then', [:immediate],
         &lambda {|vm| resume_execute_mode('end; ', [:if]) })
