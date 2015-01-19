@@ -75,11 +75,19 @@ module XfOOrthTestExtensions
   #* source - A string containing fOOrth source code to execute.
   #* stdout_output - A string with the expected console output.
   def foorth_output(source, stdout_output)
+    self._assertions += 1
+    failed, msg = false, ""
     vm = Thread.current[:vm]
 
-    assert_output(stdout_output) do
+    out, _nc = capture_io do
       vm.process_string(source)
     end
+
+    if stdout_output != out
+      msg = "Expected: #{stdout_output.inspect}\nActual: #{out.inspect}"
+      raise MiniTest::Assertion, msg, caller
+    end
+
   ensure
     vm.interpreter_reset
     vm.compiler_reset
