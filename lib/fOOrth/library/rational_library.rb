@@ -23,6 +23,15 @@ module XfOOrth
     end
   })
 
+  # [a] .to_r! [n/d]
+  Object.create_shared_method('.to_r!', TosSpec, [], &lambda {|vm|
+    begin
+      vm.push(Rational(self))
+    rescue
+      error "Cannot convert a #{self.foorth_name} to a Rational instance"
+    end
+  })
+
   # [n/d] .numerator [n]
   Numeric.create_shared_method('.numerator', TosSpec, [],
     &lambda {|vm| vm.push(self.numerator); })

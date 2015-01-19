@@ -159,6 +159,18 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('"2.0"   .to_f!', [2.0])
     foorth_raises('"apple" .to_f!')
 
+    foorth_equal('7       .to_r', [Rational(7,1)])
+    foorth_equal('7.0     .to_r', [Rational(7,1)])
+    foorth_equal('2.5     .to_r', [Rational(5,2)])
+    foorth_equal('"5/2"   .to_r', [Rational(5,2)])
+    foorth_equal('"apple" .to_r', [nil])
+
+    foorth_equal('7       .to_r!', [Rational(7,1)])
+    foorth_equal('7.0     .to_r!', [Rational(7,1)])
+    foorth_equal('2.5     .to_r!', [Rational(5,2)])
+    foorth_equal('"5/2"   .to_r!', [Rational(5,2)])
+    foorth_raises('"apple" .to_r!')
+
     foorth_equal('5 .to_x', [Complex(5,0)])
 
     foorth_equal('5 .real',          [5])
