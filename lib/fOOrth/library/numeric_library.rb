@@ -22,7 +22,7 @@ module XfOOrth
   Object.create_shared_method('.to_n', TosSpec, [],
     &lambda {|vm| vm.push(self.to_foorth_n); })
 
-  # [a] .to_f [Float]
+  # [a] .to_f [Float or nil]
   Object.create_shared_method('.to_f', TosSpec, [], &lambda {|vm|
     begin
       vm.push(Float(self))
@@ -30,6 +30,10 @@ module XfOOrth
       vm.push(nil)
     end
   })
+
+  # [a] .to_f! [Float]
+  Object.create_shared_method('.to_f!', TosSpec, [],
+    &lambda {|vm| vm.push(Float.foorth_coerce(self)) })
 
   # Some comparison words.
   # [b,a] > if b > a then [true] else [false]
