@@ -97,18 +97,17 @@ module XfOOrthTestExtensions
   def capture_foorth_io
     require 'stringio'
 
-    orig_stdout, orig_stderr         = $stdout, $stderr
+    orig_stdout = $stdout
 
     (s_o = StringIO.new).set_encoding 'UTF-8'
-    captured_stdout, captured_stderr = s_o, StringIO.new
-    $stdout, $stderr                 = captured_stdout, captured_stderr
+    captured_stdout = s_o
+    $stdout = captured_stdout
 
     yield
 
-    return captured_stdout.string.bytes.to_a, captured_stderr.string
+    return captured_stdout.string.bytes.to_a
   ensure
     $stdout = orig_stdout
-    $stderr = orig_stderr
   end
 
   #When the source is executed, does the stdout match? Forces UTF-8 encoding.
@@ -118,7 +117,7 @@ module XfOOrthTestExtensions
   def foorth_utf8_output(source, stdout_output)
     vm = Thread.current[:vm]
 
-    out, _nc = capture_foorth_io do
+    out = capture_foorth_io do
       vm.process_string(source)
     end
 
