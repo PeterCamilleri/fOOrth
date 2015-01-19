@@ -23,8 +23,13 @@ module XfOOrth
     &lambda {|vm| vm.push(self.to_foorth_n); })
 
   # [a] .to_f [Float]
-  Object.create_shared_method('.to_f', TosSpec, [],
-    &lambda {|vm| vm.push(self.to_f); })
+  Object.create_shared_method('.to_f', TosSpec, [], &lambda {|vm|
+    begin
+      vm.push(Float(self))
+    rescue
+      vm.push(nil)
+    end
+  })
 
   # Some comparison words.
   # [b,a] > if b > a then [true] else [false]
