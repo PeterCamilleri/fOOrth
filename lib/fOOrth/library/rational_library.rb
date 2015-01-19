@@ -15,8 +15,13 @@ module XfOOrth
     &lambda {|vm| vm.push(self.numerator); vm.push(self.denominator); })
 
   # [a] .to_r [n/d]
-  Object.create_shared_method('.to_r', TosSpec, [],
-    &lambda {|vm| vm.push(self.to_r); })
+  Object.create_shared_method('.to_r', TosSpec, [], &lambda {|vm|
+    begin
+      vm.push(Rational(self))
+    rescue
+      vm.push(nil)
+    end
+  })
 
   # [n/d] .numerator [n]
   Numeric.create_shared_method('.numerator', TosSpec, [],
