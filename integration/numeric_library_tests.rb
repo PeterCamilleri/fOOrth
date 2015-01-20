@@ -171,7 +171,17 @@ class NumericLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('"5/2"   .to_r!', [Rational(5,2)])
     foorth_raises('"apple" .to_r!')
 
-    foorth_equal('5 .to_x', [Complex(5,0)])
+    foorth_equal('5       .to_x', [Complex(5,0)])
+    foorth_equal('5.2     .to_x', [Complex(5.2,0)])
+    foorth_equal('"5"     .to_x', [Complex(5,0)])
+    foorth_equal('1+2i    .to_x', [Complex(1,2)])
+    foorth_equal('"apple" .to_x', [nil])
+
+    foorth_equal('5       .to_x!', [Complex(5,0)])
+    foorth_equal('5.2     .to_x!', [Complex(5.2,0)])
+    foorth_equal('"5"     .to_x!', [Complex(5,0)])
+    foorth_equal('1+2i    .to_x!', [Complex(1,2)])
+    foorth_raises('"apple" .to_x!')
 
     foorth_equal('5 .real',          [5])
     foorth_equal('5 .imaginary',     [0])

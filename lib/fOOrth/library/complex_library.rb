@@ -22,12 +22,21 @@ module XfOOrth
   Complex.create_shared_method('.split', TosSpec, [],
     &lambda {|vm| vm.push(self.real); vm.push(self.imaginary); })
 
-  # [a] .to_x [compleX]
+  # [a] .to_x [compleX or nil]
   Object.create_shared_method('.to_x', TosSpec, [], &lambda {|vm|
     begin
       vm.push(Complex(self))
     rescue
       vm.push(nil)
+    end
+  })
+
+  # [a] .to_x! [compleX]
+  Object.create_shared_method('.to_x!', TosSpec, [], &lambda {|vm|
+    begin
+      vm.push(Complex(self))
+    rescue
+      error "Cannot coerce a #{self.foorth_name} to a Complex"
     end
   })
 
