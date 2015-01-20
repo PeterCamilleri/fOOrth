@@ -73,6 +73,18 @@ module XfOOrth
     self.foorth_shared.extract_method_names.sort.foorth_pretty(vm)
   })
 
+  #List the stubs defined for this class.
+  Class.create_shared_method(')stubs', TosSpec, [], &lambda {|vm|
+    if self.foorth_has_exclusive?
+      puts "#{self.foorth_name} Class Stubs = "
+      self.foorth_exclusive.extract_method_names(true).sort.foorth_pretty(vm)
+    end
+
+    puts "#{self.foorth_name} Shared Stubs = "
+    self.foorth_shared.extract_method_names(true).sort.foorth_pretty(vm)
+  })
+
+
   #List the classes defined in fOOrth.
   VirtualMachine.create_shared_method(')classes', VmSpec, [], &lambda {|vm|
     $FOORTH_GLOBALS.values.
