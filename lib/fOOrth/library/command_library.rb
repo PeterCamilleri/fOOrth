@@ -77,11 +77,11 @@ module XfOOrth
   Class.create_shared_method(')stubs', TosSpec, [], &lambda {|vm|
     if self.foorth_has_exclusive?
       puts "#{self.foorth_name} Class Stubs = "
-      self.foorth_exclusive.extract_method_names(true).sort.foorth_pretty(vm)
+      self.foorth_exclusive.extract_method_names(:stubs).sort.foorth_pretty(vm)
     end
 
     puts "#{self.foorth_name} Shared Stubs = "
-    self.foorth_shared.extract_method_names(true).sort.foorth_pretty(vm)
+    self.foorth_shared.extract_method_names(:stubs).sort.foorth_pretty(vm)
   })
 
 
