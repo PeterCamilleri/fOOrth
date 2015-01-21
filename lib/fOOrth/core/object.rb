@@ -46,7 +46,8 @@ class Object
 
   #Map the symbol to a specification or nil if there is no mapping.
   def map_foorth_exclusive(symbol)
-    foorth_exclusive[symbol] || self.class.map_foorth_shared(symbol)
+    (foorth_has_exclusive? && foorth_exclusive[symbol]) ||
+    self.class.map_foorth_shared(symbol)
   end
 
   #The default foorth_init method does nothing.
