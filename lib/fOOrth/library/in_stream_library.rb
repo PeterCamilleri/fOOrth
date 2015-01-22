@@ -19,6 +19,9 @@ module XfOOrth
     end
   end
 
+  #The .new method is stubbed out.
+  in_stream.create_exclusive_method('.new', TosSpec, [:stub])
+
   # ["file_name", InStream] .open [an_instream]
   in_stream.create_exclusive_method('.open', TosSpec, [], &lambda {|vm|
     file_name = vm.pop.to_s
