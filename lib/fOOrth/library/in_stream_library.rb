@@ -7,8 +7,11 @@ module XfOOrth
 
   #* The fOOrth InStream file input mini-class.
   class XfOOrth_InStream
+
+    #The file used to perform the actual input operations.
     attr_reader :file
 
+    #Set up the InStream for the given file name.
     def initialize(file_name)
       @file = File.new(file_name, 'r')
     rescue
