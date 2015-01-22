@@ -24,5 +24,6 @@ class InStreamLibraryTester < MiniTest::Unit::TestCase
 
   def test_opening_and_reading
     foorth_equal('"integration/in_stream_test_1.txt" InStream .open dup .gets swap .close', ['Test 1 2 3'])
+    foorth_equal('"integration/in_stream_test_1.txt" InStream .open dup .getc swap .close', ['T'])
   end
 end

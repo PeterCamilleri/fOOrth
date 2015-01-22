@@ -38,5 +38,10 @@ module XfOOrth
     vm.push(file.gets.chomp)
   })
 
+  # [an_instream] .getc ["a_character"]
+  in_stream.create_shared_method('.getc', TosSpec, [], &lambda {|vm|
+    vm.push(file.getc)
+  })
+
 
 end
