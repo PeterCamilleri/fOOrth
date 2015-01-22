@@ -46,6 +46,7 @@ module XfOOrth
   Object.create_shared_method('>>',     NosSpec, [:stub])
 
   #Define some "crossover" symbols.
+ #SymbolMap.add_entry('.init',      :foorth_new) -- aliased in core.rb
   SymbolMap.add_entry('.is_class?', :foorth_is_class?)
   SymbolMap.add_entry('.to_s',      :to_foorth_s)
   SymbolMap.add_entry('.strlen',    :foorth_strlen)
@@ -53,8 +54,6 @@ module XfOOrth
   SymbolMap.add_entry('.strmax2',   :foorth_strmax2)
   SymbolMap.add_entry('.pp',        :foorth_pretty)
   SymbolMap.add_entry('.load',      :foorth_load_file)
-
-
 end
 
 #* Runtime library support stubs.
