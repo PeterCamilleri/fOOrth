@@ -1,10 +1,11 @@
 # coding: utf-8
 
-#* library/class_library.rb - The fOOrth Class class library.
+#* library/in_stream_library.rb - The fOOrth InStream class library.
 module XfOOrth
 
   in_stream = Object.create_foorth_subclass('InStream').new_class
 
+  #* The fOOrth InStream file input mini-class.
   class XfOOrth_InStream
     attr_reader :file
 
