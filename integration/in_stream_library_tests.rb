@@ -29,4 +29,15 @@ class InStreamLibraryTester < MiniTest::Unit::TestCase
   def test_opening_and_reading_a_line
     foorth_equal('"integration/in_stream_test_1.txt" InStream .open dup .gets swap .close', ['Test 1 2 3'])
   end
+
+  def test_opening_and_reading_all_lines
+    all_lines = ["Test 1 2 3",
+                 "Test 4 5 6",
+                 "ABCDEFG",
+                 "Eric the Half a Bee"]
+
+    foorth_equal('"integration/in_stream_test_1.txt" InStream .get_all', [all_lines])
+  end
+
+
 end

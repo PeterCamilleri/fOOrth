@@ -43,5 +43,14 @@ module XfOOrth
     vm.push(file.getc)
   })
 
+  # [an_instream] .getc ["a_character"]
+  in_stream.create_exclusive_method('.get_all', TosSpec, [], &lambda {|vm|
+    begin
+      file_name = vm.pop.to_s
+      vm.push(IO.readlines(file_name).map{|line| line.chomp })
+    rescue
+      error "Unable to open the file #{file_name} for reading all."
+    end
+  })
 
 end
