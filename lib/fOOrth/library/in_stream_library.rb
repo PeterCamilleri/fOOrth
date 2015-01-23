@@ -43,7 +43,7 @@ module XfOOrth
     vm.push(file.getc)
   })
 
-  # [an_instream] .getc ["a_character"]
+  # [an_instream] .get_all [["line 1", "line 2", ... "line n"]]
   in_stream.create_exclusive_method('.get_all', TosSpec, [], &lambda {|vm|
     begin
       file_name = vm.pop.to_s
