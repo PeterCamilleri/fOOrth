@@ -79,4 +79,9 @@ class Object
     error "A #{self.foorth_name} does not support .select{ ... }."
   end
 
+  # Runtime stub for the .open{ } construct.
+  def do_foorth_open_block(_vm, &block)
+    error "A #{self.foorth_name} does not support .open{ ... }."
+  end
+
 end
