@@ -13,6 +13,8 @@ class InStreamLibraryTester < MiniTest::Unit::TestCase
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__
 
+  $isfn = '"integration/in_stream_test_1.txt" '
+
   def test_that_class_exists
     foorth_equal('InStream',       [XfOOrth::XfOOrth_InStream])
     foorth_equal('InStream .name', ['InStream'])
@@ -23,11 +25,11 @@ class InStreamLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_opening_and_reading_a_character
-    foorth_equal('"integration/in_stream_test_1.txt" InStream .open dup .getc swap .close', ['T'])
+    foorth_equal($isfn + 'InStream .open dup .getc swap .close', ['T'])
   end
 
   def test_opening_and_reading_a_line
-    foorth_equal('"integration/in_stream_test_1.txt" InStream .open dup .gets swap .close', ['Test 1 2 3'])
+    foorth_equal($isfn + 'InStream .open dup .gets swap .close', ['Test 1 2 3'])
   end
 
   def test_opening_and_reading_all_lines
@@ -36,7 +38,7 @@ class InStreamLibraryTester < MiniTest::Unit::TestCase
                  "ABCDEFG",
                  "Eric the Half a Bee"]
 
-    foorth_equal('"integration/in_stream_test_1.txt" InStream .get_all', [all_lines])
+    foorth_equal($isfn + 'InStream .get_all', [all_lines])
   end
 
 
