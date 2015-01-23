@@ -27,9 +27,15 @@ module XfOOrth
       when '.'
         do_object_class_map      ||
         do_vm_target_map         ||
-        do_default_public_spec
+        TosSpec.new(@name, @symbol, [:temp])
 
-      when '~', '@'
+      when '~'
+        do_class_target_map      ||
+        do_object_target_map     ||
+        do_vm_target_map         ||
+        SelfSpec.new(@name, @symbol, [:temp])
+
+      when '@'
         do_class_target_map      ||
         do_object_target_map     ||
         do_vm_target_map         ||
@@ -76,11 +82,6 @@ module XfOOrth
     #Do a search of the globals.
     def do_global_target_map
       $FOORTH_GLOBALS[@symbol]
-    end
-
-    #Create a default entry for a method
-    def do_default_public_spec
-      TosSpec.new(@name, @symbol, [:temp])
     end
 
     #Error: Unable to find a specification.
