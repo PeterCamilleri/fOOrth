@@ -119,11 +119,12 @@ module XfOOrth
 
   #The object oriented .with{  } construct.
   VirtualMachine.create_shared_method('.with{', VmSpec, [:immediate], &lambda {|vm|
-    unless context[:mode] == :execute
-      error "The .with{ } method is only allowed in execute mode."
+    if context[:mode] == :execute
+      context[:obj] = vm.peek
+    else
+      context[:cls] = Object
     end
 
-    context[:obj] = vm.peek
     suspend_execute_mode('vm.pop.instance_exec(&lambda {', :with_block)
 
     context.create_local_method('}', [:immediate],

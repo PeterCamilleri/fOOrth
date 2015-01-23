@@ -52,7 +52,8 @@ class CtrlStructLibraryTester < MiniTest::Unit::TestCase
   def test_with_constructs
     foorth_equal('4 .with{ self 2* }', [8])
 
-    foorth_raises(': break 4 .with{ self 2* } ;')
+    foorth_run(': twc01 4 .with{ self 2* } ;')
+    foorth_equal('twc01', [8])
   end
 
   def test_for_unsupported_structures
