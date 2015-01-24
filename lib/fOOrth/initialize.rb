@@ -9,6 +9,9 @@ module XfOOrth
     #Set true for verbose compiler play-by-plays and detailed error reports.
     attr_accessor :debug
 
+    #Set true to print out the data stack after every interactive line is processed.
+    attr_accessor :show_stack
+
     #The descriptive name of this virtual machine.
     attr_reader :name
 
@@ -21,6 +24,7 @@ module XfOOrth
     def initialize(name='-')
       @name  = name
       @debug = false
+      @show_stack = false
 
       #Bring the major sub-systems to a known state.
       interpreter_reset

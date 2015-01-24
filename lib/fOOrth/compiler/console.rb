@@ -19,7 +19,10 @@ module XfOOrth
     #<br>Returns
     #* The next character of user input as a string.
     def get
-      read { puts; Readline.readline(prompt, true).rstrip }
+      read do
+        cmd_prompt = self.prompt
+        Readline.readline(cmd_prompt, true).rstrip
+      end
     end
 
     #Has the scanning of the text reached the end of input?
@@ -38,6 +41,9 @@ module XfOOrth
     #* :reek:FeatureEnvy
     def prompt
       vm = Thread.current[:vm]
+      puts vm.data_stack.inspect if vm.show_stack
+      puts
+
       '>' * vm.context.depth + '"' * vm.quotes
     end
   end

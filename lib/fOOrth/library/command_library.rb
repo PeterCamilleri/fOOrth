@@ -19,6 +19,14 @@ module XfOOrth
   VirtualMachine.create_shared_method(')nodebug', MacroSpec,
     [:macro, "vm.debug = false; "])
 
+  #Enter show stack mode.
+  VirtualMachine.create_shared_method(')show', MacroSpec,
+    [:macro, "vm.show_stack = true; "])
+
+  #Leave show stack mode.
+  VirtualMachine.create_shared_method(')noshow', MacroSpec,
+    [:macro, "vm.show_stack = false; "])
+
   #Load the file as source code.
   VirtualMachine.create_shared_method(')load"', VmSpec, [], &lambda{|vm|
     start_time = Time.now
