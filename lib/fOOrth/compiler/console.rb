@@ -41,8 +41,8 @@ module XfOOrth
     #* :reek:FeatureEnvy
     def prompt
       vm = Thread.current[:vm]
-      puts vm.data_stack.inspect if vm.show_stack
       puts
+      puts vm.data_stack.inspect if vm.show_stack
 
       '>' * vm.context.depth + '"' * vm.quotes
     end
