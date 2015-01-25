@@ -70,6 +70,13 @@ class OutStreamLibraryTester < MiniTest::Unit::TestCase
     do_cleanup
   end
 
+  def test_that_we_can_write_block_a_character
+    foorth_equal($osfn + 'OutStream .create{ 65 ~emit }')
+    assert_equal(["A"], IO.readlines($osfn[1...-2]))
+    do_cleanup
+  end
+
+
   def test_that_we_can_write_out_lines
     foorth_equal($osfn + 'OutStream .create dup f"Hello" dup .cr dup f"World" .close', [])
     assert_equal(["Hello\n", "World"], IO.readlines($osfn[1...-2]))

@@ -80,6 +80,11 @@ module XfOOrth
   out_stream.create_shared_method('.emit', TosSpec, [],
     &lambda {|vm| file << vm.pop.to_foorth_c})
 
+  #{self = an_outstream} [obj] ~emit []; print out a character to the OutStream self.
+  out_stream.create_shared_method('~emit', SelfSpec, [],
+    &lambda {|vm| file << vm.pop.to_foorth_c})
+
+
   #[an_outstream] .cr []; print out a newline to the OutStream instance.
   out_stream.create_shared_method('.cr', TosSpec, [],
     &lambda {|vm| file << "\n"})
