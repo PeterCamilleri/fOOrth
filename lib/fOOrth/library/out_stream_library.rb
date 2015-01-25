@@ -21,6 +21,18 @@ module XfOOrth
       error "Unable to open the file #{file_name} for writing."
     end
 
+    # Runtime support for the .create{ } construct.
+    def self.do_foorth_create_block(vm, &block)
+      file_name = vm.pop.to_s
+      out_stream = XfOOrth_OutStream.new(file_name, 'w')
+
+      begin
+        out_stream.instance_exec(vm, &block)
+      ensure
+        out_stream.file.close
+      end
+    end
+
   end
 
   #The .new method is stubbed out.
@@ -44,10 +56,14 @@ module XfOOrth
   })
 
 
-
   #[obj an_outstream] . []; print out the object as a string to the OutStream instance.
   out_stream.create_shared_method('.', TosSpec, [],
     &lambda {|vm| file << vm.pop})
+
+  #{self = an_outstream} [obj] ~ []; print out the object as a string to the OutStream instance.
+  out_stream.create_shared_method('~', SelfSpec, [],
+    &lambda {|vm| file << vm.pop})
+
 
   #[an_outstream] f"a string" []; print out the string to the OutStream instance.
   VirtualMachine.create_shared_method('f"', VmSpec, [], &lambda {|vm|

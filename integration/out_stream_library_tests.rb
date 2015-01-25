@@ -30,8 +30,20 @@ class OutStreamLibraryTester < MiniTest::Unit::TestCase
     do_cleanup
   end
 
+  def test_that_we_can_write_block
+    foorth_equal($osfn + 'OutStream .create{ }')
+    assert(File.exists?($osfn[1...-2]))
+    do_cleanup
+  end
+
   def test_that_we_can_write_stuff
     foorth_equal($osfn + 'OutStream .create dup 42 swap . .close')
+    assert_equal(["42"], IO.readlines($osfn[1...-2]))
+    do_cleanup
+  end
+
+  def test_that_we_can_write_block_stuff
+    foorth_equal($osfn + 'OutStream .create{ 42 ~ }')
     assert_equal(["42"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end

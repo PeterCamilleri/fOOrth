@@ -84,4 +84,9 @@ class Object
     error "A #{self.foorth_name} does not support .open{ ... }."
   end
 
+  # Runtime stub for the .create{ } construct.
+  def do_foorth_create_block(_vm, &block)
+    error "A #{self.foorth_name} does not support .create{ ... }."
+  end
+
 end
