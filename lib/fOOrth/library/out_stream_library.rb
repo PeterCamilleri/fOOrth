@@ -33,6 +33,18 @@ module XfOOrth
       end
     end
 
+    # Runtime support for the .append{ } construct.
+    def self.do_foorth_append_block(vm, &block)
+      file_name = vm.pop.to_s
+      out_stream = XfOOrth_OutStream.new(file_name, 'a')
+
+      begin
+        out_stream.instance_exec(vm, &block)
+      ensure
+        out_stream.file.close
+      end
+    end
+
   end
 
   #The .new method is stubbed out.

@@ -89,4 +89,9 @@ class Object
     error "A #{self.foorth_name} does not support .create{ ... }."
   end
 
+  # Runtime stub for the .append{ } construct.
+  def do_foorth_append_block(_vm, &block)
+    error "A #{self.foorth_name} does not support .append{ ... }."
+  end
+
 end
