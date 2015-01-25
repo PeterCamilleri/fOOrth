@@ -39,5 +39,9 @@ module XfOOrth
 
 
 
+  #[obj] . []; print out the object as a string to the OutStream instance.
+  out_stream.create_shared_method('.', TosSpec, [],
+    &lambda {|vm| file << vm.pop})
+
 
 end

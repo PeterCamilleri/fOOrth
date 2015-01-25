@@ -30,6 +30,12 @@ class OutStreamLibraryTester < MiniTest::Unit::TestCase
     do_cleanup
   end
 
+  def test_that_we_can_write_stuff
+    foorth_run($osfn + 'OutStream .create dup 42 swap . .close')
+    assert_equal(["42"], IO.readlines($osfn[1...-2]))
+    do_cleanup
+  end
+
   def do_cleanup
     name = $osfn[1...-2]
     system("rm #{name}")
