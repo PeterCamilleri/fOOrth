@@ -96,6 +96,13 @@ class OutStreamLibraryTester < MiniTest::Unit::TestCase
     do_cleanup
   end
 
+  def test_that_we_can_block_write_out_a_space
+    foorth_equal($osfn + 'OutStream .create{ ~"Hello" ~space ~"World" } ', [])
+    assert_equal(["Hello World"], IO.readlines($osfn[1...-2]))
+    do_cleanup
+  end
+
+
   def test_that_we_can_write_out_spaces
     foorth_equal($osfn + 'OutStream .create dup f"Hello" dup 3 swap .spaces dup f"World" .close', [])
     assert_equal(["Hello   World"], IO.readlines($osfn[1...-2]))
