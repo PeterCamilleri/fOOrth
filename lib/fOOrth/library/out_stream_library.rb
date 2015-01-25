@@ -60,7 +60,7 @@ module XfOOrth
   out_stream.create_shared_method('.', TosSpec, [],
     &lambda {|vm| file << vm.pop})
 
-  #{self = an_outstream} [obj] ~ []; print out the object as a string to the OutStream instance.
+  #{self = an_outstream} [obj] ~ []; print out the object as a string to the OutStream self.
   out_stream.create_shared_method('~', SelfSpec, [],
     &lambda {|vm| file << vm.pop})
 
@@ -70,6 +70,11 @@ module XfOOrth
     out_stream, str = vm.popm(2)
     out_stream.file << str
   })
+
+  #{self = an_outstream} [] ~"a string" []; print out the string to the OutStream self.
+  out_stream.create_shared_method('~"', SelfSpec, [],
+    &lambda {|vm| file << vm.pop })
+
 
   #[obj an_outstream] .emit []; print out a character to the OutStream.
   out_stream.create_shared_method('.emit', TosSpec, [],

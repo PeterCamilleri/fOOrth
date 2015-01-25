@@ -24,6 +24,7 @@ class OutStreamLibraryTester < MiniTest::Unit::TestCase
     foorth_raises('OutStream .new')
   end
 
+
   def test_that_we_can_write
     foorth_equal($osfn + 'OutStream .create .close')
     assert(File.exists?($osfn[1...-2]))
@@ -35,6 +36,7 @@ class OutStreamLibraryTester < MiniTest::Unit::TestCase
     assert(File.exists?($osfn[1...-2]))
     do_cleanup
   end
+
 
   def test_that_we_can_write_stuff
     foorth_equal($osfn + 'OutStream .create dup 42 swap . .close')
@@ -48,11 +50,19 @@ class OutStreamLibraryTester < MiniTest::Unit::TestCase
     do_cleanup
   end
 
+
   def test_that_we_can_write_stuff_too
     foorth_equal($osfn + 'OutStream .create dup f"Hello World" .close')
     assert_equal(["Hello World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
+
+  def test_that_we_can_write_block_stuff_too
+    foorth_equal($osfn + 'OutStream .create{ ~"Hello World" } ')
+    assert_equal(["Hello World"], IO.readlines($osfn[1...-2]))
+    do_cleanup
+  end
+
 
   def test_that_we_can_write_a_character
     foorth_equal($osfn + 'OutStream .create  65 over .emit .close')
