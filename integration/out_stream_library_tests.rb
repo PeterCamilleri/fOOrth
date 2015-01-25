@@ -24,4 +24,14 @@ class OutStreamLibraryTester < MiniTest::Unit::TestCase
     foorth_raises('OutStream .new')
   end
 
+  def test_that_we_can_write
+    foorth_run($osfn + 'OutStream .create .close')
+    assert(File.exists?($osfn[1...-2]))
+    do_cleanup
+  end
+
+  def do_cleanup
+    name = $osfn[1...-2]
+    system("rm #{name}")
+  end
 end

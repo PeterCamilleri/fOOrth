@@ -26,5 +26,18 @@ module XfOOrth
   #The .new method is stubbed out.
   out_stream.create_exclusive_method('.new', TosSpec, [:stub])
 
+  # ["file_name", OutStream] .create [an_outstream]
+  out_stream.create_exclusive_method('.create', TosSpec, [], &lambda {|vm|
+    file_name = vm.pop.to_s
+    vm.push(XfOOrth_OutStream.new(file_name, 'w'))
+  })
+
+  # [an_outstream] .close []
+  out_stream.create_shared_method('.close', TosSpec, [], &lambda {|vm|
+    file.close
+  })
+
+
+
 
 end
