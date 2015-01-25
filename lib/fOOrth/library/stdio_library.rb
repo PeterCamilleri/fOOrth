@@ -10,8 +10,8 @@ module XfOOrth
 
   #Print out a string.
   # [] ."string" []; prints out the string.
-  VirtualMachine.create_shared_method('."', VmSpec, [],
-    &lambda {|vm| print pop.to_s})
+  String.create_shared_method('."', TosSpec, [],
+    &lambda {|vm| print self.to_s})
 
   #Force a new line.
   # [] .cr []; prints a new line.
