@@ -94,18 +94,21 @@ module XfOOrth
     &lambda {|vm| file << "\n"})
 
 
-  #[an_outstream] .space []; print out a newline to the OutStream instance.
+  #[an_outstream] .space []; print out a space to the OutStream instance.
   out_stream.create_shared_method('.space', TosSpec, [],
     &lambda {|vm| file << " "})
 
-  #{self = an_outstream} [] ~space []; print out a newline to the OutStream self.
+  #{self = an_outstream} [] ~space []; print out a space to the OutStream self.
   out_stream.create_shared_method('~space', SelfSpec, [],
     &lambda {|vm| file << " "})
 
 
-  #[an_outstream] .spaces []; print out a newline to the OutStream instance.
+  #[count an_outstream] .spaces []; print out spaces to the OutStream instance.
   out_stream.create_shared_method('.spaces', TosSpec, [],
     &lambda {|vm| file << " " * Integer.foorth_coerce(vm.pop())})
 
+  #{self = an_outstream} [count] .spaces []; print out spaces to the OutStream self.
+  out_stream.create_shared_method('~spaces', SelfSpec, [],
+    &lambda {|vm| file << " " * Integer.foorth_coerce(vm.pop())})
 
 end

@@ -109,6 +109,13 @@ class OutStreamLibraryTester < MiniTest::Unit::TestCase
     do_cleanup
   end
 
+  def test_that_we_can_block_write_out_spaces
+    foorth_equal($osfn + 'OutStream .create{ ~"Hello" 3 ~spaces ~"World" } ', [])
+    assert_equal(["Hello   World"], IO.readlines($osfn[1...-2]))
+    do_cleanup
+  end
+
+
   def test_that_we_can_append_a_character
     foorth_equal($osfn + 'OutStream .create  65 over .emit .close')
     assert_equal(["A"], IO.readlines($osfn[1...-2]))
