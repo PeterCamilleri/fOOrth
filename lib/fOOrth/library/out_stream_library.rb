@@ -57,5 +57,9 @@ module XfOOrth
   out_stream.create_shared_method('.cr', TosSpec, [],
     &lambda {|vm| file << "\n"})
 
+  #[an_outstream] .space []; print out a newline to the OutStream instance.
+  out_stream.create_shared_method('.space', TosSpec, [],
+    &lambda {|vm| file << " "})
+
 
 end
