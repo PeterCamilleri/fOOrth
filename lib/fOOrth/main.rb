@@ -52,6 +52,7 @@ module XfOOrth
   def self.start_up(vm)
     announcements
     vm.debug = false
+    vm.show_stack = false
     vm.process_string(process_command_line_options)
     true
   end
