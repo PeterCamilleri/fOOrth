@@ -14,8 +14,8 @@ module XfOOrth
     &lambda {|vm| print self.to_s})
 
   #Force a new line.
-  # [] .cr []; prints a new line.
-  VirtualMachine.create_shared_method('.cr', MacroSpec,
+  # [] cr []; prints a new line.
+  VirtualMachine.create_shared_method('cr', MacroSpec,
     [:macro, "puts; "])
 
   #Force a space.

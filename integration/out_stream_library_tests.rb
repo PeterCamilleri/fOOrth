@@ -25,29 +25,34 @@ class OutStreamLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_that_we_can_write
-    foorth_run($osfn + 'OutStream .create .close')
+    foorth_equal($osfn + 'OutStream .create .close')
     assert(File.exists?($osfn[1...-2]))
     do_cleanup
   end
 
   def test_that_we_can_write_stuff
-    foorth_run($osfn + 'OutStream .create dup 42 swap . .close')
+    foorth_equal($osfn + 'OutStream .create dup 42 swap . .close')
     assert_equal(["42"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
 
   def test_that_we_can_write_stuff_too
-    foorth_run($osfn + 'OutStream .create dup f"Hello World" .close')
+    foorth_equal($osfn + 'OutStream .create dup f"Hello World" .close')
     assert_equal(["Hello World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
 
   def test_that_we_can_write_stuff_character
-    foorth_run($osfn + 'OutStream .create  65 over .emit .close')
+    foorth_equal($osfn + 'OutStream .create  65 over .emit .close')
     assert_equal(["A"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
 
+  def test_that_we_can_write_out_lines
+    foorth_equal($osfn + 'OutStream .create dup f"Hello" dup .cr dup f"World" .close', [])
+    assert_equal(["Hello\n", "World"], IO.readlines($osfn[1...-2]))
+    do_cleanup
+  end
 
   def do_cleanup
     name = $osfn[1...-2]

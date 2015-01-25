@@ -39,7 +39,7 @@ module XfOOrth
 
 
 
-  #[obj] . []; print out the object as a string to the OutStream instance.
+  #[obj an_outstream] . []; print out the object as a string to the OutStream instance.
   out_stream.create_shared_method('.', TosSpec, [],
     &lambda {|vm| file << vm.pop})
 
@@ -52,6 +52,10 @@ module XfOOrth
   #[obj an_outstream] .emit []; print out a character to the OutStream.
   out_stream.create_shared_method('.emit', TosSpec, [],
     &lambda {|vm| file << vm.pop.to_foorth_c})
+
+  #[an_outstream] .cr []; print out a newline to the OutStream instance.
+  out_stream.create_shared_method('.cr', TosSpec, [],
+    &lambda {|vm| file << "\n"})
 
 
 end

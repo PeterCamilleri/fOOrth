@@ -24,7 +24,7 @@ class StdioLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_the_dot_cr
-    foorth_output('.cr', "\n")
+    foorth_output('cr', "\n")
   end
 
   def test_the_space
