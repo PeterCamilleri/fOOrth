@@ -43,5 +43,12 @@ module XfOOrth
   out_stream.create_shared_method('.', TosSpec, [],
     &lambda {|vm| file << vm.pop})
 
+  #[obj] f" []; print out the object as a string to the OutStream instance.
+  VirtualMachine.create_shared_method('f"', VmSpec, [], &lambda {|vm|
+    out_stream, str = vm.popm(2)
+    out_stream.file << str
+  })
+
+
 
 end
