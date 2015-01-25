@@ -35,6 +35,7 @@ class StdioLibraryTester < MiniTest::Unit::TestCase
     foorth_output('1 spaces', " ")
     foorth_output('2 spaces', "  ")
     foorth_output('0 spaces', "")
+    foorth_raises('"apple"  spaces')
   end
 
   def test_the_emit

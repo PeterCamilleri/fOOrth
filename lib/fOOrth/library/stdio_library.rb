@@ -26,7 +26,7 @@ module XfOOrth
   #Force multiple spaces.
   # [n] spaces []; prints n spaces.
   VirtualMachine.create_shared_method('spaces', MacroSpec,
-    [:macro, "print ' ' * vm.pop(); "])
+    [:macro, "print ' ' * Integer.foorth_coerce(vm.pop()); "])
 
   #Print out a single character.
   #[obj] .emit []; print out the object as a character.
