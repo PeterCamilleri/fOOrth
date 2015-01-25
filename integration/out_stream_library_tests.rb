@@ -42,7 +42,7 @@ class OutStreamLibraryTester < MiniTest::Unit::TestCase
     do_cleanup
   end
 
-  def test_that_we_can_write_stuff_character
+  def test_that_we_can_write_a_character
     foorth_equal($osfn + 'OutStream .create  65 over .emit .close')
     assert_equal(["A"], IO.readlines($osfn[1...-2]))
     do_cleanup
@@ -63,6 +63,16 @@ class OutStreamLibraryTester < MiniTest::Unit::TestCase
   def test_that_we_can_write_out_spaces
     foorth_equal($osfn + 'OutStream .create dup f"Hello" dup 3 swap .spaces dup f"World" .close', [])
     assert_equal(["Hello   World"], IO.readlines($osfn[1...-2]))
+    do_cleanup
+  end
+
+  def test_that_we_can_append_a_character
+    foorth_equal($osfn + 'OutStream .create  65 over .emit .close')
+    assert_equal(["A"], IO.readlines($osfn[1...-2]))
+
+    foorth_equal($osfn + 'OutStream .append  66 over .emit .close')
+    assert_equal(["AB"], IO.readlines($osfn[1...-2]))
+
     do_cleanup
   end
 

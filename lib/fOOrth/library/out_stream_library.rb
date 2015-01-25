@@ -32,6 +32,12 @@ module XfOOrth
     vm.push(XfOOrth_OutStream.new(file_name, 'w'))
   })
 
+  # ["file_name" OutStream] .append [an_outstream]
+  out_stream.create_exclusive_method('.append', TosSpec, [], &lambda {|vm|
+    file_name = vm.pop.to_s
+    vm.push(XfOOrth_OutStream.new(file_name, 'a'))
+  })
+
   # [an_outstream] .close []
   out_stream.create_shared_method('.close', TosSpec, [], &lambda {|vm|
     file.close
