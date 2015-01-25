@@ -18,4 +18,8 @@ class Complex
     error "Cannot coerce a #{arg.foorth_name} to a Complex"
   end
 
+  #Convert this number to a single character string.
+  def to_foorth_c
+    error "Cannot convert a Complex instance to a character"
+  end
 end

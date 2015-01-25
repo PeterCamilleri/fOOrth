@@ -42,6 +42,13 @@ class OutStreamLibraryTester < MiniTest::Unit::TestCase
     do_cleanup
   end
 
+  def test_that_we_can_write_stuff_character
+    foorth_run($osfn + 'OutStream .create  65 over .emit .close')
+    assert_equal(["A"], IO.readlines($osfn[1...-2]))
+    do_cleanup
+  end
+
+
   def do_cleanup
     name = $osfn[1...-2]
     system("rm #{name}")

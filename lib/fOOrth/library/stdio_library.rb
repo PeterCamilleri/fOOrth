@@ -29,7 +29,7 @@ module XfOOrth
     [:macro, "print ' ' * vm.pop(); "])
 
   #Print out a single character.
-  #[obj] emit []; print out the object as a character.
+  #[obj] .emit []; print out the object as a character.
   Numeric.create_shared_method('.emit', TosSpec, [],
     &lambda {|vm| print self.to_foorth_c})
   String.create_shared_method('.emit', TosSpec, [],

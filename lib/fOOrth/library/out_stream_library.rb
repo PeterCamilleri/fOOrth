@@ -26,7 +26,7 @@ module XfOOrth
   #The .new method is stubbed out.
   out_stream.create_exclusive_method('.new', TosSpec, [:stub])
 
-  # ["file_name", OutStream] .create [an_outstream]
+  # ["file_name" OutStream] .create [an_outstream]
   out_stream.create_exclusive_method('.create', TosSpec, [], &lambda {|vm|
     file_name = vm.pop.to_s
     vm.push(XfOOrth_OutStream.new(file_name, 'w'))
@@ -43,12 +43,15 @@ module XfOOrth
   out_stream.create_shared_method('.', TosSpec, [],
     &lambda {|vm| file << vm.pop})
 
-  #[obj] f" []; print out the object as a string to the OutStream instance.
+  #[an_outstream] f"a string" []; print out the string to the OutStream instance.
   VirtualMachine.create_shared_method('f"', VmSpec, [], &lambda {|vm|
     out_stream, str = vm.popm(2)
     out_stream.file << str
   })
 
+  #[obj an_outstream] .emit []; print out a character to the OutStream.
+  out_stream.create_shared_method('.emit', TosSpec, [],
+    &lambda {|vm| file << vm.pop.to_foorth_c})
 
 
 end
