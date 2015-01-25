@@ -20,6 +20,7 @@ require_relative 'library/thread_library'
 require_relative 'library/other_value_types_library'
 require_relative 'library/command_library'
 require_relative 'library/in_stream_library'
+require_relative 'library/out_stream_library'
 
 #* library.rb - The word library portion of the fOOrth language system.
 module XfOOrth
