@@ -169,24 +169,41 @@ module XfOOrth
     vm.push(result)
   })
 
+  $fapl = 50
+
   # [l 2 3 ... n] .pp []; pretty print the array!
   Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
     self.foorth_strmax(vm)
     width = vm.pop + 1
     cols  = (width < 79) ? (79 / width) : 1
     rows  = (self.length + cols - 1) / cols
+    pages = 1 + (rows/$fapl)
+    count = $fapl * cols
 
-    (0...rows).each do |row|
-      (0...cols).each do |col|
-        self[col*rows + row].to_foorth_s(vm)
+    (0...pages).each do |page|
+      offset = page * count
 
-        if cols > 1
-          print vm.pop.ljust(width)
-        else
-          print vm.pop
-        end
+      if rows >= $fapl
+        trows = $fapl
+      else
+        trows = rows
       end
 
+      (0...trows).each do |row|
+        (0...cols).each do |col|
+          self[offset + col*trows + row].to_foorth_s(vm)
+
+          if cols > 1
+            print vm.pop.ljust(width)
+          else
+            print vm.pop
+          end
+        end
+
+        puts
+      end
+
+      rows -= $fapl
       puts
     end
   })
