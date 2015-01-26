@@ -36,6 +36,11 @@ class InStreamLibraryTester < MiniTest::Unit::TestCase
     foorth_equal($isfn + 'InStream .open{ ~getc }', ['T'])
   end
 
+  def test_open_block_and_reading_a_line
+    foorth_equal($isfn + 'InStream .open{ ~gets }', ['Test 1 2 3'])
+  end
+
+
   def test_opening_and_reading_all_lines
     all_lines = ["Test 1 2 3",
                  "Test 4 5 6",
