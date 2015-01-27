@@ -43,16 +43,16 @@ module XfOOrth
       context[:jloop] = 'iloop'
 
       context.create_local_method('i', [:immediate],
-        &lambda {|vm| check_deferred_mode('vm.push(iloop[0]); ', [:do]) })
+        &lambda {|vm| vm <<  'vm.push(iloop[0]); ' })
 
       context.create_local_method('j', [:immediate],
-        &lambda {|vm| check_deferred_mode('vm.push(jloop[0]); ', [:do]) })
+        &lambda {|vm| vm << 'vm.push(jloop[0]); ' })
 
       context.create_local_method('-i', [:immediate],
-        &lambda {|vm| check_deferred_mode('vm.push(iloop[2] - iloop[0]); ', [:do]) })
+        &lambda {|vm| vm << 'vm.push(iloop[2] - iloop[0]); ' })
 
       context.create_local_method('-j', [:immediate],
-        &lambda {|vm| check_deferred_mode('vm.push(jloop[2] - jloop[0]); ', [:do]) })
+        &lambda {|vm| vm << 'vm.push(jloop[2] - jloop[0]); ' })
 
       context.create_local_method('loop', [:immediate],
         &lambda {|vm| resume_execute_mode('iloop[0] += 1}; ', [:do]) })
