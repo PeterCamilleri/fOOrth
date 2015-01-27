@@ -14,10 +14,14 @@ module XfOOrth
 
       if debug
         puts "Data Stack Contents: #{data_stack.inspect}"
-      end
 
-      unless @context
-        puts "Error: No context is available!"
+        if @context
+          @context.debug_dump(self)
+        else
+          puts "Error: No context is available!"
+        end
+
+        puts
       end
 
       interpreter_reset
