@@ -20,7 +20,6 @@ class NumericMonkeyPatchTester < MiniTest::Unit::TestCase
   def test_to_character
     assert_equal(65.to_foorth_c, 'A')
     assert_equal((65.0).to_foorth_c, 'A')
-    assert_equal(Complex(65,0).to_foorth_c, 'A')
     assert_equal(Rational(65,1).to_foorth_c, 'A')
 
     assert_equal(127.to_foorth_c, "\u007F")
@@ -31,6 +30,10 @@ class NumericMonkeyPatchTester < MiniTest::Unit::TestCase
 
     assert_equal(169.to_foorth_c, "\u00A9")
     assert_equal(1120.to_foorth_c, "\u0460")
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      Complex(65,0).to_foorth_c
+    end
 
     assert_raises(XfOOrth::XfOOrthError) do
       99120.to_foorth_c
