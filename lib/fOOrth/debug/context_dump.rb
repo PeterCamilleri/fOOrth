@@ -25,7 +25,7 @@ module XfOOrth
         end
       end
 
-      self.previous && self.previous.debug_dump(vm)
+      (prev = self.previous) && prev.debug_dump(vm)
     end
   end
 
