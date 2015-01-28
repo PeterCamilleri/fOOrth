@@ -85,7 +85,7 @@ module XfOOrth
     #* The name of the method to remove.
     def remove_local_method(name)
       if (sym = SymbolMap.map(name))
-        self[sym] = nil
+        @data.delete(sym)
       else
         error "Unable to remove local method #{name}"
       end
