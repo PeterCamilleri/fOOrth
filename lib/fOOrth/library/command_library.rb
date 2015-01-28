@@ -27,6 +27,14 @@ module XfOOrth
   VirtualMachine.create_shared_method(')noshow', MacroSpec,
     [:macro, "vm.show_stack = false; "])
 
+  #Dump the context.
+  VirtualMachine.create_shared_method(')context', VmSpec, [],
+    &lambda {|vm| vm.context.debug_dump(vm) })
+
+  #Dump the context right NOW!.
+  VirtualMachine.create_shared_method(')context!', VmSpec, [:immediate],
+    &lambda {|vm| vm.context.debug_dump(vm) })
+
   #Load the file as source code.
   VirtualMachine.create_shared_method(')load"', VmSpec, [], &lambda{|vm|
     start_time = Time.now
