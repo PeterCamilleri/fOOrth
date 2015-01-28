@@ -41,6 +41,10 @@ module XfOOrth
   VirtualMachine.create_shared_method(')vm', VmSpec, [],
     &lambda {|vm| pp vm })
 
+  #Dump the virtual machine right NOW!
+  VirtualMachine.create_shared_method(')vm!', VmSpec, [:immediate],
+    &lambda {|vm| pp vm })
+
   #Load the file as source code.
   VirtualMachine.create_shared_method(')load"', VmSpec, [], &lambda{|vm|
     start_time = Time.now
