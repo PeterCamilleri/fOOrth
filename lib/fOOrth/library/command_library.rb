@@ -1,5 +1,7 @@
 # coding: utf-8
 
+require 'pp'
+
 #* library/command_library.rb - The utility command fOOrth library.
 module XfOOrth
 
@@ -34,6 +36,10 @@ module XfOOrth
   #Dump the context right NOW!.
   VirtualMachine.create_shared_method(')context!', VmSpec, [:immediate],
     &lambda {|vm| vm.context.debug_dump(vm) })
+
+  #Dump the virtual machine.
+  VirtualMachine.create_shared_method(')vm', VmSpec, [],
+    &lambda {|vm| pp vm })
 
   #Load the file as source code.
   VirtualMachine.create_shared_method(')load"', VmSpec, [], &lambda{|vm|
