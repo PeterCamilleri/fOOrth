@@ -10,8 +10,7 @@ module XfOOrth
     #<br>Parameters
     #* vm - The current virtual machine for this thread.
     def debug_dump(vm)
-      puts
-      puts "Context level #{self.depth}"
+      puts "\nContext level #{self.depth}"
 
       @data.each do |key, value|
         if key == :vm
