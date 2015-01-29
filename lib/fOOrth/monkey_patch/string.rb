@@ -6,8 +6,7 @@ class String
   #<br>Returns
   #* An embeddable form of this string as a string.
   def foorth_embed
-    temp = (self.gsub(/"/)  {|_v| "\\\""}).gsub(/\\/) {|_v| "\\\\"}
-    "\"#{temp}\""
+    self.inspect
   end
 
   #Convert this string to a single character string.
