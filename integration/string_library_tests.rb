@@ -14,10 +14,12 @@ class StringLibraryTester < MiniTest::Unit::TestCase
   MinitestVisible.track self, __FILE__
 
   def test_string_literals
-    foorth_equal(' ""     ',  [""])
-    foorth_equal(' "abc"  ',  ["abc"])
-    foorth_equal(' "a\\\\c" ',  ["a\\c"])
-    foorth_equal(' "a\\nb" ',  ["a\nb"])
+    foorth_equal(' ""          ',  [""])
+    foorth_equal(' "\""        ',  ["\""])
+    foorth_equal(' "\"hello\"" ',  ["\"hello\""])
+    foorth_equal(' "abc"       ',  ["abc"])
+    foorth_equal(' "a\\\\c"    ',  ["a\\c"])
+    foorth_equal(' "a\\nb"     ',  ["a\nb"])
 
     test_src1 = <<-'ONE'
     "abc\
