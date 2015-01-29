@@ -25,9 +25,6 @@ module XfOOrth
       @_private_console ||= Console.new
     end
 
-    #The current compiler code text source.
-    attr_reader :source
-
     #The current compiler parser.
     attr_reader :parser
 
@@ -43,7 +40,6 @@ module XfOOrth
     #Return the compiler to a known state.
     def compiler_reset
       @buffer = nil
-      @source = nil
       @parser = nil
       @quotes = 0
       @force  = false
