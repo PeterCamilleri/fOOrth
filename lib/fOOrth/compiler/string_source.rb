@@ -17,6 +17,11 @@ module XfOOrth
       @read_step   = @string_list.each
       super()
     end
+    
+    #What is the source of this text?
+    def source_name
+      "A string."
+    end
 
   end
 
