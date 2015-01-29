@@ -41,6 +41,12 @@ module XfOOrth
   VirtualMachine.create_shared_method(')vm', VmSpec, [],
     &lambda {|vm| pp vm })
 
+  #Map a symbol entry
+  VirtualMachine.create_shared_method(')map"', VmSpec, [], &lambda {|vm|
+    str = vm.pop.to_s
+    puts "#{str} => #{(SymbolMap.map(str).to_s)}"
+  })
+
   #Dump the virtual machine right NOW!
   VirtualMachine.create_shared_method(')vm!', VmSpec, [:immediate],
     &lambda {|vm| pp vm })
