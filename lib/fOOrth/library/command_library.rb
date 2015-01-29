@@ -47,6 +47,13 @@ module XfOOrth
     puts "#{str} => #{(SymbolMap.map(str).to_s)}"
   })
 
+  #Unmap a symbol entry
+  VirtualMachine.create_shared_method(')unmap"', VmSpec, [], &lambda {|vm|
+    str = vm.pop.to_s
+    puts "#{str} <= #{(SymbolMap.unmap(str.to_sym).to_s)}"
+  })
+
+
   #Dump the virtual machine right NOW!
   VirtualMachine.create_shared_method(')vm!', VmSpec, [:immediate],
     &lambda {|vm| pp vm })
