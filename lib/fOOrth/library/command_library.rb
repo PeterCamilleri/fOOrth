@@ -39,6 +39,10 @@ module XfOOrth
 
   #Dump the virtual machine.
   VirtualMachine.create_shared_method(')vm', VmSpec, [],
+    &lambda {|vm| vm.debug_dump })
+
+  #Dump the virtual machine right NOW!
+  VirtualMachine.create_shared_method(')vm!', VmSpec, [:immediate],
     &lambda {|vm| pp vm })
 
   #Map a symbol entry
@@ -52,11 +56,6 @@ module XfOOrth
     str = vm.pop.to_s
     puts "#{str} <= #{(SymbolMap.unmap(str.to_sym).to_s)}"
   })
-
-
-  #Dump the virtual machine right NOW!
-  VirtualMachine.create_shared_method(')vm!', VmSpec, [:immediate],
-    &lambda {|vm| pp vm })
 
   #Load the file as source code.
   VirtualMachine.create_shared_method(')load"', VmSpec, [], &lambda{|vm|

@@ -1,0 +1,5 @@
+// A general test file for fOOrth.
+// Used in non-specific interactive tests.
+
+)vm cr cr )vm! cr
+

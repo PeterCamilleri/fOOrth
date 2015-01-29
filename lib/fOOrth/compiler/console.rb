@@ -45,5 +45,11 @@ module XfOOrth
 
       '>' * vm.context.depth + '"' * vm.quotes
     end
+
+    #What is the source of this text?
+    def source_name
+      "The console."
+    end
+
   end
 end

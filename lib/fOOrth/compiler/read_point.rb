@@ -6,6 +6,9 @@ module XfOOrth
   #This module is used to facilitate the reading
   #of source code text from a buffer.
   module ReadPoint
+    #Get the current line of text being read.
+    attr_reader :read_buffer
+
     #Reset the read point to the initial conditions. Namely,
     #no text in the buffer and not at end of line,
     def reset_read_point

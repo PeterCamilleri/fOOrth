@@ -1,2 +1,4 @@
-
-0 total warnings
+lib/fOOrth/debug/vm_dump.rb -- 2 warnings:
+  [20, 21]:XfOOrth::VirtualMachine#debug_dump calls @parser.source twice (DuplicateMethodCall)
+  [10]:XfOOrth::VirtualMachine#debug_dump has approx 11 statements (TooManyStatements)
+2 total warnings
