@@ -47,10 +47,10 @@ class Thread
 
   # Runtime support for the .new{ } construct.
   def self.do_foorth_new_block(vm, &block)
-    Thread.new(vm.foorth_copy('-')) { |vm|
+    Thread.new(vm.foorth_copy('-')) do |vm|
       vm.compiler_reset
       block.call(vm.install_thread, nil)
-    }
+    end
   end
 
 end
