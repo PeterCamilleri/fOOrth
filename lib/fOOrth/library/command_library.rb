@@ -43,7 +43,7 @@ module XfOOrth
 
   #Dump the virtual machine right NOW!
   VirtualMachine.create_shared_method(')vm!', VmSpec, [:immediate],
-    &lambda {|vm| pp vm })
+    &lambda {|vm| vm.debug_dump })
 
   #Map a symbol entry
   VirtualMachine.create_shared_method(')map"', VmSpec, [], &lambda {|vm|
