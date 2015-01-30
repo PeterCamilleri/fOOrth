@@ -3,8 +3,7 @@
 #* compiler/context_map_name.rb - The fOOrth language mapping of names in a context.
 module XfOOrth
 
-  #A class for the management of global, hierarchical, and nested compile
-  #time contexts.
+  #* compiler/context_map_name.rb - The fOOrth language mapping of names in a context.
   class Context
 
     #Map a name to a specification.

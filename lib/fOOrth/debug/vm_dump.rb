@@ -3,7 +3,7 @@
 #* debug/vm_dump.rb - Debug support for the virtual machine.
 module XfOOrth
 
-  #Debug support for the virtual machine.
+  #* debug/vm_dump.rb - Debug support for the virtual machine.
   class VirtualMachine
 
     #Dump the virtual machine to the console for debug.

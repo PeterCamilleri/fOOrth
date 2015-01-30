@@ -8,3 +8,6 @@ require_relative 'debug/vm_dump'
 #Set up the default debug conduit.
 $foorth_dbg = $stdout
 
+#* debug.rb - Internal debug support.
+module XfOOrth
+end

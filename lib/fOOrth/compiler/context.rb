@@ -4,8 +4,8 @@
 #  language system.
 module XfOOrth
 
-  #A class for the management of global, hierarchical, and nested compile
-  #time contexts.
+  #A class for the management of global, hierarchical, and nested compile time contexts.
+  #* compiler/context.rb - \Context constructor, tag support, and local defs.
   class Context
 
     #The previous context object that this one builds on. Set to nil if there

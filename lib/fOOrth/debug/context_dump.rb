@@ -3,7 +3,7 @@
 #* debug/context_dump.rb - Debug support for the compiler context.
 module XfOOrth
 
-  #Debug support for the compiler context.
+  #* debug/context_dump.rb - Debug support for the compiler context.
   class Context
 
     #Dump the context chain to the console for debug.

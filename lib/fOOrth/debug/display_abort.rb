@@ -1,14 +1,15 @@
 # coding: utf-8
 
-#* display_abort.rb - Display diagnostic information on an error.
+#* debug/display_abort.rb - Display diagnostic information on an error.
 module XfOOrth
 
-  #* display_abort.rb - Display diagnostic information on an error.
+  #* debug/display_abort.rb - Display diagnostic information on an error.
   class VirtualMachine
 
     #Display the diagnostic data required for a language abort error.
     #<br>Parameters:
-    #* exception - The exception object that required the system abort.
+    #* exception - The exception object that required the system abort or a
+    #  string describing the error that was encountered.
     def display_abort(exception)
       puts "\n#{exception}"
 
