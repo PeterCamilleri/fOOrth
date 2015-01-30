@@ -8,7 +8,8 @@ module XfOOrth
 
     #Dump the virtual machine to the console for debug.
     def debug_dump
-      source = @parser.source
+      source = @parser && @parser.source
+
       puts "\n#{self.foorth_name}"                \
            "\n  Ruby    = #{self.to_s}"           \
            "\n  Stack   = #{@data_stack.inspect}" \
@@ -18,10 +19,9 @@ module XfOOrth
            "\n  Show    = #{@show_stack}"         \
            "\n  Force   = #{@force}"              \
            "\n  Start   = #{@start_time}"         \
-           "\n  Source  = #{source.source_name}"  \
-           "\n  Buffer  = #{source.read_buffer.inspect}"
+           "\n  Source  = #{source && source.source_name}"  \
+           "\n  Buffer  = #{source && source.read_buffer.inspect}"
     end
-
   end
 
 end

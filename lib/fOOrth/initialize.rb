@@ -36,7 +36,7 @@ module XfOOrth
     #Create a copy of a donor vm instance.
     #<br>Parameters:
     #* name - An optional string that describes this virtual machine instance.
-    def foorth_copy(name='-')
+    def foorth_copy(name)
       copy = self.clone
       copy.install_vm(name)
       copy
