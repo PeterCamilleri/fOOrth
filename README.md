@@ -32,6 +32,15 @@ where the string is fOOrth code to be executed, or for a file of code, use:
     require 'fOOrth'
     XfOOrth.virtual_machine.process_file 'my_file.4th'
 
+## Further Documentation
+
+The fOOrth Language System is documented in The fOOrth User Guide. This is
+currently only available in Open Office format, and is still also very much
+a work in progress. Please see The_fOOrth_User_Guide.odt in the docs folder.
+
+As each version of fOOrth is made available, expect to see portable document
+format versions of the guide for each released version.
+
 ## Notes
 
 * Tested under ruby 1.9.3p484 (2013-11-22) [i386-mingw32]
