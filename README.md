@@ -30,7 +30,7 @@ command to work.
 where the string is fOOrth code to be executed, or for a file of code, use:
 
     require 'fOOrth'
-    XfOOrth.virtual_machine.process_file 'my_file.4th'
+    XfOOrth.virtual_machine.process_file 'my_file.foorth'
 
 ## Further Documentation
 
