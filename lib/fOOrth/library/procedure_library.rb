@@ -1,5 +1,7 @@
 # coding: utf-8
 
+require 'thread'
+
 #* library/procedure_library.rb - Proc support for the fOOrth library.
 module XfOOrth
 
@@ -22,12 +24,16 @@ module XfOOrth
   # [procedure] .start [a_thread]
   Proc.create_shared_method('.start', TosSpec, [], &lambda {|vm|
     block = self
+    queue = Queue.new
 
     vm.push(Thread.new(vm.foorth_copy('-')) {|vm|
       vm.compiler_reset
       vm.connect_vm_to_thread
+      queue.enq(:ready)
       vm.instance_exec(vm, &block)
     })
+
+    queue.deq
   })
 
 end

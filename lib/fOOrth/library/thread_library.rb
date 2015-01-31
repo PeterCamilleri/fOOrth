@@ -1,5 +1,7 @@
 # coding: utf-8
 
+require 'thread'
+
 #* library/thread_library.rb - The thread support fOOrth library.
 module XfOOrth
 
@@ -46,14 +48,24 @@ end
 class Thread
 
   # Runtime support for the .new{ } construct.
+  #<br>Parameters
+  #* vm - The parent VirtualMachine instance.
+  #* block = The block of code to be executed in the new thread.
+  #<br>Returns
+  #* The newly created Thread instance.
   def self.do_foorth_new_block(vm, &block)
     thread_name = vm.pop.to_s
+    queue = Queue.new
 
-    Thread.new(vm.foorth_copy(thread_name)) do |vm|
+    result = Thread.new(vm.foorth_copy(thread_name)) do |vm|
       vm.compiler_reset
       vm.connect_vm_to_thread
+      queue.enq(:ready)
       vm.instance_exec(vm, nil, &block)
     end
+
+    queue.deq
+    result
   end
 
 end
