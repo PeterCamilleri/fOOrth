@@ -1,7 +1,5 @@
 # coding: utf-8
 
-require 'thread'
-
 #* library/thread_library.rb - The thread support fOOrth library.
 module XfOOrth
 

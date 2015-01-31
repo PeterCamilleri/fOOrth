@@ -1,7 +1,5 @@
 # coding: utf-8
 
-require 'thread'
-
 #* library/procedure_library.rb - Proc support for the fOOrth library.
 module XfOOrth
 
