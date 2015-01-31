@@ -76,6 +76,7 @@ module XfOOrth
   #* :reek:TooManyStatements
   def self.process_command_line_options
     begin
+
       defer, found = "", false
 
       opts = GetoptLong.new(
@@ -87,6 +88,7 @@ module XfOOrth
 
       # Translate the parsed options into fOOrth.
       opts.each do |opt, arg|
+
         unless found
           puts; found = true
         end
@@ -95,7 +97,7 @@ module XfOOrth
         when "--debug"
           @debug = true
         when "--load"
-          defer << "load\"#{arg}\" "
+          defer << "\"#{arg}\" .load "
         when "--quit"
           defer << ")quit "
         when "--words"
