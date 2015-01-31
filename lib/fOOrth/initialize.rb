@@ -30,7 +30,7 @@ module XfOOrth
       interpreter_reset
       compiler_reset
 
-      install_thread
+      connect_vm_to_thread
     end
 
     #Create a copy of a donor vm instance.
@@ -38,20 +38,20 @@ module XfOOrth
     #* name - An optional string that describes this virtual machine instance.
     def foorth_copy(name)
       copy = self.clone
-      copy.install_vm(name)
+      copy.reinitialize(name)
       copy
     end
 
     #Get the vm ready for operation
     #<br>Parameters:
     #* name - A string that describes this virtual machine instance.
-    def install_vm(name)
+    def reinitialize(name)
       @data_stack = @data_stack.clone
       @name       = name
     end
 
     #Connect the vm to a thread variable.
-    def install_thread
+    def connect_vm_to_thread
       #Check for duplicates.
       current = Thread.current
       error "Only one virtual machine allowed per thread" if current[:vm]

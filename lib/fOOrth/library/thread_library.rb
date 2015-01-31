@@ -51,7 +51,7 @@ class Thread
 
     Thread.new(vm.foorth_copy(thread_name)) do |vm|
       vm.compiler_reset
-      vm.install_thread
+      vm.connect_vm_to_thread
       vm.instance_exec(vm, nil, &block)
     end
   end

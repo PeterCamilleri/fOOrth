@@ -24,7 +24,9 @@ module XfOOrth
     block = self
 
     vm.push(Thread.new(vm.foorth_copy('-')) {|vm|
-      block.call(vm.install_thread)
+      vm.compiler_reset
+      vm.connect_vm_to_thread
+      vm.instance_exec(vm, &block)
     })
   })
 
