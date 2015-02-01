@@ -1,7 +1,7 @@
 # coding: utf-8
 
 #* This meaningless entry exists to shut up rdoc!
-module Math
+module Math #:nodoc: don't document this
 end
 
 #* library/numeric_library.rb - Numeric support for the fOOrth library.
