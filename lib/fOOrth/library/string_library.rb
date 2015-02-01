@@ -221,6 +221,11 @@ module XfOOrth
     vm.pop.foorth_load_file(vm)
   })
 
+  # ["a_string"] .call [unspecified]; Execute the string as source code.
+  String.create_shared_method('.call', TosSpec, [], &lambda {|vm|
+    vm.process_string(self)
+  })
+
 end
 
 #* Runtime library support for fOOrth constructs.

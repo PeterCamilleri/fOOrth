@@ -165,4 +165,8 @@ class StringLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('"abc" .each{ v x 1+ * } ', ['a', 'bb', 'ccc'])
   end
 
+  def test_calling_a_string
+    foorth_equal('"1 2 +" .call ', [3])
+  end
+
 end
