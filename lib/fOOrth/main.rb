@@ -83,6 +83,7 @@ module XfOOrth
         [ "--help",  "-h", "-?", GetoptLong::NO_ARGUMENT ],
         [ "--load",  "-l",       GetoptLong::REQUIRED_ARGUMENT ],
         [ "--debug", "-d",       GetoptLong::NO_ARGUMENT ],
+        [ "--show",  "-s",       GetoptLong::NO_ARGUMENT ],
         [ "--quit",  "-q",       GetoptLong::NO_ARGUMENT ],
         [ "--words", "-w",       GetoptLong::NO_ARGUMENT ])
 
@@ -95,7 +96,9 @@ module XfOOrth
 
         case opt
         when "--debug"
-          @debug = true
+          defer << ")debug "
+        when "--show"
+          defer << ")show "
         when "--load"
           defer << "\"#{arg}\" .load "
         when "--quit"
