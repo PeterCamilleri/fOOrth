@@ -63,12 +63,22 @@ module XfOOrth
   }
 
   # Thread Variables
-  # [n] thread: #tv [], Thread.current[#tv] = n.to_foorth_p
-  VirtualMachine.create_shared_method('thread:', VmSpec, [], &lambda {|vm|
+  # [n] var#: #tv [], Thread.current[#tv] = [n]
+  VirtualMachine.create_shared_method('var#:', VmSpec, [], &lambda {|vm|
     name   = vm.parser.get_word()
     error "Invalid var name #{name}" unless /^#[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
-    Thread.current[symbol] = vm.pop.to_foorth_p
+    Thread.current[symbol] = [vm.pop]
+
+    vm.create_exclusive_method(name, ThreadVarSpec, [])
+  })
+
+  # [n] val#: #tv [], Thread.current[#tv] = n
+  VirtualMachine.create_shared_method('val#:', VmSpec, [], &lambda {|vm|
+    name   = vm.parser.get_word()
+    error "Invalid var name #{name}" unless /^#[a-z][a-z0-9_]*$/ =~ name
+    symbol = XfOOrth::SymbolMap.add_entry(name)
+    Thread.current[symbol] = vm.pop
 
     vm.create_exclusive_method(name, ThreadVarSpec, [])
   })
