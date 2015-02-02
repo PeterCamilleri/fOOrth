@@ -84,15 +84,25 @@ module XfOOrth
   })
 
   # Global Variables
-  # [n] global: $gv [], $gv = n.to_foorth_p
-  VirtualMachine.create_shared_method('global:', VmSpec, [], &lambda {|vm|
+  # [n] var$: $gv [], $gv = [n]
+  VirtualMachine.create_shared_method('var$:', VmSpec, [], &lambda {|vm|
     name   = vm.parser.get_word()
     error "Invalid var name #{name}" unless /^\$[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
-    eval "#{'$' + symbol.to_s} = vm.pop.to_foorth_p"
+    eval "#{'$' + symbol.to_s} = [vm.pop]"
 
     $FOORTH_GLOBALS[symbol] = GlobalVarSpec.new(name, symbol, [])
   })
 
+  # Global Variables
+  # [n] val$: $gv [], $gv = n
+  VirtualMachine.create_shared_method('val$:', VmSpec, [], &lambda {|vm|
+    name   = vm.parser.get_word()
+    error "Invalid var name #{name}" unless /^\$[a-z][a-z0-9_]*$/ =~ name
+    symbol = XfOOrth::SymbolMap.add_entry(name)
+    eval "#{'$' + symbol.to_s} = vm.pop"
+
+    $FOORTH_GLOBALS[symbol] = GlobalVarSpec.new(name, symbol, [])
+  })
 
 end

@@ -116,8 +116,8 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
 
   def test_exclusive_methods
     foorth_equal('class: X1 ' , [])
-    foorth_equal('X1 .new global: $a' , [])
-    foorth_equal('X1 .new global: $b' , [])
+    foorth_equal('X1 .new var$: $a' , [])
+    foorth_equal('X1 .new var$: $b' , [])
 
     foorth_equal('X1 .: .foobar "foo" ; ' , [])
 
@@ -132,12 +132,12 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
 
   def test_the_super_method
     foorth_equal('class: X2 ' , [])
-    foorth_equal('X2 .new global: $c' , [])
+    foorth_equal('X2 .new var$: $c' , [])
     foorth_equal('X2 .: .foo 1 ; ' , [])
     foorth_equal('$c @ .foo' , [1])
 
     foorth_equal('X2 .subclass: X3 ' , [])
-    foorth_equal('X3 .new global: $d' , [])
+    foorth_equal('X3 .new var$:  $d' , [])
     foorth_equal('X3 .: .foo if super else 2 then ; ' , [])
 
     foorth_equal('true  $d @ .foo' , [1])

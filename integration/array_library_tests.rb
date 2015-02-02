@@ -46,7 +46,7 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_arrays_in_variables
-    foorth_equal('[ 3 6 9 ] global: $taiv1 ', [])
+    foorth_equal('[ 3 6 9 ] val$: $taiv1 ',   [])
     foorth_equal('$taiv1                   ', [[3,6,9]])
   end
 
@@ -68,7 +68,7 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_the_each
-    foorth_equal('4 Array .new{ x 1 + dup * } global: $tte ', [])
+    foorth_equal('4 Array .new{ x 1 + dup * } val$: $tte ',   [])
     foorth_equal('$tte',                                      [[1,4,9,16]])
 
     foorth_equal('$tte .each{ x } ',                          [0,1,2,3])
@@ -87,7 +87,7 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_simple_array_indexing
-    foorth_equal('4 Array .new{ x 1 + dup * } global: $tte ', [])
+    foorth_equal('4 Array .new{ x 1 + dup * } val$: $tte ',   [])
     foorth_equal('$tte',                                      [[1,4,9,16]])
 
     foorth_equal('$tte @ ',                                   [1])

@@ -22,12 +22,12 @@ class HashLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_hashes_in_variables
-    foorth_equal('{ 1 3 -> 2 6 -> 3 9 -> } global: $thiv1 ', [])
+    foorth_equal('{ 1 3 -> 2 6 -> 3 9 -> } val$: $thiv1 ', [])
     foorth_equal('$thiv1', [{1=>3, 2=>6, 3=>9}])
   end
 
   def test_simple_hash_indexing
-    foorth_equal('{ 0 3 do i dup 3 * -> loop } global: $tshi1', [])
+    foorth_equal('{ 0 3 do i dup 3 * -> loop } val$: $tshi1', [])
     foorth_equal('$tshi1', [{0=>0, 1=>3, 2=>6}])
 
     foorth_equal('$tshi1 @', [0])
@@ -40,7 +40,7 @@ class HashLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_the_hash_each
-    foorth_equal('{ 0 3 do i dup 3 * -> loop } global: $tshi2', [])
+    foorth_equal('{ 0 3 do i dup 3 * -> loop } val$: $tshi2', [])
     foorth_equal('$tshi2',                    [{0=>0, 1=>3, 2=>6}])
 
     foorth_equal('$tshi2 .each{ x } ',                     [0,1,2])
@@ -49,7 +49,7 @@ class HashLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_keys_and_values
-    foorth_equal('{ 0 3 do i dup 3 * -> loop } global: $tshi3', [])
+    foorth_equal('{ 0 3 do i dup 3 * -> loop } val$: $tshi3', [])
 
     foorth_equal('$tshi3 .keys',                         [[0,1,2]])
     foorth_equal('$tshi3 .values',                       [[0,3,6]])
@@ -57,7 +57,7 @@ class HashLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_pretty_print_and_support
-    foorth_equal('{ 0 11 do i dup dup * -> loop } global: $tppas1', [])
+    foorth_equal('{ 0 11 do i dup dup * -> loop } val$: $tppas1', [])
 
     foorth_equal('$tppas1 .strmax2', [2,3])
 
