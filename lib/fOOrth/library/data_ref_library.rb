@@ -3,15 +3,6 @@
 #* library/data_ref_library.rb - The data references (variables) fOOrth library.
 module XfOOrth
 
-  # Some basic data access words.
-  # [pointer] @ [value]
-  VirtualMachine.create_shared_method('@', MacroSpec,
-    [:macro, "vm.poke(vm.peek[0] ); "])
-
-  # [value pointer] ! [], variable = [value]
-  VirtualMachine.create_shared_method('!', VmSpec, [],
-    &lambda {|vm| val, ptr = popm(2); ptr[0] = val; })
-
   #The lambda used to define local variables. fOOrth language definition is:
   # [n] var: lv [], lv = [n]
   Local_Var_Action = lambda {|vm|

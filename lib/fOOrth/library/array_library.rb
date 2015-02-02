@@ -31,6 +31,18 @@ module XfOOrth
       &lambda {|vm| vm.resume_execute_mode('vm.unsquash; ', [:array_literal]) })
   })
 
+  # Some basic data access words.
+  # [a] @ [a[0]]
+  Array.create_shared_method('@', TosSpec, [], &lambda { |vm|
+    vm.push(self[0])
+  })
+
+  # [v a] ! [], a[0] = v
+  Array.create_shared_method('!', TosSpec, [], &lambda { |vm|
+    value = vm.pop
+    self[0] = value
+  })
+
   # [i a] .[]@ [a[i]]
   Array.create_shared_method('.[]@', TosSpec, [],
     &lambda {|vm| vm.poke(self[Integer.foorth_coerce(vm.peek)]); })
