@@ -35,15 +35,6 @@ class ObjectMonkeyPatchTester < MiniTest::Unit::TestCase
     assert_equal(obj.to_foorth_n, nil)
   end
 
-  def test_to_pointer
-    obj = Object.new
-    assert_equal(obj.to_foorth_p, [obj])
-
-    assert_equal((5).to_foorth_p, [5])
-    assert_equal(('hello').to_foorth_p, ['hello'])
-    assert_equal(nil.to_foorth_p, [nil])
-  end
-
   #Test the quick fail raise in fOOrth.
   def test_that_exceptions_are_easy_to_raise
     assert_raises(XfOOrth::XfOOrthError) { error('Failure IS an option!') }
