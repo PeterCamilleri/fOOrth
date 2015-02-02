@@ -95,7 +95,8 @@ module XfOOrth
     context.create_local_method('val:', [:immediate], &Local_Val_Action)
 
     #Support for instance variables.
-    context.create_local_method('inst:', [:immediate], &Inst_Var_Action)
+    context.create_local_method('var@:', [:immediate], &Inst_Var_Action)
+    context.create_local_method('val@:', [:immediate], &Inst_Val_Action)
 
     #Support for super methods.
     context.create_local_method('super', [:immediate],
