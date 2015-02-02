@@ -39,8 +39,7 @@ module XfOOrth
 
   # [v a] ! [], a[0] = v
   Array.create_shared_method('!', TosSpec, [], &lambda { |vm|
-    value = vm.pop
-    self[0] = value
+    self[0] = vm.pop
   })
 
   # [i a] .[]@ [a[i]]
