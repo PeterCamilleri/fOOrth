@@ -46,8 +46,11 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_words_with_local_vars
-    foorth_equal(': lvt1 dup local: lv lv @ * ;' , [])
+    foorth_equal(': lvt1 dup var: lv lv @ * ;' , [])
     foorth_equal('10 lvt1 ' , [100])
+
+    foorth_equal(': lvt2 val: lv lv  10 * ;' , [])
+    foorth_equal('10 lvt2 ' , [100])
   end
 
   def test_private_methods
@@ -103,8 +106,12 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_methods_with_local_vars
-    foorth_equal('Object .: .lvt2 dup local: lv lv @ * ;' , [])
-    foorth_equal('10 Object .new .lvt2 ' , [100])
+    foorth_equal('Object .: .lvt5 dup var: lv lv @ * ;' , [])
+    foorth_equal('10 Object .new .lvt5 ' , [100])
+
+    foorth_equal('Object .: .lvt6 val: lv lv 10  * ;' , [])
+    foorth_equal('10 Object .new .lvt6 ' , [100])
+
   end
 
   def test_exclusive_methods

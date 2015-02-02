@@ -91,7 +91,8 @@ module XfOOrth
     context = vm.context
 
     #Support for local variables.
-    context.create_local_method('local:', [:immediate], &Local_Var_Action)
+    context.create_local_method('var:', [:immediate], &Local_Var_Action)
+    context.create_local_method('val:', [:immediate], &Local_Val_Action)
 
     #Support for instance variables.
     context.create_local_method('inst:', [:immediate], &Inst_Var_Action)
