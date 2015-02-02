@@ -27,6 +27,7 @@ module XfOOrth
     vm.push(Thread.new(vm.foorth_copy('-')) {|vm|
       vm.compiler_reset
       vm.connect_vm_to_thread
+      self.foorth_init(vm)
       queue.enq(:ready)
       vm.instance_exec(vm, &block)
     })
