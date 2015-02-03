@@ -57,8 +57,22 @@ module XfOOrth
     puts "#{str} <= #{(SymbolMap.unmap(str.to_sym).to_s)}"
   })
 
+  #Start an Interactive RuBy session
+  VirtualMachine.create_shared_method(')irb', VmSpec, [], &lambda {|vm|
+    require 'irb'
+    require 'irb/completion'
+
+    puts
+    puts "Starting an IRB console for fOOrth."
+    puts "Enter quit to return to fOOrth."
+    puts
+
+    ARGV.clear
+    IRB.start
+  })
+
   #Load the file as source code.
-  VirtualMachine.create_shared_method(')load"', VmSpec, [], &lambda{|vm|
+  VirtualMachine.create_shared_method(')load"', VmSpec, [], &lambda {|vm|
     start_time = Time.now
     file_name = vm.pop.to_s
 
