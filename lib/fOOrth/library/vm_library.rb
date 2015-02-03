@@ -17,6 +17,12 @@ module XfOOrth
   VirtualMachine.create_shared_method('drop', MacroSpec,
     [:macro, "vm.pop(); "])
 
+  # Some stack manipulation words.
+  # [unspecified] .clear []
+  VirtualMachine.create_shared_method('.clear', TosSpec, [], &lambda {|vm|
+    vm.data_stack.clear
+  })
+
   # [a] dup [a, a]
   VirtualMachine.create_shared_method('dup', MacroSpec,
     [:macro, "vm.push(vm.peek()); "])

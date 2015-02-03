@@ -25,4 +25,8 @@ class VMLibraryTester < MiniTest::Unit::TestCase
     foorth_equal("vm .vm_name", ['Main'])
   end
 
+  def test_for_stack_clear
+    foorth_equal('3 4 5 6 vm .clear', [])
+  end
+
 end
