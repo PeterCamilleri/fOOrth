@@ -86,6 +86,11 @@ module XfOOrth
     puts "Elapsed time is #{Time.now - vm.start_time} seconds"
   })
 
+  #What time is it now?
+  VirtualMachine.create_shared_method(')time', VmSpec, [], &lambda {|vm|
+    puts "It is now: #{Time.now.strftime(TimeFormat)}"
+  })
+
   #Load the file as source code.
   VirtualMachine.create_shared_method(')load"', VmSpec, [], &lambda {|vm|
     start_time = Time.now

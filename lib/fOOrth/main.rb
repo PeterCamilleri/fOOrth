@@ -5,6 +5,8 @@ require 'getoptlong'
 #* main.rb - The entry point for a stand-alone foorth session.
 module XfOOrth
 
+  TimeFormat = '%Y-%m-%d at %I:%M%P'
+
   #The starting point for an interactive fOOrth programming session.
   #This method only returns when the session is closed.
   #<br>Returns:
@@ -65,7 +67,7 @@ module XfOOrth
   def self.announcements
     puts "Welcome to fOOrth: fO(bject)O(riented)rth."
     puts "\nfOOrth Reference Implementation Version: #{XfOOrth.version}"
-    puts "\nSession began on: #{Time.now.strftime('%Y-%m-%d at %I:%M%P')}"
+    puts "\nSession began on: #{Time.now.strftime(TimeFormat)}"
   end
 
   #Process the command line arguments. A string is returned containing
