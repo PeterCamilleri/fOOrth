@@ -45,4 +45,11 @@ class ThreadLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('{{ 0.01 .sleep }} .start  .alive?', [true])
   end
 
+  def test_thread_status
+    foorth_equal('Thread .current          .status', ['run'])
+    foorth_equal('{{             }} .start .status', ['dead'])
+    foorth_equal('{{ 0.01 .sleep }} .start .status', ['sleep'])
+  end
+
+
 end

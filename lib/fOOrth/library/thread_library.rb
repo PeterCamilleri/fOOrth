@@ -51,6 +51,12 @@ module XfOOrth
   Thread.create_shared_method('.alive?', TosSpec, [], &lambda {|vm|
     vm.push(self.alive?)
   })
+
+  #What is the status of this thread?
+  #[a_thread] .status ["a_status_string"]
+  Thread.create_shared_method('.status', TosSpec, [], &lambda {|vm|
+    vm.push(self.status || 'dead')
+  })
 end
 
 #* Runtime library support for fOOrth constructs.
