@@ -36,5 +36,8 @@ class ThreadLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('"Test" Thread .new{ 1 $tcat1 ! } drop 0.01 .sleep $tcat1 @', [1])
   end
 
+  def test_joining_a_thread
+    foorth_output('{{ 0 5 do 0.01 .sleep i . loop }} .start .join ." done"', "01234 done")
+  end
 
 end

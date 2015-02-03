@@ -39,6 +39,12 @@ module XfOOrth
   Numeric.create_shared_method('.sleep', TosSpec, [], &lambda {|vm|
     sleep(self)
   })
+
+  #Wait for a thread to finish.
+  #[a_thread] .join []
+  Thread.create_shared_method('.join', TosSpec, [], &lambda {|vm|
+    self.join
+  })
 end
 
 #* Runtime library support for fOOrth constructs.
