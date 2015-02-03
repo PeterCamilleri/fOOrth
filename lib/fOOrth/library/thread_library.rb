@@ -25,7 +25,6 @@ module XfOOrth
     vm.push(Thread.list)
   })
 
-
   #Instance Methods
   # [a thread] .vm [the vm of the thread or nil]
   Thread.create_shared_method('.vm', TosSpec, [], &lambda {|vm|

@@ -57,7 +57,7 @@ module XfOOrth
     puts "#{str} <= #{(SymbolMap.unmap(str.to_sym).to_s)}"
   })
 
-  #Start an Interactive RuBy session
+  #Start an Interactive RuBy session (IRB)
   VirtualMachine.create_shared_method(')irb', VmSpec, [], &lambda {|vm|
     require 'irb'
     require 'irb/completion'
@@ -69,6 +69,21 @@ module XfOOrth
 
     ARGV.clear
     IRB.start
+  })
+
+  #Get the VM timer start time.
+  VirtualMachine.create_shared_method(')start', VmSpec, [], &lambda {|vm|
+    puts "Start time is #{vm.start_time}"
+  })
+
+  #Reset the VM timer start time.
+  VirtualMachine.create_shared_method(')restart', VmSpec, [], &lambda {|vm|
+    puts "Start time reset to #{(vm.start_time = Time.now)}"
+  })
+
+  #Display the elapsed time.
+  VirtualMachine.create_shared_method(')elapsed', VmSpec, [], &lambda {|vm|
+    puts "Elapsed time is #{Time.now - vm.start_time} seconds"
   })
 
   #Load the file as source code.

@@ -11,6 +11,9 @@ module XfOOrth
   #* interpreter.rb - The run time interpreter portion of the fOOrth language system.
   class VirtualMachine
 
+    #The fOOrth timer anchor point. Used to assist in benchmarking etc.
+    attr_accessor :start_time
+
     #Reset the state of the fOOrth inner interpreter.
     def interpreter_reset
       @data_stack   = Array.new
