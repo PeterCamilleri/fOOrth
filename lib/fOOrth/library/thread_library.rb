@@ -57,6 +57,7 @@ class Thread
     result = Thread.new(vm.foorth_copy(thread_name)) do |vm|
       vm.compiler_reset
       vm.connect_vm_to_thread
+      vm.start_time = Time.now
       self.foorth_init(vm)
       queue.enq(:ready)
       vm.instance_exec(vm, nil, &block)
