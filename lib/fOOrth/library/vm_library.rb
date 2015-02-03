@@ -75,4 +75,22 @@ module XfOOrth
   VirtualMachine.create_shared_method('tuck', VmSpec, [],
     &lambda {|vm| vb,va = popm(2); push(va); push(vb); push(va); })
 
+  #Get the VM timer start time.
+  #[] .start [start_time]
+  VirtualMachine.create_shared_method('.start', TosSpec, [], &lambda {|vm|
+    vm.push(vm.start_time)
+  })
+
+  #Reset the VM timer start time.
+  #[] .restart []
+  VirtualMachine.create_shared_method('.restart', TosSpec, [], &lambda {|vm|
+    vm.start_time = Time.now
+  })
+
+  #Get the elapsed time.
+  #[] .elapsed [elapsed_time_in_seconds]
+  VirtualMachine.create_shared_method('.elapsed', TosSpec, [], &lambda {|vm|
+    vm.push(Time.now - vm.start_time)
+  })
+
 end
