@@ -45,6 +45,12 @@ module XfOOrth
   Thread.create_shared_method('.join', TosSpec, [], &lambda {|vm|
     self.join
   })
+
+  #Is the thread sill alive?
+  #[a_thread] .alive? [a_boolean]
+  Thread.create_shared_method('.alive?', TosSpec, [], &lambda {|vm|
+    vm.push(self.alive?)
+  })
 end
 
 #* Runtime library support for fOOrth constructs.

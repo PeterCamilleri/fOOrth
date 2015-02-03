@@ -40,4 +40,9 @@ class ThreadLibraryTester < MiniTest::Unit::TestCase
     foorth_output('{{ 0 5 do 0.01 .sleep i . loop }} .start .join ." done"', "01234 done")
   end
 
+  def test_for_poking_with_a_stick
+    foorth_equal('{{  }} .start 0.02 .sleep .alive?', [false])
+    foorth_equal('{{ 0.01 .sleep }} .start  .alive?', [true])
+  end
+
 end
