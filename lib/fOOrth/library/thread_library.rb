@@ -57,6 +57,12 @@ module XfOOrth
   Thread.create_shared_method('.status', TosSpec, [], &lambda {|vm|
     vm.push(self.status || 'dead')
   })
+
+  #Terminate the given thread.
+  Thread.create_shared_method('.exit', TosSpec, [], &lambda {|vm|
+    self.exit
+  })
+
 end
 
 #* Runtime library support for fOOrth constructs.
