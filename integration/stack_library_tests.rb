@@ -23,12 +23,23 @@ class StackLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('$s .length', [0])
 
     foorth_equal('5 $s .push', [])
+    foorth_equal('$s .peek',   [5])
+    foorth_equal('$s .empty?', [false])
+    foorth_equal('$s .length', [1])
 
     foorth_equal('6 $s .push', [])
+    foorth_equal('$s .peek',   [6])
+    foorth_equal('$s .empty?', [false])
+    foorth_equal('$s .length', [2])
 
     foorth_equal('$s .pop',    [6])
+    foorth_equal('$s .peek',   [5])
+    foorth_equal('$s .empty?', [false])
+    foorth_equal('$s .length', [1])
 
     foorth_equal('$s .pop',    [5])
+    foorth_equal('$s .empty?', [true])
+    foorth_equal('$s .length', [0])
 
   end
 
