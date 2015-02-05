@@ -47,5 +47,9 @@ class QueueLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('$q .length', [0])
   end
 
+  def test_that_it_catches_underflows
+    foorth_run('Queue .new val$: $q')
+    foorth_raises('$q .pop')
+  end
 
 end

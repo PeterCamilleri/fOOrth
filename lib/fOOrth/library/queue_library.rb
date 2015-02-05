@@ -17,7 +17,11 @@ module XfOOrth
 
   # [queue] .pop [v]; v is popped from the queue
   Queue.create_shared_method('.pop', TosSpec, [], &lambda {|vm|
-    vm.push(self.pop)
+    if self.length > 0
+      vm.push(self.pop)
+    else
+      error "Queue Underflow: .pop"
+    end
   })
 
   # [queue] .empty? [a_boolean]
