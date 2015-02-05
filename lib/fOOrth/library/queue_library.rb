@@ -24,6 +24,11 @@ module XfOOrth
     end
   })
 
+  # [queue] .pend [v]; v is popped from the queue, will pend for data.
+  Queue.create_shared_method('.pend', TosSpec, [], &lambda {|vm|
+    vm.push(self.pop)
+  })
+
   # [queue] .empty? [a_boolean]
   Queue.create_shared_method('.empty?', TosSpec, [], &lambda {|vm|
     vm.push(self.empty?)

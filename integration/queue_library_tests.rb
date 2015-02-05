@@ -45,6 +45,8 @@ class QueueLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('$q .clear',  [])
     foorth_equal('$q .empty?', [true])
     foorth_equal('$q .length', [0])
+
+    foorth_equal('"A" $q .push $q .pend', ["A"])
   end
 
   def test_that_it_catches_underflows
