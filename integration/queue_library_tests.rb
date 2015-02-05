@@ -21,7 +21,9 @@ class QueueLibraryTester < MiniTest::Unit::TestCase
   def test_some_queue_operations
     foorth_run('Queue .new val$: $q')
 
+    foorth_equal('$q .empty?', [true])
     foorth_equal('5 $q .push', [])
+    foorth_equal('$q .empty?', [false])
     foorth_equal('$q .pop'   , [5])
 
   end

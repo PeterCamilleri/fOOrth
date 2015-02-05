@@ -20,5 +20,10 @@ module XfOOrth
     vm.push(self.pop)
   })
 
+  # [queue] .empty? [a_boolean]
+  Queue.create_shared_method('.empty?', TosSpec, [], &lambda {|vm|
+    vm.push(self.empty?)
+  })
+
 
 end
