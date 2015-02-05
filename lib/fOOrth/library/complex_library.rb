@@ -11,6 +11,11 @@ module XfOOrth
   Complex.create_shared_method('.ceil',  TosSpec, [:stub])
   Complex.create_shared_method('.floor', TosSpec, [:stub])
   Complex.create_shared_method('.round', TosSpec, [:stub])
+  Complex.create_shared_method('<',      NosSpec, [:stub])
+  Complex.create_shared_method('>',      NosSpec, [:stub])
+  Complex.create_shared_method('<=',     NosSpec, [:stub])
+  Complex.create_shared_method('>=',     NosSpec, [:stub])
+  Complex.create_shared_method('<=>',    NosSpec, [:stub])
 
 
   #Some conversion words.

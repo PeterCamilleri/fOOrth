@@ -37,7 +37,7 @@ module XfOOrth
 
   #Put the current thread to sleep for the specified number of seconds.
   Numeric.create_shared_method('.sleep', TosSpec, [], &lambda {|vm|
-    sleep(self)
+    sleep(Float.foorth_coerce(self))
   })
 
   #Wait for a thread to finish.
