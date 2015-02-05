@@ -49,6 +49,14 @@ class QueueLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('"A" $q .push $q .pend', ["A"])
   end
 
+  def test_queues_between_threads
+    foorth_run('Queue .new val$: $q')
+    foorth_run('"Hello" $q .push')
+    foorth_run('{{ $q .pend . }} val$: $b')
+    foorth_output('$b .start 0.01 .sleep', "Hello")
+
+  end
+
   def test_that_it_catches_underflows
     foorth_run('Queue .new val$: $q')
     foorth_raises('$q .pop')
