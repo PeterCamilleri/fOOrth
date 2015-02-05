@@ -27,7 +27,15 @@ class QueueLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('$q .empty?', [false])
     foorth_equal('$q .length', [1])
 
+    foorth_equal('6 $q .push', [])
+    foorth_equal('$q .empty?', [false])
+    foorth_equal('$q .length', [2])
+
     foorth_equal('$q .pop'   , [5])
+    foorth_equal('$q .empty?', [false])
+    foorth_equal('$q .length', [1])
+
+    foorth_equal('$q .pop'   , [6])
     foorth_equal('$q .empty?', [true])
     foorth_equal('$q .length', [0])
 
