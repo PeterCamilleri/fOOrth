@@ -15,6 +15,8 @@ class QueueLibraryTester < MiniTest::Unit::TestCase
 
   def test_the_queue_class_exists
     foorth_equal('Queue', [Queue])
+    foorth_equal('Queue .new .class', [Queue])
   end
+
 
 end
