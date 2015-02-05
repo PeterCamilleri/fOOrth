@@ -26,7 +26,7 @@ class VMLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_for_stack_clear
-    foorth_equal('3 4 5 6 vm .clear', [])
+    foorth_equal('3 4 5 6 clear', [])
   end
 
 end

@@ -22,8 +22,8 @@ module XfOOrth
     [:macro, "vm.pop(); "])
 
   # Some stack manipulation words.
-  # [unspecified] .clear []
-  VirtualMachine.create_shared_method('.clear', TosSpec, [], &lambda {|vm|
+  # [unspecified] clear [];
+  VirtualMachine.create_shared_method('clear', VmSpec, [], &lambda {|vm|
     vm.data_stack.clear
   })
 
