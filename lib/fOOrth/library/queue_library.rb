@@ -10,5 +10,15 @@ module XfOOrth
 
   #Uses the default implementation of the .new method.
 
+  # [v queue] .push []; v is pushed onto the queue
+  Queue.create_shared_method('.push', TosSpec, [], &lambda {|vm|
+    self.push(vm.pop)
+  })
+
+  # [queue] .pop [v]; v is popped from the queue
+  Queue.create_shared_method('.pop', TosSpec, [], &lambda {|vm|
+    vm.push(self.pop)
+  })
+
 
 end

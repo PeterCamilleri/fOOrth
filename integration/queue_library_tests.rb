@@ -18,5 +18,13 @@ class QueueLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('Queue .new .class', [Queue])
   end
 
+  def test_some_queue_operations
+    foorth_run('Queue .new val$: $q')
+
+    foorth_equal('5 $q .push', [])
+    foorth_equal('$q .pop'   , [5])
+
+  end
+
 
 end
