@@ -25,5 +25,9 @@ module XfOOrth
     vm.push(self.empty?)
   })
 
+  # [queue] .;ength [an_integer]
+  Queue.create_shared_method('.length', TosSpec, [], &lambda {|vm|
+    vm.push(self.length)
+  })
 
 end

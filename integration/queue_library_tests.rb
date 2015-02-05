@@ -22,10 +22,13 @@ class QueueLibraryTester < MiniTest::Unit::TestCase
     foorth_run('Queue .new val$: $q')
 
     foorth_equal('$q .empty?', [true])
+    foorth_equal('$q .length', [0])
     foorth_equal('5 $q .push', [])
     foorth_equal('$q .empty?', [false])
+    foorth_equal('$q .length', [1])
     foorth_equal('$q .pop'   , [5])
-
+    foorth_equal('$q .empty?', [true])
+    foorth_equal('$q .length', [0])
   end
 
 
