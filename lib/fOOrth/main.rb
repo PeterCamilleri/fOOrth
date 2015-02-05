@@ -5,6 +5,7 @@ require 'getoptlong'
 #* main.rb - The entry point for a stand-alone foorth session.
 module XfOOrth
 
+  #The user facing format used for date/time display.
   TimeFormat = '%Y-%m-%d at %I:%M%P'
 
   #The starting point for an interactive fOOrth programming session.
