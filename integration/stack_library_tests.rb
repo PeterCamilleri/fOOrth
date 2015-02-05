@@ -17,4 +17,27 @@ class StackLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('Stack .new .name',  ['Stack instance'])
   end
 
+  def test_some_stack_operations
+    foorth_run('Stack .new val$: $s')
+    foorth_equal('$s .empty?', [true])
+    foorth_equal('$s .length', [0])
+
+    foorth_equal('5 $s .push', [])
+
+    foorth_equal('6 $s .push', [])
+
+    foorth_equal('$s .pop',    [6])
+
+    foorth_equal('$s .pop',    [5])
+
+  end
+
+  def test_that_it_catches_underflows
+    foorth_run('Stack .new val$: $s')
+
+    foorth_raises('$s .pop')
+    foorth_raises('$s .peek')
+
+  end
+
 end
