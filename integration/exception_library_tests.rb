@@ -13,6 +13,10 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__
 
+  def test_for_the_exception_class
+    foorth_equal('Exception', [StandardError])
+  end
+
   def test_for_try_blocks
     foorth_equal('try{ 5 } ', [5])
 
