@@ -62,8 +62,15 @@ module XfOOrth
   VirtualMachine.create_shared_method('try{', VmSpec, [:immediate], &lambda {|vm|
     suspend_execute_mode('begin; ', :try_block)
 
+    SymbolMap.add_entry('error') #Make sure an entry for 'error' exists.
+
     context.create_local_method('catch', [:immediate], &lambda {|vm|
       check_deferred_mode('rescue StandardError => error; ', [:try_block])
+
+      vm.context.create_local_method('error', [:immediate], &lambda {|vm|
+        check_deferred_mode('vm.push(error); ', [:try_block])
+      })
+
       vm.context.remove_local_method('catch')
     })
 
