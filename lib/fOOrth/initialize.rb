@@ -58,6 +58,7 @@ module XfOOrth
 
       #This virtual machine is associated with this thread.
       current[:vm] = self
+      @start_time  = Time.now
     end
   end
 

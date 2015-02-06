@@ -1,2 +1,3 @@
-
-0 total warnings
+lib/fOOrth/library/thread_library.rb -- 1 warning:
+  [77]:Thread#self.do_foorth_new_block has approx 11 statements (TooManyStatements)
+1 total warning
