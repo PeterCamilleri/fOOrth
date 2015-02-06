@@ -77,19 +77,17 @@ class Thread
   #<br>Endemic code smells
   #* :reek:TooManyStatements
   def self.do_foorth_new_block(vm, &block)
-    thread_name = vm.pop.to_s
-    queue = Queue.new
+    interlock = Queue.new
 
-    result = Thread.new(vm.foorth_copy(thread_name)) do |vm|
+    result = Thread.new(vm.foorth_copy(vm.pop.to_s)) do |vm|
       vm.compiler_reset
       vm.connect_vm_to_thread
-      vm.start_time = Time.now
       self.foorth_init(vm)
-      queue.enq(:ready)
+      interlock.push(:ready)
       vm.instance_exec(vm, nil, &block)
     end
 
-    queue.deq
+    interlock.pop
     result
   end
 
