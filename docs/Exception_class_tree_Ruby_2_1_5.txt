@@ -1,4 +1,4 @@
-Exception                                       XCode
+Exception                                     =>  "X"
   MonitorMixin::ConditionVariable::Timeout
   NoMemoryError
   ScriptError
@@ -137,8 +137,8 @@ Exception                                       XCode
       Errno::NOERROR                          =>  "E60NOERROR"
     ThreadError                               =>  "E65"
     TypeError                                 =>  "E70"
-    XfOOrthError                              =>  "E75"
-    ZeroDivisionError                         =>  "E80"
+    XfOOrthError                              =>  "F"
+    ZeroDivisionError                         =>  "E75"
   SystemExit
     Gem::SystemExitException
   SystemStackError

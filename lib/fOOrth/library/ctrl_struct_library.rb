@@ -4,62 +4,67 @@
 module XfOOrth
 
   # [boolean] if (boolean true code) else (boolean false code) then
-  VirtualMachine.create_shared_method('if', VmSpec, [:immediate],
-    &lambda {|vm|
-      suspend_execute_mode('if vm.pop? then ', :if)
+  VirtualMachine.create_shared_method('if', VmSpec, [:immediate], &lambda {|vm|
+    suspend_execute_mode('if vm.pop? then ', :if)
 
-      context.create_local_method('else', [:immediate], &lambda {|vm|
-        check_deferred_mode('else ', [:if])
-        vm.context.remove_local_method('else')
-      })
-
-      context.create_local_method('then', [:immediate],
-        &lambda {|vm| resume_execute_mode('end; ', [:if]) })
+    context.create_local_method('else', [:immediate], &lambda {|vm|
+      check_deferred_mode('else ', [:if])
+      vm.context.remove_local_method('else')
     })
+
+    context.create_local_method('then', [:immediate],
+      &lambda {|vm| resume_execute_mode('end; ', [:if]) })
+  })
 
   # Looping constructs for fOOrth.
-  VirtualMachine.create_shared_method('begin', VmSpec, [:immediate],
-    &lambda {|vm|
-      suspend_execute_mode('begin ', :begin)
+  VirtualMachine.create_shared_method('begin', VmSpec, [:immediate], &lambda {|vm|
+    suspend_execute_mode('begin ', :begin)
 
-      context.create_local_method('while', [:immediate],
-        &lambda {|vm| check_deferred_mode('break unless vm.pop?; ', [:begin]) })
+    context.create_local_method('while', [:immediate],
+      &lambda {|vm| check_deferred_mode('break unless vm.pop?; ', [:begin]) })
 
-      context.create_local_method('until', [:immediate],
-        &lambda {|vm| resume_execute_mode('end until vm.pop?; ', [:begin]) })
+    context.create_local_method('until', [:immediate],
+      &lambda {|vm| resume_execute_mode('end until vm.pop?; ', [:begin]) })
 
-      context.create_local_method('again', [:immediate],
-        &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
+    context.create_local_method('again', [:immediate],
+      &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
 
-      context.create_local_method('repeat', [:immediate],
-        &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
-    })
+    context.create_local_method('repeat', [:immediate],
+      &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
+  })
 
   # Support for the sanitized do loop constructs!
-  VirtualMachine.create_shared_method('do', VmSpec, [:immediate],
-    &lambda {|vm|
-      jvar =  context[:jloop].to_s
-      suspend_execute_mode("vm.vm_do(#{jvar}) {|iloop, jloop| ", :do)
-      context[:jloop] = 'iloop'
+  VirtualMachine.create_shared_method('do', VmSpec, [:immediate], &lambda {|vm|
+    jvar =  context[:jloop].to_s
+    suspend_execute_mode("vm.vm_do(#{jvar}) {|iloop, jloop| ", :do)
+    context[:jloop] = 'iloop'
 
-      context.create_local_method('i', [:immediate],
-        &lambda {|vm| vm <<  'vm.push(iloop[0]); ' })
+    context.create_local_method('i', [:immediate],
+      &lambda {|vm| vm <<  'vm.push(iloop[0]); ' })
 
-      context.create_local_method('j', [:immediate],
-        &lambda {|vm| vm << 'vm.push(jloop[0]); ' })
+    context.create_local_method('j', [:immediate],
+      &lambda {|vm| vm << 'vm.push(jloop[0]); ' })
 
-      context.create_local_method('-i', [:immediate],
-        &lambda {|vm| vm << 'vm.push(iloop[2] - iloop[0]); ' })
+    context.create_local_method('-i', [:immediate],
+      &lambda {|vm| vm << 'vm.push(iloop[2] - iloop[0]); ' })
 
-      context.create_local_method('-j', [:immediate],
-        &lambda {|vm| vm << 'vm.push(jloop[2] - jloop[0]); ' })
+    context.create_local_method('-j', [:immediate],
+      &lambda {|vm| vm << 'vm.push(jloop[2] - jloop[0]); ' })
 
-      context.create_local_method('loop', [:immediate],
-        &lambda {|vm| resume_execute_mode('iloop[0] += 1}; ', [:do]) })
+    context.create_local_method('loop', [:immediate],
+      &lambda {|vm| resume_execute_mode('iloop[0] += 1}; ', [:do]) })
 
-      context.create_local_method('+loop', [:immediate],
-        &lambda {|vm| resume_execute_mode('iloop[0] += vm.pop}; ', [:do]) })
-    })
+    context.create_local_method('+loop', [:immediate],
+      &lambda {|vm| resume_execute_mode('iloop[0] += vm.pop}; ', [:do]) })
+  })
+
+  #Support for the try{ catch  finally  } construct.
+  VirtualMachine.create_shared_method('try{', VmSpec, [:immediate], &lambda {|vm|
+    suspend_execute_mode('begin; ', :try_block)
+
+    vm.context.create_local_method('}', [:immediate],
+      &lambda {|vm| vm.resume_execute_mode('end; ', [:try_block]) })
+  })
 
   #The object oriented .new{  } construct.
   #Note: Since this method is used to launch threads, the vm must be passed
