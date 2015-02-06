@@ -74,6 +74,8 @@ class Thread
   #* block = The block of code to be executed in the new thread.
   #<br>Returns
   #* The newly created Thread instance.
+  #<br>Endemic code smells
+  #* :reek:TooManyStatements
   def self.do_foorth_new_block(vm, &block)
     thread_name = vm.pop.to_s
     queue = Queue.new
