@@ -22,18 +22,17 @@ module XfOOrth
   # [procedure] .start [a_thread]
   Proc.create_shared_method('.start', TosSpec, [], &lambda {|vm|
     block = self
-    queue = Queue.new
+    interlock = Queue.new
 
     vm.push(Thread.new(vm.foorth_copy('-')) {|vm|
       vm.compiler_reset
       vm.connect_vm_to_thread
-      vm.start_time = Time.now
       self.foorth_init(vm)
-      queue.enq(:ready)
+      interlock.push(:ready)
       vm.instance_exec(vm, &block)
     })
 
-    queue.deq
+    interlock.pop
   })
 
 end
