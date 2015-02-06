@@ -17,4 +17,15 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('try{ 5 } ', [5])
 
   end
+
+  def test_for_try_catch
+    foorth_equal('try{ 5 0 + catch drop 6 } ', [5])
+    foorth_equal('try{ 5 0 / catch drop 6 } ', [6])
+
+  end
+
+  def test_for_multi_catch_error
+    foorth_raises('try{ 5 0 / catch drop 6 catch ."YA!" } ')
+  end
+
 end

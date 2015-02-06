@@ -62,6 +62,11 @@ module XfOOrth
   VirtualMachine.create_shared_method('try{', VmSpec, [:immediate], &lambda {|vm|
     suspend_execute_mode('begin; ', :try_block)
 
+    context.create_local_method('catch', [:immediate], &lambda {|vm|
+      check_deferred_mode('rescue StandardError => error; ', [:try_block])
+      vm.context.remove_local_method('catch')
+    })
+
     vm.context.create_local_method('}', [:immediate],
       &lambda {|vm| vm.resume_execute_mode('end; ', [:try_block]) })
   })
