@@ -18,22 +18,22 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_for_try_blocks
-    foorth_equal('try{ 5 } ', [5])
+    foorth_equal('try 5 end', [5])
 
   end
 
   def test_for_try_catch
-    foorth_equal('try{ 5 0 + catch drop 6 } ', [5])
-    foorth_equal('try{ 5 0 / catch drop 6 } ', [6])
-    foorth_equal('try{ 5 0 / catch drop error .class } ', [ZeroDivisionError])
+    foorth_equal('try 5 0 + catch drop 6 end ', [5])
+    foorth_equal('try 5 0 / catch drop 6 end ', [6])
+    foorth_equal('try 5 0 / catch drop error .class end ', [ZeroDivisionError])
 
   end
 
   def test_for_multi_catch_error
-    foorth_raises('try{ 5 0 / catch drop 6 catch ."YA!" } ')
+    foorth_raises('try 5 0 / catch drop 6 catch ."YA!" end ')
   end
 
   def test_for_error_error
-    foorth_raises('try{ 5 0 error }')
+    foorth_raises('try 5 0 error end')
   end
 end

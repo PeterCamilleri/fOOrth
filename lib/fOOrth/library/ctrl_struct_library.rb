@@ -59,7 +59,7 @@ module XfOOrth
   })
 
   #Support for the try{ catch  finally  } construct.
-  VirtualMachine.create_shared_method('try{', VmSpec, [:immediate], &lambda {|vm|
+  VirtualMachine.create_shared_method('try', VmSpec, [:immediate], &lambda {|vm|
     suspend_execute_mode('begin; ', :try_block)
 
     SymbolMap.add_entry('error') #Make sure an entry for 'error' exists.
@@ -74,7 +74,7 @@ module XfOOrth
       vm.context.remove_local_method('catch')
     })
 
-    vm.context.create_local_method('}', [:immediate],
+    vm.context.create_local_method('end', [:immediate],
       &lambda {|vm| vm.resume_execute_mode('end; ', [:try_block]) })
   })
 
