@@ -119,7 +119,7 @@ module XfOOrth
 
     #Get the fOOrth error code for a fOOrth error.
     def foorth_code
-      if /^F[\d,]+(?=:)/ =~ self.message
+      if /^[AF][\d,]+(?=:)/ =~ self.message
         $MATCH
       else
         "Fxxx"
