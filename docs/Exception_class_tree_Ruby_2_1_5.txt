@@ -137,7 +137,6 @@ Exception                                     =>  "X"
       Errno::NOERROR                          =>  "E120,NOERROR"
     ThreadError                               =>  "E130"
     TypeError                                 =>  "E140"
-    XfOOrthError                              =>  "F"
     ZeroDivisionError                         =>  "E150"
   SystemExit
     Gem::SystemExitException
