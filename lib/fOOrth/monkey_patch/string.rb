@@ -19,7 +19,7 @@ class String
     if /\di$/ =~ self      #Check for a trailing '<digit>i'.
       #Check for the internal '+' or '-'sign.
       if /(?<=\d)[+-]/ =~ self
-        Complex(($`).to_foorth_n, ($& + $').chop.to_foorth_n)
+        Complex(($PREMATCH).to_foorth_n, ($MATCH + $POSTMATCH).chop.to_foorth_n)
       else
         Complex(0, self.chop.to_foorth_n)
       end
