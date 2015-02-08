@@ -19,7 +19,7 @@ module XfOOrth
     #Ugly hack. Sorry :-(
     if self == Object
       vm.push(nil)
-    elsif self == Class
+    elsif (self == Class) || self < Exception
       vm.push(Object)
     else
       vm.push(self.superclass)
