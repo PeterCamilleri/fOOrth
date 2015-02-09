@@ -22,6 +22,15 @@ class CtrlStructLibraryTester < MiniTest::Unit::TestCase
     foorth_raises('false if ."yes" else ."no" else ."NO" then ')
   end
 
+  def test_switch_constructs
+    foorth_equal('switch 5 end', [5])
+
+    foorth_run(': tsw switch 1 = if "one" break then "other" end ; ')
+
+    foorth_equal(' 1 tsw', ["one"])
+    foorth_equal(' 2 tsw', ["other"])
+  end
+
   def test_begin_until_contructs
     foorth_equal('1 begin dup 1 + dup 3 >= until',       [1,2,3])
     foorth_equal('1 begin dup 1 + dup 3 < while again',  [1,2,3])

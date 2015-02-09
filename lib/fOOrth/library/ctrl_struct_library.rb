@@ -16,6 +16,20 @@ module XfOOrth
       &lambda {|vm| resume_execute_mode('end; ', [:if]) })
   })
 
+  # [unspecified] switch ... end [unspecified]
+  VirtualMachine.create_shared_method('switch', VmSpec, [:immediate], &lambda {|vm|
+    suspend_execute_mode('loop do; ', :switch)
+
+    context.create_local_method('break', [:immediate],
+      &lambda {|vm| vm << 'break; ' })
+
+    context.create_local_method('?break', [:immediate],
+      &lambda {|vm| vm << 'break if vm.pop?; ' })
+
+    context.create_local_method('end', [:immediate],
+      &lambda {|vm| resume_execute_mode('break; end; ', [:switch]) })
+  })
+
   # Looping constructs for fOOrth.
   VirtualMachine.create_shared_method('begin', VmSpec, [:immediate], &lambda {|vm|
     suspend_execute_mode('begin ', :begin)
