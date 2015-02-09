@@ -65,7 +65,7 @@ module XfOOrth
     SymbolMap.add_entry('error') #Make sure an entry for 'error' exists.
 
     context.create_local_method('catch', [:immediate], &lambda {|vm|
-      check_deferred_mode('rescue StandardError => error; ', [:try_block])
+      check_deferred_mode('rescue StandardError, SignalException => error; ', [:try_block])
 
       vm.context.create_local_method('error', [:immediate], &lambda {|vm|
         check_deferred_mode('vm.push(error); ', [:try_block])

@@ -9,11 +9,13 @@ module XfOOrth
 
 end
 
-# Extensions to StandardError to support fOOrth.
-class StandardError
+# A module of extensions to Exception classes to support fOOrth.
+module XfOOrthExceptionExtensions
 
   #A hash of exception classes and their fOOrth codes.
   FOORTH_EXCEPTION_CODE = {
+    SignalException                             =>  "S",
+      Interrupt                                 =>  "S010",
     StandardError                               =>  "E",
       ArgumentError                             =>  "E010",
         Gem::Requirement::BadRequirementError   =>  "E010,010",
@@ -84,7 +86,7 @@ class StandardError
     self.foorth_code[0, target.length] == target
   end
 
-  #Get the name of this exception as seen in fOORth.
+  #Get the name of this exception as seen in fOOrth.
   def foorth_name
     "Exception instance <#{self.foorth_code}>"
   end
@@ -93,6 +95,16 @@ class StandardError
   def foorth_message
     "#{self.foorth_code}: #{self.message}"
   end
+end
+
+# Extensions from XfOOrthExceptionExtensions to StandardError to support fOOrth.
+class StandardError
+  include XfOOrthExceptionExtensions
+end
+
+# Extensions from XfOOrthExceptionExtensions to SignalException to support fOOrth.
+class SignalException
+  include XfOOrthExceptionExtensions
 end
 
 # Extensions to SystemCallError to support fOOrth.
@@ -136,4 +148,7 @@ module XfOOrth
 end
 
 module StandardError::Gem #:nodoc: don't document this
+end
+
+module XfOOrthExceptionExtensions::Gem #:nodoc: don't document this
 end

@@ -1,4 +1,4 @@
-Exception                                     =>  "X"
+Exception
   MonitorMixin::ConditionVariable::Timeout
   NoMemoryError
   ScriptError
@@ -7,8 +7,8 @@ Exception                                     =>  "X"
     NotImplementedError
     SyntaxError
   SecurityError
-  SignalException
-    Interrupt
+  SignalException                             =>  "S"
+    Interrupt                                 =>  "S010"
   StandardError                               =>  "E"
     ArgumentError                             =>  "E010"
       Gem::Requirement::BadRequirementError   =>  "E010,010"
