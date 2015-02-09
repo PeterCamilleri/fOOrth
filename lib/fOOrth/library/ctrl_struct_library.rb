@@ -72,7 +72,7 @@ module XfOOrth
       &lambda {|vm| resume_execute_mode('iloop[0] += vm.pop}; ', [:do]) })
   })
 
-  #Support for the try{ catch  finally  } construct.
+  #Support for the try ... catch ... finally ... end construct.
   VirtualMachine.create_shared_method('try', VmSpec, [:immediate], &lambda {|vm|
     suspend_execute_mode('begin; ', :try_block)
 
