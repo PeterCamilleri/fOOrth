@@ -38,7 +38,6 @@ class ObjectMonkeyPatchTester < MiniTest::Unit::TestCase
   #Test the quick fail raise in fOOrth.
   def test_that_exceptions_are_easy_to_raise
     assert_raises(XfOOrth::XfOOrthError) { error('Failure IS an option!') }
-    assert_raises(XfOOrth::ForceAbort)   { abort('Aborting execution!') }
   end
 
   def test_mnmx_gt

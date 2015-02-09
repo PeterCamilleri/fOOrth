@@ -28,11 +28,6 @@ class Object
     fail XfOOrth::XfOOrthError, msg, caller
   end
 
-  #Raise an abort exception with message.
-  def abort(msg)
-    raise XfOOrth::ForceAbort, msg
-  end
-
   #Argument coercion methods. These are stubs.
 
   #Coerce the argument to match my type. Stub

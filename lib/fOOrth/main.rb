@@ -30,7 +30,7 @@ module XfOOrth
         rescue ZeroDivisionError
           vm.display_abort("Error: Division by zero.")
 
-        rescue XfOOrthError, ForceAbort => error
+        rescue XfOOrthError => error
           vm.display_abort(error)
         end
 
