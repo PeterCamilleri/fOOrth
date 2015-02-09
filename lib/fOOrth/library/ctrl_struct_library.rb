@@ -77,19 +77,35 @@ module XfOOrth
     suspend_execute_mode('begin; ', :try_block)
 
     SymbolMap.add_entry('error') #Make sure an entry for 'error' exists.
+    SymbolMap.add_entry('?"')    #Make sure an entry for '?"' exists.
 
     context.create_local_method('catch', [:immediate], &lambda {|vm|
       check_deferred_mode('rescue StandardError, SignalException => error; ', [:try_block])
 
+      vm.context.create_local_method('?"', [:immediate], &lambda {|vm|
+        str = vm.pop
+        vm << "vm.push(error.foorth_match(#{str.foorth_embed})); "
+      })
+
       vm.context.create_local_method('error', [:immediate], &lambda {|vm|
-        check_deferred_mode('vm.push(error); ', [:try_block])
+        vm << 'vm.push(error); '
       })
 
       vm.context.remove_local_method('catch')
     })
 
-    vm.context.create_local_method('end', [:immediate],
-      &lambda {|vm| vm.resume_execute_mode('end; ', [:try_block]) })
+    context.create_local_method('finally', [:immediate], &lambda {|vm|
+      check_deferred_mode('ensure; ', [:try_block])
+
+      vm.context.remove_local_method('catch')
+      vm.context.remove_local_method('finally')
+      vm.context.remove_local_method('?"')
+      vm.context.remove_local_method('error')
+    })
+
+    vm.context.create_local_method('end', [:immediate], &lambda {|vm|
+      vm.resume_execute_mode('end; ', [:try_block])
+    })
   })
 
   #The object oriented .new{  } construct.
