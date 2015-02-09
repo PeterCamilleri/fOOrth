@@ -64,7 +64,7 @@ class SIRE
     puts e.backtrace
     puts "\n"
 
-  rescue StandardError => e
+  rescue Exception => e
     @_break = true
     puts "\n#{e.class} detected: #{e}\n"
     puts e.backtrace
