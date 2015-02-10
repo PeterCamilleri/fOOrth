@@ -85,7 +85,7 @@ module XfOOrth
 
     #Error: Unable to find a specification.
     def spec_error
-      error "Unable to find a spec for #{@name} (#{@symbol.inspect})"
+      error "F11: Unable to find a spec for #{@name} (#{@symbol.inspect})"
     end
 
   end

@@ -52,7 +52,7 @@ module XfOOrth
       current = self[symbol]
 
       unless expect.include?(current)
-        error "Invalid value for #{symbol}: #{current.inspect} not #{expect}"
+        error "F10: Invalid value for #{symbol}: #{current.inspect} not #{expect}"
       end
 
       true
@@ -87,7 +87,7 @@ module XfOOrth
       if (sym = SymbolMap.map(name))
         @data.delete(sym)
       else
-        error "Unable to remove local method #{name}"
+        error "F90: Unable to remove local method #{name}"
       end
     end
 
