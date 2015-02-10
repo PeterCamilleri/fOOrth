@@ -28,7 +28,7 @@ module XfOOrth
     begin
       vm.push(Rational(self))
     rescue
-      error "Cannot convert a #{self.foorth_name} to a Rational instance"
+      error "F40: Cannot convert a #{self.foorth_name} to a Rational instance"
     end
   })
 

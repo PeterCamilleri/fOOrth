@@ -103,7 +103,7 @@ module XfOOrth
     if File.exists?(file_name)
       puts "Loading file: #{file_name}"
     else
-      error "Unable to locate file #{file_name}"
+      error "F50: Unable to locate file #{file_name}"
     end
 
     vm.process_file(file_name)

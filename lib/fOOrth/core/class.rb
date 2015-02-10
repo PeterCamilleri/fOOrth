@@ -61,7 +61,7 @@ class Class
   #* If a sub-class with the given name already exists, an exception is raised.
   def create_foorth_subclass(foorth_name)
     if $FOORTH_GLOBALS[XfOOrth::SymbolMap.map(foorth_name)]
-      error "The class #{foorth_name} already exists."
+      error "F10: The class #{foorth_name} already exists."
     end
 
     validate_class_name(foorth_name)
@@ -84,7 +84,7 @@ class Class
 
     validate_class_name(foorth_name)
 
-    error "The class #{foorth_name} already exists." if $FOORTH_GLOBALS[foorth_name]
+    error "F10: The class #{foorth_name} already exists." if $FOORTH_GLOBALS[foorth_name]
 
     install_foorth_class(foorth_name, self)
   end
@@ -105,7 +105,7 @@ class Class
   #Is this a valid class name?
   def validate_class_name(name)
     unless /^[A-Z][A-Za-z0-9]+$/ =~ name
-      error "Invalid class name #{name}"
+      error "F10: Invalid class name #{name}"
     end
   end
 

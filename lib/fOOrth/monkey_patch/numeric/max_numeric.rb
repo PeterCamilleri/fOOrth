@@ -12,7 +12,7 @@ class MaxNumeric
 
     #A common bleat of complaint!
     def invalid
-      error "Invalid operation for a max_num."
+      error "F40: Invalid operation for a max_num."
     end
 
     #Convert to a numeric. An error.

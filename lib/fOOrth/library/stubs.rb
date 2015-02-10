@@ -64,37 +64,37 @@ class Object
 
   # Runtime stub for the .new{ } construct.
   def do_foorth_new_block(_vm, &block)
-    error "A #{self.foorth_name} does not support .new{ ... }."
+    error "F12: A #{self.foorth_name} does not support .new{ ... }."
   end
 
   # Runtime stub for the .each{ } construct.
   def do_foorth_each(&block)
-    error "A #{self.foorth_name} does not support .each{ ... }."
+    error "F12: A #{self.foorth_name} does not support .each{ ... }."
   end
 
   # Runtime stub for the .map{ } construct.
   def do_foorth_map(&block)
-    error "A #{self.foorth_name} does not support .map{ ... }."
+    error "F12: A #{self.foorth_name} does not support .map{ ... }."
   end
 
   # Runtime stub for the .select{ } construct.
   def do_foorth_select(&block)
-    error "A #{self.foorth_name} does not support .select{ ... }."
+    error "F12: A #{self.foorth_name} does not support .select{ ... }."
   end
 
   # Runtime stub for the .open{ } construct.
   def do_foorth_open_block(_vm, &block)
-    error "A #{self.foorth_name} does not support .open{ ... }."
+    error "F12: A #{self.foorth_name} does not support .open{ ... }."
   end
 
   # Runtime stub for the .create{ } construct.
   def do_foorth_create_block(_vm, &block)
-    error "A #{self.foorth_name} does not support .create{ ... }."
+    error "F12: A #{self.foorth_name} does not support .create{ ... }."
   end
 
   # Runtime stub for the .append{ } construct.
   def do_foorth_append_block(_vm, &block)
-    error "A #{self.foorth_name} does not support .append{ ... }."
+    error "F12: A #{self.foorth_name} does not support .append{ ... }."
   end
 
 end

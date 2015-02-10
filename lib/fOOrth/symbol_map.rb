@@ -34,7 +34,7 @@ module XfOOrth
           symbol = presym || (@incrementer.succ!).to_sym
           connect(name, symbol)
         else
-          error "Attempt to redefine #{name}." if presym && presym != symbol
+          error "F90: Attempt to redefine #{name}." if presym && presym != symbol
         end
 
         symbol
@@ -72,7 +72,7 @@ module XfOOrth
     private
     def self.connect(name, symbol)
       if (old = @rev_map[symbol]) && (old != name)
-        error "Attempt to redefine #{name}."
+        error "F90: Attempt to redefine #{name}."
       end
 
       @rev_map[symbol] = name

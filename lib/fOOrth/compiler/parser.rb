@@ -103,7 +103,7 @@ module XfOOrth
       elsif next_char == 'u'
         next_char = process_16_bit
       elsif next_char != "\\" && next_char != '"'
-        error "Invalid string literal value: '\\#{next_char}'"
+        error "F10: Invalid string literal value: '\\#{next_char}'"
       end
 
       next_char
@@ -132,7 +132,7 @@ module XfOOrth
       next_char = @source.get
 
       unless "0123456789ABCDEFabcdef".include?(next_char)
-        error "Invalid hex character: '#{next_char}'"
+        error "F10: Invalid hex character: '#{next_char}'"
       end
 
       next_char
@@ -156,7 +156,7 @@ module XfOOrth
         return true if @source.get == ')'
       end
 
-      error "Unbalanced comment detected."
+      error "F10: Unbalanced comment detected."
     end
 
     #Skip till a non-white space or an end of line

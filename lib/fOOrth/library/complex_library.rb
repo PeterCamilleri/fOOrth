@@ -41,7 +41,7 @@ module XfOOrth
     begin
       vm.push(Complex(self))
     rescue
-      error "Cannot coerce a #{self.foorth_name} to a Complex"
+      error "F40: Cannot coerce a #{self.foorth_name} to a Complex"
     end
   })
 

@@ -12,7 +12,7 @@ class MinNumeric
 
     #That is NOT in my job description!
     def invalid
-      error "Invalid operation for a min_num."
+      error "F40: Invalid operation for a min_num."
     end
 
     #Convert to a numeric. An error.

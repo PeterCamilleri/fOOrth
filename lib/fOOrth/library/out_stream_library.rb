@@ -18,7 +18,7 @@ module XfOOrth
     def initialize(file_name, file_mode)
       @file = File.new(file_name, file_mode)
     rescue
-      error "Unable to open the file #{file_name} for writing."
+      error "F51: Unable to open the file #{file_name} for writing."
     end
 
     # Runtime support for the .create{ } construct.

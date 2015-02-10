@@ -210,7 +210,7 @@ module XfOOrth
     end
 
     unless File.exists?(file_name)
-      error "Unable to locate file #{file_name}"
+      error "F50: Unable to locate file #{file_name}"
     end
 
     vm.process_file(file_name)

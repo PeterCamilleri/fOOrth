@@ -5,7 +5,7 @@ class Object
 
   #Raise a fOOrth language internal exception as this operation is not allowed.
   def foorth_embed
-    error "Can't embed class #{self.class.to_s}"
+    error "F40: Can't embed class #{self.class.to_s}"
   end
 
   #Convert this object to a fOOrth boolean.
@@ -32,7 +32,7 @@ class Object
 
   #Coerce the argument to match my type. Stub
   def foorth_coerce(_arg)
-    error "Cannot coerce to a #{self.foorth_name}"
+    error "F40: Cannot coerce to a #{self.foorth_name}"
   end
 
 end

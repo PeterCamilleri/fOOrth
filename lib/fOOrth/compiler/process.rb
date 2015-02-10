@@ -59,7 +59,7 @@ module XfOOrth
         elsif (value = word.to_foorth_n)
           token << "vm.push(#{value.foorth_embed}); "
         else
-          error "?#{word}?"
+          error "F10: ?#{word}?"
         end
       end
     end

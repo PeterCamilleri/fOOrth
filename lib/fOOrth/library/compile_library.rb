@@ -122,7 +122,7 @@ module XfOOrth
       SelfSpec
 
     when /[A-Z]|\$|\#|\@/
-      error "Invalid name for a method: #{name}"
+      error "F10: Invalid name for a method: #{name}"
 
     else
       NosSpec
@@ -139,7 +139,7 @@ module XfOOrth
   def self.validate_type(vm, type, name)
     if (spec = vm.context.map(name))
       if spec.class != type
-        error "Spec type mismatch #{spec.foorth_name} vs #{type.foorth_name}"
+        error "F90: Spec type mismatch #{spec.foorth_name} vs #{type.foorth_name}"
       end
     else
       Object.create_shared_method(name, type, [:stub]) unless type == VmSpec
@@ -156,7 +156,7 @@ module XfOOrth
   #* :reek:ControlParameter
   def self.validate_string_method(type, target, name)
     if type == TosSpec && name[-1] == '"' && target != String
-      error "Creating a string method #{name} on a #{target.foorth_name}"
+      error "F13: Creating a string method #{name} on a #{target.foorth_name}"
     end
   end
 

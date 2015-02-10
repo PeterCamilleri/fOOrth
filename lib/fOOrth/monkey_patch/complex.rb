@@ -15,11 +15,11 @@ class Complex
   def foorth_coerce(arg)
     Complex(arg)
   rescue
-    error "Cannot coerce a #{arg.foorth_name} to a Complex"
+    error "F40: Cannot coerce a #{arg.foorth_name} to a Complex"
   end
 
   #Convert this number to a single character string.
   def to_foorth_c
-    error "Cannot convert a Complex instance to a character"
+    error "F40: Cannot convert a Complex instance to a character"
   end
 end

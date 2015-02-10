@@ -28,7 +28,7 @@ module XfOOrth
     if (result = self.to_foorth_n)
       vm.push(result);
     else
-      error "Cannot convert a #{self.foorth_name} to a Numeric instance"
+      error "F40: Cannot convert a #{self.foorth_name} to a Numeric instance"
     end
   })
 

@@ -30,7 +30,7 @@ module XfOOrth
     #* If the stack is empty this will raise an XfOOrthError exception.
     def pop
       unless @data_stack.length >= 1
-        error "Data Stack Underflow: pop"
+        error "F30: Data Stack Underflow: pop"
       end
 
       @data_stack.pop
@@ -45,7 +45,7 @@ module XfOOrth
     #* Raises an XfOOrthError exception if the stack has too few data.
     def popm(count)
       unless @data_stack.length >= count
-        error "Data Stack Underflow: popm"
+        error "F30: Data Stack Underflow: popm"
       end
 
       @data_stack.pop(count)
@@ -72,7 +72,7 @@ module XfOOrth
     #  on the stack will fail with an XfOOrthError exception.
     def peek(index=1)
       unless @data_stack.length >= index
-        error "Data Stack Underflow: peek"
+        error "F30: Data Stack Underflow: peek"
       end
 
       @data_stack[-index]
@@ -85,7 +85,7 @@ module XfOOrth
     #* Attempting to poke an empty stack will fail with an XfOOrthError exception.
     def poke(datum)
       unless @data_stack.length >= 1
-        error "Data Stack Underflow: poke"
+        error "F30: Data Stack Underflow: poke"
       end
 
       @data_stack[-1] = datum
@@ -112,7 +112,7 @@ module XfOOrth
     #  XfOOrthError exception.
     def swap_pop
       unless @data_stack.length >= 2
-        error "Data Stack Underflow: swap_pop"
+        error "F30: Data Stack Underflow: swap_pop"
       end
 
       nos, tos = @data_stack.pop(2)

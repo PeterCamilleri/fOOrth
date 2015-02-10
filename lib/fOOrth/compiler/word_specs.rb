@@ -30,7 +30,7 @@ module XfOOrth
     def initialize(name, symbol, tags=[], &block)
       @tags = tags
       @does = block || lambda { |*_any|
-        error "A #{self.foorth_name} does not understand #{name} (#{symbol.inspect})."
+        error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol.inspect})."
       }
 
       build_builds_string(name, symbol)

@@ -15,7 +15,7 @@ class Rational
   def foorth_coerce(arg)
     Rational(arg)
   rescue
-    error "Cannot coerce a #{arg.foorth_name} to a Rational"
+    error "F40: Cannot coerce a #{arg.foorth_name} to a Rational"
   end
 
 end

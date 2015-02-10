@@ -25,7 +25,7 @@ module XfOOrth
     if @data.length > 0
       vm.push(@data.pop)
     else
-      error "Stack Underflow: .pop"
+      error "F31: Stack Underflow: .pop"
     end
   })
 
@@ -34,7 +34,7 @@ module XfOOrth
     if @data.length > 0
       vm.push(@data[-1])
     else
-      error "Stack Underflow: .peek"
+      error "F31: Stack Underflow: .peek"
     end
   })
 

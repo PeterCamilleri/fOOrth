@@ -20,7 +20,7 @@ module XfOOrth
     if self.length > 0
       vm.push(self.pop)
     else
-      error "Queue Underflow: .pop"
+      error "F31: Queue Underflow: .pop"
     end
   })
 

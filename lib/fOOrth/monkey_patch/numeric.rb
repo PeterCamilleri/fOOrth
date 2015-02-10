@@ -17,7 +17,7 @@ class Numeric
     as_int = Integer.foorth_coerce(self)
 
     if as_int < 0 || as_int > 65535
-      error "Can't convert #{self} to a character."
+      error "F40: Can't convert #{self} to a character."
     elsif as_int < 128
       as_int.chr.force_encoding("utf-8")
     else

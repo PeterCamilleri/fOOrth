@@ -15,7 +15,7 @@ module XfOOrth
     def initialize(file_name)
       @file = File.new(file_name, 'r')
     rescue
-      error "Unable to open the file #{file_name} for reading."
+      error "F50: Unable to open the file #{file_name} for reading."
     end
 
     # Runtime support for the .open{ } construct.
@@ -74,7 +74,7 @@ module XfOOrth
       file_name = vm.pop.to_s
       vm.push(IO.readlines(file_name).map{|line| line.chomp })
     rescue
-      error "Unable to open the file #{file_name} for reading all."
+      error "F50: Unable to open the file #{file_name} for reading all."
     end
   })
 
