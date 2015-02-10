@@ -41,7 +41,7 @@ class Object
   def cache_exclusive_method(symbol, &block)
     define_singleton_method(symbol, &block)
   rescue TypeError
-    error "Exclusive methods not allowed for type: #{self.class.foorth_name}"
+    error "F13: Exclusive methods not allowed for type: #{self.class.foorth_name}"
   end
 
   #Map the symbol to a specification or nil if there is no mapping.
@@ -62,7 +62,7 @@ class Object
   #* block - Any block that might have passed to the method.
   def method_missing(symbol, *args, &block)
     if (name = XfOOrth::SymbolMap.unmap(symbol))
-      error "A #{self.foorth_name} does not understand #{name} (#{symbol})."
+      error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol})."
     else
       super
     end
