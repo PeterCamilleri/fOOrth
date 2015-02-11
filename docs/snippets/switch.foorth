@@ -1,0 +1,8 @@
+// switch.foorth -- switch statement sample
+: choose_path
+  switch
+    dup 1 = if drop ."path 1" break then
+    dup 2 = if drop ."path 2" break then
+    dup 3 = if drop ."path 3" break then
+    drop ."Invalid path selected"
+  end  cr ;
