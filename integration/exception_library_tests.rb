@@ -15,36 +15,34 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
 
   def test_for_exception_patches
     assert_equal("E"   , StandardError.new.foorth_code)
-    assert_equal("E150", ZeroDivisionError.new.foorth_code)
-    assert_equal("E120,E2BIG", Errno::E2BIG.new.foorth_code)
+    assert_equal("E15", ZeroDivisionError.new.foorth_code)
+    assert_equal("E12,E2BIG", Errno::E2BIG.new.foorth_code)
     assert_equal("Fxxx", XfOOrth::XfOOrthError.new.foorth_code)
     assert_equal("F123", XfOOrth::XfOOrthError.new("F123: oops").foorth_code)
     assert_equal("A123", XfOOrth::XfOOrthError.new("A123: oh oh").foorth_code)
     assert_equal("S",    SignalException.new("INT").foorth_code)
-    assert_equal("S010", Interrupt.new.foorth_code)
+    assert_equal("S01", Interrupt.new.foorth_code)
 
-    assert_equal("E150: ZeroDivisionError", ZeroDivisionError.new.foorth_message)
+    assert_equal("E15: ZeroDivisionError", ZeroDivisionError.new.foorth_message)
     assert_equal("F123: oops", XfOOrth::XfOOrthError.new("F123: oops").foorth_message)
     assert_equal("A123: oh oh", XfOOrth::XfOOrthError.new("A123: oh oh").foorth_message)
 
     assert(ZeroDivisionError.new.foorth_match('E'))
     assert(ZeroDivisionError.new.foorth_match('E1'))
     assert(ZeroDivisionError.new.foorth_match('E15'))
-    assert(ZeroDivisionError.new.foorth_match('E150'))
 
     refute(ZeroDivisionError.new.foorth_match('F'))
     refute(ZeroDivisionError.new.foorth_match('E2'))
     refute(ZeroDivisionError.new.foorth_match('E12'))
-    refute(ZeroDivisionError.new.foorth_match('E151'))
     refute(ZeroDivisionError.new.foorth_match('E1501'))
 
     assert_equal("Exception instance <E>"   , StandardError.new.foorth_name)
-    assert_equal("Exception instance <E150>", ZeroDivisionError.new.foorth_name)
+    assert_equal("Exception instance <E15>" , ZeroDivisionError.new.foorth_name)
     assert_equal("Exception instance <F123>", XfOOrth::XfOOrthError.new("F123: oops").foorth_name)
     assert_equal("Exception instance <A123>", XfOOrth::XfOOrthError.new("A123: oh oh").foorth_name)
-    assert_equal("Exception instance <E120,E2BIG>", Errno::E2BIG.new.foorth_name)
+    assert_equal("Exception instance <E12,E2BIG>", Errno::E2BIG.new.foorth_name)
     assert_equal("Exception instance <S>",    SignalException.new("INT").foorth_name)
-    assert_equal("Exception instance <S010>", Interrupt.new.foorth_name)
+    assert_equal("Exception instance <S01>" , Interrupt.new.foorth_name)
   end
 
   def test_for_the_exception_class
@@ -62,7 +60,7 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
   end
 
   def test_for_exception_methods
-    foorth_equal('try 5 0 / catch drop ?"E150" if 0 then end ', [0])
+    foorth_equal('try 5 0 / catch drop ?"E15" if 0 then end ', [0])
   end
 
   def test_with_finally
