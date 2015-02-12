@@ -63,6 +63,17 @@ module XfOOrth
       1 + (previous ? previous.depth : 0)
     end
 
+    #Is the current nesting level what is expected?
+    #<br>Parameters
+    #* expected_depth - the expected nesting depth.
+    #<br>Notes
+    #* Raises an error (F12) on incorrect nesting.
+    def check_depth(expected_depth)
+      if expected_depth - self.depth != 0
+        error "F12: Error, Invalid control/structure nesting."
+      end
+    end
+
     #Get the currently define method receiver
     def recvr
       self[:obj] || self[:cls] || self[:vm] || error("Undefined receiver.")

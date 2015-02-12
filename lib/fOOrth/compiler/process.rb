@@ -10,8 +10,14 @@ module XfOOrth
     #<br>Parameters:
     #* source - A source object. Typically a Console, StringSource or FileSource.
     def process(source)
-      save, @parser = @parser, Parser.new(source)
+      save, @parser, start_depth = @parser, Parser.new(source), @context.depth
+      due_process
+      @context.check_depth(start_depth)
+      @parser = save
+    end
 
+    #The actual work of processing source code.
+    def due_process
       while (token = get_token)
         dbg_puts token.to_s
         code = token.code
@@ -23,8 +29,6 @@ module XfOOrth
           @force = false
         end
       end
-
-      @parser = save
     end
 
     #Get the next token structure from the source code or nil if none

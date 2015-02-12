@@ -146,4 +146,9 @@ class CompileLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('$c @ .foo' , [1])
   end
 
+  def test_for_unbalanced_code
+    foorth_raises('if   ')
+
+  end
+
 end
