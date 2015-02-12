@@ -1,0 +1,16 @@
+// ugly_if.foorth -- ugly nested if statements
+: choose_path
+    dup 1 = if
+      drop ."path 1"
+    else
+      dup 2 = if
+        drop ."path 2"
+      else
+        dup 3 = if
+          drop ."path 3"
+        else
+          drop ."Invalid path selected"
+        then
+      then
+    then
+    cr ;
