@@ -1,0 +1,16 @@
+// Print out a classic times table.
+
+cr
+." *  |"  1 13 do i .fmt"%3d" .  space loop cr
+."----+" "-" 47 * .  cr
+
+1 13 do
+  i .fmt"%2d" . ."  |"
+
+  1 13 do
+    i j * .fmt"%3d" . space
+  loop
+
+  cr ."    |" cr
+loop
+cr
