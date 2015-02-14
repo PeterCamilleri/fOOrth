@@ -1,0 +1,7 @@
+// A simple integer log2
+: ilog2 2/
+  .to_i 0 swap begin
+    dup 0> while
+    2/ swap 1+ swap
+  again
+  drop ;
