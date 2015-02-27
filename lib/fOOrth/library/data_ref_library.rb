@@ -59,7 +59,7 @@ module XfOOrth
     name   = vm.parser.get_word()
     error "F10: Invalid var name #{name}" unless /^#[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
-    Thread.current[symbol] = [vm.pop]
+    @data[symbol] = [vm.pop]
 
     vm.create_exclusive_method(name, ThreadVarSpec, [])
   })
@@ -69,7 +69,7 @@ module XfOOrth
     name   = vm.parser.get_word()
     error "F10: Invalid var name #{name}" unless /^#[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
-    Thread.current[symbol] = vm.pop
+    @data[symbol] = vm.pop
 
     vm.create_exclusive_method(name, ThreadVarSpec, [])
   })

@@ -16,7 +16,7 @@ module XfOOrth
 
     #Reset the state of the fOOrth inner interpreter.
     def interpreter_reset
-      @data_stack   = Array.new
+      @data_stack = Array.new
     end
   end
 

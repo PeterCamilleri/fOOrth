@@ -132,7 +132,7 @@ module XfOOrth
     #* _name - The string that maps to the symbol.  Unused
     #* symbol - The symbol that the name maps to.
     def build_builds_string(_name, symbol)
-      @builds = "vm.push(Thread.current[#{symbol.inspect}]); "
+      @builds = "vm.push(vm.data[#{symbol.inspect}]); "
     end
   end
 

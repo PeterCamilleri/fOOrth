@@ -23,6 +23,13 @@ class DataRefLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('#test2',            [10])
   end
 
+  def test_thread_vars_some_more
+    foorth_run('42 val#:  #ttvsm ')
+    foorth_output('#ttvsm  .', "42")
+    foorth_output('{{ #ttvsm . }} .call ', "42")
+    foorth_output('{{ #ttvsm . }} .start 0.001 .sleep ', "42")
+  end
+
   def test_basic_global_variables
     foorth_equal('10 var$: $test1',   [])
     foorth_equal('$test1 @',          [10])

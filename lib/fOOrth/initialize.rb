@@ -15,6 +15,9 @@ module XfOOrth
     #The descriptive name of this virtual machine.
     attr_reader :name
 
+    #The thread data associated with this virtual machine.
+    attr_reader :data
+
     #Create an new instance of a fOOrth virtual machine
     #<br>Parameters:
     #* name - An optional string that describes this virtual machine instance.
@@ -22,9 +25,7 @@ module XfOOrth
     #* A XfOOrthError will be raised if an attempt is made to create more than
     #  one virtual machine on a thread.
     def initialize(name='-')
-      @name  = name
-      @debug = false
-      @show_stack = false
+      @name, @debug, @show_stack, @data = name, false, false, {}
 
       #Bring the major sub-systems to a known state.
       interpreter_reset
@@ -48,6 +49,7 @@ module XfOOrth
     def reinitialize(name)
       @data_stack = @data_stack.clone
       @name       = name
+      @data       = @data.full_clone
     end
 
     #Connect the vm to a thread variable.
