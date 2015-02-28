@@ -166,11 +166,7 @@ module XfOOrth
     #* _symbol - The symbol that the name maps to. Unused
     #<br>Note:
     #* The last entry in the tags array is expected to be a string
-    #  with the text of the command macro. Further, this string is evaluated
-    #  in order to get the string desired, so it must contain all the Ruby
-    #  trappings of a string, like quotes etc. If it contains double quotes,
-    #  then it may also insert any available pseudo-closure #{} data like
-    #  the name, @symbol, an expression, or global data.
+    #  with the text of the command macro.
     def build_builds_string(_name, _symbol)
       @builds = @tags[-1]
     end
