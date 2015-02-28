@@ -171,8 +171,6 @@ module XfOOrth
     #  trappings of a string, like quotes etc. If it contains double quotes,
     #  then it may also insert any available pseudo-closure #{} data like
     #  the name, @symbol, an expression, or global data.
-    #<br>Endemic Code Smells
-    #* :reek:UnusedParameters
     def build_builds_string(_name, _symbol)
       @builds = @tags[-1]
     end
