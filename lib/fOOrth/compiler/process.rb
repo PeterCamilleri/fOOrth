@@ -57,7 +57,7 @@ module XfOOrth
     #* token - The token to receive the generated code.
     #* word  - The text of the word.
     def generate_code(token, word)
-      unless word == '"'
+      unless word == '"'   # TODO -- normalize this test away.
         if (spec = @context.map(word))
           spec.build_on(token)
         elsif (value = word.to_foorth_n)
