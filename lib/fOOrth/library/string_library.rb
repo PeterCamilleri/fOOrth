@@ -6,6 +6,9 @@ module XfOOrth
   #Connect the String class to the fOOrth class system.
   String.create_foorth_proxy
 
+  # [] false [false]
+  VirtualMachine.create_shared_method('"', MacroSpec, [:macro, " "])
+
   #Some comparison operators
   # [b,a] > if b > a then [true] else [false]
   String.create_shared_method('>', NosSpec, [],
