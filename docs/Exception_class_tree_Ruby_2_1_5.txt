@@ -1,3 +1,6 @@
+A mapping of Ruby exceptions to their fOOrth exception codes. Exceptions that
+lack such a mapping are not currently "caught" in the fOOrth system.
+
 Exception
   MonitorMixin::ConditionVariable::Timeout
   NoMemoryError
