@@ -6,7 +6,7 @@ module XfOOrth
   #Connect the String class to the fOOrth class system.
   String.create_foorth_proxy
 
-  # [] false [false]
+  # A no operation place holder for string literals
   VirtualMachine.create_shared_method('"', MacroSpec, [:macro, " "])
 
   #Some comparison operators
