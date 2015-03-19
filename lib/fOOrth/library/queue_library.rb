@@ -6,7 +6,7 @@ require 'thread'
 module XfOOrth
 
   #Connect the Queue class to the fOOrth class system.
-  Queue.create_foorth_proxy
+  Queue.create_foorth_proxy("Queue")
 
   #Uses the default implementation of the .new method.
 
