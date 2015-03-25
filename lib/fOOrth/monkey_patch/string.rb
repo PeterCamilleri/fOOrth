@@ -9,6 +9,13 @@ class String
     self.inspect
   end
 
+  #Coerce the argument to match my type.
+  def foorth_coerce(arg)
+    arg.to_s
+  rescue
+    error "F40: Cannot coerce a #{arg.foorth_name} to an String instance"
+  end
+
   #Convert this string to a single character string.
   def to_foorth_c
     self[0]

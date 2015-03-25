@@ -153,7 +153,7 @@ module XfOOrth
   Array.create_shared_method('.min', TosSpec, [], &lambda {|vm|
     result = self[0]
 
-    self.each {|value| result = value if result.mnmx_gt(value)}
+    self.each {|value| result = result.foorth_coerce(value) if result.mnmx_gt(value)}
 
     vm.push(result)
   })
@@ -162,7 +162,7 @@ module XfOOrth
   Array.create_shared_method('.max', TosSpec, [], &lambda {|vm|
     result = self[0]
 
-    self.each {|value| result = value if result.mnmx_lt(value)}
+    self.each {|value| result = result.foorth_coerce(value) if result.mnmx_lt(value)}
 
     vm.push(result)
   })
