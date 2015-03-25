@@ -151,6 +151,9 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('[ "c" "d" "a" "g" "f" ] .min', ["a"])
     foorth_equal('[ "c" "d" "a" "g" "f" ] .max', ["g"])
 
+    foorth_raises('[ 9 0 1 "pear" ] .min')
+    foorth_raises('[ 9 0 1 "apple" ] .max')
+
   end
 
 
