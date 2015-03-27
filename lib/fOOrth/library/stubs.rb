@@ -97,4 +97,29 @@ class Object
     error "F12: A #{self.foorth_name} does not support .append{ ... }."
   end
 
+  # Runtime stub for >
+  def mnmx_gt(_other)
+    error "F12: A #{self.foorth_name} does not support >."
+  end
+
+  # Runtime stub for <
+  def mnmx_lt(_other)
+    error "F12: A #{self.foorth_name} does not support <."
+  end
+
+  # Runtime stub for >=
+  def mnmx_ge(_other)
+    error "F12: A #{self.foorth_name} does not support >=."
+  end
+
+  # Runtime stub for <=
+  def mnmx_le(_other)
+    error "F12: A #{self.foorth_name} does not support <=."
+  end
+
+  # Runtime stub for <=>
+  def mnmx_cp(_other)
+    error "F12: A #{self.foorth_name} does not support <=>."
+  end
+
 end
