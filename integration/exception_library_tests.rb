@@ -80,4 +80,9 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_raises('try 5 0 error end')
   end
 
+  def test_for_error_bouncing
+    foorth_run(': test_bounce try  .ceil catch ?"E15" if "WTF?" else bounce then end ;')
+    foorth_equal('try 1+1i test_bounce catch "Got it!" end', ["Got it!"])
+  end
+
 end

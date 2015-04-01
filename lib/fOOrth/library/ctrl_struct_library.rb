@@ -91,6 +91,10 @@ module XfOOrth
         vm << 'vm.push(error); '
       })
 
+      vm.context.create_local_method('bounce', [:immediate], &lambda {|vm|
+        vm << 'raise; '
+      })
+
       vm.context.remove_local_method('catch')
     })
 
@@ -101,6 +105,7 @@ module XfOOrth
       vm.context.remove_local_method('finally')
       vm.context.remove_local_method('?"')
       vm.context.remove_local_method('error')
+      vm.context.remove_local_method('bounce')
     })
 
     vm.context.create_local_method('end', [:immediate], &lambda {|vm|
