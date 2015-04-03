@@ -85,4 +85,8 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
     foorth_equal('try 1+1i test_bounce catch "Got it!" end', ["Got it!"])
   end
 
+  def test_raising_an_exception
+    foorth_raises('"F99  Error!!!" .raise')
+  end
+
 end

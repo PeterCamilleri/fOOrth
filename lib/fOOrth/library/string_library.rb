@@ -229,6 +229,11 @@ module XfOOrth
     vm.process_string(self)
   })
 
+  # ["Error message"] .raise []; Raises an exception.
+  String.create_shared_method('.raise', TosSpec, [], &lambda {|vm|
+    raise XfOOrth::XfOOrthError, self, caller
+  })
+
 end
 
 #* Runtime library support for fOOrth constructs.
