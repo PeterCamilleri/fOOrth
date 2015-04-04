@@ -1,0 +1,27 @@
+(Exceptions in action)
+(Phase One - Living Dangerously)
+: danger
+  0 10 do
+    50 i 5 - / . space
+  loop ;
+
+(Phase Two - Living Tediously)
+: tedium
+  0 10 do
+    50 i 5 -
+    dup 0<> if
+      / . space
+    else
+      drop drop ."oops "
+    then
+  loop ;
+
+(Phase Three - Living Exceptionally)
+: safety
+  0 10 do
+    try
+      50 i 5 - / . space
+    catch
+      drop ."oops "
+    end
+  loop ;
