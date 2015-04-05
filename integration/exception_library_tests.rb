@@ -6,7 +6,7 @@ require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the standard fOOrth library.
-class ArrayLibraryTester < MiniTest::Unit::TestCase
+class ExceptionLibraryTester < MiniTest::Unit::TestCase
 
   include XfOOrthTestExtensions
 
@@ -56,7 +56,7 @@ class ArrayLibraryTester < MiniTest::Unit::TestCase
   def test_for_try_catch
     foorth_equal('try 5 0 + catch drop 6 end ', [5])
     foorth_equal('try 5 0 / catch drop 6 end ', [6])
-    foorth_equal('try 5 0 / catch drop error .class end ', [ZeroDivisionError])
+    foorth_equal('try 5 0 / catch drop error end ', ["E15: divided by 0"])
   end
 
   def test_for_exception_methods

@@ -88,7 +88,7 @@ module XfOOrth
       })
 
       vm.context.create_local_method('error', [:immediate], &lambda {|vm|
-        vm << 'vm.push(error); '
+        vm << 'vm.push(error.foorth_message); '
       })
 
       vm.context.create_local_method('bounce', [:immediate], &lambda {|vm|
