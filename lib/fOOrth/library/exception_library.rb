@@ -110,15 +110,6 @@ module XfOOrth
   #* library/exception_library.rb - XfOOrthError support of the fOOrth language.
   class XfOOrthError < StandardError
 
-    #Get the fOOrth error code for a fOOrth error.
-    def foorth_code
-      if /^[AF]\d\d(,\d\d)*:/ =~ self.message
-        $MATCH
-      else
-        "F??:"
-      end
-    end
-
     #Get the error message for this exception.
     def foorth_message
       self.message
