@@ -45,10 +45,6 @@ class ExceptionLibraryTester < MiniTest::Unit::TestCase
     assert_equal("Exception instance <S01>" , Interrupt.new.foorth_name)
   end
 
-  def test_for_the_exception_class
-    foorth_equal('Exception', [StandardError])
-  end
-
   def test_for_try_blocks
     foorth_equal('try 5 end', [5])
   end
