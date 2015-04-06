@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# Extensions Exception to support fOOrth.
+# Extensions to Exception to support fOOrth.
 class Exception
 
   #A hash of exception classes and their fOOrth codes.
