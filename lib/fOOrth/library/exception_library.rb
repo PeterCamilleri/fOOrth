@@ -77,11 +77,6 @@ module XfOOrthExceptionExtensions
     self.foorth_code[0, target.length] == target
   end
 
-  #Get the name of this exception as seen in fOOrth.
-  def foorth_name
-    "Exception instance <#{self.foorth_code}>"
-  end
-
   #Get the error message for this exception.
   def foorth_message
     "#{self.foorth_code}: #{self.message}"
