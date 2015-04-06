@@ -10,6 +10,8 @@ class String
   end
 
   #Coerce the argument to match my type.
+  #<br>Endemic Code Smells
+  #* :reek:FeatureEnvy
   def foorth_coerce(arg)
     arg.to_s
   rescue

@@ -14,15 +14,6 @@ class ExceptionLibraryTester < MiniTest::Unit::TestCase
   MinitestVisible.track self, __FILE__
 
   def test_for_exception_patches
-    assert_equal("E"   , StandardError.new.foorth_code)
-    assert_equal("E15", ZeroDivisionError.new.foorth_code)
-    assert_equal("E12,E2BIG", Errno::E2BIG.new.foorth_code)
-    assert_equal("Fxxx", XfOOrth::XfOOrthError.new.foorth_code)
-    assert_equal("F123", XfOOrth::XfOOrthError.new("F123: oops").foorth_code)
-    assert_equal("A123", XfOOrth::XfOOrthError.new("A123: oh oh").foorth_code)
-    assert_equal("S",    SignalException.new("INT").foorth_code)
-    assert_equal("S01", Interrupt.new.foorth_code)
-
     assert_equal("E15: ZeroDivisionError", ZeroDivisionError.new.foorth_message)
     assert_equal("F123: oops", XfOOrth::XfOOrthError.new("F123: oops").foorth_message)
     assert_equal("A123: oh oh", XfOOrth::XfOOrthError.new("A123: oh oh").foorth_message)
@@ -36,13 +27,14 @@ class ExceptionLibraryTester < MiniTest::Unit::TestCase
     refute(ZeroDivisionError.new.foorth_match('E12'))
     refute(ZeroDivisionError.new.foorth_match('E1501'))
 
-    assert_equal("E"   , StandardError.new.foorth_code)
-    assert_equal("E15" , ZeroDivisionError.new.foorth_code)
-    assert_equal("F123", XfOOrth::XfOOrthError.new("F123: oops").foorth_code)
-    assert_equal("A123", XfOOrth::XfOOrthError.new("A123: oh oh").foorth_code)
-    assert_equal("E12,E2BIG", Errno::E2BIG.new.foorth_code)
-    assert_equal("S",    SignalException.new("INT").foorth_code)
-    assert_equal("S01" , Interrupt.new.foorth_code)
+    assert_equal("E??:" , Exception.new.foorth_code)
+    assert_equal("E:"   , StandardError.new.foorth_code)
+    assert_equal("E15:" , ZeroDivisionError.new.foorth_code)
+    assert_equal("F12,33:", XfOOrth::XfOOrthError.new("F12,33: oops").foorth_code)
+    assert_equal("A12,93:", XfOOrth::XfOOrthError.new("A12,93: oh oh").foorth_code)
+    assert_equal("E12,E2BIG:", Errno::E2BIG.new.foorth_code)
+    assert_equal("S:",    SignalException.new("INT").foorth_code)
+    assert_equal("S01:" , Interrupt.new.foorth_code)
   end
 
   def test_for_try_blocks
