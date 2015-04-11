@@ -7,7 +7,7 @@ module XfOOrth
 
   #The classic colon definition that creates a word in the Virtual Machine class.
   # [] : <name> <stuff omitted> ; []; creates <name> on the VirtualMachine
-  VirtualMachine.create_shared_method(':', VmSpec, [],  &lambda {|vm|
+  VirtualMachine.create_shared_method(':', VmSpec, [:immediate],  &lambda {|vm|
     target = VirtualMachine
     name   = vm.parser.get_word()
     type   = VmSpec
@@ -26,7 +26,7 @@ module XfOOrth
   #A special colon definition that creates an immediate word in the
   #Virtual Machine class.
   # [] !: <name> <stuff omitted> ; []; creates <name> on the VirtualMachine
-  VirtualMachine.create_shared_method('!:', VmSpec, [],  &lambda {|vm|
+  VirtualMachine.create_shared_method('!:', VmSpec, [:immediate],  &lambda {|vm|
     target = VirtualMachine
     name   = vm.parser.get_word()
     type   = VmSpec
@@ -44,7 +44,7 @@ module XfOOrth
   # DOT COLON ===================================
 
   # [a_class] .: <name> <stuff omitted> ; []; creates <name> on a_class
-  Class.create_shared_method('.:', TosSpec, [],  &lambda {|vm|
+  Class.create_shared_method('.:', TosSpec, [:immediate],  &lambda {|vm|
     target = self
     name   = vm.parser.get_word()
     type   = XfOOrth.name_to_type(name)
@@ -63,7 +63,7 @@ module XfOOrth
   # DOT COLON COLON =============================
 
   # [an_object] .:: <name> <stuff omitted> ; []; creates <name> on an_object
-  Object.create_shared_method('.::', TosSpec, [],  &lambda {|vm|
+  Object.create_shared_method('.::', TosSpec, [:immediate],  &lambda {|vm|
     target = self
     name   = vm.parser.get_word()
     type   = XfOOrth.name_to_type(name)
