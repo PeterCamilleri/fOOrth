@@ -48,7 +48,7 @@ to version 0.0.3
 * The test suite and the integration tests do not work with minitest other than
 version 4.7.5. An effort is needed to get it working with version 5.5.1, no
 matter how fugly it ends up looking.
-* The compile methods (:, .:, and .::) only work in execute mode. A major effort
+* The compile methods (:, !:, .:, and .::) only work in execute mode. A major effort
 is required to make these methods at least behave in a consistent manner.
 * The fOOrth language needs to be tested (and made operational) under current
 versions of both Rubinius and JRuby.
@@ -56,5 +56,7 @@ versions of both Rubinius and JRuby.
 ## Notes
 
 * Tested under ruby 1.9.3p484 (2013-11-22) [i386-mingw32]
-* Not sure what version broke minitest, but I'm not changing!
-* I have used rdoc 4.0.1 here. Later versions of rdoc look like crap!
+* I have used rdoc 4.0.1 here. Will need to examine rdoc styling options as later
+versions do not have a pleasing layout.
+
+
