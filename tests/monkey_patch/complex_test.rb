@@ -2,11 +2,12 @@
 
 require_relative '../../lib/fOOrth/monkey_patch/numeric'
 require_relative '../../lib/fOOrth/monkey_patch/complex'
+gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
-class ComplexMonkeyPatchTester < MiniTest::Unit::TestCase
+class ComplexMonkeyPatchTester < Minitest::Test
 
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__

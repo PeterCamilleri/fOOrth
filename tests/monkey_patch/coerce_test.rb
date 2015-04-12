@@ -1,11 +1,12 @@
 # coding: utf-8
 
 require_relative '../../lib/fOOrth/monkey_patch'
+gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the monkey patches applied to the coerce protocol.
-class CoerceProtocolTester < MiniTest::Unit::TestCase
+class CoerceProtocolTester < Minitest::Test
 
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__

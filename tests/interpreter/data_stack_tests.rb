@@ -1,11 +1,12 @@
 # coding: utf-8
 
 require_relative '../../lib/fOOrth/interpreter'
+gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
-class DataStackMapTester < MiniTest::Unit::TestCase
+class DataStackMapTester < Minitest::Test
 
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__

@@ -3,11 +3,12 @@
 require_relative '../../lib/fOOrth/exceptions'
 require_relative '../../lib/fOOrth/compiler/string_source'
 require_relative '../../lib/fOOrth/compiler/parser'
+gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
-class ParserTester < MiniTest::Unit::TestCase
+class ParserTester < Minitest::Test
 
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__

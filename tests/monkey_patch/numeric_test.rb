@@ -1,11 +1,12 @@
 # coding: utf-8
 
 require_relative '../../lib/fOOrth/monkey_patch/numeric'
+gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
-class NumericMonkeyPatchTester < MiniTest::Unit::TestCase
+class NumericMonkeyPatchTester < Minitest::Test
 
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__

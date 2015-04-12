@@ -3,11 +3,12 @@
 require_relative '../lib/fOOrth/exceptions'
 require_relative '../lib/fOOrth/monkey_patch/object'
 require_relative '../lib/fOOrth/symbol_map'
+gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
-class SymbolMapTester < MiniTest::Unit::TestCase
+class SymbolMapTester < Minitest::Test
 
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__

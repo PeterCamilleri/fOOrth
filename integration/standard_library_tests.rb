@@ -2,11 +2,12 @@
 
 require_relative '../lib/fOOrth'
 require_relative 'support/foorth_testing'
+gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the standard fOOrth library.
-class StandardLibraryTester < MiniTest::Unit::TestCase
+class StandardLibraryTester < Minitest::Test
 
   include XfOOrthTestExtensions
 
@@ -14,6 +15,8 @@ class StandardLibraryTester < MiniTest::Unit::TestCase
   MinitestVisible.track self, __FILE__
 
   def test_basic_constants
+    refute(Thread.current[:vm].nil?)
+
     foorth_equal("self",      [Thread.current[:vm]])
     foorth_equal("true",      [true])
     foorth_equal("false",     [false])

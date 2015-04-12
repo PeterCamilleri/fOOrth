@@ -45,9 +45,6 @@ format versions of the guide for each released version.
 
 * A great deal of work is needed to make the fOOrth User Guide completed even
 to version 0.0.3
-* The test suite and the integration tests do not work with minitest other than
-version 4.7.5. An effort is needed to get it working with version 5.5.1, no
-matter how fugly it ends up looking.
 * The compile methods (:, !:, .:, and .::) only work in execute mode. A major effort
 is required to make these methods at least behave in a consistent manner.
 * The fOOrth language needs to be tested (and made operational) under current

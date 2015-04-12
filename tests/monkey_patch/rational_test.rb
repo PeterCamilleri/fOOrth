@@ -2,11 +2,12 @@
 
 require_relative '../../lib/fOOrth/monkey_patch/numeric'
 require_relative '../../lib/fOOrth/monkey_patch/rational'
+gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
-class RationalMonkeyPatchTester < MiniTest::Unit::TestCase
+class RationalMonkeyPatchTester < Minitest::Test
 
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__

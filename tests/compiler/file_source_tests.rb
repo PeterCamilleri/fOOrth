@@ -2,11 +2,12 @@
 
 require_relative '../../lib/fOOrth/compiler/string_source'
 require_relative '../../lib/fOOrth/compiler/file_source'
+gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
-class FileSourceTester < MiniTest::Unit::TestCase
+class FileSourceTester < Minitest::Test
 
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__

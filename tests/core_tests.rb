@@ -2,11 +2,12 @@
 
 $exclude_fOOrth_library = true
 require_relative '../lib/fOOrth'
+gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
-class CoreTester < MiniTest::Unit::TestCase
+class CoreTester < Minitest::Test
 
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__

@@ -2,11 +2,12 @@
 
 require_relative '../lib/fOOrth'
 require_relative 'support/foorth_testing'
+gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the standard fOOrth library.
-class HashLibraryTester < MiniTest::Unit::TestCase
+class HashLibraryTester < Minitest::Test
 
   include XfOOrthTestExtensions
 

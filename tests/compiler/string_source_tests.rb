@@ -1,11 +1,12 @@
 # coding: utf-8
 
 require_relative '../../lib/fOOrth/compiler/string_source'
+gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the monkey patches applied to the Object class.
-class StringSourceTester < MiniTest::Unit::TestCase
+class StringSourceTester < Minitest::Test
 
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__

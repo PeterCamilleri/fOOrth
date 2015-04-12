@@ -1,9 +1,12 @@
+# coding: utf-8
+
 require_relative 'support/foorth_testing'
+gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
 #Test the standard fOOrth library.
-class StackLibraryTester < MiniTest::Unit::TestCase
+class StackLibraryTester < Minitest::Test
 
   include XfOOrthTestExtensions
 
