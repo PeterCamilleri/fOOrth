@@ -50,6 +50,11 @@ is required to make these methods at least behave in a consistent manner.
 * The fOOrth language needs to be tested (and made operational) under current
 versions of both Rubinius and JRuby.
 
+## Latest Victories
+
+* 2015-04-13 The test and integration suites now work correctly with minitest
+5.5.1 in both Ruby versions 1.9.3 and 2.1.5! Finally! Yay!
+
 ## Notes
 
 * Tested under ruby 1.9.3p484 (2013-11-22) [i386-mingw32]
