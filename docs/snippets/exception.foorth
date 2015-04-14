@@ -25,3 +25,34 @@
       drop ."oops "
     end
   loop ;
+
+(Phase Four - Cleaning Up After Yourself)
+: cleanup
+    "temp.txt" OutStream .create val: out_file
+    ."File opened" cr
+
+    try
+      ."Danger comes next." cr
+      1 0 / out_file .
+      ."Danger has passed." cr
+    finally
+      out_file .close
+      ."File closed" cr
+    end ;
+
+(Phase Five - All Together Now)
+: last_example
+    "temp.txt" OutStream .create val: out_file
+    ."File opened" cr
+
+    try
+      ."Danger comes next." cr
+      1 0 / out_file .
+      ."Danger has passed." cr
+    catch
+      drop
+      ."Error detected." cr
+    finally
+      out_file .close
+      ."File closed" cr
+    end ;
