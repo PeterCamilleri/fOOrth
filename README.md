@@ -41,20 +41,6 @@ a work in progress. Please see The_fOOrth_User_Guide.odt in the docs folder.
 As each version of fOOrth is made available, expect to see portable document
 format versions of the guide for each released version.
 
-## Areas of effort
-
-* A great deal of work is needed to make the fOOrth User Guide completed even
-to version 0.0.3
-* The compile methods (:, !:, .:, and .::) only work in execute mode. A major effort
-is required to make these methods at least behave in a consistent manner.
-* The fOOrth language needs to be tested (and made operational) under current
-versions of both Rubinius and JRuby.
-
-## Latest Victories
-
-* 2015-04-13 The test and integration suites now work correctly with minitest
-5.5.1 in both Ruby versions 1.9.3 and 2.1.5! Finally! Yay!
-
 ## Notes
 
 * Tested under ruby 1.9.3p484 (2013-11-22) [i386-mingw32]
