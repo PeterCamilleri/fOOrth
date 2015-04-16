@@ -16,6 +16,33 @@ module XfOOrth
       @source = source
     end
 
+    #Get the next forth word and any embedded string data.
+    #<br>Returns:
+    #* A string with the next non-comment language element or nil if none
+    #  could be found.
+    def get_word_or_string
+      return nil unless (word = get_word)
+
+      if word[-1] == '"'
+        skip = done = false
+
+        until done
+          return nil unless (next_char = @source.get)
+          word << next_char
+
+          if skip
+            skip = false
+          elsif next_char == '"'
+            done = true
+          else
+            skip = (next_char == '\\')
+          end
+        end
+      end
+
+      word
+    end
+
     #Get the next forth word from the source code source. This method
     #recognizes and skips over comments in the source code.
     #<br>Returns:

@@ -148,8 +148,36 @@ class CompileLibraryTester < Minitest::Test
   end
 
   def test_for_unbalanced_code
-    foorth_raises('if   ')
+    foorth_raises('true if   ')
+    foorth_raises('true if : blah  ')
 
+  end
+
+  def test_for_delayed_compile
+    foorth_run('true if : tfdc_foo "foo" ; then')
+    foorth_equal('tfdc_foo', ["foo"])
+
+    foorth_run('false if : tfdc_bar "bar" ; then')
+    foorth_raises('tfdc_bar')
+
+    foorth_run('true if !: tfdd_foo "foo" ; then')
+    foorth_equal('tfdd_foo', ["foo"])
+
+    foorth_run('false if !: tfdd_bar "bar" ; then')
+    foorth_raises('tfdd_bar')
+
+    foorth_run('true if Object .: .tfde_foo "foo" ; then')
+    foorth_equal('Object .new .tfde_foo', ["foo"])
+
+    foorth_run('false if Object .: .tfde_bar "bar" ; then')
+    foorth_raises('Object .new .tfde_bar')
+
+    foorth_run('Object .new val$: $tfdf_obj')
+    foorth_run('true if $tfdf_obj .:: .tfdf_foo "foo" ; then')
+    foorth_equal('$tfdf_obj .tfdf_foo', ["foo"])
+
+    foorth_run('false if $tfdf_obj .:: .tfdf_bar "bar" ; then')
+    foorth_raises('$tfdf_obj .tfdf_bar')
   end
 
 end

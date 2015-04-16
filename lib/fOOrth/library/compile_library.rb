@@ -8,17 +8,21 @@ module XfOOrth
   #The classic colon definition that creates a word in the Virtual Machine class.
   # [] : <name> <stuff omitted> ; []; creates <name> on the VirtualMachine
   VirtualMachine.create_shared_method(':', VmSpec, [:immediate],  &lambda {|vm|
-    target = VirtualMachine
-    name   = vm.parser.get_word()
-    type   = VmSpec
-    XfOOrth.validate_type(vm, type, name)
+    if query_compile_mode
+      target = VirtualMachine
+      name   = vm.parser.get_word()
+      type   = VmSpec
+      XfOOrth.validate_type(vm, type, name)
 
-    begin_compile_mode(':', vm: vm, &lambda {|vm, src, tags|
-      vm.dbg_puts "#{name} => #{src}"
-      target.create_shared_method(name, type, tags, &eval(src))
-    })
+      begin_compile_mode(':', vm: vm, &lambda {|vm, src, tags|
+        vm.dbg_puts "#{name} => #{src}"
+        target.create_shared_method(name, type, tags, &eval(src))
+      })
 
-    XfOOrth.add_common_compiler_locals(vm, ':')
+      XfOOrth.add_common_compiler_locals(vm, ':')
+    else
+      delayed_compile_mode(':')
+    end
   })
 
   # BANG COLON ==================================
@@ -27,55 +31,69 @@ module XfOOrth
   #Virtual Machine class.
   # [] !: <name> <stuff omitted> ; []; creates <name> on the VirtualMachine
   VirtualMachine.create_shared_method('!:', VmSpec, [:immediate],  &lambda {|vm|
-    target = VirtualMachine
-    name   = vm.parser.get_word()
-    type   = VmSpec
-    XfOOrth.validate_type(vm, type, name)
+    if query_compile_mode
+      target = VirtualMachine
+      name   = vm.parser.get_word()
+      type   = VmSpec
+      XfOOrth.validate_type(vm, type, name)
 
-    begin_compile_mode('!:', vm: vm, tags: [:immediate], &lambda {|vm, src, tags|
-      vm.dbg_puts "(!) #{name} => #{src}"
-      target.create_shared_method(name, type, tags, &eval(src))
-    })
+      begin_compile_mode('!:', vm: vm, tags: [:immediate], &lambda {|vm, src, tags|
+        vm.dbg_puts "(!) #{name} => #{src}"
+        target.create_shared_method(name, type, tags, &eval(src))
+      })
 
-    XfOOrth.add_common_compiler_locals(vm, '!:')
+      XfOOrth.add_common_compiler_locals(vm, '!:')
+    else
+      delayed_compile_mode('!:')
+    end
   })
 
 
   # DOT COLON ===================================
 
   # [a_class] .: <name> <stuff omitted> ; []; creates <name> on a_class
-  Class.create_shared_method('.:', TosSpec, [:immediate],  &lambda {|vm|
-    target = self
-    name   = vm.parser.get_word()
-    type   = XfOOrth.name_to_type(name)
-    XfOOrth.validate_type(vm, type, name)
-    XfOOrth.validate_string_method(type, target, name)
+  VirtualMachine.create_shared_method('.:', VmSpec, [:immediate],  &lambda {|vm|
+    if query_compile_mode
+      target = vm.pop
+      error "F13: The target of .: must be a class" unless target.is_a?(Class)
 
-    vm.begin_compile_mode('.:', cls: target, &lambda {|vm, src, tags|
-      vm.dbg_puts "#{target.foorth_name} #{name} => #{src}"
-      target.create_shared_method(name, type, tags, &eval(src))
-    })
+      name   = vm.parser.get_word()
+      type   = XfOOrth.name_to_type(name)
+      XfOOrth.validate_type(vm, type, name)
+      XfOOrth.validate_string_method(type, target, name)
 
-    XfOOrth.add_common_compiler_locals(vm, '.:')
+      begin_compile_mode('.:', cls: target, &lambda {|vm, src, tags|
+        vm.dbg_puts "#{target.foorth_name} #{name} => #{src}"
+        target.create_shared_method(name, type, tags, &eval(src))
+      })
+
+      XfOOrth.add_common_compiler_locals(vm, '.:')
+    else
+      delayed_compile_mode('.:')
+    end
   })
 
 
   # DOT COLON COLON =============================
 
   # [an_object] .:: <name> <stuff omitted> ; []; creates <name> on an_object
-  Object.create_shared_method('.::', TosSpec, [:immediate],  &lambda {|vm|
-    target = self
-    name   = vm.parser.get_word()
-    type   = XfOOrth.name_to_type(name)
-    XfOOrth.validate_type(vm, type, name)
-    XfOOrth.validate_string_method(type, target.class, name)
+  VirtualMachine.create_shared_method('.::', VmSpec, [:immediate],  &lambda {|vm|
+    if query_compile_mode
+      target = vm.pop
+      name   = vm.parser.get_word()
+      type   = XfOOrth.name_to_type(name)
+      XfOOrth.validate_type(vm, type, name)
+      XfOOrth.validate_string_method(type, target.class, name)
 
-    vm.begin_compile_mode('.::', obj: target, &lambda {|vm, src, tags|
-      vm.dbg_puts "#{target.foorth_name} #{name} => #{src}"
-      target.create_exclusive_method(name, type, tags, &eval(src))
-    })
+      begin_compile_mode('.::', obj: target, &lambda {|vm, src, tags|
+        vm.dbg_puts "#{target.foorth_name} #{name} => #{src}"
+        target.create_exclusive_method(name, type, tags, &eval(src))
+      })
 
-    XfOOrth.add_common_compiler_locals(vm, '.::')
+      XfOOrth.add_common_compiler_locals(vm, '.::')
+    else
+      delayed_compile_mode('.::')
+    end
   })
 
 

@@ -5,6 +5,13 @@ module XfOOrth
   #* modes.rb - The control of the various compiler modes.
   class VirtualMachine
 
+    #Is entry into compile mode possible at this time?
+    #<br>Returns:
+    #* true if compile mode OK, else false.
+    def query_compile_mode
+      @context[:mode] == :execute
+    end
+
     #Start compiling a fOOrth definition. This is used to get things going
     #by the various compiling words like ':', '::', ':::', etc.
     #<br>Parameters:
@@ -35,6 +42,27 @@ module XfOOrth
       @context = @context.previous
       dbg_puts "  end_compile_mode"
       result
+    end
+
+    #Enter a delayed compile mode in which compilation is delayed till a
+    #later time.
+    def delayed_compile_mode(start)
+      dbg_puts "  delayed_compile_mode"
+      buffer, depth = start + ' ', 1
+
+      while depth > 0
+        if (word = parser.get_word_or_string)
+          buffer << word + ' '
+          depth += 1 if [':', '!:', '.:', '.::'].include?(word)
+          depth -= 1 if word == ';'
+        else
+          error "F12: Error, Invalid compile nesting."
+        end
+      end
+
+      buffer = "vm.process_string(#{buffer.foorth_embed}); "
+      dbg_puts "  Append=#{buffer}"
+      @buffer << buffer
     end
 
     #While compiling, suspend compiling so that some code may be executed.

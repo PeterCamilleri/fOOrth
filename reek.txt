@@ -1,2 +1,5 @@
-
-0 total warnings
+lib/fOOrth/compiler/modes.rb -- 1 warning:
+  [49]:XfOOrth::VirtualMachine#delayed_compile_mode has approx 9 statements (TooManyStatements)
+lib/fOOrth/compiler/parser.rb -- 1 warning:
+  [23]:XfOOrth::Parser#get_word_or_string has approx 8 statements (TooManyStatements)
+2 total warnings
