@@ -1,0 +1,6 @@
+(Exceptions in action)
+(Is the password secure?)
+: test_password (password -- )
+  "1234" = if
+    throw"U10: Change the combination on my luggage!"
+  then ;
