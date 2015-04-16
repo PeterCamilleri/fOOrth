@@ -229,9 +229,14 @@ module XfOOrth
     vm.process_string(self)
   })
 
-  # ["Error message"] .raise []; Raises an exception.
-  String.create_shared_method('.raise', TosSpec, [], &lambda {|vm|
+  # ["Error message"] .throw []; Raises an exception.
+  String.create_shared_method('.throw', TosSpec, [], &lambda {|vm|
     raise XfOOrth::XfOOrthError, self, caller
+  })
+
+  # [] throw"Error message" []; Raises an exception.
+  VirtualMachine.create_shared_method('throw"', VmSpec, [], &lambda {|vm|
+    raise XfOOrth::XfOOrthError, vm.pop.to_s, caller
   })
 
 end

@@ -75,7 +75,12 @@ class ExceptionLibraryTester < Minitest::Test
   end
 
   def test_raising_an_exception
-    foorth_raises('"F99  Error!!!" .raise')
+    foorth_raises(' "F99  Error!!!" .throw')
+    foorth_raises(' throw"F99  Error!!!" ')
+
+    foorth_equal('try "err msg" .throw catch error end', ["err msg"])
+    foorth_equal('try throw"err msg"   catch error end', ["err msg"])
+
   end
 
 end
