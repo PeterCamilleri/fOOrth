@@ -58,6 +58,42 @@ class CloneLibraryTester < Minitest::Test
 
   end
 
+  def test_array_clone_exclusion
+    foorth_run('[ "a" "b" ] val$: $tacx1')
+    foorth_run('$tacx1 .:: .clone_exclude [ 1 ] ;')
+    foorth_run('$tacx1 .clone val$: $tacx2')
+
+    foorth_equal('$tacx1 .clone_exclude', [[1]])
+    foorth_equal('$tacx2 .clone_exclude', [[1]])
+
+    foorth_equal('$tacx1', [["a", "b"]])
+    foorth_equal('$tacx2', [["a", "b"]])
+
+    foorth_run('0 $tacx1 .[]@ "1" <<')
+    foorth_run('1 $tacx1 .[]@ "1" <<')
+
+    foorth_equal('$tacx1', [["a1", "b1"]])
+    foorth_equal('$tacx2', [["a", "b1"]])
+  end
+
+  def test_hash_clone_exclusion
+    foorth_run('{ 0 "a" -> 1 "b" -> } val$: $thcx1')
+    foorth_run('$thcx1 .:: .clone_exclude [ 1 ] ;')
+    foorth_run('$thcx1 .clone val$: $thcx2')
+
+    foorth_equal('$thcx1 .clone_exclude', [[1]])
+    foorth_equal('$thcx2 .clone_exclude', [[1]])
+
+    foorth_equal('$thcx1', [{0=>"a", 1=>"b"}])
+    foorth_equal('$thcx2', [{0=>"a", 1=>"b"}])
+
+    foorth_run('0 $thcx1 .[]@ "1" <<')
+    foorth_run('1 $thcx1 .[]@ "1" <<')
+
+    foorth_equal('$thcx1', [{0=>"a1", 1=>"b1"}])
+    foorth_equal('$thcx2', [{0=>"a", 1=>"b1"}])
+  end
+
   def test_some_copying_too
     foorth_equal("33 copy", [33,33])
     foorth_equal("33 .copy", [33])
