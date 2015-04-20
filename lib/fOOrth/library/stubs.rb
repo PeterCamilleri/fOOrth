@@ -49,19 +49,18 @@ module XfOOrth
   Object.create_shared_method('!',      TosSpec, [:stub])
 
   #Define some "crossover" symbols.
- #SymbolMap.add_entry('.init',      :foorth_new) -- aliased in core.rb
-  SymbolMap.add_entry('.is_class?', :foorth_is_class?)
-  SymbolMap.add_entry('.to_s',      :to_foorth_s)
-  SymbolMap.add_entry('.strlen',    :foorth_strlen)
-  SymbolMap.add_entry('.strmax',    :foorth_strmax)
-  SymbolMap.add_entry('.strmax2',   :foorth_strmax2)
-  SymbolMap.add_entry('.pp',        :foorth_pretty)
-  SymbolMap.add_entry('.load',      :foorth_load_file)
+ #SymbolMap.add_entry('.init',          :foorth_new) -- aliased in core.rb
+  SymbolMap.add_entry('.is_class?',     :foorth_is_class?)
+  SymbolMap.add_entry('.to_s',          :to_foorth_s)
+  SymbolMap.add_entry('.strlen',        :foorth_strlen)
+  SymbolMap.add_entry('.strmax',        :foorth_strmax)
+  SymbolMap.add_entry('.strmax2',       :foorth_strmax2)
+  SymbolMap.add_entry('.pp',            :foorth_pretty)
+  SymbolMap.add_entry('.load',          :foorth_load_file)
 end
 
 #* Runtime library support stubs.
 class Object
-
   # Runtime stub for the .new{ } construct.
   def do_foorth_new_block(_vm, &block)
     error "F12: A #{self.foorth_name} does not support .new{ ... }."

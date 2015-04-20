@@ -31,22 +31,6 @@ module XfOOrth
   VirtualMachine.create_shared_method('dup', MacroSpec,
     [:macro, "vm.push(vm.peek()); "])
 
-  # [a] copy [a, a']
-  VirtualMachine.create_shared_method('copy', MacroSpec,
-    [:macro, "vm.push(vm.peek.safe_clone); "])
-
-  # [a] .copy [a']
-  Object.create_shared_method('.copy', TosSpec, [],
-    &lambda {|vm| vm.push(self.safe_clone); })
-
-  # [a] clone [a, a']
-  VirtualMachine.create_shared_method('clone', MacroSpec,
-    [:macro, "vm.push(vm.peek.full_clone); "])
-
-  # [a] .clone [a']
-  Object.create_shared_method('.clone', TosSpec, [],
-    &lambda {|vm| vm.push(self.full_clone); })
-
   # [a] ?dup if a is true then [a,a] else [a]
   VirtualMachine.create_shared_method('?dup', VmSpec, [],
     &lambda {|vm| if peek?() then push(peek()); end; })
