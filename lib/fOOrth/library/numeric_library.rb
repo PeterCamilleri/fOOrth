@@ -10,12 +10,6 @@ module XfOOrth
   #Connect the Numeric classes to the fOOrth class system.
   Numeric.create_foorth_proxy
   Float.create_foorth_proxy
-  MaxNumeric.create_foorth_proxy
-  MinNumeric.create_foorth_proxy
-
-  # Some extreme numeric constants
-  VirtualMachine.create_shared_method('max_num', MacroSpec, [:macro, "vm.push(MaxNumeric); "])
-  VirtualMachine.create_shared_method('min_num', MacroSpec, [:macro, "vm.push(MinNumeric); "])
 
   # Some conversion words.
   # [a] .to_n [Number or nil]
@@ -49,101 +43,51 @@ module XfOOrth
   # [b,a] > if b > a then [true] else [false]
   Numeric.create_shared_method('>', NosSpec, [],
     &lambda {|vm| vm.poke(self.mnmx_gt(vm.peek)); })
-  MaxNumeric.create_exclusive_method('>', NosSpec, [],
-    &lambda {|vm| vm.poke(vm.peek != MaxNumeric)})
-  MinNumeric.create_exclusive_method('>', NosSpec, [],
-    &lambda {|vm| vm.poke(false); })
 
   # [b,a] < if b < a then [true] else [false]
   Numeric.create_shared_method('<', NosSpec, [],
     &lambda {|vm| vm.poke(self.mnmx_lt(vm.peek)); })
-  MaxNumeric.create_exclusive_method('<', NosSpec, [],
-    &lambda {|vm| vm.poke(false)})
-  MinNumeric.create_exclusive_method('<', NosSpec, [],
-    &lambda {|vm| vm.poke(vm.peek != MinNumeric); })
 
   # [b,a] >= if b >= a then [true] else [false]
   Numeric.create_shared_method('>=', NosSpec, [],
     &lambda {|vm| vm.poke(self.mnmx_ge(vm.peek)); })
-  MaxNumeric.create_exclusive_method('>=', NosSpec, [],
-    &lambda {|vm| vm.poke(true)})
-  MinNumeric.create_exclusive_method('>=', NosSpec, [],
-    &lambda {|vm| vm.poke(vm.peek == MinNumeric); })
 
   # [b,a] <= if b <= a then [true] else [false]
   Numeric.create_shared_method('<=', NosSpec, [],
     &lambda {|vm| vm.poke(self.mnmx_le(vm.peek)); })
-  MaxNumeric.create_exclusive_method('<=', NosSpec, [],
-    &lambda {|vm| vm.poke(vm.peek == MaxNumeric)})
-  MinNumeric.create_exclusive_method('<=', NosSpec, [],
-    &lambda {|vm| vm.poke(true); })
 
   # [b,a] <=> if b <=> a then [true] else [false]
   Numeric.create_shared_method('<=>', NosSpec, [],
     &lambda {|vm| vm.poke(self.mnmx_cp(vm.peek)); })
-  MaxNumeric.create_exclusive_method('<=>', NosSpec, [],
-    &lambda {|vm| vm.poke(MaxNumeric.mnmx_cp(vm.peek))})
-  MinNumeric.create_exclusive_method('<=>', NosSpec, [],
-    &lambda {|vm| vm.poke(MinNumeric.mnmx_cp(vm.peek)); })
-
 
   # Some comparison with zero words.
   # [b,a] 0= if b == 0 then [true] else [false]
   Numeric.create_shared_method('0=', TosSpec, [],
     &lambda {|vm| vm.push(self == 0); })
-  MaxNumeric.create_exclusive_method('0=', TosSpec, [],
-    &lambda {|vm| vm.push(false); })
-  MinNumeric.create_exclusive_method('0=', TosSpec, [],
-    &lambda {|vm| vm.push(false); })
 
   # [b,a] 0<> if b != 0 then [true] else [false]
   Numeric.create_shared_method('0<>', TosSpec, [],
     &lambda {|vm| vm.push(self != 0); })
-  MaxNumeric.create_exclusive_method('0<>', TosSpec, [],
-    &lambda {|vm| vm.push(true); })
-  MinNumeric.create_exclusive_method('0<>', TosSpec, [],
-    &lambda {|vm| vm.push(true); })
 
   # [b,a] 0> if b > 0 then [true] else [false]
   Numeric.create_shared_method('0>', TosSpec, [],
     &lambda {|vm| vm.push(self > 0); })
-  MaxNumeric.create_exclusive_method('0>', TosSpec, [],
-    &lambda {|vm| vm.push(true); })
-  MinNumeric.create_exclusive_method('0>', TosSpec, [],
-    &lambda {|vm| vm.push(false); })
 
   # [b,a] 0< if b < 0 then [true] else [false]
   Numeric.create_shared_method('0<', TosSpec, [],
     &lambda {|vm| vm.push(self < 0); })
-  MaxNumeric.create_exclusive_method('0<', TosSpec, [],
-    &lambda {|vm| vm.push(false); })
-  MinNumeric.create_exclusive_method('0<', TosSpec, [],
-    &lambda {|vm| vm.push(true); })
 
   # [b,a] 0>= if b >= 0 then [true] else [false]
   Numeric.create_shared_method('0>=', TosSpec, [],
     &lambda {|vm| vm.push(self >= 0); })
-  MaxNumeric.create_exclusive_method('0>=', TosSpec, [],
-    &lambda {|vm| vm.push(true); })
-  MinNumeric.create_exclusive_method('0>=', TosSpec, [],
-    &lambda {|vm| vm.push(false); })
 
   # [b,a] 0<= if b <= 0 then [true] else [false]
   Numeric.create_shared_method('0<=', TosSpec, [],
     &lambda {|vm| vm.push(self <= 0); })
-  MaxNumeric.create_exclusive_method('0<=', TosSpec, [],
-    &lambda {|vm| vm.push(false); })
-  MinNumeric.create_exclusive_method('0<=', TosSpec, [],
-    &lambda {|vm| vm.push(true); })
 
   # [b] 0<=> b < 0 [-1], b = 0 [0], b > 0 [1]
   Numeric.create_shared_method('0<=>', TosSpec, [],
     &lambda {|vm| vm.push(self <=> 0); })
-  MaxNumeric.create_exclusive_method('0<=>', TosSpec, [],
-    &lambda {|vm| vm.push(1); })
-  MinNumeric.create_exclusive_method('0<=>', TosSpec, [],
-    &lambda {|vm| vm.push(-1); })
-
 
   # Some stack arithmetic words.
   # [b,a] + [b+a]
@@ -173,26 +117,14 @@ module XfOOrth
   # [a] neg [-a]
   Numeric.create_shared_method('neg', TosSpec, [],
     &lambda {|vm| vm.push(-self); })
-  MaxNumeric.create_exclusive_method('neg', TosSpec, [],
-    &lambda {|vm| vm.push(MinNumeric); })
-  MinNumeric.create_exclusive_method('neg', TosSpec, [],
-    &lambda {|vm| vm.push(MaxNumeric); })
 
   # [a] .1/x [-a]
   Numeric.create_shared_method('.1/x', TosSpec, [],
     &lambda {|vm| vm.push(1/self); })
-  MaxNumeric.create_exclusive_method('.1/x', TosSpec, [],
-    &lambda {|vm| vm.push(0); })
-  MinNumeric.create_exclusive_method('.1/x', TosSpec, [],
-    &lambda {|vm| vm.push(0); })
 
   # [a] .abs [|a|]
   Numeric.create_shared_method('.abs', TosSpec, [],
     &lambda {|vm| vm.push(self.abs); })
-  MaxNumeric.create_exclusive_method('.abs', TosSpec, [],
-    &lambda {|vm| vm.push(MaxNumeric); })
-  MinNumeric.create_exclusive_method('.abs', TosSpec, [],
-    &lambda {|vm| vm.push(MaxNumeric); })
 
   # [a] 1+ [|a|]
   Numeric.create_shared_method('1+', TosSpec, [],

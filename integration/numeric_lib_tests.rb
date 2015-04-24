@@ -14,118 +14,6 @@ class NumericLibraryTester < Minitest::Test
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__
 
-  def test_some_extreme_numbers
-    foorth_equal('max_num', [MaxNumeric])
-    foorth_equal('min_num', [MinNumeric])
-  end
-
-  def test_some_comparisons
-    foorth_equal('4       4       =  ', [true])
-    foorth_equal('4       5       =  ', [false])
-    foorth_equal('max_num 4       =  ', [false])
-    foorth_equal('4       max_num =  ', [false])
-    foorth_equal('max_num max_num =  ', [true])
-    foorth_equal('min_num 4       =  ', [false])
-    foorth_equal('4       min_num =  ', [false])
-    foorth_equal('min_num min_num =  ', [true])
-    foorth_equal('max_num min_num =  ', [false])
-    foorth_equal('min_num max_num =  ', [false])
-
-    foorth_equal('4       4       <> ', [false])
-    foorth_equal('4       5       <> ', [true])
-    foorth_equal('max_num 4       <> ', [true])
-    foorth_equal('4       max_num <> ', [true])
-    foorth_equal('max_num max_num <> ', [false])
-    foorth_equal('min_num 4       <> ', [true])
-    foorth_equal('4       min_num <> ', [true])
-    foorth_equal('min_num min_num <> ', [false])
-    foorth_equal('max_num min_num <> ', [true])
-    foorth_equal('min_num max_num <> ', [true])
-
-  end
-
-  def test_some_comparisons_with_zero
-    foorth_equal('-2       0=  ', [false])
-    foorth_equal('0        0=  ', [true])
-    foorth_equal('4        0=  ', [false])
-    foorth_equal('max_num  0=  ', [false])
-    foorth_equal('min_num  0=  ', [false])
-
-    foorth_equal('-4       0<> ', [true])
-    foorth_equal('0        0<> ', [false])
-    foorth_equal('5        0<> ', [true])
-    foorth_equal('max_num  0<> ', [true])
-    foorth_equal('min_num  0<> ', [true])
-
-    foorth_equal('-1       0>  ', [false])
-    foorth_equal('0        0>  ', [false])
-    foorth_equal('4        0>  ', [true])
-    foorth_equal('max_num  0>  ', [true])
-    foorth_equal('min_num  0>  ', [false])
-
-    foorth_equal('4        0<  ', [false])
-    foorth_equal('-5       0<  ', [true])
-    foorth_equal('0        0<  ', [false])
-    foorth_equal('max_num  0<  ', [false])
-    foorth_equal('min_num  0<  ', [true])
-
-    foorth_equal('4        0>= ', [true])
-    foorth_equal('-5       0>= ', [false])
-    foorth_equal('0        0>= ', [true])
-    foorth_equal('max_num  0>= ', [true])
-    foorth_equal('min_num  0>= ', [false])
-
-    foorth_equal('-4       0<= ', [true])
-    foorth_equal('0        0<= ', [true])
-    foorth_equal('4        0<= ', [false])
-    foorth_equal('max_num  0<= ', [false])
-    foorth_equal('min_num  0<= ', [true])
-
-    foorth_equal('0        0<=>', [0])
-    foorth_equal('-5       0<=>', [-1])
-    foorth_equal('4        0<=>', [1])
-    foorth_equal('max_num  0<=>', [1])
-    foorth_equal('min_num  0<=>', [-1])
-  end
-
-  def test_some_min_max_exclusions
-    foorth_equal('max_num .to_i', [nil])
-    foorth_equal('min_num .to_i', [nil])
-
-    foorth_raises('max_num .to_i!')
-    foorth_raises('min_num .to_i!')
-
-    foorth_raises('max_num 1 +')
-    foorth_raises('1 max_num +')
-    foorth_raises('min_num 1 +')
-    foorth_raises('1 min_num +')
-
-    foorth_raises('max_num 1 -')
-    foorth_raises('1 max_num -')
-    foorth_raises('min_num 1 -')
-    foorth_raises('1 min_num -')
-
-    foorth_raises('max_num 1 *')
-    foorth_raises('1 max_num *')
-    foorth_raises('min_num 1 *')
-    foorth_raises('1 min_num *')
-
-    foorth_raises('max_num 1 /')
-    foorth_raises('1 max_num /')
-    foorth_raises('min_num 1 /')
-    foorth_raises('1 min_num /')
-
-    foorth_raises('max_num 1 **')
-    foorth_raises('1 max_num **')
-    foorth_raises('min_num 1 **')
-    foorth_raises('1 min_num **')
-
-    foorth_raises('max_num 1 mod')
-    foorth_raises('1 max_num mod')
-    foorth_raises('min_num 1 mod')
-    foorth_raises('1 min_num mod')
-  end
-
   def test_some_conversions
     foorth_equal('5    .to_n', [5])
     foorth_equal('5.0  .to_n', [5.0])
@@ -225,21 +113,15 @@ class NumericLibraryTester < Minitest::Test
     foorth_equal('5.0  neg', [-5.0])
     foorth_equal('0.0  neg', [0.0])
     foorth_equal('-5.0 neg', [5.0])
-    foorth_equal('max_num neg', [MinNumeric])
-    foorth_equal('min_num neg', [MaxNumeric])
 
     foorth_equal('5 3 <<', [40])
     foorth_equal('40 3 >>', [5])
 
     foorth_equal('2 10 **', [1024])
     foorth_equal('2.0 .1/x', [0.5])
-    foorth_equal('max_num .1/x', [0])
-    foorth_equal('min_num .1/x', [0])
 
     foorth_equal(' 2.0 .abs', [2.0])
     foorth_equal('-2.0 .abs', [2.0])
-    foorth_equal('max_num .abs', [MaxNumeric])
-    foorth_equal('min_num .abs', [MaxNumeric])
 
     foorth_equal(' 2.0 .ceil', [2])
     foorth_equal(' 2.1 .ceil', [3])

@@ -30,8 +30,6 @@ class CoerceProtocolTester < Minitest::Test
     assert_raises(XfOOrth::XfOOrthError) { (3).foorth_coerce('turnip') }
     assert_raises(XfOOrth::XfOOrthError) { (3).foorth_coerce(obj) }
     assert_raises(XfOOrth::XfOOrthError) { (3).foorth_coerce(nil) }
-    assert_raises(XfOOrth::XfOOrthError) { (3).foorth_coerce(MaxNumeric) }
-    assert_raises(XfOOrth::XfOOrthError) { (3).foorth_coerce(MinNumeric) }
 
     assert_equal(42, Integer.foorth_coerce(42))
     assert_equal(Fixnum, Integer.foorth_coerce(42).class)
@@ -42,8 +40,6 @@ class CoerceProtocolTester < Minitest::Test
     assert_raises(XfOOrth::XfOOrthError) { Integer.foorth_coerce('turnip') }
     assert_raises(XfOOrth::XfOOrthError) { Integer.foorth_coerce(obj) }
     assert_raises(XfOOrth::XfOOrthError) { Integer.foorth_coerce(nil) }
-    assert_raises(XfOOrth::XfOOrthError) { Integer.foorth_coerce(MaxNumeric) }
-    assert_raises(XfOOrth::XfOOrthError) { Integer.foorth_coerce(MinNumeric) }
 
   end
 
@@ -65,8 +61,6 @@ class CoerceProtocolTester < Minitest::Test
     assert_raises(XfOOrth::XfOOrthError) { (3.0).foorth_coerce('turnip') }
     assert_raises(XfOOrth::XfOOrthError) { (3.0).foorth_coerce(obj) }
     assert_raises(XfOOrth::XfOOrthError) { (3.0).foorth_coerce(nil) }
-    assert_raises(XfOOrth::XfOOrthError) { (3.0).foorth_coerce(MaxNumeric) }
-    assert_raises(XfOOrth::XfOOrthError) { (3.0).foorth_coerce(MinNumeric) }
 
     assert_equal(42.0, Float.foorth_coerce(42))
     assert_equal(Float, Float.foorth_coerce(42).class)
@@ -83,11 +77,6 @@ class CoerceProtocolTester < Minitest::Test
     assert_raises(XfOOrth::XfOOrthError) { Float.foorth_coerce('turnip') }
     assert_raises(XfOOrth::XfOOrthError) { Float.foorth_coerce(obj) }
     assert_raises(XfOOrth::XfOOrthError) { Float.foorth_coerce(nil) }
-    assert_raises(XfOOrth::XfOOrthError) { Float.foorth_coerce(MaxNumeric) }
-    assert_raises(XfOOrth::XfOOrthError) { Float.foorth_coerce(MinNumeric) }
-
-
-
   end
 
   def test_coerce_for_rationals
@@ -111,9 +100,6 @@ class CoerceProtocolTester < Minitest::Test
     assert_raises(XfOOrth::XfOOrthError) { ('3/1'.to_r).foorth_coerce('turnip') }
     assert_raises(XfOOrth::XfOOrthError) { ('3/1'.to_r).foorth_coerce(obj) }
     assert_raises(XfOOrth::XfOOrthError) { ('3/1'.to_r).foorth_coerce(nil) }
-    assert_raises(XfOOrth::XfOOrthError) { ('3/1'.to_r).foorth_coerce(MaxNumeric) }
-    assert_raises(XfOOrth::XfOOrthError) { ('3/1'.to_r).foorth_coerce(MinNumeric) }
-
   end
 
   def test_coerce_for_complex
@@ -140,9 +126,6 @@ class CoerceProtocolTester < Minitest::Test
     assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_coerce('turnip') }
     assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_coerce(obj) }
     assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_coerce(nil) }
-    assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_coerce(MaxNumeric) }
-    assert_raises(XfOOrth::XfOOrthError) { ('1+1i'.to_c).foorth_coerce(MinNumeric) }
-
   end
 
 end
