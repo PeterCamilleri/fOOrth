@@ -27,32 +27,32 @@ class Numeric
     self
   end
 
-  #New comparison methods. The mnmx_ prefix is short for min_max_.
+  #New comparison methods. The foorth_ prefix is short for min_max_.
   #These methods process and handle the special MaxNumeric and
   #MinNumeric modules.
 
   #The min max > operator
-  def mnmx_gt(other)
+  def foorth_gt(other)
     self > foorth_coerce(other)
   end
 
   #The min max >= operator
-  def mnmx_ge(other)
+  def foorth_ge(other)
     self >= foorth_coerce(other)
   end
 
   #The min max < operator
-  def mnmx_lt(other)
+  def foorth_lt(other)
     self < foorth_coerce(other)
   end
 
   #The min max <= operator
-  def mnmx_le(other)
+  def foorth_le(other)
     self <= foorth_coerce(other)
   end
 
   #The min max <=> operator
-  def mnmx_cp(other)
+  def foorth_cp(other)
     self <=> foorth_coerce(other)
   end
 

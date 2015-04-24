@@ -97,27 +97,27 @@ class Object
   end
 
   # Runtime stub for >
-  def mnmx_gt(_other)
+  def foorth_gt(_other)
     error "F12: A #{self.foorth_name} does not support >."
   end
 
   # Runtime stub for <
-  def mnmx_lt(_other)
+  def foorth_lt(_other)
     error "F12: A #{self.foorth_name} does not support <."
   end
 
   # Runtime stub for >=
-  def mnmx_ge(_other)
+  def foorth_ge(_other)
     error "F12: A #{self.foorth_name} does not support >=."
   end
 
   # Runtime stub for <=
-  def mnmx_le(_other)
+  def foorth_le(_other)
     error "F12: A #{self.foorth_name} does not support <=."
   end
 
   # Runtime stub for <=>
-  def mnmx_cp(_other)
+  def foorth_cp(_other)
     error "F12: A #{self.foorth_name} does not support <=>."
   end
 

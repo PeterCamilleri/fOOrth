@@ -46,27 +46,27 @@ class String
   #New comparison methods.
 
   #The min max > operator
-  def mnmx_gt(other)
+  def foorth_gt(other)
     self > other.to_s
   end
 
   #The min max >= operator
-  def mnmx_ge(other)
+  def foorth_ge(other)
     self >= other.to_s
   end
 
   #The min max < operator
-  def mnmx_lt(other)
+  def foorth_lt(other)
     self < other.to_s
   end
 
   #The min max <= operator
-  def mnmx_le(other)
+  def foorth_le(other)
     self <= other.to_s
   end
 
   #The min max <=> operator
-  def mnmx_cp(other)
+  def foorth_cp(other)
     self <=> other.to_s
   end
 

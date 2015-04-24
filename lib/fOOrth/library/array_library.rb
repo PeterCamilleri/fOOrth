@@ -58,7 +58,7 @@ module XfOOrth
 
   # [[3 1 2]] .sort [[1 2 3]]
   Array.create_shared_method('.sort', TosSpec, [],
-    &lambda {|vm| vm.push(self.sort {|va,vb| va.mnmx_cp(vb)} ); })
+    &lambda {|vm| vm.push(self.sort {|va,vb| va.foorth_cp(vb)} ); })
 
   # [[ 1 2 3]] .shuffle [[x y z]]
   Array.create_shared_method('.shuffle', TosSpec, [],
@@ -153,7 +153,7 @@ module XfOOrth
   Array.create_shared_method('.min', TosSpec, [], &lambda {|vm|
     result = self[0]
 
-    self.each {|value| result = result.foorth_coerce(value) if result.mnmx_gt(value)}
+    self.each {|value| result = result.foorth_coerce(value) if result.foorth_gt(value)}
 
     vm.push(result)
   })
@@ -162,7 +162,7 @@ module XfOOrth
   Array.create_shared_method('.max', TosSpec, [], &lambda {|vm|
     result = self[0]
 
-    self.each {|value| result = result.foorth_coerce(value) if result.mnmx_lt(value)}
+    self.each {|value| result = result.foorth_coerce(value) if result.foorth_lt(value)}
 
     vm.push(result)
   })

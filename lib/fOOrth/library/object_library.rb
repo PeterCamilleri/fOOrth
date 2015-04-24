@@ -50,11 +50,11 @@ module XfOOrth
 
   # [b,a] max [max(b,a)]
   Object.create_shared_method('max', NosSpec, [],
-    &lambda {|vm| other = vm.peek; vm.poke(self.mnmx_gt(other) ? self : other); })
+    &lambda {|vm| other = vm.peek; vm.poke(self.foorth_gt(other) ? self : other); })
 
   # [b,a] min [min(b,a)]
   Object.create_shared_method('min', NosSpec, [],
-    &lambda {|vm| other = vm.peek; vm.poke(self.mnmx_lt(other) ? self : other); })
+    &lambda {|vm| other = vm.peek; vm.poke(self.foorth_lt(other) ? self : other); })
 
 end
 

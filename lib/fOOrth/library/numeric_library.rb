@@ -42,23 +42,23 @@ module XfOOrth
   # Some comparison words.
   # [b,a] > if b > a then [true] else [false]
   Numeric.create_shared_method('>', NosSpec, [],
-    &lambda {|vm| vm.poke(self.mnmx_gt(vm.peek)); })
+    &lambda {|vm| vm.poke(self.foorth_gt(vm.peek)); })
 
   # [b,a] < if b < a then [true] else [false]
   Numeric.create_shared_method('<', NosSpec, [],
-    &lambda {|vm| vm.poke(self.mnmx_lt(vm.peek)); })
+    &lambda {|vm| vm.poke(self.foorth_lt(vm.peek)); })
 
   # [b,a] >= if b >= a then [true] else [false]
   Numeric.create_shared_method('>=', NosSpec, [],
-    &lambda {|vm| vm.poke(self.mnmx_ge(vm.peek)); })
+    &lambda {|vm| vm.poke(self.foorth_ge(vm.peek)); })
 
   # [b,a] <= if b <= a then [true] else [false]
   Numeric.create_shared_method('<=', NosSpec, [],
-    &lambda {|vm| vm.poke(self.mnmx_le(vm.peek)); })
+    &lambda {|vm| vm.poke(self.foorth_le(vm.peek)); })
 
   # [b,a] <=> if b <=> a then [true] else [false]
   Numeric.create_shared_method('<=>', NosSpec, [],
-    &lambda {|vm| vm.poke(self.mnmx_cp(vm.peek)); })
+    &lambda {|vm| vm.poke(self.foorth_cp(vm.peek)); })
 
   # Some comparison with zero words.
   # [b,a] 0= if b == 0 then [true] else [false]
