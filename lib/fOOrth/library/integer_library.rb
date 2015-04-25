@@ -23,11 +23,11 @@ module XfOOrth
 
   # [a b] .gcd [gcd(a,b)]
   Integer.create_shared_method('.gcd', TosSpec, [],
-    &lambda {|vm| vm.poke(self.gcd(vm.peek))})
+    &lambda {|vm| vm.poke(self.gcd(Integer.foorth_coerce(vm.peek)))})
 
   # [a b] .lcm [lcm(a,b)]
   Integer.create_shared_method('.lcm', TosSpec, [],
-    &lambda {|vm| vm.poke(self.lcm(vm.peek))})
+    &lambda {|vm| vm.poke(self.lcm(Integer.foorth_coerce(vm.peek)))})
 
   # [a] .even? [flag]
   Integer.create_shared_method('.even?', TosSpec, [],
