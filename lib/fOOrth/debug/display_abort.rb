@@ -11,7 +11,7 @@ module XfOOrth
     #* exception - The exception object that required the system abort or a
     #  string describing the error that was encountered.
     def display_abort(exception)
-      puts "\n#{exception}"
+      puts "\n#{exception.foorth_message}"
 
       if debug
         puts "Data Stack Contents: #{data_stack.inspect}"

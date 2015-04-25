@@ -27,11 +27,9 @@ module XfOOrth
           running ||= start_up(vm)
           vm.process_console
 
-        rescue ZeroDivisionError
-          vm.display_abort("Error: Division by zero.")
-
-        rescue XfOOrthError => error
+        rescue XfOOrthError, ZeroDivisionError => error
           vm.display_abort(error)
+
         end
 
         break unless running
