@@ -41,10 +41,7 @@ a work in progress. Please see The_fOOrth_User_Guide.odt in the docs folder.
 As each version of fOOrth is made available, expect to see portable document
 format versions of the guide for each released version.
 
-## Notes
 
-* Tested under ruby 1.9.3p484 (2013-11-22) [i386-mingw32]
-* I have used rdoc 4.0.1 here. Will need to examine rdoc styling options as later
-versions do not have a pleasing layout.
+
 
 
