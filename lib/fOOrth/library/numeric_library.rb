@@ -104,7 +104,7 @@ module XfOOrth
 
   # [b,a] ** [b**a]
   Numeric.create_shared_method('**', NosSpec, [],
-    &lambda {|vm| vm.poke(self ** self.foorth_coerce(vm.peek)); })
+    &lambda {|vm| vm.poke(self ** Float.foorth_coerce(vm.peek)); })
 
   # [b,a] / [b/a]
   Numeric.create_shared_method('/', NosSpec, [],
