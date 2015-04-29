@@ -15,6 +15,11 @@ module XfOOrth
     @data = []
   })
 
+  #Clear the Stack object.
+  stack.create_shared_method('.clear', TosSpec, [], &lambda {|vm|
+    @data.clear
+  })
+
   #[v stack] .push []; pushes the v onto the stack.
   stack.create_shared_method('.push', TosSpec, [], &lambda {|vm|
     @data << vm.pop
