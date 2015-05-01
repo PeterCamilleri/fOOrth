@@ -125,6 +125,10 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('2 0 "123" "abcdefgh" .+mid ',   ['ab123cdefgh'])
   end
 
+  def test_mid_find
+    foorth_equal('2 "cde" "abcdefgh"    .mid? ',   [true])
+  end
+
   def test_midlr_copy_paste_and_cut
     foorth_equal('2 2 "abcdefgh"       .midlr  ', ['cdef'])
     foorth_equal('2 2 "abcdefgh"       .-midlr ', ['abgh'])

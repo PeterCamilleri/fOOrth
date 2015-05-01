@@ -109,6 +109,15 @@ module XfOOrth
     vm.push(self[0...posn] + ins + self[(posn+width)..-1])
   })
 
+  # [n 'cde' 'abcdefgh'] .mid? [true]      // Assumes n = 2
+  String.create_shared_method('.mid?', TosSpec, [], &lambda {|vm|
+    search = vm.pop.to_s
+    width  = search.length
+    posn   = Integer.foorth_coerce(vm.pop)
+    vm.push(self[posn...(posn+width)] == search)
+  })
+
+
   #MIDLR Group
 
   # [l r 'abcdefgh'] .midlr ['bcdefg']  // Assumes l = 1, r = 1
