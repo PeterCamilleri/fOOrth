@@ -123,16 +123,22 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('2 4 "abcdefgh"       .-mid ',   ['abgh'])
     foorth_equal('2 4 "123" "abcdefgh" .+mid ',   ['ab123gh'])
     foorth_equal('2 0 "123" "abcdefgh" .+mid ',   ['ab123cdefgh'])
-    foorth_equal('"cde" "abcdefgh"     .mid? ',   [true])
-    foorth_equal('"cdx" "abcdefgh"     .mid? ',   [false])
-    foorth_equal('"cde" "abcdefgh"     .posn ',   [2])
-    foorth_equal('"cdx" "abcdefgh"     .posn ',   [nil])
   end
 
   def test_midlr_copy_paste_and_cut
     foorth_equal('2 2 "abcdefgh"       .midlr  ', ['cdef'])
     foorth_equal('2 2 "abcdefgh"       .-midlr ', ['abgh'])
     foorth_equal('2 2 "123" "abcdefgh" .+midlr ', ['ab123gh'])
+  end
+
+  def test_string_contains
+    foorth_equal('"cde" "abcdefgh"  .contains? ',   [true])
+    foorth_equal('"cdx" "abcdefgh"  .contains? ',   [false])
+  end
+
+  def test_string_posn
+    foorth_equal('"cde" "abcdefgh"      .posn ',   [2])
+    foorth_equal('"cdx" "abcdefgh"      .posn ',   [nil])
   end
 
   def test_replication

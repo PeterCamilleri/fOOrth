@@ -109,15 +109,6 @@ module XfOOrth
     vm.push(self[0...posn] + ins + self[(posn+width)..-1])
   })
 
-  # ['cde' 'abcdefgh'] .mid? [boolean]
-  String.create_shared_method('.mid?', TosSpec, [],
-    &lambda {|vm| vm.poke(self.index(vm.peek).to_foorth_b); })
-
-  # ['cde' 'abcdefgh'] .posn [position or nil]
-  String.create_shared_method('.posn', TosSpec, [],
-    &lambda {|vm| vm.poke(self.index(vm.peek)); })
-
-
   #MIDLR Group
 
   # [l r 'abcdefgh'] .midlr ['bcdefg']  // Assumes l = 1, r = 1
@@ -163,6 +154,15 @@ module XfOOrth
   String.create_shared_method('.right?', TosSpec, [],
     &lambda {|vm| vm.poke(self.end_with?(vm.peek)); })
 
+  #Other String Methods
+
+  # ['cde' 'abcdefgh'] .contains? [boolean]
+  String.create_shared_method('.contains?', TosSpec, [],
+    &lambda {|vm| vm.poke(self.index(vm.peek).to_foorth_b); })
+
+  # ['cde' 'abcdefgh'] .posn [position or nil]
+  String.create_shared_method('.posn', TosSpec, [],
+    &lambda {|vm| vm.poke(self.index(vm.peek)); })
 
   # ["a"] .length [n]
   String.create_shared_method('.length', TosSpec, [],
