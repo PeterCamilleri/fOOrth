@@ -127,6 +127,7 @@ class StringLibraryTester < Minitest::Test
 
   def test_mid_find
     foorth_equal('2 "cde" "abcdefgh"    .mid? ',   [true])
+    foorth_equal('3 "cde" "abcdefgh"    .mid? ',   [false])
   end
 
   def test_midlr_copy_paste_and_cut
