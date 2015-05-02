@@ -56,7 +56,7 @@ module XfOOrth
   String.create_shared_method('.rstrip', TosSpec, [],
     &lambda {|vm| vm.push(self.rstrip); })
 
-  fmt_action = lambda {|vm| vm.poke(self % vm.peek); }
+  fmt_action = lambda {|vm| vm.poke(self % vm.peek.in_array); }
 
   # [a fmt_str] .fmt ['a formatted string']
   String.create_shared_method('.fmt', TosSpec, [], &fmt_action)
