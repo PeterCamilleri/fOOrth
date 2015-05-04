@@ -76,13 +76,6 @@ module XfOOrth
   out_stream.create_shared_method('~', SelfSpec, [],
     &lambda {|vm| file << vm.pop})
 
-
-  #[an_outstream] f"a string" []; print out the string to the OutStream instance.
-  VirtualMachine.create_shared_method('f"', VmSpec, [], &lambda {|vm|
-    out_stream, str = vm.popm(2)
-    out_stream.file << str
-  })
-
   #{self = an_outstream} [] ~"a string" []; print out the string to the OutStream self.
   out_stream.create_shared_method('~"', SelfSpec, [],
     &lambda {|vm| file << vm.pop })

@@ -53,7 +53,7 @@ class OutStreamLibraryTester < Minitest::Test
 
 
   def test_that_we_can_write_stuff_too
-    foorth_equal($osfn + 'OutStream .create dup f"Hello World" .close')
+    foorth_run($osfn + 'OutStream .create dup .with{ ~"Hello World" } .close')
     assert_equal(["Hello World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
@@ -79,7 +79,7 @@ class OutStreamLibraryTester < Minitest::Test
 
 
   def test_that_we_can_write_out_lines
-    foorth_equal($osfn + 'OutStream .create dup f"Hello" dup .cr dup f"World" .close', [])
+    foorth_run($osfn + 'OutStream .create .with{ ~"Hello" ~cr ~"World" self .close } ')
     assert_equal(["Hello\n", "World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
@@ -92,7 +92,7 @@ class OutStreamLibraryTester < Minitest::Test
 
 
   def test_that_we_can_write_out_a_space
-    foorth_equal($osfn + 'OutStream .create dup f"Hello" dup .space dup f"World" .close', [])
+    foorth_run($osfn + 'OutStream .create .with{ ~"Hello" self .space ~"World" self .close }')
     assert_equal(["Hello World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
@@ -105,7 +105,7 @@ class OutStreamLibraryTester < Minitest::Test
 
 
   def test_that_we_can_write_out_spaces
-    foorth_equal($osfn + 'OutStream .create dup f"Hello" dup 3 swap .spaces dup f"World" .close', [])
+    foorth_run($osfn + 'OutStream .create .with{ ~"Hello" 3 self .spaces ~"World" self .close }')
     assert_equal(["Hello   World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
