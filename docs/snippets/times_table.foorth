@@ -11,6 +11,6 @@ cr
     i j * .fmt"%3d" . space
   loop
 
-  cr ."    |" cr
+  cr
 loop
 cr
