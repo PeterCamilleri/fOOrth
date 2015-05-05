@@ -5,13 +5,16 @@ module XfOOrth
 
   # Some basic console I/O words.
   #[obj] . []; print out the object as a string.
-  Object.create_shared_method('.', TosSpec, [],
-    &lambda {|vm| print self.to_s})
+  Object.create_shared_method('.', TosSpec, [], &lambda {|vm|
+    self.to_foorth_s(vm)
+    print vm.pop
+  })
 
   #Print out a string.
   # [] ."string" []; prints out the string.
-  String.create_shared_method('."', TosSpec, [],
-    &lambda {|vm| print self.to_s})
+  String.create_shared_method('."', TosSpec, [], &lambda {|vm|
+    print self
+  })
 
   #Force a new line.
   # [] cr []; prints a new line.

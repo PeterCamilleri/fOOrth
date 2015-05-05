@@ -22,6 +22,11 @@ class VMLibraryTester < Minitest::Test
 
   end
 
+  def test_for_the_vm_as_string
+    foorth_equal("vm .to_s", ['VirtualMachine instance <Main>'])
+    foorth_output('vm .'   ,  'VirtualMachine instance <Main>')
+  end
+
   def test_for_the_vm_name
     foorth_equal("vm .vm_name", ['Main'])
   end
