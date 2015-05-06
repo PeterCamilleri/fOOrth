@@ -20,8 +20,15 @@ module XfOOrth
 
   #Some conversion words.
   # [a b] complex [a+bi]
-  VirtualMachine.create_shared_method('complex', VmSpec, [],
-    &lambda {|vm| real,imag = popm(2); push(Complex(real,imag)); })
+  VirtualMachine.create_shared_method('complex', VmSpec, [], &lambda {|vm|
+    real,imag = popm(2)
+
+    begin
+      push(Complex(real,imag));
+    rescue
+      error "F40: Cannot coerce a #{real.foorth_name}, #{imag.foorth_name} to a Complex"
+    end
+  })
 
   # [a+bi] .split [a b]
   Complex.create_shared_method('.split', TosSpec, [],

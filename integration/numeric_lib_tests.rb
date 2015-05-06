@@ -276,5 +276,10 @@ class NumericLibraryTester < Minitest::Test
     foorth_equal('10.0 2/' , [5.0])
   end
 
+  def test_some_complex_conversions
+    foorth_equal('4 5 complex', [Complex(4,5)])
+    foorth_raises('"apple" 5 complex')
+  end
+
 
 end
