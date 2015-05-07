@@ -38,6 +38,10 @@ class DataStackMapTester < Minitest::Test
     assert_raises(XfOOrth::XfOOrthError) do
       vm.peek(-1)
     end
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      vm.peek(0)
+    end
   end
 
   def test_boolean_stack_data
