@@ -69,7 +69,7 @@ module XfOOrth
       &lambda {|vm| resume_execute_mode('iloop[0] += 1}; ', [:do]) })
 
     context.create_local_method('+loop', [:immediate],
-      &lambda {|vm| resume_execute_mode('iloop[0] += vm.pop}; ', [:do]) })
+      &lambda {|vm| resume_execute_mode('iloop[0] += vm.vm_do_increment}; ', [:do]) })
   })
 
   #Support for the try ... catch ... finally ... end construct.

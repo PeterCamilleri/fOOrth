@@ -57,6 +57,10 @@ class CtrlStructLibraryTester < Minitest::Test
     foorth_equal('1 4 do 1 3 do i j loop loop', [1,1,2,1,1,2,2,2,1,3,2,3])
 
     foorth_equal('1 4 do 1 3 do i j * loop loop', [1,2,2,4,3,6])
+
+    foorth_raises('0 10 do  0 +loop')
+    foorth_raises('0 10 do -1 +loop')
+    foorth_raises('0 10 do "apple" +loop')
   end
 
   def test_with_constructs

@@ -35,6 +35,21 @@ module XfOOrth
       end
     end
 
+    #The runtime implementation of the "+loop" word.
+    def vm_do_increment
+      inc_raw = self.pop
+
+      unless (inc_value = inc_raw.to_foorth_n)
+        error "F40: Cannot convert a #{inc_raw.foorth_name} to a Numeric instance"
+      end
+
+      if inc_value > 0
+        inc_value
+      else
+        error "F41: Invalid loop increment value: #{inc_value}"
+      end
+    end
+
   end
 
 end
