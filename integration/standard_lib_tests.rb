@@ -59,6 +59,8 @@ class StandardLibraryTester < Minitest::Test
     foorth_equal("1 2 3 2 pick", [1,2,3,2])
     foorth_equal("1 2 3 3 pick", [1,2,3,1])
     foorth_raises("1 2 3 4 pick")
+    foorth_raises("1 2 3 -4 pick")
+    foorth_raises('1 2 3 "apple" pick')
 
     foorth_equal("1 2 nip", [2])
     foorth_raises("1 nip")

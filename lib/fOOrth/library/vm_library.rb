@@ -54,7 +54,7 @@ module XfOOrth
 
   # [di,..d2,d1,i] pick [di,..d2,d1,di]
   VirtualMachine.create_shared_method('pick', MacroSpec,
-    [:macro, "vm.push(vm.peek(vm.pop())); "])
+    [:macro, "vm.push(vm.peek(Integer.foorth_coerce(vm.pop()))); "])
 
   # [b,a] nip [a]
   VirtualMachine.create_shared_method('nip', MacroSpec,

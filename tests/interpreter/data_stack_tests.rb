@@ -34,6 +34,10 @@ class DataStackMapTester < Minitest::Test
     assert_equal(vm.data_stack, [8])
     vm.pushm([1,2,3])
     assert_equal(vm.data_stack, [8, 1, 2, 3])
+
+    assert_raises(XfOOrth::XfOOrthError) do
+      vm.peek(-1)
+    end
   end
 
   def test_boolean_stack_data

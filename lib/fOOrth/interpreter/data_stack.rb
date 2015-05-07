@@ -71,7 +71,7 @@ module XfOOrth
     #* Attempting to access an element deeper than the number of elements
     #  on the stack will fail with an XfOOrthError exception.
     def peek(index=1)
-      unless @data_stack.length >= index
+      unless @data_stack.length >= index && index >= 0
         error "F30: Data Stack Underflow: peek"
       end
 
