@@ -215,7 +215,7 @@ module XfOOrth
 
   # [file_name_string] .load [undefined]; load the file as source code.
   String.create_shared_method('.load', TosSpec, [], &lambda {|vm|
-    if File.extname(self) == ''
+    if File.extname(self) == '' && !self.end_with?('.')
       file_name = self + '.foorth'
     else
       file_name = self
