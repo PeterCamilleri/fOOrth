@@ -244,6 +244,8 @@ class NumericLibraryTester < Minitest::Test
   def test_being_rational
     foorth_equal("1 2 rational", ['1/2'.to_r])
     foorth_equal("1/2 .split",   [1, 2])
+
+    foorth_raises('"apple" 4 rational')
   end
 
   def test_being_complex

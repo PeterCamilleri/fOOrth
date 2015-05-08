@@ -8,8 +8,14 @@ module XfOOrth
 
   # Some conversion words.
   # [n d] rational [n/d]
-  VirtualMachine.create_shared_method('rational', VmSpec, [],
-    &lambda {|vm| num,den = popm(2); push(Rational(num,den)); })
+  VirtualMachine.create_shared_method('rational', VmSpec, [], &lambda {|vm|
+    num,den = popm(2)
+    begin
+      push(Rational(num,den))
+    rescue
+      error "F40: Cannot coerce a #{num.foorth_name}, #{den.foorth_name} to a Rational"
+    end
+  })
 
   Rational.create_shared_method('.split', TosSpec, [],
     &lambda {|vm| vm.push(self.numerator); vm.push(self.denominator); })
