@@ -20,7 +20,7 @@ module XfOOrth
   # [n] val: lv [], lv = n
   Local_Val_Action = lambda {|vm|
     name   = vm.parser.get_word()
-    error "F10: Invalid var name #{name}" unless /^[a-z][a-z0-9_]*$/ =~ name
+    error "F10: Invalid val name #{name}" unless /^[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
     vm << "#{symbol} = vm.pop; "
 
@@ -45,7 +45,7 @@ module XfOOrth
   # [n] val@: @iv [], @iv = n
   Inst_Val_Action = lambda { |vm|
     name   = vm.parser.get_word()
-    error "F10: Invalid var name #{name}" unless /^@[a-z][a-z0-9_]*$/ =~ name
+    error "F10: Invalid val name #{name}" unless /^@[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
     vm << "#{'@'+(symbol.to_s)} = vm.pop; "
 
@@ -67,7 +67,7 @@ module XfOOrth
   # [n] val#: #tv [], Thread.current[#tv] = n
   VirtualMachine.create_shared_method('val#:', VmSpec, [], &lambda {|vm|
     name   = vm.parser.get_word()
-    error "F10: Invalid var name #{name}" unless /^#[a-z][a-z0-9_]*$/ =~ name
+    error "F10: Invalid val name #{name}" unless /^#[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
     @data[symbol] = vm.pop
 
@@ -89,7 +89,7 @@ module XfOOrth
   # [n] val$: $gv [], $gv = n
   VirtualMachine.create_shared_method('val$:', VmSpec, [], &lambda {|vm|
     name   = vm.parser.get_word()
-    error "F10: Invalid var name #{name}" unless /^\$[a-z][a-z0-9_]*$/ =~ name
+    error "F10: Invalid val name #{name}" unless /^\$[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
     eval "#{'$' + symbol.to_s} = vm.pop"
 
