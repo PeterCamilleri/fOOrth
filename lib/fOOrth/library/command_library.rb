@@ -170,7 +170,7 @@ module XfOOrth
   VirtualMachine.create_shared_method(')globals', VmSpec, [], &lambda {|vm|
     $FOORTH_GLOBALS.keys.
       select {|key| !($FOORTH_GLOBALS[key].has_tag?(:class))}.
-      collect {|key| "#{XfOOrth::SymbolMap.unmap(key)} (#{key.inspect})"}.
+      collect {|key| "#{XfOOrth::SymbolMap.unmap(key)} (#{key.to_s})"}.
       foorth_pretty(vm)
   })
 
