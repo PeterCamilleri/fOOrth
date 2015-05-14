@@ -22,9 +22,11 @@ module XfOOrth
     #  could be found.
     def get_word_or_string
       return nil unless (word = get_word)
+      vm = Thread.current[:vm]
+
 
       if word[-1] == '"'
-        skip = done = false
+        vm.quotes, skip, done = 1, false, false
 
         until done
           return nil unless (next_char = @source.get)
@@ -33,7 +35,7 @@ module XfOOrth
           if skip
             skip = false
           elsif next_char == '"'
-            done = true
+            vm.quotes, done = 0, true
           else
             skip = (next_char == '\\')
           end
@@ -98,7 +100,8 @@ module XfOOrth
 
     #Get the balance of a string from the source code source.
     def get_string
-      done, result = false, ''
+      vm = Thread.current[:vm]
+      vm.quotes, done, result = 1, false, ''
 
       begin
         next_char = @source.get
@@ -106,9 +109,9 @@ module XfOOrth
         if next_char == "\\"
           result << process_backslash
         elsif next_char == '"'
-          done = true
+          vm.quotes, done = 0, true
         elsif @source.eoln?
-          done = true
+          vm.quotes, done = 0, true
         elsif next_char >= ' '
           result << next_char
         end

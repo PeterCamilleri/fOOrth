@@ -32,7 +32,7 @@ module XfOOrth
     attr_reader :context
 
     #The level of quote nesting.
-    attr_reader :quotes
+    attr_accessor :quotes
 
     #Is a force compile in effect?
     attr_accessor :force
