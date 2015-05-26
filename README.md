@@ -41,7 +41,13 @@ a work in progress. Please see The_fOOrth_User_Guide.odt in the docs folder.
 As each version of fOOrth is made available, expect to see portable document
 format versions of the guide for each released version.
 
+## Contributing
 
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
 
 
 
