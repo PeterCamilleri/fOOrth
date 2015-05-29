@@ -36,16 +36,32 @@ module XfOOrth
 
   #Create a new subclass of an existing class.
   # [a_class] .subclass: <ClassName> []; Create subclass of a_class <ClassName>
-  Class.create_shared_method('.subclass:', TosSpec, [], &lambda {|vm|
+  VirtualMachine.create_shared_method('.subclass:', VmSpec, [:immediate], &lambda {|vm|
     name = vm.parser.get_word()
-    self.create_foorth_subclass(name)
+
+    if query_compile_mode
+      target = vm.pop
+      error "F13: The target of .subclass: must be a class" unless target.is_a?(Class)
+      target.create_foorth_subclass(name)
+    else
+      buffer = "vm.process_string(#{".subclass: #{name} ".inspect}); "
+      dbg_puts "  Append=#{buffer}"
+      @buffer << buffer
+    end
   })
 
   #Create a new subclass of the Object class.
   # [] class: <ClassName> []; Create subclass of Object <ClassName>
-  VirtualMachine.create_shared_method('class:', VmSpec, [], &lambda {|vm|
+  VirtualMachine.create_shared_method('class:', VmSpec, [:immediate], &lambda {|vm|
     name = vm.parser.get_word()
-    Object.create_foorth_subclass(name)
+
+    if query_compile_mode
+      Object.create_foorth_subclass(name)
+    else
+      buffer = "vm.process_string(#{"class: #{name} ".inspect}); "
+      dbg_puts "  Append=#{buffer}"
+      @buffer << buffer
+    end
   })
 
 end
