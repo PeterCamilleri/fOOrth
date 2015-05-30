@@ -34,8 +34,8 @@ class ExceptionLibraryTester < Minitest::Test
     assert_equal("F12,33:", XfOOrth::XfOOrthError.new("F12,33: oops").foorth_code)
     assert_equal("A12,93:", XfOOrth::XfOOrthError.new("A12,93: oh oh").foorth_code)
     assert_equal("E12,E2BIG:", Errno::E2BIG.new.foorth_code)
-    assert_equal("S:",    SignalException.new("INT").foorth_code)
-    assert_equal("S01:" , Interrupt.new.foorth_code)
+    assert_equal("E30:",  SignalException.new("INT").foorth_code)
+    assert_equal("E30,01:",    Interrupt.new.foorth_code)
   end
 
   def test_for_try_blocks

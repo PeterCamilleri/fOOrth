@@ -5,8 +5,8 @@ class Exception
 
   #A hash of exception classes and their fOOrth codes.
   FOORTH_EXCEPTION_CODE = {
-    SignalException                             =>  "S:",
-      Interrupt                                 =>  "S01:",
+    SignalException                             =>  "E30:",
+      Interrupt                                 =>  "E30,01:",
     StandardError                               =>  "E:",
       ArgumentError                             =>  "E01:",
         Gem::Requirement::BadRequirementError   =>  "E01,01:",
