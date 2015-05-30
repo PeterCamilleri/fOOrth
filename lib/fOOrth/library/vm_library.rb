@@ -26,6 +26,10 @@ module XfOOrth
   VirtualMachine.create_shared_method('drop', MacroSpec,
     [:macro, "vm.pop(); "])
 
+  # [a, b] 2drop []
+  VirtualMachine.create_shared_method('2drop', MacroSpec,
+    [:macro, "vm.popm(2); "])
+
   # Some stack manipulation words.
   # [unspecified] clear [];
   VirtualMachine.create_shared_method('clear', VmSpec, [], &lambda {|vm|
@@ -35,6 +39,10 @@ module XfOOrth
   # [a] dup [a, a]
   VirtualMachine.create_shared_method('dup', MacroSpec,
     [:macro, "vm.push(vm.peek()); "])
+
+  # [a, b] 2dup [a, b, a, b]
+  VirtualMachine.create_shared_method('2dup', MacroSpec,
+    [:macro, "vm.push(vm.peek(2)); vm.push(vm.peek(2));"])
 
   # [a] ?dup if a is true then [a,a] else [a]
   VirtualMachine.create_shared_method('?dup', VmSpec, [],
