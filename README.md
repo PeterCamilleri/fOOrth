@@ -44,10 +44,15 @@ format versions of the guide for each released version.
 ## Contributing
 
 1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+2. Switch to the development branch ('git branch development')
+3. Create your feature branch ('git checkout -b my-new-feature')
+4. Commit your changes ('git commit -am "Add some feature"')
+5. Push to the branch ('git push origin my-new-feature')
+6. Create new Pull Request
 
+It is strongly encouraged to apply all new coding efforts to the
+development branch and not master.
 
+For more details on the branching strategy, please see:
+http://nvie.com/posts/a-successful-git-branching-model/
 

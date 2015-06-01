@@ -10,8 +10,8 @@ Exception
     NotImplementedError
     SyntaxError
   SecurityError
-  SignalException                             =>  "S"
-    Interrupt                                 =>  "S01"
+  SignalException                             =>  "E30"
+    Interrupt                                 =>  "E30,01"
   StandardError                               =>  "E"
     ArgumentError                             =>  "E01"
       Gem::Requirement::BadRequirementError   =>  "E01,010"

@@ -70,6 +70,14 @@ class StandardLibraryTester < Minitest::Test
     foorth_raises("tuck")
   end
 
+  def test_the_double_stack_ops
+    foorth_equal('1 2 2drop', [])
+    foorth_equal('1 2 2dup', [1,2,1,2])
+
+    foorth_raises('1 2drop')
+    foorth_raises('1 2dup')
+  end
+
   def test_for_the_bored_identity
     foorth_equal("33 33 identical?", [true])
     foorth_equal("33 33 distinct?", [false])

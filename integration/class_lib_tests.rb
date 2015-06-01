@@ -53,6 +53,16 @@ class ClassLibraryTester < Minitest::Test
     foorth_equal("T1 .new .name",    ['T1 instance'])
   end
 
+  def test_deferred_class_creation
+    foorth_run(" true if class: T1B then ")
+    foorth_equal("T1B .name", ["T1B"])
+  end
+
+  def test_deferred_subclass_creation
+    foorth_run(" true if Object .subclass: T1C then ")
+    foorth_equal("T1C .name", ["T1C"])
+  end
+
   def test_the_creation_of_a_sub_class
     foorth_equal("class: T2",        [])
     foorth_equal("T2 .subclass: T3", [])
