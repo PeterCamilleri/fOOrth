@@ -25,10 +25,10 @@ module XfOOrth
 
   # [] [ v1 v2 ... vn ] [[v1,v2,...vn]]; an array literal value
   VirtualMachine.create_shared_method('[', VmSpec, [:immediate], &lambda { |vm|
-    vm.suspend_execute_mode('vm.squash; ', :array_literal)
+    vm.nest_mode('vm.squash; ', :array_literal)
 
     vm.context.create_local_method(']', [:immediate],
-      &lambda {|vm| vm.resume_execute_mode('vm.unsquash; ', [:array_literal]) })
+      &lambda {|vm| vm.unnest_mode('vm.unsquash; ', [:array_literal]) })
   })
 
   # Some basic data access words.
