@@ -68,6 +68,10 @@ module XfOOrth
   Array.create_shared_method('.length', TosSpec, [],
     &lambda {|vm| vm.push(self.length); })
 
+  # [an_array] .empty? [a_boolean]]
+  Array.create_shared_method('.empty?', TosSpec, [],
+    &lambda {|vm| vm.push(self.empty?); })
+
   # [[3 1 2] n] << [[3 1 2 n]]
   Array.create_shared_method('<<', NosSpec, [],
     &lambda {|vm| vm.poke(self << vm.peek); })

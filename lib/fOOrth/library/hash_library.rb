@@ -28,6 +28,14 @@ module XfOOrth
   Hash.create_shared_method('.[]!', TosSpec, [],
     &lambda {|vm| value, index = vm.popm(2); self[index] = value; })
 
+  # [{"a"=>1, "b"=>2}] .length [2]]
+  Hash.create_shared_method('.length', TosSpec, [],
+    &lambda {|vm| vm.push(self.length); })
+
+  # [a_hash] .empty? [a_boolean]]
+  Hash.create_shared_method('.empty?', TosSpec, [],
+    &lambda {|vm| vm.push(self.empty?); })
+
   # [h] .keys [[keys]]
   Hash.create_shared_method('.keys', TosSpec, [],
     &lambda {|vm| vm.push(self.keys); })

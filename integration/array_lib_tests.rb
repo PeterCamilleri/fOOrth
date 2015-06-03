@@ -158,5 +158,9 @@ class ArrayLibraryTester < Minitest::Test
     foorth_raises('[ 9 0 1 "apple" ] .max')
   end
 
+  def test_array_empty
+    foorth_equal('[ ] .empty?', [true])
+    foorth_equal('[ 1 2 3 ] .empty?', [false])
+  end
 
 end
