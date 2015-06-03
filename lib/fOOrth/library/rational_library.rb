@@ -18,11 +18,9 @@ module XfOOrth
   VirtualMachine.create_shared_method('rational', VmSpec, [], &lambda {|vm|
     num,den = popm(2)
 
-    num = XfOOrth::safe_rationalize(num)
-    den = XfOOrth::safe_rationalize(den)
-
     begin
-      push(Rational(num,den))
+      push(Rational(XfOOrth::safe_rationalize(num),
+                    XfOOrth::safe_rationalize(den)))
     rescue
       push(nil)
     end
@@ -33,11 +31,9 @@ module XfOOrth
   VirtualMachine.create_shared_method('rational!', VmSpec, [], &lambda {|vm|
     num,den = popm(2)
 
-    num = XfOOrth::safe_rationalize(num)
-    den = XfOOrth::safe_rationalize(den)
-
     begin
-      push(Rational(num,den))
+      push(Rational(XfOOrth::safe_rationalize(num),
+                    XfOOrth::safe_rationalize(den)))
     rescue
       error "F40: Cannot coerce a #{num.foorth_name}, #{den.foorth_name} to a Rational"
     end
