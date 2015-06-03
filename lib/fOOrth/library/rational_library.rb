@@ -6,22 +6,35 @@ module XfOOrth
   #Connect the Rational class to the fOOrth class system.
   Rational.create_foorth_proxy
 
+  #Rationalize a value with no tears.
+  def self.safe_rationalize(value)
+    value.rationalize
+  rescue
+    value
+  end
+
   # Some conversion words.
   # [n d] rational [n/d]
   VirtualMachine.create_shared_method('rational', VmSpec, [], &lambda {|vm|
     num,den = popm(2)
 
-    num = begin
-            num.rationalize
-          rescue
-            num
-          end
+    num = XfOOrth::safe_rationalize(num)
+    den = XfOOrth::safe_rationalize(den)
 
-    den = begin
-            den.rationalize
-          rescue
-            den
-          end
+    begin
+      push(Rational(num,den))
+    rescue
+      push(nil)
+    end
+  })
+
+  # Some conversion words.
+  # [n d] rational! [n/d]
+  VirtualMachine.create_shared_method('rational!', VmSpec, [], &lambda {|vm|
+    num,den = popm(2)
+
+    num = XfOOrth::safe_rationalize(num)
+    den = XfOOrth::safe_rationalize(den)
 
     begin
       push(Rational(num,den))

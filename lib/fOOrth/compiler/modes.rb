@@ -165,11 +165,11 @@ module XfOOrth
     #<br>Parameters:
     #* text - Some text to be executed or deferred.
     def process_text(text)
+      dbg_puts "  Code=#{text.inspect}"
+
       if execute_mode
-        dbg_puts "  Code=#{text.inspect}"
         @context.recvr.instance_exec(self, &eval("lambda {|vm| #{text} }"))
       else
-        dbg_puts "  Append=#{text.inspect}"
         self << text
       end
     end
