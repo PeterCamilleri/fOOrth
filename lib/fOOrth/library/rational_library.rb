@@ -10,6 +10,19 @@ module XfOOrth
   # [n d] rational [n/d]
   VirtualMachine.create_shared_method('rational', VmSpec, [], &lambda {|vm|
     num,den = popm(2)
+
+    num = begin
+            num.rationalize
+          rescue
+            num
+          end
+
+    den = begin
+            den.rationalize
+          rescue
+            den
+          end
+
     begin
       push(Rational(num,den))
     rescue
@@ -33,6 +46,24 @@ module XfOOrth
   Object.create_shared_method('.to_r!', TosSpec, [], &lambda {|vm|
     begin
       vm.push(Rational(self))
+    rescue
+      error "F40: Cannot convert a #{self.foorth_name} to a Rational instance"
+    end
+  })
+
+  # [a_float] .to_r [n/d]
+  Float.create_shared_method('.to_r', TosSpec, [], &lambda {|vm|
+    begin
+      vm.push(self.rationalize)
+    rescue
+      vm.push(nil)
+    end
+  })
+
+  # [a_float] .to_r! [n/d]
+  Float.create_shared_method('.to_r!', TosSpec, [], &lambda {|vm|
+    begin
+      vm.push(self.rationalize)
     rescue
       error "F40: Cannot convert a #{self.foorth_name} to a Rational instance"
     end

@@ -50,12 +50,14 @@ class NumericLibraryTester < Minitest::Test
 
     foorth_equal('7       .to_r', [Rational(7,1)])
     foorth_equal('7.0     .to_r', [Rational(7,1)])
+    foorth_equal('1.3     .to_r', [Rational(13,10)])
     foorth_equal('2.5     .to_r', [Rational(5,2)])
     foorth_equal('"5/2"   .to_r', [Rational(5,2)])
     foorth_equal('"apple" .to_r', [nil])
 
     foorth_equal('7       .to_r!', [Rational(7,1)])
     foorth_equal('7.0     .to_r!', [Rational(7,1)])
+    foorth_equal('1.3     .to_r!', [Rational(13,10)])
     foorth_equal('2.5     .to_r!', [Rational(5,2)])
     foorth_equal('"5/2"   .to_r!', [Rational(5,2)])
     foorth_raises('"apple" .to_r!')
@@ -242,8 +244,10 @@ class NumericLibraryTester < Minitest::Test
   end
 
   def test_being_rational
-    foorth_equal("1 2 rational", ['1/2'.to_r])
-    foorth_equal("1/2 .split",   [1, 2])
+    foorth_equal("1 2 rational",     ['1/2'.to_r])
+    foorth_equal("1/2 .split",       [1, 2])
+    foorth_equal("3.1 4 rational",   ['31/40'.to_r])
+    foorth_equal('"3.1" 4 rational', ['31/40'.to_r])
 
     foorth_raises('"apple" 4 rational')
   end
