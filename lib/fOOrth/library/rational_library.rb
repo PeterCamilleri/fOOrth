@@ -39,6 +39,16 @@ module XfOOrth
     end
   })
 
+  # [err_limit float] .rationalize_to [rational]
+  Numeric.create_shared_method('.rationalize_to', TosSpec, [], &lambda {|vm|
+    err_limit = Float.foorth_coerce(vm.pop)
+
+    vm.push(self.rationalize(err_limit))
+  })
+
+  Complex.create_shared_method('.rationalize_to', TosSpec, [:stub])
+
+  # [rational] .split [numerator, denominator]
   Rational.create_shared_method('.split', TosSpec, [],
     &lambda {|vm| vm.push(self.numerator); vm.push(self.denominator); })
 

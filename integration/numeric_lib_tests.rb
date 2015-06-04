@@ -257,6 +257,14 @@ class NumericLibraryTester < Minitest::Test
     foorth_raises('"apple" 4 rational!')
   end
 
+  def test_that_we_rationalize_too_much
+    foorth_equal('0.01 pi      .rationalize_to', ['22/7'.to_r])
+    foorth_equal('0.01 1234/55 .rationalize_to', ['157/7'.to_r])
+
+    foorth_raises('0.01 1+5i .rationalize_to')
+    foorth_raises('0.01 "apple" .rationalize_to')
+  end
+
   def test_being_complex
     foorth_equal("1 2 complex", [Complex(1,2)])
     foorth_equal("1+2i .split",   [1, 2])
