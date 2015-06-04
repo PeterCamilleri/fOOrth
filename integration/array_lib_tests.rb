@@ -163,4 +163,16 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('[ 1 2 3 ] .empty?', [false])
   end
 
+  def test_array_split
+    foorth_equal('1 2 [ 3 4 ] .split', [1,2,3,4])
+  end
+
+  def test_array_join
+    foorth_equal('1 2 3 4 2 .join', [1,2,[3,4]])
+    foorth_raises('1 2 3 4 -2 .join')
+    foorth_raises('1 2 3 4 20 .join')
+  end
+
+
+
 end

@@ -171,6 +171,17 @@ module XfOOrth
     vm.push(result)
   })
 
+  # [array] .split [a0, a1, ... aN]
+  Array.create_shared_method('.split', TosSpec, [], &lambda {|vm|
+    vm.pushm(self)
+  })
+
+  # [a1 a2 ... aN N] .join [[a1, a2, ... aN]]
+  Integer.create_shared_method('.join', TosSpec, [], &lambda {|vm|
+    error "F30: Invalid array size: .join" if self < 0
+    vm.push(vm.popm(self))
+  })
+
   # [l 2 3 ... n] .strmax [widest]
   Array.create_shared_method('.strmax', TosSpec, [], &lambda {|vm|
     result = 0
