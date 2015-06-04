@@ -184,29 +184,26 @@ module XfOOrth
     vm.push(result)
   })
 
-  $fapl = 50
+  $fcpl = 80
+  $flpp = 50
 
   # [l 2 3 ... n] .pp []; pretty print the array!
   Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
     self.foorth_strmax(vm)
     width = vm.pop + 1
-    cols  = (width < 79) ? (79 / width) : 1
-    rows  = (self.length + cols - 1) / cols
-    pages = 1 + (rows/$fapl)
-    count = $fapl * cols
+    cols  = (width <= $fcpl) ? ($fcpl / width) : 1
+    full_rows = ((cols * width) % $fcpl) == 0
+    rows_left = (self.length + cols - 1) / cols
+    pages = (rows_left + $flpp - 1) / $flpp
+    page_capacity = $flpp * cols
 
     (0...pages).each do |page|
-      offset = page * count
+      offset = page * page_capacity
+      rows_this_page = (rows_left >= $flpp) ? $flpp : rows_left
 
-      if rows >= $fapl
-        trows = $fapl
-      else
-        trows = rows
-      end
-
-      (0...trows).each do |row|
+      (0...rows_this_page).each do |row|
         (0...cols).each do |col|
-          self[offset + col*trows + row].to_foorth_s(vm)
+          self[offset + col*rows_this_page + row].to_foorth_s(vm)
 
           if cols > 1
             print vm.pop.ljust(width)
@@ -215,10 +212,10 @@ module XfOOrth
           end
         end
 
-        puts
+        puts unless full_rows
       end
 
-      rows -= $fapl
+      rows_left -= $flpp
       puts
     end
   })
