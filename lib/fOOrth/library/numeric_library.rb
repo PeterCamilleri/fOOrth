@@ -35,6 +35,13 @@ module XfOOrth
     end
   })
 
+  # [num_digits a_number] .round_to [a_float]
+  Numeric.create_shared_method('.round_to', TosSpec, [], &lambda {|vm|
+    value = Float.foorth_coerce(self)
+    digits = Integer.foorth_coerce(vm.pop)
+    vm.push(value.round(digits))
+  })
+
   # [a] .to_f! [Float]
   Object.create_shared_method('.to_f!', TosSpec, [],
     &lambda {|vm| vm.push(Float.foorth_coerce(self)) })

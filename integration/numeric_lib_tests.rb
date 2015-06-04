@@ -300,5 +300,12 @@ class NumericLibraryTester < Minitest::Test
     foorth_raises('"apple" 5 complex')
   end
 
+  def test_some_rounding
+    foorth_equal('2 pi .round_to', [3.14])
+
+    foorth_raises('2 "apple" .round_to')
+    foorth_raises('"apple"  pi .round_to')
+  end
+
 
 end
