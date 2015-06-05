@@ -63,6 +63,22 @@ module XfOOrth
     vm.push(widest_value)
   })
 
+  # [hash] .to_s [string]
+  Hash.create_shared_method('.to_s', TosSpec, [], &lambda {|vm|
+    result = "{ "
+
+    self.each do |key, value|
+      key.to_foorth_s(vm)
+      result << vm.pop + " "
+
+      value.to_foorth_s(vm)
+      result << vm.pop + " -> "
+    end
+
+    vm.push(result + "}")
+  })
+
+
   # [h] .pp []; pretty print the hash!
   Hash.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
     self.foorth_strmax2(vm)

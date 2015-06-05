@@ -173,6 +173,9 @@ class ArrayLibraryTester < Minitest::Test
     foorth_raises('1 2 3 4 20 .join')
   end
 
+  def test_array_to_s
+    foorth_equal('[ 1 2 3 ] .to_s', ["[ 1 2 3 ]"])
+  end
 
 
 end

@@ -41,7 +41,11 @@ module XfOOrth
     def prompt
       vm = Thread.current[:vm]
       puts
-      puts vm.data_stack.inspect if vm.show_stack
+
+      if vm.show_stack
+        vm.data_stack.to_foorth_s(vm)
+        puts vm.pop
+      end
 
       '>' * vm.context.depth + '"' * vm.quotes
     end

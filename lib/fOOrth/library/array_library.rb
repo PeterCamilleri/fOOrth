@@ -182,6 +182,18 @@ module XfOOrth
     vm.push(vm.popm(self))
   })
 
+  # [array] .to_s [string]
+  Array.create_shared_method('.to_s', TosSpec, [], &lambda {|vm|
+    result = "[ "
+
+    self.each do |value|
+      value.to_foorth_s(vm)
+      result << vm.pop + " "
+    end
+
+    vm.push(result + "]")
+  })
+
   # [l 2 3 ... n] .strmax [widest]
   Array.create_shared_method('.strmax', TosSpec, [], &lambda {|vm|
     result = 0
@@ -195,8 +207,8 @@ module XfOOrth
     vm.push(result)
   })
 
-  $fcpl = 80
-  $flpp = 50
+  $fcpl = 80 #fOOrth Character Per Line
+  $flpp = 50 #fOOrth Lines Per Page
 
   # [l 2 3 ... n] .pp []; pretty print the array!
   Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
@@ -227,7 +239,7 @@ module XfOOrth
       end
 
       rows_left -= $flpp
-      puts
+      puts "\n"
     end
   })
 
