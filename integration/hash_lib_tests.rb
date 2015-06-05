@@ -60,4 +60,19 @@ class HashLibraryTester < Minitest::Test
 
   end
 
+  def test_hash_length
+    foorth_equal('{ "a" 1 -> "b" 2 -> } .length', [2])
+  end
+
+  def test_hash_empty
+    foorth_equal('{ } .empty?', [true])
+    foorth_equal('{ "a" 1 -> } .empty?', [false])
+  end
+
+  def test_hash_to_s
+    foorth_equal('{ 1 2 -> 3 4 -> } .to_s', ["{ 1 2 -> 3 4 -> }"])
+  end
+
+
+
 end

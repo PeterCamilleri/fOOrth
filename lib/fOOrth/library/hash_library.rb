@@ -11,13 +11,13 @@ module XfOOrth
 
   # [] { k1 v1 -> ... kn vn -> } [{k1=>v1,...kn=>vn}]; a hash literal value
   VirtualMachine.create_shared_method('{', VmSpec, [:immediate], &lambda { |vm|
-    vm.suspend_execute_mode('vm.push(Hash.new); ', :hash_literal)
+    vm.nest_mode('vm.push(Hash.new); ', :hash_literal)
 
     vm.context.create_local_method('->', [:immediate],
-      &lambda {|vm| vm << 'vm.add_to_hash; ' })
+      &lambda {|vm| vm.process_text('vm.add_to_hash; ') })
 
     vm.context.create_local_method('}', [:immediate],
-      &lambda {|vm| vm.resume_execute_mode('', [:hash_literal]) })
+      &lambda {|vm| vm.unnest_mode('', [:hash_literal]) })
   })
 
   # [i h] .[]@ [h[i]]
@@ -27,6 +27,14 @@ module XfOOrth
   # [v i h] .[]! []; h[i]=v
   Hash.create_shared_method('.[]!', TosSpec, [],
     &lambda {|vm| value, index = vm.popm(2); self[index] = value; })
+
+  # [{"a"=>1, "b"=>2}] .length [2]]
+  Hash.create_shared_method('.length', TosSpec, [],
+    &lambda {|vm| vm.push(self.length); })
+
+  # [a_hash] .empty? [a_boolean]]
+  Hash.create_shared_method('.empty?', TosSpec, [],
+    &lambda {|vm| vm.push(self.empty?); })
 
   # [h] .keys [[keys]]
   Hash.create_shared_method('.keys', TosSpec, [],
@@ -54,6 +62,22 @@ module XfOOrth
     vm.push(widest_key)
     vm.push(widest_value)
   })
+
+  # [hash] .to_s [string]
+  Hash.create_shared_method('.to_s', TosSpec, [], &lambda {|vm|
+    result = "{ "
+
+    self.each do |key, value|
+      key.to_foorth_s(vm)
+      result << vm.pop + " "
+
+      value.to_foorth_s(vm)
+      result << vm.pop + " -> "
+    end
+
+    vm.push(result + "}")
+  })
+
 
   # [h] .pp []; pretty print the hash!
   Hash.create_shared_method('.pp', TosSpec, [], &lambda {|vm|

@@ -50,12 +50,14 @@ class NumericLibraryTester < Minitest::Test
 
     foorth_equal('7       .to_r', [Rational(7,1)])
     foorth_equal('7.0     .to_r', [Rational(7,1)])
+    foorth_equal('1.3     .to_r', [Rational(13,10)])
     foorth_equal('2.5     .to_r', [Rational(5,2)])
     foorth_equal('"5/2"   .to_r', [Rational(5,2)])
     foorth_equal('"apple" .to_r', [nil])
 
     foorth_equal('7       .to_r!', [Rational(7,1)])
     foorth_equal('7.0     .to_r!', [Rational(7,1)])
+    foorth_equal('1.3     .to_r!', [Rational(13,10)])
     foorth_equal('2.5     .to_r!', [Rational(5,2)])
     foorth_equal('"5/2"   .to_r!', [Rational(5,2)])
     foorth_raises('"apple" .to_r!')
@@ -242,10 +244,25 @@ class NumericLibraryTester < Minitest::Test
   end
 
   def test_being_rational
-    foorth_equal("1 2 rational", ['1/2'.to_r])
-    foorth_equal("1/2 .split",   [1, 2])
+    foorth_equal("1/2 .split",       [1, 2])
 
-    foorth_raises('"apple" 4 rational')
+    foorth_equal("1 2 rational",     ['1/2'.to_r])
+    foorth_equal("3.1 4 rational",   ['31/40'.to_r])
+    foorth_equal('"3.1" 4 rational', ['31/40'.to_r])
+    foorth_equal('"apple" 4 rational', [nil])
+
+    foorth_equal("1 2 rational!",     ['1/2'.to_r])
+    foorth_equal("3.1 4 rational!",   ['31/40'.to_r])
+    foorth_equal('"3.1" 4 rational!', ['31/40'.to_r])
+    foorth_raises('"apple" 4 rational!')
+  end
+
+  def test_that_we_rationalize_too_much
+    foorth_equal('0.01 pi      .rationalize_to', ['22/7'.to_r])
+    foorth_equal('0.01 1234/55 .rationalize_to', ['157/7'.to_r])
+
+    foorth_raises('0.01 1+5i .rationalize_to')
+    foorth_raises('0.01 "apple" .rationalize_to')
   end
 
   def test_being_complex
@@ -281,6 +298,13 @@ class NumericLibraryTester < Minitest::Test
   def test_some_complex_conversions
     foorth_equal('4 5 complex', [Complex(4,5)])
     foorth_raises('"apple" 5 complex')
+  end
+
+  def test_some_rounding
+    foorth_equal('2 pi .round_to', [3.14])
+
+    foorth_raises('2 "apple" .round_to')
+    foorth_raises('"apple"  pi .round_to')
   end
 
 

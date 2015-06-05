@@ -25,10 +25,10 @@ module XfOOrth
 
   # [] [ v1 v2 ... vn ] [[v1,v2,...vn]]; an array literal value
   VirtualMachine.create_shared_method('[', VmSpec, [:immediate], &lambda { |vm|
-    vm.suspend_execute_mode('vm.squash; ', :array_literal)
+    vm.nest_mode('vm.squash; ', :array_literal)
 
     vm.context.create_local_method(']', [:immediate],
-      &lambda {|vm| vm.resume_execute_mode('vm.unsquash; ', [:array_literal]) })
+      &lambda {|vm| vm.unnest_mode('vm.unsquash; ', [:array_literal]) })
   })
 
   # Some basic data access words.
@@ -67,6 +67,10 @@ module XfOOrth
   # [[3 1 2]] .length [3]]
   Array.create_shared_method('.length', TosSpec, [],
     &lambda {|vm| vm.push(self.length); })
+
+  # [an_array] .empty? [a_boolean]]
+  Array.create_shared_method('.empty?', TosSpec, [],
+    &lambda {|vm| vm.push(self.empty?); })
 
   # [[3 1 2] n] << [[3 1 2 n]]
   Array.create_shared_method('<<', NosSpec, [],
@@ -167,6 +171,29 @@ module XfOOrth
     vm.push(result)
   })
 
+  # [array] .split [a0, a1, ... aN]
+  Array.create_shared_method('.split', TosSpec, [], &lambda {|vm|
+    vm.pushm(self)
+  })
+
+  # [a1 a2 ... aN N] .join [[a1, a2, ... aN]]
+  Integer.create_shared_method('.join', TosSpec, [], &lambda {|vm|
+    error "F30: Invalid array size: .join" if self < 0
+    vm.push(vm.popm(self))
+  })
+
+  # [array] .to_s [string]
+  Array.create_shared_method('.to_s', TosSpec, [], &lambda {|vm|
+    result = "[ "
+
+    self.each do |value|
+      value.to_foorth_s(vm)
+      result << vm.pop + " "
+    end
+
+    vm.push(result + "]")
+  })
+
   # [l 2 3 ... n] .strmax [widest]
   Array.create_shared_method('.strmax', TosSpec, [], &lambda {|vm|
     result = 0
@@ -180,29 +207,26 @@ module XfOOrth
     vm.push(result)
   })
 
-  $fapl = 50
+  $fcpl = 80 #fOOrth Character Per Line
+  $flpp = 50 #fOOrth Lines Per Page
 
   # [l 2 3 ... n] .pp []; pretty print the array!
   Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
     self.foorth_strmax(vm)
     width = vm.pop + 1
-    cols  = (width < 79) ? (79 / width) : 1
-    rows  = (self.length + cols - 1) / cols
-    pages = 1 + (rows/$fapl)
-    count = $fapl * cols
+    cols  = (width <= $fcpl) ? ($fcpl / width) : 1
+    full_rows = ((cols * width) % $fcpl) == 0
+    rows_left = (self.length + cols - 1) / cols
+    pages = (rows_left + $flpp - 1) / $flpp
+    page_capacity = $flpp * cols
 
     (0...pages).each do |page|
-      offset = page * count
+      offset = page * page_capacity
+      rows_this_page = (rows_left >= $flpp) ? $flpp : rows_left
 
-      if rows >= $fapl
-        trows = $fapl
-      else
-        trows = rows
-      end
-
-      (0...trows).each do |row|
+      (0...rows_this_page).each do |row|
         (0...cols).each do |col|
-          self[offset + col*trows + row].to_foorth_s(vm)
+          self[offset + col*rows_this_page + row].to_foorth_s(vm)
 
           if cols > 1
             print vm.pop.ljust(width)
@@ -211,11 +235,11 @@ module XfOOrth
           end
         end
 
-        puts
+        puts unless full_rows
       end
 
-      rows -= $fapl
-      puts
+      rows_left -= $flpp
+      puts "\n"
     end
   })
 
