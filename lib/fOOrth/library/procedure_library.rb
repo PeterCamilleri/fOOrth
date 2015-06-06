@@ -35,4 +35,22 @@ module XfOOrth
     interlock.pop
   })
 
+  # [procedure] .start_named [a_thread]
+  Proc.create_shared_method('.start_named', TosSpec, [], &lambda {|vm|
+    block = self
+    thread_name = vm.pop.to_s
+    interlock = Queue.new
+
+    vm.push(Thread.new(vm.foorth_copy(thread_name)) {|vm|
+      vm.compiler_reset
+      vm.connect_vm_to_thread
+      self.foorth_init(vm)
+      interlock.push(:ready)
+      vm.instance_exec(vm, &block)
+    })
+
+    interlock.pop
+  })
+
+
 end

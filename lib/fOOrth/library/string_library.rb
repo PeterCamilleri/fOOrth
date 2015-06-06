@@ -244,6 +244,7 @@ module XfOOrth
     raise XfOOrth::XfOOrthError, vm.pop.to_s, caller
   })
 
+  # [a_string] .shell []
   String.create_shared_method('.shell', TosSpec, [], &lambda {|vm|
     system(self)
   })

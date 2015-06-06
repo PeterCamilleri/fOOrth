@@ -52,5 +52,8 @@ class ThreadLibraryTester < Minitest::Test
     foorth_equal('{{ 0.01 .sleep }} .start .status', ['sleep'])
   end
 
+  def test_named_threads
+    foorth_equal('"Fred" {{ }} .start_named dup .join .vm .vm_name',["Fred"])
+  end
 
 end
