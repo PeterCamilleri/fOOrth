@@ -244,6 +244,10 @@ module XfOOrth
     raise XfOOrth::XfOOrthError, vm.pop.to_s, caller
   })
 
+  String.create_shared_method('.shell', TosSpec, [], &lambda {|vm|
+    system(self)
+  })
+
 end
 
 #* Runtime library support for fOOrth constructs.
