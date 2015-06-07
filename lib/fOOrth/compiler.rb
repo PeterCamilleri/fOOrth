@@ -44,6 +44,7 @@ module XfOOrth
       @quotes = 0
       @force  = false
       @context = Context.new(nil, vm: self, mode: :execute)
+      self
     end
 
     #Append text to the compile buffer.

@@ -40,7 +40,6 @@ module XfOOrth
     def foorth_copy(name)
       copy = self.clone
       copy.reinitialize(name)
-      copy.compiler_reset
       copy
     end
 
@@ -62,6 +61,8 @@ module XfOOrth
       #This virtual machine is associated with this thread.
       current[:vm] = self
       @start_time  = Time.now
+
+      self
     end
   end
 

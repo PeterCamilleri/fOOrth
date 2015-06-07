@@ -21,12 +21,12 @@ module XfOOrth
 
   # [procedure] .start [a_thread]
   Proc.create_shared_method('.start', TosSpec, [], &lambda {|vm|
-    self.do_thread_start(vm, '-')
+    vm.push(self.do_thread_start(vm, '-'))
   })
 
   # [procedure] .start_named [a_thread]
   Proc.create_shared_method('.start_named', TosSpec, [], &lambda {|vm|
-    self.do_thread_start(vm, vm.pop.to_s)
+    vm.push(self.do_thread_start(vm, vm.pop.to_s))
   })
 
 end
@@ -37,14 +37,14 @@ class Proc
   def do_thread_start(vm, vm_name)
     block, interlock = self, Queue.new
 
-    vm.push(Thread.new(vm.foorth_copy(vm_name)) {|vm_copy|
-      vm_copy.connect_vm_to_thread
-      self.foorth_init(vm_copy)
+    result = Thread.new(vm.foorth_copy(vm_name)) { |vm_copy|
+      self.foorth_init(vm_copy.compiler_reset.connect_vm_to_thread)
       interlock.push(:ready)
       vm_copy.instance_exec(vm_copy, &block)
-    })
+    }
 
     interlock.pop
+    result
   end
 end
 
