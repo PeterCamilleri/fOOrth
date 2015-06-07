@@ -3,7 +3,4 @@ lib/fOOrth/compiler/modes.rb -- 1 warning:
 lib/fOOrth/compiler/parser.rb -- 2 warnings:
   [102]:XfOOrth::Parser#get_string has approx 8 statements (TooManyStatements)
   [23]:XfOOrth::Parser#get_word_or_string has approx 9 statements (TooManyStatements)
-lib/fOOrth/library/procedure_library.rb -- 2 warnings:
-  [37]:Proc#do_thread_start has approx 9 statements (TooManyStatements)
-  [37]:Proc#do_thread_start refers to vm more than self (FeatureEnvy)
-5 total warnings
+3 total warnings

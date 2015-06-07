@@ -40,6 +40,7 @@ module XfOOrth
     def foorth_copy(name)
       copy = self.clone
       copy.reinitialize(name)
+      copy.compiler_reset
       copy
     end
 

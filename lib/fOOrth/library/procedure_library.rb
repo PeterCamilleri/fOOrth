@@ -35,15 +35,13 @@ end
 class Proc
   #Do the mechanics of starting a thread.
   def do_thread_start(vm, vm_name)
-    block = self
-    interlock = Queue.new
+    block, interlock = self, Queue.new
 
-    vm.push(Thread.new(vm.foorth_copy(vm_name)) {|vm|
-      vm.compiler_reset
-      vm.connect_vm_to_thread
-      self.foorth_init(vm)
+    vm.push(Thread.new(vm.foorth_copy(vm_name)) {|vm_copy|
+      vm_copy.connect_vm_to_thread
+      self.foorth_init(vm_copy)
       interlock.push(:ready)
-      vm.instance_exec(vm, &block)
+      vm_copy.instance_exec(vm_copy, &block)
     })
 
     interlock.pop

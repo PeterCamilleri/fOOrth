@@ -80,7 +80,6 @@ class Thread
     interlock = Queue.new
 
     result = Thread.new(vm.foorth_copy(vm.pop.to_s)) do |vm|
-      vm.compiler_reset
       vm.connect_vm_to_thread
       self.foorth_init(vm)
       interlock.push(:ready)
