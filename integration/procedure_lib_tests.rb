@@ -23,8 +23,12 @@ class ProcedureLibraryTester < Minitest::Test
   end
 
   def test_creating_a_thread
-    foorth_equal('0 var$: $tcat2', [])
+    foorth_run('0 var$: $tcat2')
     foorth_equal('{{ 1 $tcat2 ! }} .start drop 0.01 .sleep $tcat2 @', [1])
+  end
+
+  def test_calling_with
+    foorth_equal('4 {{ self dup + }} .call_with', [8])
   end
 
 end
