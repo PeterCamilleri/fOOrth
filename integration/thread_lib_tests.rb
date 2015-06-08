@@ -14,6 +14,11 @@ class ThreadLibraryTester < Minitest::Test
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__
 
+  def test_that_thread_classes_exist
+    foorth_equal('Thread', [Thread])
+    foorth_equal('Mutex',  [Mutex])
+  end
+
   def test_the_current_thread
     foorth_equal('Thread .current     .name', ['Thread instance'])
     foorth_equal('Thread .current .vm .name', ['VirtualMachine instance <Main>'])
@@ -24,11 +29,11 @@ class ThreadLibraryTester < Minitest::Test
     foorth_equal('Thread .main    .vm .name', ['VirtualMachine instance <Main>'])
   end
 
-  def test_sleeping
+  def test_thread_sleeping
     start = Time.now
-    foorth_equal('0.05 .sleep', [])
+    foorth_run('0.05 .sleep')
     finish = Time.now
-    assert(finish-start > 0.03)
+    assert(finish-start > 0.025)
     assert(finish-start < 0.1)
   end
 
@@ -42,18 +47,18 @@ class ThreadLibraryTester < Minitest::Test
   end
 
   def test_for_poking_with_a_stick
-    foorth_equal('{{  }} .start 0.02 .sleep .alive?', [false])
-    foorth_equal('{{ 0.01 .sleep }} .start  .alive?', [true])
+    foorth_equal('{{  }} .start dup .join .alive?', [false])
+    foorth_equal('{{ 0.1 .sleep }} .start .alive?', [true])
   end
 
   def test_thread_status
-    foorth_equal('Thread .current          .status', ['run'])
-    foorth_equal('{{             }} .start .status', ['dead'])
-    foorth_equal('{{ 0.01 .sleep }} .start .status', ['sleep'])
+    foorth_equal('Thread .current                   .status', ['run'])
+    foorth_equal('{{            }} .start dup .join .status', ['dead'])
+    foorth_equal('{{ 0.1 .sleep }} .start           .status', ['sleep'])
   end
 
   def test_named_threads
-    foorth_equal('"Fred" {{ }} .start_named dup .join .vm .vm_name',["Fred"])
+    foorth_equal('"Fred" {{ }} .start_named dup .join .vm .vm_name', ["Fred"])
   end
 
 end
