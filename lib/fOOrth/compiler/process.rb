@@ -58,9 +58,11 @@ module XfOOrth
     #* word  - The text of the word.
     def generate_code(token, word)
       if (spec = @context.map(word))
-        spec.build_on(token)
+        token << spec.builds
+        token.add_tags(spec.tags)
       elsif (value = word.to_foorth_n)
         token << "vm.push(#{value.foorth_embed}); "
+        token.add_tags([:numeric])
       else
         error "F10: ?#{word}?"
       end

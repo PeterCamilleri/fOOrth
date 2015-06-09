@@ -29,29 +29,11 @@ module XfOOrth
     #* :reek:ControlParameter  -- reek is on crack!
     def initialize(name, symbol, tags=[], &block)
       @tags = tags
-      @does = block || lambda { |*_any|
+      @does = block || lambda do |*_any|
         error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol.inspect})."
-      }
+      end
 
       build_builds_string(name, symbol)
-    end
-
-    #Transfer needed info to a Token object for compiling.
-    #<br>Parameters:
-    #* token - The Token object to be filled with wisdom.
-    def build_on(token)
-      token << builds
-      token.add_tags(export_tags)
-    end
-
-    #Look up an tag of interest.
-    def has_tag?(tag)
-      @tags.include?(tag)
-    end
-
-    #The tags that are to be exported.
-    def export_tags
-      @tags
     end
   end
 
@@ -168,13 +150,7 @@ module XfOOrth
     #* The last entry in the tags array is expected to be a string
     #  with the text of the command macro.
     def build_builds_string(_name, _symbol)
-      @builds = @tags[-1]
+      @builds = @tags.pop
     end
-
-    #The tags that are to be exported. All but the last one.
-    def export_tags
-      @tags[0..-2]
-    end
-
   end
 end
