@@ -39,7 +39,7 @@ module XfOOrth
   VirtualMachine.create_shared_method('.subclass:', VmSpec, [:immediate], &lambda {|vm|
     name = vm.parser.get_word()
 
-    if query_compile_mode
+    if execute_mode
       target = vm.pop
       error "F13: The target of .subclass: must be a class" unless target.is_a?(Class)
       target.create_foorth_subclass(name)
@@ -55,7 +55,7 @@ module XfOOrth
   VirtualMachine.create_shared_method('class:', VmSpec, [:immediate], &lambda {|vm|
     name = vm.parser.get_word()
 
-    if query_compile_mode
+    if execute_mode
       Object.create_foorth_subclass(name)
     else
       buffer = "vm.process_string(#{"class: #{name} ".inspect}); "

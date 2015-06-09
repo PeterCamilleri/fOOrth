@@ -11,13 +11,6 @@ module XfOOrth
   #* modes.rb - The control of the various compiler modes.
   class VirtualMachine
 
-    #Is entry into compile mode possible at this time?
-    #<br>Returns:
-    #* true if compile mode OK, else false.
-    def query_compile_mode
-      @context[:mode] == :execute
-    end
-
     #Depending on the mode, process the text source code.
     #<br>Parameters:
     #* text - Some text to be executed or deferred.
