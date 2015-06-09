@@ -1,8 +1,8 @@
 # coding: utf-8
 
-#* compiler/modes/compiled.rb - The delayed compile system mode.
+#* compiler/modes/delayed.rb - The delayed compile system mode.
 module XfOOrth
-  #* modes.rb - The control of the various compiler modes.
+  #* compiler/modes/delayed.rb - The delayed compile system mode.
   class VirtualMachine
 
     #Enter a delayed compile mode in which compilation is delayed till a

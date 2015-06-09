@@ -3,7 +3,7 @@
 #* compiler/parser/normal.rb - Parse source code when not in quote mode.
 module XfOOrth
 
-  #* parser.rb - Parse source code from a code source.
+  #* compiler/parser/normal.rb - Parse source code when not in quote mode.
   class Parser
 
     #Get the next forth word from the source code source. This method

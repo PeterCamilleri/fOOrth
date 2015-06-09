@@ -2,7 +2,7 @@
 
 #* compiler/modes/compiled.rb - The compiled system mode.
 module XfOOrth
-  #* modes.rb - The control of the various compiler modes.
+  #* compiler/modes/compiled.rb - The control of the compiled system mode.
   class VirtualMachine
 
     #Start compiling a fOOrth definition. This is used to get things going

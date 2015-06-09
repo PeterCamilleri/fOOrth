@@ -1,8 +1,8 @@
 # coding: utf-8
 
-#* compiler/modes.rb - The control of the various compiler modes.
+#* compiler/modes/deferred.rb - The control of the deferred compiler mode.
 module XfOOrth
-  #* modes.rb - The control of the various compiler modes.
+  #* compiler/modes/deferred.rb - The control of the deferred compiler mode.
   class VirtualMachine
 
     #Enter a mode where execution is deferred. If currently in :execute mode,

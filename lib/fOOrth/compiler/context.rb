@@ -1,5 +1,7 @@
 # coding: utf-8
 
+require_relative 'context/map_name'
+
 #* compiler/context.rb - The compile progress context manager of the fOOrth
 #  language system.
 module XfOOrth

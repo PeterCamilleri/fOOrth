@@ -3,7 +3,7 @@
 #* compiler/parser/skip.rb - Skip over stuff in the source code.
 module XfOOrth
 
-  #* parser.rb - Parse source code from a code source.
+  #* compiler/parser/skip.rb - Skip over stuff in the source code.
   class Parser
 
     #Skip over any white space.

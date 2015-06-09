@@ -1,8 +1,8 @@
 # coding: utf-8
 
-#* compiler/modes.rb - The control of the various compiler modes.
+#* compiler/modes/suspend.rb - The ability to suspend compile mode.
 module XfOOrth
-  #* modes.rb - The control of the various compiler modes.
+  #* compiler/modes/suspend.rb - The ability to suspend compile mode.
   class VirtualMachine
 
     #While compiling, suspend compiling so that some code may be executed.

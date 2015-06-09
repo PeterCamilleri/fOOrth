@@ -3,7 +3,7 @@
 #* compiler/parser/get_string.rb - Extract string literals from code source.
 module XfOOrth
 
-  #* parser.rb - Parse source code from a code source.
+  #* compiler/parser/get_string.rb - Extract string literals from code source.
   class Parser
 
     #Get the balance of a string from the source code source.

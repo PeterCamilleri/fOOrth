@@ -3,7 +3,7 @@
 #* compiler/parser/special.rb - Parse source code in special quoted mode.
 module XfOOrth
 
-  #* parser.rb - Parse source code from a code source.
+  #* compiler/parser/special.rb - Parse source code in special quoted mode.
   class Parser
 
     #Get the next forth word and any embedded string data. This is used to

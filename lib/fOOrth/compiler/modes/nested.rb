@@ -1,8 +1,8 @@
 # coding: utf-8
 
-#* compiler/modes.rb - The control of the various compiler modes.
+#* compiler/modes/nested.rb - The control of the nested compiler modes.
 module XfOOrth
-  #* modes.rb - The control of the various compiler modes.
+  #* compiler/modes/nested.rb - The control of the nested compiler modes.
   class VirtualMachine
 
     #Enter a nested context without altering the current mode.
