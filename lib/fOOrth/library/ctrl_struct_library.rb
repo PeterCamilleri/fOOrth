@@ -53,17 +53,17 @@ module XfOOrth
     suspend_execute_mode("vm.vm_do(#{jvar}) {|iloop, jloop| ", :do)
     context[:jloop] = 'iloop'
 
-    context.create_local_method('i', LocalSpec, [:immediate],
-      &lambda {|vm| vm <<  'vm.push(iloop[0]); ' })
+    context.create_local_method('i', MacroSpec,
+      [:macro, 'vm.push(iloop[0]); '])
 
-    context.create_local_method('j', LocalSpec, [:immediate],
-      &lambda {|vm| vm << 'vm.push(jloop[0]); ' })
+    context.create_local_method('j', MacroSpec,
+      [:macro, 'vm.push(jloop[0]); '])
 
-    context.create_local_method('-i', LocalSpec, [:immediate],
-      &lambda {|vm| vm << 'vm.push(iloop[2] - iloop[0]); ' })
+    context.create_local_method('-i', MacroSpec,
+      [:macro, 'vm.push(iloop[2] - iloop[0]); '])
 
-    context.create_local_method('-j', LocalSpec, [:immediate],
-      &lambda {|vm| vm << 'vm.push(jloop[2] - jloop[0]); ' })
+    context.create_local_method('-j', MacroSpec,
+      [:macro, 'vm.push(jloop[2] - jloop[0]); '])
 
     context.create_local_method('loop', LocalSpec, [:immediate],
       &lambda {|vm| resume_execute_mode('iloop[0] += 1}; ', [:do]) })

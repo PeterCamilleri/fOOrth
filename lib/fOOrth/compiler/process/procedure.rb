@@ -18,46 +18,44 @@ module XfOOrth
 
     #Extract a procedure literal from the source code.
     def get_procedure
-      buffer = open_proc_literal
+      save = @buffer
+      @buffer = buffer = open_proc_literal
 
-      while (token = get_token)
+      begin
+        unless (token = get_token)
+          error "F12: Error, Invalid control/structure nesting."
+        end
+
         dbg_puts token.to_s
         code = token.code
 
         if (token.has_tag?(:immediate)) && (!@force)
           @context.recvr.instance_exec(self, &eval("lambda {|vm| #{code} }"))
         else
-          @buffer << code
+          buffer << code
           @force = false
         end
 
-      end
+      end until token.has_tag?(:end)
 
-      buffer << close_proc_literal
+      @buffer = save
+      close_proc_literal
+      buffer
     end
 
-
-
-    def open_proc_literal(token)
+    #Handle the opening of a procedure literal.
+    def open_proc_literal
       suspend_execute_mode("", :procedure)
-      
-      context.create_local_method('v', [:macro],
-        &lambda {|vm| vm << "vm.push(vloop); "} )
-
-      context.create_local_method('x', [:immediate],
-        &lambda {|vm| vm << "vm.push(xloop); "} )
-
-      context.create_local_method('}', [:immediate],
-        &lambda {|vm| vm.resume_execute_mode('}; ', [:each_block]) })
-      
-      'vm.push(lambda {|vm, vloop=nil, xloop=nil| '
+      context.create_local_method('v', MacroSpec, [:macro, "vm.push(vloop); "])
+      context.create_local_method('x', MacroSpec, [:macro, "vm.push(xloop); "])
+      context.create_local_method('}', MacroSpec, [:macro, :end, '}); '])
+      dbg_puts code = 'vm.push(lambda {|vm, vloop=nil, xloop=nil| '
+      code
     end
 
-
-
-    def close_proc_literal(token)
+    #Handle the closing of a procedure literal.
+    def close_proc_literal
       resume_execute_mode("", [:procedure])
-      '}); '
     end
 
   end
