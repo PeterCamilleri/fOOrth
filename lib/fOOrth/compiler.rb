@@ -1,8 +1,6 @@
 # coding: utf-8
 
-require_relative 'compiler/console'
-require_relative 'compiler/string_source'
-require_relative 'compiler/file_source'
+require_relative 'compiler/source'
 require_relative 'compiler/parser'
 require_relative 'compiler/token'
 require_relative 'compiler/modes'
