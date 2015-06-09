@@ -52,7 +52,7 @@ module XfOOrth
       current = self[symbol]
 
       unless expect.include?(current)
-        error "F10: Invalid value for #{symbol}: #{current.inspect} not #{expect}"
+        error "F10: Found a #{current.inspect}, excpected #{expect}"
       end
 
       true
@@ -76,7 +76,7 @@ module XfOOrth
 
     #Get the currently define method receiver
     def recvr
-      self[:obj] || self[:cls] || self[:vm] || error("Undefined receiver.")
+      self[:obj] || self[:cls] || self[:vm] || error("F90: No message receiver.")
     end
 
     #Create a local method on this context.
