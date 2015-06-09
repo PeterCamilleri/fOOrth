@@ -1,6 +1,6 @@
 # coding: utf-8
 
-require_relative 'read_point'
+require_relative 'source/read_point'
 
 #* compiler/source.rb - The abstract source class shared by many code sources.
 module XfOOrth
@@ -45,3 +45,7 @@ module XfOOrth
     end
   end
 end
+
+require_relative 'source/string_source'
+require_relative 'source/file_source'
+require_relative 'source/console'

@@ -1,4 +1,4 @@
-require_relative 'source'
+# coding: utf-8
 
 #* compiler/file_source.rb - Uses a file as a source of fOOrth source code.
 module XfOOrth

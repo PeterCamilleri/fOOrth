@@ -8,7 +8,7 @@ module XfOOrth
   #The classic colon definition that creates a word in the Virtual Machine class.
   # [] : <name> <stuff omitted> ; []; creates <name> on the VirtualMachine
   VirtualMachine.create_shared_method(':', VmSpec, [:immediate],  &lambda {|vm|
-    if query_compile_mode
+    if execute_mode
       target = VirtualMachine
       name   = vm.parser.get_word()
       type   = VmSpec
@@ -31,7 +31,7 @@ module XfOOrth
   #Virtual Machine class.
   # [] !: <name> <stuff omitted> ; []; creates <name> on the VirtualMachine
   VirtualMachine.create_shared_method('!:', VmSpec, [:immediate],  &lambda {|vm|
-    if query_compile_mode
+    if execute_mode
       target = VirtualMachine
       name   = vm.parser.get_word()
       type   = VmSpec
@@ -53,7 +53,7 @@ module XfOOrth
 
   # [a_class] .: <name> <stuff omitted> ; []; creates <name> on a_class
   VirtualMachine.create_shared_method('.:', VmSpec, [:immediate],  &lambda {|vm|
-    if query_compile_mode
+    if execute_mode
       target = vm.pop
       error "F13: The target of .: must be a class" unless target.is_a?(Class)
 
@@ -78,7 +78,7 @@ module XfOOrth
 
   # [an_object] .:: <name> <stuff omitted> ; []; creates <name> on an_object
   VirtualMachine.create_shared_method('.::', VmSpec, [:immediate],  &lambda {|vm|
-    if query_compile_mode
+    if execute_mode
       target = vm.pop
       name   = vm.parser.get_word()
       type   = XfOOrth.name_to_type(name)
