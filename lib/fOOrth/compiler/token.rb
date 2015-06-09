@@ -19,6 +19,7 @@ module XfOOrth
     def add(text, tags=nil)
       @code << text
       @tags.concat(tags).uniq! if tags
+      self
     end
 
     #Does this token have the specified tag?
