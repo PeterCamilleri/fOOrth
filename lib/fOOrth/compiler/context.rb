@@ -1,6 +1,8 @@
 # coding: utf-8
 
 require_relative 'context/map_name'
+require_relative 'context/tags'
+require_relative 'context/locals'
 
 #* compiler/context.rb - The compile progress context manager of the fOOrth
 #  language system.
@@ -22,44 +24,6 @@ module XfOOrth
       @previous, @data = previous, data
     end
 
-    #Retrieve the data value currently in effect.
-    def [](index)
-      @data[index] || (previous && previous[index])
-    end
-
-    #Set a data value.
-    def []=(index,value)
-      @data[index] = value
-    end
-
-    #Get the compile tags in effect.
-    def tags
-      @data[:tags] || []
-    end
-
-    #Merge in a hash of tag data.
-    def merge(new_data)
-      @data.merge!(new_data)
-    end
-
-    #Validate a current data value.
-    #<br>Parameters:
-    #* symbol - The symbol of the value to be tested.
-    #* expect - An array of valid values.
-    #<br>Note:
-    #* Throws a XfOOrthError if the value is not valid.
-    #* To check for no value, use [nil] for expect.
-    #* Returns true to facilitate testing only.
-    def check_set(symbol, expect)
-      current = self[symbol]
-
-      unless expect.include?(current)
-        error "F10: Found a #{current.inspect}, excpected #{expect}"
-      end
-
-      true
-    end
-
     #How many levels of nested context are there?
     def depth
       1 + (previous ? previous.depth : 0)
@@ -79,29 +43,6 @@ module XfOOrth
     #Get the currently define method receiver
     def recvr
       self[:obj] || self[:cls] || self[:vm] || error("F90: No message receiver.")
-    end
-
-    #Create a local method on this context.
-    #<br>Parameters:
-    #* The name of the method to create.
-    #* An array of options.
-    #* A block to associate with the name.
-    #<br>Returns
-    #* The spec created for the shared method.
-    def create_local_method(name, options, &block)
-      sym = SymbolMap.add_entry(name)
-      self[sym] = LocalSpec.new(name, sym, options, &block)
-    end
-
-    #Remove a local method on this context.
-    #<br>Parameters:
-    #* The name of the method to remove.
-    def remove_local_method(name)
-      if (sym = SymbolMap.map(name))
-        @data.delete(sym)
-      else
-        error "F90: Unable to remove local method #{name}"
-      end
     end
 
   end
