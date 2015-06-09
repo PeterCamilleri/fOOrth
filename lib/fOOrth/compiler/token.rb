@@ -15,19 +15,10 @@ module XfOOrth
       @tags = []
     end
 
-    #Append some text to the code_fragment.
-    def <<(text)
+    #Append some text/tags to the code_fragment.
+    def add(text, tags=nil)
       @code << text
-    end
-
-    #Add a tag to this token.
-    def add_tag(value)
-      (@tags << value).uniq!
-    end
-
-    #Add an array of tags
-    def add_tags(values)
-      @tags.concat(values).uniq!
+      @tags.concat(tags).uniq! if tags
     end
 
     #Does this token have the specified tag?

@@ -49,7 +49,7 @@ module XfOOrth
     #* token - The token to receive the generated code.
     #* word  - The text of the word.
     def string_parms(token, word)
-      token << "vm.push(#{parser.get_string.foorth_embed}); " if word[-1] == '"'
+      token.add("vm.push(#{parser.get_string.foorth_embed}); ") if word[-1] == '"'
     end
 
     #Finally generate some code!
@@ -58,11 +58,9 @@ module XfOOrth
     #* word  - The text of the word.
     def generate_code(token, word)
       if (spec = @context.map(word))
-        token << spec.builds
-        token.add_tags(spec.tags)
+        token.add(spec.builds, spec.tags)
       elsif (value = word.to_foorth_n)
-        token << "vm.push(#{value.foorth_embed}); "
-        token.add_tags([:numeric])
+        token.add("vm.push(#{value.foorth_embed}); ", [:numeric])
       else
         error "F10: ?#{word}?"
       end
