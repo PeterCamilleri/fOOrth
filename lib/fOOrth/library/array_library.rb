@@ -27,7 +27,7 @@ module XfOOrth
   VirtualMachine.create_shared_method('[', VmSpec, [:immediate], &lambda { |vm|
     vm.nest_mode('vm.squash; ', :array_literal)
 
-    vm.context.create_local_method(']', [:immediate],
+    vm.context.create_local_method(']', LocalSpec, [:immediate],
       &lambda {|vm| vm.unnest_mode('vm.unsquash; ', [:array_literal]) })
   })
 

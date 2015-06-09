@@ -11,7 +11,7 @@ module XfOOrth
     &lambda {|vm|
       suspend_execute_mode('vm.push(lambda {|vm| ', :lambda)
 
-      context.create_local_method('}}', [:immediate],
+      context.create_local_method('}}', LocalSpec, [:immediate],
         &lambda {|vm| resume_execute_mode('}); ', [:lambda]) })
     })
 

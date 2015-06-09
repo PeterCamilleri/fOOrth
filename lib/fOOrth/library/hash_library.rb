@@ -13,10 +13,10 @@ module XfOOrth
   VirtualMachine.create_shared_method('{', VmSpec, [:immediate], &lambda { |vm|
     vm.nest_mode('vm.push(Hash.new); ', :hash_literal)
 
-    vm.context.create_local_method('->', [:immediate],
+    vm.context.create_local_method('->', LocalSpec, [:immediate],
       &lambda {|vm| vm.process_text('vm.add_to_hash; ') })
 
-    vm.context.create_local_method('}', [:immediate],
+    vm.context.create_local_method('}', LocalSpec, [:immediate],
       &lambda {|vm| vm.unnest_mode('', [:hash_literal]) })
   })
 

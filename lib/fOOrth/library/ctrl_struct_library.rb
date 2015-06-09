@@ -7,12 +7,12 @@ module XfOOrth
   VirtualMachine.create_shared_method('if', VmSpec, [:immediate], &lambda {|vm|
     suspend_execute_mode('if vm.pop? then ', :if)
 
-    context.create_local_method('else', [:immediate], &lambda {|vm|
+    context.create_local_method('else', LocalSpec, [:immediate], &lambda {|vm|
       check_deferred_mode('else ', [:if])
       vm.context.remove_local_method('else')
     })
 
-    context.create_local_method('then', [:immediate],
+    context.create_local_method('then', LocalSpec, [:immediate],
       &lambda {|vm| resume_execute_mode('end; ', [:if]) })
   })
 
@@ -20,13 +20,13 @@ module XfOOrth
   VirtualMachine.create_shared_method('switch', VmSpec, [:immediate], &lambda {|vm|
     suspend_execute_mode('loop do; ', :switch)
 
-    context.create_local_method('break', [:immediate],
+    context.create_local_method('break', LocalSpec, [:immediate],
       &lambda {|vm| vm << 'break; ' })
 
-    context.create_local_method('?break', [:immediate],
+    context.create_local_method('?break', LocalSpec, [:immediate],
       &lambda {|vm| vm << 'break if vm.pop?; ' })
 
-    context.create_local_method('end', [:immediate],
+    context.create_local_method('end', LocalSpec, [:immediate],
       &lambda {|vm| resume_execute_mode('break; end; ', [:switch]) })
   })
 
@@ -34,16 +34,16 @@ module XfOOrth
   VirtualMachine.create_shared_method('begin', VmSpec, [:immediate], &lambda {|vm|
     suspend_execute_mode('begin ', :begin)
 
-    context.create_local_method('while', [:immediate],
+    context.create_local_method('while', LocalSpec, [:immediate],
       &lambda {|vm| check_deferred_mode('break unless vm.pop?; ', [:begin]) })
 
-    context.create_local_method('until', [:immediate],
+    context.create_local_method('until', LocalSpec, [:immediate],
       &lambda {|vm| resume_execute_mode('end until vm.pop?; ', [:begin]) })
 
-    context.create_local_method('again', [:immediate],
+    context.create_local_method('again', LocalSpec, [:immediate],
       &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
 
-    context.create_local_method('repeat', [:immediate],
+    context.create_local_method('repeat', LocalSpec, [:immediate],
       &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
   })
 
@@ -53,22 +53,22 @@ module XfOOrth
     suspend_execute_mode("vm.vm_do(#{jvar}) {|iloop, jloop| ", :do)
     context[:jloop] = 'iloop'
 
-    context.create_local_method('i', [:immediate],
+    context.create_local_method('i', LocalSpec, [:immediate],
       &lambda {|vm| vm <<  'vm.push(iloop[0]); ' })
 
-    context.create_local_method('j', [:immediate],
+    context.create_local_method('j', LocalSpec, [:immediate],
       &lambda {|vm| vm << 'vm.push(jloop[0]); ' })
 
-    context.create_local_method('-i', [:immediate],
+    context.create_local_method('-i', LocalSpec, [:immediate],
       &lambda {|vm| vm << 'vm.push(iloop[2] - iloop[0]); ' })
 
-    context.create_local_method('-j', [:immediate],
+    context.create_local_method('-j', LocalSpec, [:immediate],
       &lambda {|vm| vm << 'vm.push(jloop[2] - jloop[0]); ' })
 
-    context.create_local_method('loop', [:immediate],
+    context.create_local_method('loop', LocalSpec, [:immediate],
       &lambda {|vm| resume_execute_mode('iloop[0] += 1}; ', [:do]) })
 
-    context.create_local_method('+loop', [:immediate],
+    context.create_local_method('+loop', LocalSpec, [:immediate],
       &lambda {|vm| resume_execute_mode('iloop[0] += vm.vm_do_increment}; ', [:do]) })
   })
 
@@ -79,26 +79,26 @@ module XfOOrth
     SymbolMap.add_entry('error') #Make sure an entry for 'error' exists.
     SymbolMap.add_entry('?"')    #Make sure an entry for '?"' exists.
 
-    context.create_local_method('catch', [:immediate], &lambda {|vm|
+    context.create_local_method('catch', LocalSpec, [:immediate], &lambda {|vm|
       check_deferred_mode('rescue StandardError, SignalException => error; ', [:try_block])
 
-      vm.context.create_local_method('?"', [:immediate], &lambda {|vm|
+      vm.context.create_local_method('?"', LocalSpec, [:immediate], &lambda {|vm|
         str = vm.pop
         vm << "vm.push(error.foorth_match(#{str.foorth_embed})); "
       })
 
-      vm.context.create_local_method('error', [:immediate], &lambda {|vm|
+      vm.context.create_local_method('error', LocalSpec, [:immediate], &lambda {|vm|
         vm << 'vm.push(error.foorth_message); '
       })
 
-      vm.context.create_local_method('bounce', [:immediate], &lambda {|vm|
+      vm.context.create_local_method('bounce', LocalSpec, [:immediate], &lambda {|vm|
         vm << 'raise; '
       })
 
       vm.context.remove_local_method('catch')
     })
 
-    context.create_local_method('finally', [:immediate], &lambda {|vm|
+    context.create_local_method('finally', LocalSpec, [:immediate], &lambda {|vm|
       check_deferred_mode('ensure; ', [:try_block])
 
       vm.context.remove_local_method('catch')
@@ -108,7 +108,7 @@ module XfOOrth
       vm.context.remove_local_method('bounce')
     })
 
-    vm.context.create_local_method('end', [:immediate], &lambda {|vm|
+    vm.context.create_local_method('end', LocalSpec, [:immediate], &lambda {|vm|
       vm.resume_execute_mode('end; ', [:try_block])
     })
   })
@@ -120,10 +120,10 @@ module XfOOrth
   VirtualMachine.create_shared_method('.new{', VmSpec, [:immediate], &lambda { |vm|
     vm.suspend_execute_mode('vm.push(vm.pop.do_foorth_new_block(vm) {|vm, xloop| ', :new_block)
 
-    vm.context.create_local_method('x', [:immediate],
+    vm.context.create_local_method('x', LocalSpec, [:immediate],
       &lambda {|vm| vm << "vm.push(xloop); "} )
 
-    vm.context.create_local_method('}', [:immediate],
+    vm.context.create_local_method('}', LocalSpec, [:immediate],
       &lambda {|vm| vm.resume_execute_mode('vm.data_stack.pop}); ', [:new_block]) })
   })
 
@@ -131,13 +131,13 @@ module XfOOrth
   VirtualMachine.create_shared_method('.each{', VmSpec, [:immediate], &lambda { |vm|
     suspend_execute_mode('vm.pop.do_foorth_each{|vloop, xloop| ', :each_block)
 
-    context.create_local_method('v', [:immediate],
+    context.create_local_method('v', LocalSpec, [:immediate],
       &lambda {|vm| vm << "vm.push(vloop); "} )
 
-    context.create_local_method('x', [:immediate],
+    context.create_local_method('x', LocalSpec, [:immediate],
       &lambda {|vm| vm << "vm.push(xloop); "} )
 
-    context.create_local_method('}', [:immediate],
+    context.create_local_method('}', LocalSpec, [:immediate],
       &lambda {|vm| vm.resume_execute_mode('}; ', [:each_block]) })
   })
 
@@ -145,13 +145,13 @@ module XfOOrth
   VirtualMachine.create_shared_method('.map{', VmSpec, [:immediate], &lambda { |vm|
     suspend_execute_mode('vm.push(vm.pop.do_foorth_map{|vloop, xloop| ', :map_block)
 
-    context.create_local_method('v', [:immediate],
+    context.create_local_method('v', LocalSpec, [:immediate],
       &lambda {|vm| vm << "vm.push(vloop); "} )
 
-    context.create_local_method('x', [:immediate],
+    context.create_local_method('x', LocalSpec, [:immediate],
       &lambda {|vm| vm << "vm.push(xloop); "} )
 
-    context.create_local_method('}', [:immediate],
+    context.create_local_method('}', LocalSpec, [:immediate],
       &lambda {|vm| vm.resume_execute_mode('vm.pop}); ', [:map_block]) })
   })
 
@@ -159,13 +159,13 @@ module XfOOrth
   VirtualMachine.create_shared_method('.select{', VmSpec, [:immediate], &lambda {|vm|
     suspend_execute_mode('vm.push(vm.pop.do_foorth_select{|vloop, xloop| ', :select_block)
 
-    context.create_local_method('v', [:immediate],
+    context.create_local_method('v', LocalSpec, [:immediate],
       &lambda {|vm| vm << "vm.push(vloop); "} )
 
-    context.create_local_method('x', [:immediate],
+    context.create_local_method('x', LocalSpec, [:immediate],
       &lambda {|vm| vm << "vm.push(xloop); "} )
 
-    context.create_local_method('}', [:immediate],
+    context.create_local_method('}', LocalSpec, [:immediate],
       &lambda {|vm| vm.resume_execute_mode('vm.pop}); ', [:select_block]) })
   })
 
@@ -180,7 +180,7 @@ module XfOOrth
       context[:cls] = Object
     end
 
-    context.create_local_method('}', [:immediate],
+    context.create_local_method('}', LocalSpec, [:immediate],
       &lambda {|vm| vm.resume_execute_mode('}); ', [:with_block]) })
   })
 
@@ -189,7 +189,7 @@ module XfOOrth
 
     suspend_execute_mode('vm.pop.do_foorth_open_block(vm){ ', :open_block)
 
-    context.create_local_method('}', [:immediate],
+    context.create_local_method('}', LocalSpec, [:immediate],
       &lambda {|vm| vm.resume_execute_mode('}; ', [:open_block]) })
   })
 
@@ -198,7 +198,7 @@ module XfOOrth
 
     suspend_execute_mode('vm.pop.do_foorth_create_block(vm){ ', :create_block)
 
-    context.create_local_method('}', [:immediate],
+    context.create_local_method('}', LocalSpec, [:immediate],
       &lambda {|vm| vm.resume_execute_mode('}; ', [:create_block]) })
   })
 
@@ -207,7 +207,7 @@ module XfOOrth
 
     suspend_execute_mode('vm.pop.do_foorth_append_block(vm){ ', :append_block)
 
-    context.create_local_method('}', [:immediate],
+    context.create_local_method('}', LocalSpec, [:immediate],
       &lambda {|vm| vm.resume_execute_mode('}; ', [:append_block]) })
   })
 
