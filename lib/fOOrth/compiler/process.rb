@@ -1,5 +1,9 @@
 # coding: utf-8
 
+require_relative 'process/get_token'
+require_relative 'process/string'
+require_relative 'process/generate'
+
 #* compiler/process.rb - Process source code from a code source.
 module XfOOrth
 
@@ -31,39 +35,5 @@ module XfOOrth
       end
     end
 
-    #Get the next token structure from the source code or nil if none
-    #can be found.
-    #<br>Returns
-    #* A Token structure or nil.
-    def get_token
-      return nil unless (word = parser.get_word)
-
-      token = Token.new
-      string_parms(token, word)
-      generate_code(token, word)
-      token
-    end
-
-    #Process optional string parameters.
-    #<br>Parameters:
-    #* token - The token to receive the generated code.
-    #* word  - The text of the word.
-    def string_parms(token, word)
-      token.add("vm.push(#{parser.get_string.foorth_embed}); ") if word[-1] == '"'
-    end
-
-    #Finally generate some code!
-    #<br>Parameters:
-    #* token - The token to receive the generated code.
-    #* word  - The text of the word.
-    def generate_code(token, word)
-      if (spec = @context.map(word))
-        token.add(spec.builds, spec.tags)
-      elsif (value = word.to_foorth_n)
-        token.add("vm.push(#{value.foorth_embed}); ", [:numeric])
-      else
-        error "F10: ?#{word}?"
-      end
-    end
   end
 end
