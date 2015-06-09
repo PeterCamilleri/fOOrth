@@ -1,7 +1,5 @@
 # coding: utf-8
 
-require_relative 'source'
-
 #* compiler/string_source.rb - Uses a string as a source of fOOrth source code.
 module XfOOrth
 
@@ -17,7 +15,7 @@ module XfOOrth
       @read_step   = @string_list.each
       super()
     end
-    
+
     #What is the source of this text?
     def source_name
       "A string."

@@ -74,21 +74,8 @@ class Thread
   #* block = The block of code to be executed in the new thread.
   #<br>Returns
   #* The newly created Thread instance.
-  #<br>Endemic code smells
-  #* :reek:TooManyStatements
   def self.do_foorth_new_block(vm, &block)
-    interlock = Queue.new
-
-    result = Thread.new(vm.foorth_copy(vm.pop.to_s)) do |vm|
-      vm.compiler_reset
-      vm.connect_vm_to_thread
-      self.foorth_init(vm)
-      interlock.push(:ready)
-      vm.instance_exec(vm, nil, &block)
-    end
-
-    interlock.pop
-    result
+    block.do_thread_start(vm, vm.pop.to_s)
   end
 
 end

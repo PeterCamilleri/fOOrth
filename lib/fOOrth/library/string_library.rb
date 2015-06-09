@@ -209,10 +209,6 @@ module XfOOrth
   String.create_shared_method('.split', TosSpec, [],
     &lambda {|vm| vm.push(self.split(' ')) })
 
-  # [string] .eval [undefined]; evaluate the string as source code.
-  String.create_shared_method('.eval', TosSpec, [],
-    &lambda {|vm| vm.process_string(self) })
-
   # [file_name_string] .load [undefined]; load the file as source code.
   String.create_shared_method('.load', TosSpec, [], &lambda {|vm|
     if File.extname(self) == '' && !self.end_with?('.')
@@ -246,6 +242,11 @@ module XfOOrth
   # [] throw"Error message" []; Raises an exception.
   VirtualMachine.create_shared_method('throw"', VmSpec, [], &lambda {|vm|
     raise XfOOrth::XfOOrthError, vm.pop.to_s, caller
+  })
+
+  # [a_string] .shell []
+  String.create_shared_method('.shell', TosSpec, [], &lambda {|vm|
+    system(self)
   })
 
 end

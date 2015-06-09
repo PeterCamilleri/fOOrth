@@ -34,7 +34,7 @@ class ThreadLibraryTester < Minitest::Test
 
   def test_creating_a_thread
     foorth_equal('0 var$: $tcat1', [])
-    foorth_equal('"Test" Thread .new{ 1 $tcat1 ! } drop 0.01 .sleep $tcat1 @', [1])
+    foorth_equal('"Test" Thread .new{ 1 $tcat1 ! } .join $tcat1 @', [1])
   end
 
   def test_joining_a_thread
@@ -52,5 +52,8 @@ class ThreadLibraryTester < Minitest::Test
     foorth_equal('{{ 0.01 .sleep }} .start .status', ['sleep'])
   end
 
+  def test_named_threads
+    foorth_equal('"Fred" {{ }} .start_named dup .join .vm .vm_name',["Fred"])
+  end
 
 end
