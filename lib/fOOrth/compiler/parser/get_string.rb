@@ -16,9 +16,7 @@ module XfOOrth
 
         if next_char == "\\"
           result << process_backslash
-        elsif next_char == '"'
-          vm.quotes, done = 0, true
-        elsif @source.eoln?
+        elsif next_char == '"' || @source.eoln?
           vm.quotes, done = 0, true
         elsif next_char >= ' '
           result << next_char
@@ -49,19 +47,14 @@ module XfOOrth
 
     #Process an 8 bit hex character constant.
     def process_8_bit
-      hex = process_hex_character +
-            process_hex_character
-
+      hex = process_hex_character + process_hex_character
       eval("\"\\x#{hex}\"")
     end
 
     #Process a 16 bit hex character constant.
     def process_16_bit
-      hex = process_hex_character +
-            process_hex_character +
-            process_hex_character +
-            process_hex_character
-
+      hex = process_hex_character + process_hex_character +
+            process_hex_character + process_hex_character
       eval("\"\\u#{hex}\"")
     end
 
@@ -75,7 +68,5 @@ module XfOOrth
 
       next_char
     end
-
   end
-
 end
