@@ -22,7 +22,7 @@ module XfOOrth
         dbg_puts token.to_s
         code = token.code
 
-        if (@context[:mode] == :execute) || ((token.has_tag?(:immediate)) && (!@force))
+        if execute_mode || ((token.has_tag?(:immediate)) && (!@force))
           @context.recvr.instance_exec(self, &eval("lambda {|vm| #{code} }"))
         else
           @buffer << code
