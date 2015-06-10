@@ -71,7 +71,7 @@ class CtrlStructLibraryTester < Minitest::Test
   end
 
   def test_for_unsupported_structures
-    foorth_raises('4 .new{   }' )
+    foorth_raises('4 .new{{  }}')
     foorth_raises('4 .each{{  }}')
     foorth_raises('4 .map{   }')
     foorth_raises('4 .select{   }')

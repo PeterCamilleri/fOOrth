@@ -23,6 +23,14 @@ module XfOOrth
     vm.poke(self.new(count, vm.peek))
   })
 
+  # [n] Array .new{{  }} [[v,v,...v]]; create an array of a n computed values.
+  Array.create_exclusive_method('.new{{', NosSpec, [], &lambda {|vm|
+    block = vm.pop
+    count = Integer.foorth_coerce(vm.pop)
+
+    vm.push(Array.new(count) { |idx| block.call(vm, nil, idx); vm.pop})
+  })
+
   # [] [ v1 v2 ... vn ] [[v1,v2,...vn]]; an array literal value
   VirtualMachine.create_shared_method('[', VmSpec, [:immediate], &lambda { |vm|
     vm.nest_mode('vm.squash; ', :array_literal)
@@ -253,13 +261,6 @@ end
 
 #* Runtime library support for fOOrth constructs.
 class Array
-
-  # Runtime support for the .new{ } construct.
-  def self.do_foorth_new_block(vm, &block)
-    Array.new(vm.pop()) do |xloop|
-      block.call(vm, xloop)
-    end
-  end
 
   # Runtime support for the .map{ } construct.
   def do_foorth_map(&block)

@@ -113,20 +113,6 @@ module XfOOrth
     })
   })
 
-  #The object oriented .new{  } construct.
-  #Note: Since this method is used to launch threads, the vm must be passed
-  #explicitly to the lambda block. Otherwise, the new thread will use the
-  #wrong vm instance. In other cases, this is harmless.
-  VirtualMachine.create_shared_method('.new{', VmSpec, [:immediate], &lambda { |vm|
-    vm.suspend_execute_mode('vm.push(vm.pop.do_foorth_new_block(vm) {|vm, xloop| ', :new_block)
-
-    vm.context.create_local_method('x', LocalSpec, [:immediate],
-      &lambda {|vm| vm << "vm.push(xloop); "} )
-
-    vm.context.create_local_method('}', LocalSpec, [:immediate],
-      &lambda {|vm| vm.resume_execute_mode('vm.data_stack.pop}); ', [:new_block]) })
-  })
-
   #The object oriented .map{  } construct.
   VirtualMachine.create_shared_method('.map{', VmSpec, [:immediate], &lambda { |vm|
     suspend_execute_mode('vm.push(vm.pop.do_foorth_map{|vloop, xloop| ', :map_block)
