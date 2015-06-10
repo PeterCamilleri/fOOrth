@@ -55,6 +55,7 @@ module XfOOrth
   Object.create_shared_method('.select{{', NosSpec, [:stub])
   Object.create_shared_method('.open{{',   NosSpec, [:stub])
   Object.create_shared_method('.create{{', NosSpec, [:stub])
+  Object.create_shared_method('.append{{', NosSpec, [:stub])
 
   #Define some "crossover" symbols.
  #SymbolMap.add_entry('.init',          :foorth_new) -- aliased in core.rb
@@ -73,11 +74,6 @@ class Object
   # Runtime stub for the .create{ } construct.
   def do_foorth_create_block(_vm, &block)
     error "F12: A #{self.foorth_name} does not support .create{ ... }."
-  end
-
-  # Runtime stub for the .append{ } construct.
-  def do_foorth_append_block(_vm, &block)
-    error "F12: A #{self.foorth_name} does not support .append{ ... }."
   end
 
   # Runtime stub for >

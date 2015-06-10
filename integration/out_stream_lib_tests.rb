@@ -131,7 +131,7 @@ class OutStreamLibraryTester < Minitest::Test
     foorth_equal($osfn + 'OutStream .create  65 over .emit .close')
     assert_equal(["A"], IO.readlines($osfn[1...-2]))
 
-    foorth_equal($osfn + 'OutStream .append{ 66 ~emit } ')
+    foorth_equal($osfn + 'OutStream .append{{ 66 ~emit }} ')
     assert_equal(["AB"], IO.readlines($osfn[1...-2]))
 
     do_cleanup
