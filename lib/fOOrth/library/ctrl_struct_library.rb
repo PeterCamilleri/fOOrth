@@ -113,19 +113,4 @@ module XfOOrth
     })
   })
 
-  #The object oriented .with{  } construct.
-  VirtualMachine.create_shared_method('.with{', VmSpec, [:immediate], &lambda {|vm|
-    old_mode = context[:mode]
-    suspend_execute_mode('vm.pop.instance_exec(&lambda {', :with_block)
-
-    if old_mode == :execute
-      context[:obj] = vm.peek
-    else
-      context[:cls] = Object
-    end
-
-    context.create_local_method('}', LocalSpec, [:immediate],
-      &lambda {|vm| vm.resume_execute_mode('}); ', [:with_block]) })
-  })
-
 end

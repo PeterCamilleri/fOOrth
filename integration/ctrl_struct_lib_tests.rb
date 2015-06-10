@@ -64,9 +64,9 @@ class CtrlStructLibraryTester < Minitest::Test
   end
 
   def test_with_constructs
-    foorth_equal('4 .with{ self 2* }', [8])
+    foorth_equal('4 .with{{ self 2* }}', [8])
 
-    foorth_run(': twc01 4 .with{ self 2* } ;')
+    foorth_run(': twc01 4 .with{{ self 2* }} ;')
     foorth_equal('twc01', [8])
   end
 
