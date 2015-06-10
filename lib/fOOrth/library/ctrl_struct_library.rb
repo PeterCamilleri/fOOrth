@@ -127,20 +127,6 @@ module XfOOrth
       &lambda {|vm| vm.resume_execute_mode('vm.data_stack.pop}); ', [:new_block]) })
   })
 
-  #The object oriented .each{  } construct.
-  VirtualMachine.create_shared_method('.each{', VmSpec, [:immediate], &lambda { |vm|
-    suspend_execute_mode('vm.pop.do_foorth_each{|vloop, xloop| ', :each_block)
-
-    context.create_local_method('v', LocalSpec, [:immediate],
-      &lambda {|vm| vm << "vm.push(vloop); "} )
-
-    context.create_local_method('x', LocalSpec, [:immediate],
-      &lambda {|vm| vm << "vm.push(xloop); "} )
-
-    context.create_local_method('}', LocalSpec, [:immediate],
-      &lambda {|vm| vm.resume_execute_mode('}; ', [:each_block]) })
-  })
-
   #The object oriented .map{  } construct.
   VirtualMachine.create_shared_method('.map{', VmSpec, [:immediate], &lambda { |vm|
     suspend_execute_mode('vm.push(vm.pop.do_foorth_map{|vloop, xloop| ', :map_block)

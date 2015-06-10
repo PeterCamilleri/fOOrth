@@ -31,6 +31,12 @@ module XfOOrth
       &lambda {|vm| vm.unnest_mode('vm.unsquash; ', [:array_literal]) })
   })
 
+  # [array] .each{  } [unspecified]
+  Array.create_shared_method('.each{', NosSpec, [], &lambda { |vm|
+    block = vm.pop
+    self.each_with_index { |val, idx| block.call(vm, val, idx) }
+  })
+
   # Some basic data access words.
   # [a] @ [a[0]]
   Array.create_shared_method('@', TosSpec, [], &lambda { |vm|
@@ -253,11 +259,6 @@ class Array
     Array.new(vm.pop()) do |xloop|
       block.call(vm, xloop)
     end
-  end
-
-  # Runtime support for the .each{ } construct.
-  def do_foorth_each(&block)
-    self.each_with_index(&block)
   end
 
   # Runtime support for the .map{ } construct.

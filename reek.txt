@@ -1,3 +1,2 @@
-lib/fOOrth/compiler/process/procedure.rb -- 1 warning:
-  [20]:XfOOrth::VirtualMachine#get_procedure has approx 11 statements (TooManyStatements)
-1 total warning
+
+0 total warnings
