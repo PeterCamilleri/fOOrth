@@ -23,12 +23,18 @@ module XfOOrth
     vm.poke(self.new(count, vm.peek))
   })
 
-  # [n] Array .new{{  }} [[v,v,...v]]; create an array of a n computed values.
+  # [n] Array .new{{ ... }} [[array]]; create an array of a n computed values.
   Array.create_exclusive_method('.new{{', NosSpec, [], &lambda {|vm|
     block = vm.pop
     count = Integer.foorth_coerce(vm.pop)
 
     vm.push(Array.new(count) { |idx| block.call(vm, nil, idx); vm.pop})
+  })
+
+  # [array] .map{{ ... }} [mapped_array]
+  Array.create_shared_method('.map{{', NosSpec, [], &lambda { |vm|
+    idx, block = 0, vm.pop
+    vm.push(self.map { |val| block.call(vm, val, idx); idx += 1; vm.pop})
   })
 
   # [] [ v1 v2 ... vn ] [[v1,v2,...vn]]; an array literal value
@@ -261,16 +267,6 @@ end
 
 #* Runtime library support for fOOrth constructs.
 class Array
-
-  # Runtime support for the .map{ } construct.
-  def do_foorth_map(&block)
-    index = 0
-    self.map do |value|
-      value = block.call(value, index)
-      index += 1
-      value
-    end
-  end
 
   # Runtime support for the .select{ } construct.
   def do_foorth_select(&block)

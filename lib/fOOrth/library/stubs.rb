@@ -50,6 +50,7 @@ module XfOOrth
 
   Object.create_shared_method('.each{{', NosSpec, [:stub])
   Object.create_shared_method('.new{{',  NosSpec, [:stub])
+  Object.create_shared_method('.map{{',  NosSpec, [:stub])
 
   #Define some "crossover" symbols.
  #SymbolMap.add_entry('.init',          :foorth_new) -- aliased in core.rb
@@ -64,11 +65,6 @@ end
 
 #* Runtime library support stubs.
 class Object
-
-  # Runtime stub for the .map{ } construct.
-  def do_foorth_map(&block)
-    error "F12: A #{self.foorth_name} does not support .map{ ... }."
-  end
 
   # Runtime stub for the .select{ } construct.
   def do_foorth_select(&block)

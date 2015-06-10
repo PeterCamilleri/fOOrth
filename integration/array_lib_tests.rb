@@ -80,7 +80,7 @@ class ArrayLibraryTester < Minitest::Test
   end
 
   def test_the_map
-    foorth_equal('[ 2 3 4 ] .map{ v 1+ }', [[3,4,5]])
+    foorth_equal('[ 2 3 4 ] .map{{ v 1+ }}', [[3,4,5]])
   end
 
   def test_the_select
