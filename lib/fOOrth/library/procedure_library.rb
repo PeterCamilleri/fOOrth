@@ -35,11 +35,11 @@ class Proc
   def do_thread_start(vm, vm_name)
     block, interlock = self, Queue.new
 
-    result = Thread.new(vm.foorth_copy(vm_name)) { |vm_copy|
+    result = Thread.new(vm.foorth_copy(vm_name)) do |vm_copy|
       self.foorth_init(vm_copy.compiler_reset.connect_vm_to_thread)
       interlock.push(:ready)
       vm_copy.instance_exec(vm_copy, &block)
-    }
+    end
 
     interlock.pop
     result

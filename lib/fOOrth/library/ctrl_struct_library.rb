@@ -128,15 +128,6 @@ module XfOOrth
       &lambda {|vm| vm.resume_execute_mode('}); ', [:with_block]) })
   })
 
-  #The object oriented .create{  } construct.
-  VirtualMachine.create_shared_method('.create{', VmSpec, [:immediate], &lambda {|vm|
-
-    suspend_execute_mode('vm.pop.do_foorth_create_block(vm){ ', :create_block)
-
-    context.create_local_method('}', LocalSpec, [:immediate],
-      &lambda {|vm| vm.resume_execute_mode('}; ', [:create_block]) })
-  })
-
   #The object oriented .append{  } construct.
   VirtualMachine.create_shared_method('.append{', VmSpec, [:immediate], &lambda {|vm|
 
