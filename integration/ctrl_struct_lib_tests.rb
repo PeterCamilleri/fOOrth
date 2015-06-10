@@ -74,7 +74,7 @@ class CtrlStructLibraryTester < Minitest::Test
     foorth_raises('4 .new{{  }}')
     foorth_raises('4 .each{{  }}')
     foorth_raises('4 .map{{  }}')
-    foorth_raises('4 .select{   }')
+    foorth_raises('4 .select{{  }}')
   end
 
 end

@@ -84,7 +84,7 @@ class ArrayLibraryTester < Minitest::Test
   end
 
   def test_the_select
-    foorth_equal('[ 0 10 do i loop ] .select{ v 1 and 0= }', [[0,2,4,6,8]])
+    foorth_equal('[ 0 10 do i loop ] .select{{ v 1 and 0= }}', [[0,2,4,6,8]])
   end
 
   def test_simple_array_indexing

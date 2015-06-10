@@ -37,6 +37,12 @@ module XfOOrth
     vm.push(self.map { |val| block.call(vm, val, idx); idx += 1; vm.pop})
   })
 
+  # [array] .select{{ ... }} [selected_array]
+  Array.create_shared_method('.select{{', NosSpec, [], &lambda { |vm|
+    idx, block = 0, vm.pop
+    vm.push(self.select { |val| block.call(vm, val, idx); idx += 1; vm.pop})
+  })
+
   # [] [ v1 v2 ... vn ] [[v1,v2,...vn]]; an array literal value
   VirtualMachine.create_shared_method('[', VmSpec, [:immediate], &lambda { |vm|
     vm.nest_mode('vm.squash; ', :array_literal)
@@ -262,21 +268,5 @@ module XfOOrth
       puts "\n"
     end
   })
-
-end
-
-#* Runtime library support for fOOrth constructs.
-class Array
-
-  # Runtime support for the .select{ } construct.
-  def do_foorth_select(&block)
-    index = 0
-    self.select do |value|
-      value = block.call(value, index)
-      index += 1
-      value
-    end
-  end
-
 
 end

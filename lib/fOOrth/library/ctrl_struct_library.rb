@@ -113,20 +113,6 @@ module XfOOrth
     })
   })
 
-  #The object oriented .select{  } construct.
-  VirtualMachine.create_shared_method('.select{', VmSpec, [:immediate], &lambda {|vm|
-    suspend_execute_mode('vm.push(vm.pop.do_foorth_select{|vloop, xloop| ', :select_block)
-
-    context.create_local_method('v', LocalSpec, [:immediate],
-      &lambda {|vm| vm << "vm.push(vloop); "} )
-
-    context.create_local_method('x', LocalSpec, [:immediate],
-      &lambda {|vm| vm << "vm.push(xloop); "} )
-
-    context.create_local_method('}', LocalSpec, [:immediate],
-      &lambda {|vm| vm.resume_execute_mode('vm.pop}); ', [:select_block]) })
-  })
-
   #The object oriented .with{  } construct.
   VirtualMachine.create_shared_method('.with{', VmSpec, [:immediate], &lambda {|vm|
     old_mode = context[:mode]
