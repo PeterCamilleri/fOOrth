@@ -34,11 +34,11 @@ class InStreamLibraryTester < Minitest::Test
   end
 
   def test_open_block_and_reading_a_character
-    foorth_equal($isfn + 'InStream .open{ ~getc }', ['T'])
+    foorth_equal($isfn + 'InStream .open{{ ~getc }}', ['T'])
   end
 
   def test_open_block_and_reading_a_line
-    foorth_equal($isfn + 'InStream .open{ ~gets }', ['Test 1 2 3'])
+    foorth_equal($isfn + 'InStream .open{{ ~gets }}', ['Test 1 2 3'])
   end
 
   def test_opening_and_reading_all_lines
