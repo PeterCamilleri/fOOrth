@@ -11,7 +11,7 @@ module XfOOrth
     #* token - The token to receive the generated code.
     #* word  - The text of the word.
     def procedure_parms(token, word)
-      if word[-1] == '{'
+      if word.end_with?('{{')
         token.add(get_procedure, [:procedure])
       end
     end
@@ -22,20 +22,20 @@ module XfOOrth
       open_procedure_literal
 
       begin
-        process_procedure_token(token = get_procedure_token)
+        token = get_procedure_token
+        process_procedure_token(token)
       end until token.has_tag?(:end)
 
       close_procedure_literal
-      result, @buffer = @buffer, save
-      result
+      (result, @buffer = @buffer, save)[0]
     end
 
     #Handle the opening of a procedure literal.
     def open_procedure_literal
       suspend_execute_mode("vm.push(lambda {|vm, val=nil, idx=nil| ", :procedure)
-      context.create_local_method('v', MacroSpec, [:macro, "vm.push(val); "])
-      context.create_local_method('x', MacroSpec, [:macro, "vm.push(idx); "])
-      context.create_local_method('}', MacroSpec, [:macro, :end, '}); '])
+      context.create_local_method('v',  MacroSpec, [:macro, "vm.push(val); "])
+      context.create_local_method('x',  MacroSpec, [:macro, "vm.push(idx); "])
+      context.create_local_method('}}', MacroSpec, [:macro, :end,     "}); "])
     end
 
     #Handle the closing of a procedure literal.

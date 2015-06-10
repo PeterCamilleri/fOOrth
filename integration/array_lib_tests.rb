@@ -72,10 +72,10 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('4 Array .new{ x 1 + dup * } val$: $tte ',   [])
     foorth_equal('$tte',                                      [[1,4,9,16]])
 
-    foorth_equal('$tte .each{ x } ',                          [0,1,2,3])
-    foorth_equal('$tte .each{ v } ',                          [1,4,9,16])
+    foorth_equal('$tte .each{{ x }} ',                        [0,1,2,3])
+    foorth_equal('$tte .each{{ v }} ',                        [1,4,9,16])
 
-    foorth_equal(': tte $tte .each{ v } ;',                   [])
+    foorth_equal(': tte $tte .each{{ v }} ;',                 [])
     foorth_equal('tte',                                       [1,4,9,16])
   end
 

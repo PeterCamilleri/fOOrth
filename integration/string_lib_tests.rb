@@ -174,7 +174,7 @@ class StringLibraryTester < Minitest::Test
   end
 
   def test_the_each
-    foorth_equal('"abc" .each{ v x 1+ * } ', ['a', 'bb', 'ccc'])
+    foorth_equal('"abc" .each{{ v x 1+ * }} ', ['a', 'bb', 'ccc'])
   end
 
   def test_calling_a_string

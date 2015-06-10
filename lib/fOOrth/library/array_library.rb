@@ -31,8 +31,8 @@ module XfOOrth
       &lambda {|vm| vm.unnest_mode('vm.unsquash; ', [:array_literal]) })
   })
 
-  # [array] .each{  } [unspecified]
-  Array.create_shared_method('.each{', NosSpec, [], &lambda { |vm|
+  # [array] .each{{ ... }} [unspecified]
+  Array.create_shared_method('.each{{', NosSpec, [], &lambda { |vm|
     block = vm.pop
     self.each_with_index { |val, idx| block.call(vm, val, idx) }
   })
