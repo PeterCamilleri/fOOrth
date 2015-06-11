@@ -71,11 +71,6 @@ end
 #* Runtime library support stubs.
 class Object
 
-  # Runtime stub for the .create{ } construct.
-  def do_foorth_create_block(_vm, &block)
-    error "F12: A #{self.foorth_name} does not support .create{ ... }."
-  end
-
   # Runtime stub for >
   def foorth_gt(_other)
     error "F12: A #{self.foorth_name} does not support >."
