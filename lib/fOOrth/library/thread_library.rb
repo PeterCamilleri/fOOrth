@@ -8,7 +8,7 @@ module XfOOrth
 
   #Class Methods
 
-  # [] Thread .new{{ ... }} [a_thread]
+  # [name Thread]  .new{{ ... }} [a_thread]
   Thread.create_exclusive_method('.new{{', NosSpec, [], &lambda {|vm|
     block = vm.pop
     name  = vm.pop.to_s
