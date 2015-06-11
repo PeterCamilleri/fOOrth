@@ -35,6 +35,12 @@ module XfOOrth
 
       build_builds_string(name, symbol)
     end
+
+    #Look up an tag of interest.
+    def has_tag?(tag)
+      @tags.include?(tag)
+    end
+
   end
 
   #A class used to specify the compile of VM words.
