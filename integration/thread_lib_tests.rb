@@ -15,8 +15,9 @@ class ThreadLibraryTester < Minitest::Test
   MinitestVisible.track self, __FILE__
 
   def test_that_thread_classes_exist
-    foorth_equal('Thread', [Thread])
-    foorth_equal('Mutex',  [Mutex])
+    foorth_equal('Thread',    [Thread])
+    foorth_equal('Procedure', [Proc])
+    foorth_equal('Mutex',     [Mutex])
   end
 
   def test_the_current_thread
@@ -59,6 +60,16 @@ class ThreadLibraryTester < Minitest::Test
 
   def test_named_threads
     foorth_equal('"Fred" {{ }} .start_named dup .join .vm .vm_name', ["Fred"])
+  end
+
+  def test_some_mutex_stuff
+    foorth_run('Mutex .new val$: $tmtx')
+    foorth_run('$tmtx .lock $tmtx .unlock ')
+    foorth_equal('$tmtx .do{{ 3 4 + }}', [7])
+
+    foorth_run('"" val$: $tmtx_str')
+    foorth_equal('{{ $tmtx .do{{ 0 10 do $tmtx_str "@" << loop }} }} ' +
+                 '.start drop $tmtx .do{{ $tmtx_str }} ', ["@"*10])
   end
 
 end
