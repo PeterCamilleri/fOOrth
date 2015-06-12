@@ -14,6 +14,13 @@ module XfOOrth
   VirtualMachine.create_shared_method('self', MacroSpec, [:macro, "vm.push(self); "])
 
   #Get the name of an object or class.
+  # [obj] .with{{ ... }} [] Execute the block with self set to obj
+  Object.create_shared_method('.with{{', NosSpec, [], &lambda {|vm|
+    block = vm.pop
+    self.instance_exec(vm, nil, nil, &block)
+  })
+
+  #Get the name of an object or class.
   # [obj] .name ["name of obj"]
   Object.create_shared_method('.name', TosSpec, [],
     &lambda {|vm| vm.push(self.foorth_name)})

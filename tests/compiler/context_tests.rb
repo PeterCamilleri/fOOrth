@@ -1,10 +1,7 @@
 # coding: utf-8
 
-require_relative '../../lib/fOOrth/exceptions'
-require_relative '../../lib/fOOrth/monkey_patch/object'
-require_relative '../../lib/fOOrth/symbol_map'
-require_relative '../../lib/fOOrth/compiler/context'
-require_relative '../../lib/fOOrth/compiler/word_specs'
+$exclude_fOOrth_library = true
+require_relative '../../lib/fOOrth'
 gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
@@ -170,7 +167,7 @@ class ContextTester < Minitest::Test
     context = XfOOrth::Context.new(nil, vm: 'vm_sample')
     name = 'lm'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    spec = context.create_local_method(name, [])
+    spec = context.create_local_method(name, XfOOrth::LocalSpec, [])
 
     assert_equal(spec, context[sym])
 

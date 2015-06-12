@@ -1,4 +1,4 @@
-require_relative 'read_point'
+# coding: utf-8
 require 'readline' #It sucks, but it will do for now.
 
 #* compiler/console.rb - The fOOrth console support file.

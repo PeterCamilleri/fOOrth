@@ -3,5 +3,5 @@
 #* version.rb - The version string for fOOrth.
 module XfOOrth
   #The version string for fOOrth.
-  VERSION = "0.0.5"
+  VERSION = "0.1.0"
 end

@@ -23,12 +23,38 @@ module XfOOrth
     vm.poke(self.new(count, vm.peek))
   })
 
+  # [n] Array .new{{ ... }} [[array]]; create an array of a n computed values.
+  Array.create_exclusive_method('.new{{', NosSpec, [], &lambda {|vm|
+    block = vm.pop
+    count = Integer.foorth_coerce(vm.pop)
+
+    vm.push(Array.new(count) { |idx| block.call(vm, nil, idx); vm.pop})
+  })
+
+  # [array] .map{{ ... }} [mapped_array]
+  Array.create_shared_method('.map{{', NosSpec, [], &lambda { |vm|
+    idx, block = 0, vm.pop
+    vm.push(self.map { |val| block.call(vm, val, idx); idx += 1; vm.pop})
+  })
+
+  # [array] .select{{ ... }} [selected_array]
+  Array.create_shared_method('.select{{', NosSpec, [], &lambda { |vm|
+    idx, block = 0, vm.pop
+    vm.push(self.select { |val| block.call(vm, val, idx); idx += 1; vm.pop})
+  })
+
   # [] [ v1 v2 ... vn ] [[v1,v2,...vn]]; an array literal value
   VirtualMachine.create_shared_method('[', VmSpec, [:immediate], &lambda { |vm|
     vm.nest_mode('vm.squash; ', :array_literal)
 
-    vm.context.create_local_method(']', [:immediate],
+    vm.context.create_local_method(']', LocalSpec, [:immediate],
       &lambda {|vm| vm.unnest_mode('vm.unsquash; ', [:array_literal]) })
+  })
+
+  # [array] .each{{ ... }} [unspecified]
+  Array.create_shared_method('.each{{', NosSpec, [], &lambda { |vm|
+    block = vm.pop
+    self.each_with_index { |val, idx| block.call(vm, val, idx) }
   })
 
   # Some basic data access words.
@@ -242,43 +268,5 @@ module XfOOrth
       puts "\n"
     end
   })
-
-end
-
-#* Runtime library support for fOOrth constructs.
-class Array
-
-  # Runtime support for the .new{ } construct.
-  def self.do_foorth_new_block(vm, &block)
-    Array.new(vm.pop()) do |xloop|
-      block.call(vm, xloop)
-    end
-  end
-
-  # Runtime support for the .each{ } construct.
-  def do_foorth_each(&block)
-    self.each_with_index(&block)
-  end
-
-  # Runtime support for the .map{ } construct.
-  def do_foorth_map(&block)
-    index = 0
-    self.map do |value|
-      value = block.call(value, index)
-      index += 1
-      value
-    end
-  end
-
-  # Runtime support for the .select{ } construct.
-  def do_foorth_select(&block)
-    index = 0
-    self.select do |value|
-      value = block.call(value, index)
-      index += 1
-      value
-    end
-  end
-
 
 end

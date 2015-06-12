@@ -1,9 +1,9 @@
 # coding: utf-8
 
-#* compiler/context_map_name.rb - The fOOrth language mapping of names in a context.
+#* compiler/context/map_name.rb - The fOOrth language mapping of names in a context.
 module XfOOrth
 
-  #* compiler/context_map_name.rb - The fOOrth language mapping of names in a context.
+  #* compiler/context/map_name.rb - The fOOrth language mapping of names in a context.
   class Context
 
     #Map a name to a specification.
@@ -75,7 +75,7 @@ module XfOOrth
 
     #Do a search of the :vm tag if it is specified.
     def do_vm_target_map
-      (vm = self[:vm]) && vm.map_foorth_exclusive(@symbol)
+      (vm = self[:vm])  && vm.map_foorth_exclusive(@symbol)
     end
 
     #Do a search of the globals.

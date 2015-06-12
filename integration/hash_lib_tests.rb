@@ -40,8 +40,8 @@ class HashLibraryTester < Minitest::Test
     foorth_equal('{ 0 3 do i dup 3 * -> loop } val$: $tshi2', [])
     foorth_equal('$tshi2',                    [{0=>0, 1=>3, 2=>6}])
 
-    foorth_equal('$tshi2 .each{ x } ',                     [0,1,2])
-    foorth_equal('$tshi2 .each{ v } ',                     [0,3,6])
+    foorth_equal('$tshi2 .each{{ x }} ',                   [0,1,2])
+    foorth_equal('$tshi2 .each{{ v }} ',                   [0,3,6])
 
   end
 

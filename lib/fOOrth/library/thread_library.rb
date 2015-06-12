@@ -6,10 +6,15 @@ module XfOOrth
   #Connect the Thread class to the fOOrth class system.
   Thread.create_foorth_proxy
 
-  # [] Thread .new{ ... } [a_thread]
-  #Uses the default implementation of .new{ ... }
-
   #Class Methods
+
+  # [name Thread]  .new{{ ... }} [a_thread]
+  Thread.create_exclusive_method('.new{{', NosSpec, [], &lambda {|vm|
+    block = vm.pop
+    name  = vm.pop.to_s
+    vm.push(block.do_thread_start(vm, name))
+  })
+
   # [Thread] .current [the current thread]
   Thread.create_exclusive_method('.current', TosSpec, [], &lambda {|vm|
     vm.push(Thread.current)
@@ -62,20 +67,5 @@ module XfOOrth
   Thread.create_shared_method('.exit', TosSpec, [], &lambda {|vm|
     self.exit
   })
-
-end
-
-#* Runtime library support for fOOrth constructs.
-class Thread
-
-  # Runtime support for the .new{ } construct.
-  #<br>Parameters
-  #* vm - The parent VirtualMachine instance.
-  #* block = The block of code to be executed in the new thread.
-  #<br>Returns
-  #* The newly created Thread instance.
-  def self.do_foorth_new_block(vm, &block)
-    block.do_thread_start(vm, vm.pop.to_s)
-  end
 
 end

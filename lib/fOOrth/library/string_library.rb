@@ -9,6 +9,12 @@ module XfOOrth
   # A no operation place holder for string literals
   VirtualMachine.create_shared_method('"', MacroSpec, [:macro, " "])
 
+  # [string] .each{{ ... }} [unspecified]
+  String.create_shared_method('.each{{', NosSpec, [], &lambda { |vm|
+    block, idx = vm.pop, 0
+    self.chars { |val| block.call(vm, val, idx); idx += 1 }
+  })
+
   #Some comparison operators
   # [b,a] > if b > a then [true] else [false]
   String.create_shared_method('>', NosSpec, [],
@@ -248,19 +254,5 @@ module XfOOrth
   String.create_shared_method('.shell', TosSpec, [], &lambda {|vm|
     system(self)
   })
-
-end
-
-#* Runtime library support for fOOrth constructs.
-class String
-
-  # Runtime support for the .each{ } construct.
-  def do_foorth_each(&block)
-    key = 0
-    self.chars do |value|
-      block.call(value, key)
-      key += 1
-    end
-  end
 
 end
