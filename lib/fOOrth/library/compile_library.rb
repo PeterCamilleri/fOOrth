@@ -109,19 +109,19 @@ module XfOOrth
     context = vm.context
 
     #Support for local variables.
-    context.create_local_method('var:', [:immediate], &Local_Var_Action)
-    context.create_local_method('val:', [:immediate], &Local_Val_Action)
+    context.create_local_method('var:', LocalSpec, [:immediate], &Local_Var_Action)
+    context.create_local_method('val:', LocalSpec, [:immediate], &Local_Val_Action)
 
     #Support for instance variables.
-    context.create_local_method('var@:', [:immediate], &Inst_Var_Action)
-    context.create_local_method('val@:', [:immediate], &Inst_Val_Action)
+    context.create_local_method('var@:', LocalSpec, [:immediate], &Inst_Var_Action)
+    context.create_local_method('val@:', LocalSpec, [:immediate], &Inst_Val_Action)
 
     #Support for super methods.
-    context.create_local_method('super', [:immediate],
+    context.create_local_method('super', LocalSpec, [:immediate],
       &lambda {|vm| vm << 'super(vm); ' })
 
     #The standard end-compile adapter word: ';' semi-colon.
-    context.create_local_method(';', [:immediate],
+    context.create_local_method(';', LocalSpec, [:immediate],
       &lambda {|vm| vm.end_compile_mode([ctrl]) })
   end
 

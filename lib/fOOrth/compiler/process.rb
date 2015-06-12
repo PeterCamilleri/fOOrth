@@ -2,6 +2,7 @@
 
 require_relative 'process/get_token'
 require_relative 'process/string'
+require_relative 'process/procedure'
 require_relative 'process/generate'
 
 #* compiler/process.rb - Process source code from a code source.

@@ -12,7 +12,7 @@ module XfOOrth
     vm << "#{symbol} = [vm.pop]; "
 
     #Add a local defn for the local variable.
-    vm.context.create_local_method(name, [:immediate],
+    vm.context.create_local_method(name, LocalSpec, [:immediate],
       &lambda {|vm| vm << "vm.push(#{symbol}); "} )
   }
 
@@ -25,7 +25,7 @@ module XfOOrth
     vm << "#{symbol} = vm.pop; "
 
     #Add a local defn for the local variable.
-    vm.context.create_local_method(name, [:immediate],
+    vm.context.create_local_method(name, LocalSpec, [:immediate],
       &lambda {|vm| vm << "vm.push(#{symbol}); "} )
   }
 

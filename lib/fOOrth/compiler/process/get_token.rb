@@ -14,7 +14,7 @@ module XfOOrth
       return nil unless (word = parser.get_word)
 
       token = Token.new
-      string_parms(token, word)
+      string_parms(token, word) || procedure_parms(token, word)
       generate_code(token, word)
       token
     end

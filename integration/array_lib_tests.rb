@@ -33,8 +33,8 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal(': tt03 3 2 Array .new_values ; ', [])
     foorth_equal('tt03                           ', [[3,3]])
 
-    foorth_equal('       3 Array .new{ x }       ', [[0,1,2]])
-    foorth_equal(': tt04 3 Array .new{ x } ;     ', [])
+    foorth_equal('       3 Array .new{{ x }}     ', [[0,1,2]])
+    foorth_equal(': tt04 3 Array .new{{ x }} ;   ', [])
     foorth_equal('tt04                           ', [[0,1,2]])
 
     foorth_equal('        [ 0 1 2 ]              ', [[0,1,2]])
@@ -69,26 +69,26 @@ class ArrayLibraryTester < Minitest::Test
   end
 
   def test_the_each
-    foorth_equal('4 Array .new{ x 1 + dup * } val$: $tte ',   [])
+    foorth_equal('4 Array .new{{ x 1 + dup * }} val$: $tte ', [])
     foorth_equal('$tte',                                      [[1,4,9,16]])
 
-    foorth_equal('$tte .each{ x } ',                          [0,1,2,3])
-    foorth_equal('$tte .each{ v } ',                          [1,4,9,16])
+    foorth_equal('$tte .each{{ x }} ',                        [0,1,2,3])
+    foorth_equal('$tte .each{{ v }} ',                        [1,4,9,16])
 
-    foorth_equal(': tte $tte .each{ v } ;',                   [])
+    foorth_equal(': tte $tte .each{{ v }} ;',                 [])
     foorth_equal('tte',                                       [1,4,9,16])
   end
 
   def test_the_map
-    foorth_equal('[ 2 3 4 ] .map{ v 1+ }', [[3,4,5]])
+    foorth_equal('[ 2 3 4 ] .map{{ v 1+ }}', [[3,4,5]])
   end
 
   def test_the_select
-    foorth_equal('[ 0 10 do i loop ] .select{ v 1 and 0= }', [[0,2,4,6,8]])
+    foorth_equal('[ 0 10 do i loop ] .select{{ v 1 and 0= }}', [[0,2,4,6,8]])
   end
 
   def test_simple_array_indexing
-    foorth_equal('4 Array .new{ x 1 + dup * } val$: $tte ',   [])
+    foorth_equal('4 Array .new{{ x 1 + dup * }} val$: $tte ',   [])
     foorth_equal('$tte',                                      [[1,4,9,16]])
 
     foorth_equal('$tte @ ',                                   [1])

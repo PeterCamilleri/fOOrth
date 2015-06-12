@@ -6,14 +6,8 @@ module XfOOrth
   #Connect the Proc class to the fOOrth class system.
   Proc.create_foorth_proxy('Procedure')
 
-  #Lambda literals in fOOrth.
-  VirtualMachine.create_shared_method('{{', VmSpec, [:immediate],
-    &lambda {|vm|
-      suspend_execute_mode('vm.push(lambda {|vm| ', :lambda)
-
-      context.create_local_method('}}', [:immediate],
-        &lambda {|vm| resume_execute_mode('}); ', [:lambda]) })
-    })
+  # A no operation place holder for procedure literals
+  VirtualMachine.create_shared_method('{{', MacroSpec, [:macro, " "])
 
   # [procedure] .call [unspecified]
   Proc.create_shared_method('.call', TosSpec, [],
@@ -41,11 +35,11 @@ class Proc
   def do_thread_start(vm, vm_name)
     block, interlock = self, Queue.new
 
-    result = Thread.new(vm.foorth_copy(vm_name)) { |vm_copy|
+    result = Thread.new(vm.foorth_copy(vm_name)) do |vm_copy|
       self.foorth_init(vm_copy.compiler_reset.connect_vm_to_thread)
       interlock.push(:ready)
       vm_copy.instance_exec(vm_copy, &block)
-    }
+    end
 
     interlock.pop
     result

@@ -18,18 +18,6 @@ module XfOOrth
       error "F50: Unable to open the file #{file_name} for reading."
     end
 
-    # Runtime support for the .open{ } construct.
-    def self.do_foorth_open_block(vm, &block)
-      file_name = vm.pop.to_s
-      in_stream = XfOOrth_InStream.new(file_name)
-
-      begin
-        in_stream.instance_exec(vm, &block)
-      ensure
-        in_stream.file.close
-      end
-    end
-
   end
 
   #The .new method is stubbed out.
@@ -39,6 +27,18 @@ module XfOOrth
   in_stream.create_exclusive_method('.open', TosSpec, [], &lambda {|vm|
     file_name = vm.pop.to_s
     vm.push(XfOOrth_InStream.new(file_name))
+  })
+
+  in_stream.create_exclusive_method('.open{{', NosSpec, [], &lambda {|vm|
+    block = vm.pop
+    file_name = vm.pop.to_s
+    in_stream = XfOOrth_InStream.new(file_name)
+
+    begin
+      in_stream.instance_exec(vm, nil, nil, &block)
+    ensure
+      in_stream.file.close
+    end
   })
 
   # [an_instream] .close []
