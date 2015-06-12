@@ -33,7 +33,7 @@ class OutStreamLibraryTester < Minitest::Test
   end
 
   def test_that_we_can_write_block
-    foorth_equal($osfn + 'OutStream .create{ }')
+    foorth_equal($osfn + 'OutStream .create{{ }}')
     assert(File.exists?($osfn[1...-2]))
     do_cleanup
   end
@@ -46,20 +46,20 @@ class OutStreamLibraryTester < Minitest::Test
   end
 
   def test_that_we_can_write_block_stuff
-    foorth_equal($osfn + 'OutStream .create{ 42 ~ }')
+    foorth_equal($osfn + 'OutStream .create{{ 42 ~ }}')
     assert_equal(["42"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
 
 
   def test_that_we_can_write_stuff_too
-    foorth_run($osfn + 'OutStream .create dup .with{ ~"Hello World" } .close')
+    foorth_run($osfn + 'OutStream .create dup .with{{ ~"Hello World" }} .close')
     assert_equal(["Hello World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
 
   def test_that_we_can_write_block_stuff_too
-    foorth_equal($osfn + 'OutStream .create{ ~"Hello World" } ')
+    foorth_equal($osfn + 'OutStream .create{{ ~"Hello World" }}')
     assert_equal(["Hello World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
@@ -72,46 +72,46 @@ class OutStreamLibraryTester < Minitest::Test
   end
 
   def test_that_we_can_write_block_a_character
-    foorth_equal($osfn + 'OutStream .create{ 65 ~emit }')
+    foorth_equal($osfn + 'OutStream .create{{ 65 ~emit }}')
     assert_equal(["A"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
 
 
   def test_that_we_can_write_out_lines
-    foorth_run($osfn + 'OutStream .create .with{ ~"Hello" ~cr ~"World" self .close } ')
+    foorth_run($osfn + 'OutStream .create .with{{ ~"Hello" ~cr ~"World" self .close }}')
     assert_equal(["Hello\n", "World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
 
   def test_that_we_can_block_write_out_lines
-    foorth_equal($osfn + 'OutStream .create{ ~"Hello" ~cr ~"World" } ', [])
+    foorth_equal($osfn + 'OutStream .create{{ ~"Hello" ~cr ~"World" }}', [])
     assert_equal(["Hello\n", "World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
 
 
   def test_that_we_can_write_out_a_space
-    foorth_run($osfn + 'OutStream .create .with{ ~"Hello" self .space ~"World" self .close }')
+    foorth_run($osfn + 'OutStream .create .with{{ ~"Hello" self .space ~"World" self .close }}')
     assert_equal(["Hello World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
 
   def test_that_we_can_block_write_out_a_space
-    foorth_equal($osfn + 'OutStream .create{ ~"Hello" ~space ~"World" } ', [])
+    foorth_equal($osfn + 'OutStream .create{{ ~"Hello" ~space ~"World" }}', [])
     assert_equal(["Hello World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
 
 
   def test_that_we_can_write_out_spaces
-    foorth_run($osfn + 'OutStream .create .with{ ~"Hello" 3 self .spaces ~"World" self .close }')
+    foorth_run($osfn + 'OutStream .create .with{{ ~"Hello" 3 self .spaces ~"World" self .close }}')
     assert_equal(["Hello   World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
 
   def test_that_we_can_block_write_out_spaces
-    foorth_equal($osfn + 'OutStream .create{ ~"Hello" 3 ~spaces ~"World" } ', [])
+    foorth_equal($osfn + 'OutStream .create{{ ~"Hello" 3 ~spaces ~"World" }}', [])
     assert_equal(["Hello   World"], IO.readlines($osfn[1...-2]))
     do_cleanup
   end
@@ -131,7 +131,7 @@ class OutStreamLibraryTester < Minitest::Test
     foorth_equal($osfn + 'OutStream .create  65 over .emit .close')
     assert_equal(["A"], IO.readlines($osfn[1...-2]))
 
-    foorth_equal($osfn + 'OutStream .append{ 66 ~emit } ')
+    foorth_equal($osfn + 'OutStream .append{{ 66 ~emit }} ')
     assert_equal(["AB"], IO.readlines($osfn[1...-2]))
 
     do_cleanup

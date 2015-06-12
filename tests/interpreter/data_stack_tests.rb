@@ -1,6 +1,7 @@
 # coding: utf-8
 
-require_relative '../../lib/fOOrth/interpreter'
+$exclude_fOOrth_library = true
+require_relative '../../lib/fOOrth'
 gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'

@@ -64,17 +64,17 @@ class CtrlStructLibraryTester < Minitest::Test
   end
 
   def test_with_constructs
-    foorth_equal('4 .with{ self 2* }', [8])
+    foorth_equal('4 .with{{ self 2* }}', [8])
 
-    foorth_run(': twc01 4 .with{ self 2* } ;')
+    foorth_run(': twc01 4 .with{{ self 2* }} ;')
     foorth_equal('twc01', [8])
   end
 
   def test_for_unsupported_structures
-    foorth_raises('4 .new{   }' )
-    foorth_raises('4 .each{   }')
-    foorth_raises('4 .map{   }')
-    foorth_raises('4 .select{   }')
+    foorth_raises('4 .new{{  }}')
+    foorth_raises('4 .each{{  }}')
+    foorth_raises('4 .map{{  }}')
+    foorth_raises('4 .select{{  }}')
   end
 
 end

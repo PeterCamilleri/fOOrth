@@ -27,7 +27,7 @@ module XfOOrth
       dbg_puts "  unnest_context"
       @context.check_set(:ctrl, ctrls)
       @context = @context.previous
-      process_text(text)
+      process_text(text) if text
     end
 
   end

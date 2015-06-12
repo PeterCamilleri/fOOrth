@@ -8,14 +8,15 @@ module XfOOrth
 
     #Create a local method on this context.
     #<br>Parameters:
-    #* The name of the method to create.
-    #* An array of options.
-    #* A block to associate with the name.
+    #* name - The name of the method to create.
+    #* spec_class - The specification class to use.
+    #* options - An array of options.
+    #* block - A block to associate with the name.
     #<br>Returns
     #* The spec created for the shared method.
-    def create_local_method(name, options, &block)
+    def create_local_method(name, spec_class, options, &block)
       sym = SymbolMap.add_entry(name)
-      self[sym] = LocalSpec.new(name, sym, options, &block)
+      self[sym] = spec_class.new(name, sym, options, &block)
     end
 
     #Remove a local method on this context.

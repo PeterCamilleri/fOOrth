@@ -21,30 +21,6 @@ module XfOOrth
       error "F51: Unable to open the file #{file_name} for writing."
     end
 
-    # Runtime support for the .create{ } construct.
-    def self.do_foorth_create_block(vm, &block)
-      file_name = vm.pop.to_s
-      out_stream = XfOOrth_OutStream.new(file_name, 'w')
-
-      begin
-        out_stream.instance_exec(vm, &block)
-      ensure
-        out_stream.file.close
-      end
-    end
-
-    # Runtime support for the .append{ } construct.
-    def self.do_foorth_append_block(vm, &block)
-      file_name = vm.pop.to_s
-      out_stream = XfOOrth_OutStream.new(file_name, 'a')
-
-      begin
-        out_stream.instance_exec(vm, &block)
-      ensure
-        out_stream.file.close
-      end
-    end
-
   end
 
   #The .new method is stubbed out.
@@ -54,6 +30,32 @@ module XfOOrth
   out_stream.create_exclusive_method('.create', TosSpec, [], &lambda {|vm|
     file_name = vm.pop.to_s
     vm.push(XfOOrth_OutStream.new(file_name, 'w'))
+  })
+
+  # ["file_name" OutStream] .create{{ ... }} []
+  out_stream.create_exclusive_method('.create{{', TosSpec, [], &lambda {|vm|
+    block = vm.pop
+    file_name = vm.pop.to_s
+    out_stream = XfOOrth_OutStream.new(file_name, 'w')
+
+    begin
+      out_stream.instance_exec(vm, nil, nil, &block)
+    ensure
+      out_stream.file.close
+    end
+  })
+
+  # ["file_name" OutStream] .append{{ ... }} []
+  out_stream.create_exclusive_method('.append{{', TosSpec, [], &lambda {|vm|
+    block = vm.pop
+    file_name = vm.pop.to_s
+    out_stream = XfOOrth_OutStream.new(file_name, 'a')
+
+    begin
+      out_stream.instance_exec(vm, nil, nil, &block)
+    ensure
+      out_stream.file.close
+    end
   })
 
   # ["file_name" OutStream] .append [an_outstream]
@@ -66,7 +68,6 @@ module XfOOrth
   out_stream.create_shared_method('.close', TosSpec, [], &lambda {|vm|
     file.close
   })
-
 
   #[obj an_outstream] . []; print out the object as a string to the OutStream instance.
   out_stream.create_shared_method('.', TosSpec, [],

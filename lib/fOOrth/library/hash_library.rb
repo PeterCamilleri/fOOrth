@@ -13,11 +13,17 @@ module XfOOrth
   VirtualMachine.create_shared_method('{', VmSpec, [:immediate], &lambda { |vm|
     vm.nest_mode('vm.push(Hash.new); ', :hash_literal)
 
-    vm.context.create_local_method('->', [:immediate],
+    vm.context.create_local_method('->', LocalSpec, [:immediate],
       &lambda {|vm| vm.process_text('vm.add_to_hash; ') })
 
-    vm.context.create_local_method('}', [:immediate],
+    vm.context.create_local_method('}', LocalSpec, [:immediate],
       &lambda {|vm| vm.unnest_mode('', [:hash_literal]) })
+  })
+
+  # [hash] .each{{ ... }} [unspecified]
+  Hash.create_shared_method('.each{{', NosSpec, [], &lambda { |vm|
+    block = vm.pop
+    self.each { |idx, val| block.call(vm, val, idx) }
   })
 
   # [i h] .[]@ [h[i]]
@@ -111,11 +117,6 @@ end
 
 #* Runtime library support for fOOrth constructs.
 class Hash
-
-  # Runtime support for the .each{ } construct.
-  def do_foorth_each(&block)
-    self.each {|key, value| block.call(value, key) }
-  end
 
   #A helper method to extract non-stub method names from a method hash.
   def extract_method_names(search_type = :no_stubs)

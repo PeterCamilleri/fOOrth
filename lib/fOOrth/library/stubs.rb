@@ -48,6 +48,15 @@ module XfOOrth
   Object.create_shared_method('@',      TosSpec, [:stub])
   Object.create_shared_method('!',      TosSpec, [:stub])
 
+  #Procedure literal stubs.
+  Object.create_shared_method('.each{{',   NosSpec, [:stub])
+  Object.create_shared_method('.new{{',    NosSpec, [:stub])
+  Object.create_shared_method('.map{{',    NosSpec, [:stub])
+  Object.create_shared_method('.select{{', NosSpec, [:stub])
+  Object.create_shared_method('.open{{',   NosSpec, [:stub])
+  Object.create_shared_method('.create{{', NosSpec, [:stub])
+  Object.create_shared_method('.append{{', NosSpec, [:stub])
+
   #Define some "crossover" symbols.
  #SymbolMap.add_entry('.init',          :foorth_new) -- aliased in core.rb
   SymbolMap.add_entry('.is_class?',     :foorth_is_class?)
@@ -61,40 +70,6 @@ end
 
 #* Runtime library support stubs.
 class Object
-  # Runtime stub for the .new{ } construct.
-  def do_foorth_new_block(_vm, &block)
-    error "F12: A #{self.foorth_name} does not support .new{ ... }."
-  end
-
-  # Runtime stub for the .each{ } construct.
-  def do_foorth_each(&block)
-    error "F12: A #{self.foorth_name} does not support .each{ ... }."
-  end
-
-  # Runtime stub for the .map{ } construct.
-  def do_foorth_map(&block)
-    error "F12: A #{self.foorth_name} does not support .map{ ... }."
-  end
-
-  # Runtime stub for the .select{ } construct.
-  def do_foorth_select(&block)
-    error "F12: A #{self.foorth_name} does not support .select{ ... }."
-  end
-
-  # Runtime stub for the .open{ } construct.
-  def do_foorth_open_block(_vm, &block)
-    error "F12: A #{self.foorth_name} does not support .open{ ... }."
-  end
-
-  # Runtime stub for the .create{ } construct.
-  def do_foorth_create_block(_vm, &block)
-    error "F12: A #{self.foorth_name} does not support .create{ ... }."
-  end
-
-  # Runtime stub for the .append{ } construct.
-  def do_foorth_append_block(_vm, &block)
-    error "F12: A #{self.foorth_name} does not support .append{ ... }."
-  end
 
   # Runtime stub for >
   def foorth_gt(_other)
