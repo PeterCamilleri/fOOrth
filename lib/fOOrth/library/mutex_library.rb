@@ -6,6 +6,12 @@ module XfOOrth
   #Connect the Mutex class to the fOOrth class system
   Mutex.create_foorth_proxy
 
+  # [Mutex] .do{{ ... }} [] (Releases a lock on the mutex)
+  Mutex.create_exclusive_method('.do{{', NosSpec, [], &lambda {|vm|
+    block = vm.pop
+    Thread.exclusive { block.call(vm, nil, nil) }
+  })
+
   # [a_mutex] .lock [] (Acquires a lock on the mutex)
   Mutex.create_shared_method('.lock', TosSpec, [], &lambda {|vm|
     self.lock
