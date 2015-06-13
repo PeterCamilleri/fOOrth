@@ -1,0 +1,12 @@
+( a_count test_mutex 100*a_count )
+: test_mutex
+  0 var: ctr
+  Array .new{{
+    x .to_s Thread .new{{
+      0 100 do
+        Mutex .do{{ ctr @ 1+ ctr ! }}
+        0.001 .sleep
+      loop
+    }}
+  }} .each{{ v .join }}
+  ctr @ ;

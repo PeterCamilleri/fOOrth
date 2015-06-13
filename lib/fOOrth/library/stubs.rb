@@ -56,6 +56,7 @@ module XfOOrth
   Object.create_shared_method('.open{{',   NosSpec, [:stub])
   Object.create_shared_method('.create{{', NosSpec, [:stub])
   Object.create_shared_method('.append{{', NosSpec, [:stub])
+  Object.create_shared_method('.do{{',     NosSpec, [:stub])
 
   #Define some "crossover" symbols.
  #SymbolMap.add_entry('.init',          :foorth_new) -- aliased in core.rb
