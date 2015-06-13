@@ -20,6 +20,10 @@ class ThreadLibraryTester < Minitest::Test
     foorth_equal('Mutex',     [Mutex])
   end
 
+  def test_that_default_new_is_not_allowed
+    foorth_raises('Thread .new')
+  end
+
   def test_the_current_thread
     foorth_equal('Thread .current     .name', ['Thread instance'])
     foorth_equal('Thread .current .vm .name', ['VirtualMachine instance <Main>'])
