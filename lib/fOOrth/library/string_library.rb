@@ -67,8 +67,8 @@ module XfOOrth
   # [a_str] format ['a formatted string']
   Object.create_shared_method('format', NosSpec, [], &format_action)
 
-  # [a] format"str" ['a formatted string']
-  Object.create_shared_method('format"', NosSpec, [], &format_action)
+  # [a] f"str" ['a formatted string']
+  Object.create_shared_method('f"', NosSpec, [], &format_action)
 
   #LEFT Group
 
