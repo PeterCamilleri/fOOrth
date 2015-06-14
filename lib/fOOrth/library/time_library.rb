@@ -20,7 +20,7 @@ module XfOOrth
   #Instance Methods
 
 
-  #Helper Methods
+  #Helper Methods .to_t and .to_t!
 
   #[object] .to_t [a_time]
   Numeric.create_shared_method('.to_t', TosSpec, [], &lambda {|vm|
@@ -64,6 +64,29 @@ module XfOOrth
 
   Time.create_shared_method('.to_t!', TosSpec, [], &lambda {|vm|
     vm.push(self)
+  })
+
+
+  #Time comparison operations
+
+  Time.create_shared_method('>', NosSpec, [], &lambda {|vm|
+    vm.poke(self.to_f > Float.foorth_coerce(vm.peek))
+  })
+
+  Time.create_shared_method('>=', NosSpec, [], &lambda {|vm|
+    vm.poke(self.to_f >= Float.foorth_coerce(vm.peek))
+  })
+
+  Time.create_shared_method('<', NosSpec, [], &lambda {|vm|
+    vm.poke(self.to_f < Float.foorth_coerce(vm.peek))
+  })
+
+  Time.create_shared_method('<=', NosSpec, [], &lambda {|vm|
+    vm.poke(self.to_f <= Float.foorth_coerce(vm.peek))
+  })
+
+  Time.create_shared_method('<=>', NosSpec, [], &lambda {|vm|
+    vm.poke(self.to_f <=> Float.foorth_coerce(vm.peek))
   })
 
 

@@ -44,6 +44,18 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('0 .to_t .to_t!', [Time.at(0)])
   end
 
+  def test_time_comparisons
+    foorth_equal('1434322206 .to_t  1434322200 .to_t >  ', [true])
+    foorth_equal('1434322206 .to_t  1434322200 .to_t >= ', [true])
+    foorth_equal('1434322206 .to_t  1434322200 .to_t <  ', [false])
+    foorth_equal('1434322206 .to_t  1434322200 .to_t <= ', [false])
+
+    foorth_equal('1434322206 .to_t  1434322200 .to_t =  ', [false])
+
+    foorth_equal('1434322206 .to_t  1434322200 .to_t <=>', [1])
+    foorth_equal('1434322206 .to_t  1434322206 .to_t <=>', [0])
+    foorth_equal('1434322200 .to_t  1434322206 .to_t <=>', [-1])
+  end
 
 
 end

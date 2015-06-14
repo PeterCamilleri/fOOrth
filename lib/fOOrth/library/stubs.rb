@@ -59,8 +59,7 @@ module XfOOrth
   Object.create_shared_method('.do{{',     NosSpec, [:stub])
 
   #Define some "crossover" symbols.
- #SymbolMap.add_entry('.init',          :foorth_new) -- aliased in core.rb
-  SymbolMap.add_entry('.is_class?',     :foorth_is_class?)
+  SymbolMap.add_entry('.is_class?',     "foorth_is_class?".to_sym)
   SymbolMap.add_entry('.to_s',          :to_foorth_s)
   SymbolMap.add_entry('.strlen',        :foorth_strlen)
   SymbolMap.add_entry('.strmax',        :foorth_strmax)
