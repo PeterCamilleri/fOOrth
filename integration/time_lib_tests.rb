@@ -18,5 +18,32 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('Time', [Time])
   end
 
+  def test_that_new_not_allowed
+    foorth_raises('Time .new')
+  end
+
+  def test_some_time_macros
+    foorth_equal('now .class', [Time])
+  end
+
+  def test_converting_to_time
+    foorth_equal('0 .to_t',        [Time.at(0)])
+    foorth_equal('0 .to_t!',       [Time.at(0)])
+    foorth_equal('infinity .to_t', [nil])
+    foorth_raises('infinity .to_t!')
+
+    foorth_raises('1+1i .to_t')
+    foorth_raises('1+1i .to_t!')
+
+    foorth_equal('"Oct 26 1985 1:22" .to_t',  [Time.parse("Oct 26 1985 1:22")])
+    foorth_equal('"Oct 26 1985 1:22" .to_t!', [Time.parse("Oct 26 1985 1:22")])
+    foorth_equal('"apple" .to_t',  [nil])
+    foorth_raises('"apple" .to_t!')
+
+    foorth_equal('0 .to_t .to_t',  [Time.at(0)])
+    foorth_equal('0 .to_t .to_t!', [Time.at(0)])
+  end
+
+
 
 end
