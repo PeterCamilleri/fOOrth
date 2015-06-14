@@ -98,8 +98,8 @@ class StringLibraryTester < Minitest::Test
   end
 
   def test_formatted_strings
-    foorth_equal('5 "%03d" .fmt ', ['005'])
-    foorth_equal('5 .fmt"%03d"  ', ['005'])
+    foorth_equal('5 "%03d" fmt ', ['005'])
+    foorth_equal('5 fmt"%03d"  ', ['005'])
   end
 
   def test_left_copy_paste_and_cut

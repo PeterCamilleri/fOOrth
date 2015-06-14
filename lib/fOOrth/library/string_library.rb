@@ -62,13 +62,13 @@ module XfOOrth
   String.create_shared_method('.rstrip', TosSpec, [],
     &lambda {|vm| vm.push(self.rstrip); })
 
-  fmt_action = lambda {|vm| vm.poke(self % vm.peek.in_array); }
+  fmt_action = lambda {|vm| vm.poke(vm.peek % self.in_array); }
 
-  # [a fmt_str] .fmt ['a formatted string']
-  String.create_shared_method('.fmt', TosSpec, [], &fmt_action)
+  # [a fmt_str] fmt ['a formatted string']
+  Object.create_shared_method('fmt', NosSpec, [], &fmt_action)
 
-  # [a] .fmt"fmt_str" ['a formatted string']
-  String.create_shared_method('.fmt"', TosSpec, [], &fmt_action)
+  # [a] fmt"fmt_str" ['a formatted string']
+  Object.create_shared_method('fmt"', NosSpec, [], &fmt_action)
 
   #LEFT Group
 
