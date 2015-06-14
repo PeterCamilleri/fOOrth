@@ -68,33 +68,3 @@ module XfOOrth
   SymbolMap.add_entry('.pp',            :foorth_pretty)
   SymbolMap.add_entry('.load',          :foorth_load_file)
 end
-
-#* Runtime library support stubs.
-class Object
-
-  # Runtime stub for >
-  def foorth_gt(_other)
-    error "F12: A #{self.foorth_name} does not support >."
-  end
-
-  # Runtime stub for <
-  def foorth_lt(_other)
-    error "F12: A #{self.foorth_name} does not support <."
-  end
-
-  # Runtime stub for >=
-  def foorth_ge(_other)
-    error "F12: A #{self.foorth_name} does not support >=."
-  end
-
-  # Runtime stub for <=
-  def foorth_le(_other)
-    error "F12: A #{self.foorth_name} does not support <=."
-  end
-
-  # Runtime stub for <=>
-  def foorth_cp(_other)
-    error "F12: A #{self.foorth_name} does not support <=>."
-  end
-
-end
