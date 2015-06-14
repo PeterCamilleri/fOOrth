@@ -1,14 +1,14 @@
 // Print out a classic times table.
 
 cr
-." *  |"  1 13 do i format"%3d " .  loop cr
+." *  |"  1 13 do i f"%3d " .  loop cr
 ."----+" "-" 47 * .  cr
 
 1 13 do
-  i format"%2d  |" .
+  i f"%2d  |" .
 
   1 13 do
-    i j * format"%3d " .
+    i j * f"%3d " .
   loop
 
   cr
