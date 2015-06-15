@@ -72,10 +72,48 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('1434322206 .to_t .time_s ', [Time.at(1434322206).asctime])
   end
 
+  def test_time_array_stuff
+    ofs = Time.now.utc_offset
 
+    foorth_equal('1434322200 .to_t .to_a', [[2015, 6, 14, 18, 50, 0.0, ofs]])
 
+    foorth_equal('[ 2015 6 14 18 50 0.0 -14400 ] .to_t', [Time.at(1434322200)])
+    foorth_equal('[ 2015 15 14 18 50 0.0 -14400 ] .to_t', [nil])
 
+    foorth_equal('[ 2015 6 14 18 50 0.0 -14400 ] .to_t!', [Time.at(1434322200)])
+    foorth_raises('[ 2015 15 14 18 50 0.0 -14400 ] .to_t!')
+  end
 
+  def test_time_attributes
+    foorth_equal('1434322201.5 .to_t .year', [2015])
+    foorth_equal('1434322201.5 .to_t .month', [6])
+    foorth_equal('1434322201.5 .to_t .day', [14])
 
+    foorth_equal('1434322201.5 .to_t .hour', [18])
+    foorth_equal('1434322201.5 .to_t .minute', [50])
+    foorth_equal('1434322201.5 .to_t .second', [1])
+
+    foorth_equal('1434322201.5 .to_t .fraction', [0.5])
+    foorth_equal('1434322201.5 .to_t .sec_frac', [1.5])
+
+    foorth_equal('1434322201.5 .to_t .offset', [Time.at(1434322201.5).utc_offset])
+  end
+
+  def test_time_zone_control
+    ofs = Time.now.utc_offset
+
+    foorth_equal('[ 2015 6 14 18 50 0.0 -14400 ] .to_t .utc?', [false])
+    foorth_equal('[ 2015 6 14 18 50 0.0      0 ] .to_t .utc?', [true])
+
+    foorth_equal('[ 2015 6 14 18 50 0.0 -14400 ] .to_t .as_utc',
+                  [Time.at(1434322200).localtime(0)])
+
+    foorth_equal('[ 2015 6 14 18 50 0.0      0 ] .to_t .as_local',
+                  [Time.at(1434322200+ofs)])
+
+    foorth_equal('3600 [ 2015 6 14 18 50 0.0 ] .to_t .with_offset',
+                 [Time.at(1434322200).localtime(3600)])
+
+  end
 
 end
