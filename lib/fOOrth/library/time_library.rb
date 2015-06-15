@@ -166,6 +166,14 @@ module XfOOrth
     vm.push(self.asctime)
   })
 
+  format_action = lambda {|vm| vm.poke(self.strftime(vm.peek)); }
+
+  # [a_str] format ['a formatted string']
+  Time.create_shared_method('format', NosSpec, [], &format_action)
+
+  # [a] f"str" ['a formatted string']
+  Time.create_shared_method('f"', NosSpec, [], &format_action)
+
 
   #Time comparison operations
 
