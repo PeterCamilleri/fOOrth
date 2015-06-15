@@ -68,6 +68,9 @@ class TimeLibraryTester < Minitest::Test
     foorth_raises('1434322206 .to_t "apple"  - ')
   end
 
+  def test_some_time_to_string
+    foorth_equal('1434322206 .to_t .time_s ', [Time.at(1434322206).asctime])
+  end
 
 
 

@@ -66,6 +66,12 @@ module XfOOrth
     vm.push(self)
   })
 
+  #Turn Time values into strings
+
+  Time.create_shared_method('.time_s', TosSpec, [], &lambda {|vm|
+    vm.push(self.asctime)
+  })
+
 
   #Time comparison operations
 
