@@ -78,6 +78,13 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('1434322200 .to_t .to_a', [[2015, 6, 14, 18, 50, 0.0, ofs]])
 
     foorth_equal('[ 2015 6 14 18 50 0.0 -14400 ] .to_t', [Time.at(1434322200)])
+    foorth_equal('[ 2015 6 14 18 50 0.0 ] .to_t', [Time.at(1434322200)])
+    foorth_equal('[ 2015 6 14 18 50  ] .to_t', [Time.at(1434322200)])
+    foorth_equal('[ 2015 6 14 18 ] .to_t', [Time.at(1434322200-(50*60))])
+    foorth_equal('[ 2015 6 14 ] .to_t', [Time.at(1434322200-((18*60 + 50)*60))])
+    foorth_equal('[ 2015 6 ] .to_t', [Time.at(1434322200-(((13*24 + 18)*60 + 50)*60))])
+    foorth_equal('[ 2015 ] .to_t', [Time.at(1434322200-((((151 + 13)*24 + 17)*60 + 50)*60))])
+
     foorth_equal('[ 2015 15 14 18 50 0.0 -14400 ] .to_t', [nil])
 
     foorth_equal('[ 2015 6 14 18 50 0.0 -14400 ] .to_t!', [Time.at(1434322200)])
