@@ -24,6 +24,8 @@ class TimeLibraryTester < Minitest::Test
 
   def test_some_time_macros
     foorth_equal('now .class', [Time])
+    foorth_equal('local_offset', [Time.now.utc_offset])
+
   end
 
   def test_converting_to_time
@@ -133,5 +135,39 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('1434322201 .to_t f"%A %B %d, %T"',
                  ["Sunday June 14, 18:50:01"])
 
+    foorth_equal('1434322201 .to_t "%A %B %d at %I:%M %p" format',
+                 ["Sunday June 14 at 06:50 PM"])
+
+    foorth_equal('1434322201 .to_t "%A %B %d, %r" format',
+                 ["Sunday June 14, 06:50:01 PM"])
+
+    foorth_equal('1434322201 .to_t "%A %B %d, %T" format',
+                 ["Sunday June 14, 18:50:01"])
   end
+
+  def test_time_parsing
+    foorth_equal('"Sunday June 14 at 06:50 PM" Time p"%A %B %d at %I:%M %p"',
+                 [Time.at(1434322200)])
+
+    foorth_equal('"Someday June 14 at 06:50 PM" Time p"%A %B %d at %I:%M %p"',
+                 [nil])
+
+    foorth_equal('"Sunday June 14 at 06:50 PM" Time p!"%A %B %d at %I:%M %p"',
+                 [Time.at(1434322200)])
+
+    foorth_raises('"Someday June 14 at 06:50 PM" Time p!"%A %B %d at %I:%M %p"')
+
+
+    foorth_equal('"Sunday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse',
+                 [Time.at(1434322200)])
+
+    foorth_equal('"Someday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse',
+                 [nil])
+
+    foorth_equal('"Sunday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse!',
+                 [Time.at(1434322200)])
+
+    foorth_raises('"Someday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse!')
+  end
+
 end

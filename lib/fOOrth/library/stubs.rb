@@ -48,6 +48,11 @@ module XfOOrth
   Object.create_shared_method('@',      TosSpec, [:stub])
   Object.create_shared_method('!',      TosSpec, [:stub])
 
+  Object.create_shared_method('parse',     NosSpec, [:stub])
+  Object.create_shared_method('parse!',    NosSpec, [:stub])
+  Object.create_shared_method('p"',        NosSpec, [:stub])
+  Object.create_shared_method('p!"',       NosSpec, [:stub])
+
   #Procedure literal stubs.
   Object.create_shared_method('.each{{',   NosSpec, [:stub])
   Object.create_shared_method('.new{{',    NosSpec, [:stub])
