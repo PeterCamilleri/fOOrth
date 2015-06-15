@@ -51,11 +51,28 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('1434322206 .to_t  1434322200 .to_t <= ', [false])
 
     foorth_equal('1434322206 .to_t  1434322200 .to_t =  ', [false])
+    foorth_equal('1434322206 .to_t  1434322200 .to_t <> ', [true])
 
     foorth_equal('1434322206 .to_t  1434322200 .to_t <=>', [1])
     foorth_equal('1434322206 .to_t  1434322206 .to_t <=>', [0])
     foorth_equal('1434322200 .to_t  1434322206 .to_t <=>', [-1])
   end
+
+  def test_some_time_math
+    foorth_equal('1434322206 .to_t 100 + ', [Time.at(1434322206+100)])
+    foorth_raises('1434322206 .to_t now  + ')
+    foorth_raises('1434322206 .to_t "apple"  + ')
+
+    foorth_equal('1434322206 .to_t 100 - ', [Time.at(1434322206-100)])
+    foorth_equal('1434322206 .to_t 1434322206 .to_t - ', [0])
+    foorth_raises('1434322206 .to_t "apple"  - ')
+  end
+
+
+
+
+
+
 
 
 end

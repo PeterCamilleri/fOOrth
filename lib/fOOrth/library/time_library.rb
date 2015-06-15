@@ -89,5 +89,24 @@ module XfOOrth
     vm.poke(self.to_f <=> Float.foorth_coerce(vm.peek))
   })
 
+  #Temporal mathematics, no Tardis required.
+
+  Time.create_shared_method('+', NosSpec, [], &lambda {|vm|
+    begin
+      other = vm.peek
+      vm.poke(self + other)
+    rescue TypeError
+      error "F40: Unable to add a Time instance and a #{other.foorth_name}"
+    end
+  })
+
+  Time.create_shared_method('-', NosSpec, [], &lambda {|vm|
+    begin
+      other = vm.peek
+      vm.poke(self - other)
+    rescue TypeError
+      error "F40: Unable to subtract a Time instance and a #{other.foorth_name}"
+    end
+  })
 
 end
