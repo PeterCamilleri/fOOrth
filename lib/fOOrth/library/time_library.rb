@@ -62,11 +62,11 @@ module XfOOrth
   })
 
   Time.create_shared_method('.to_t', TosSpec, [], &lambda {|vm|
-    vm.push(self)
+    vm.push(self.clone)
   })
 
   Time.create_shared_method('.to_t!', TosSpec, [], &lambda {|vm|
-    vm.push(self)
+    vm.push(self.clone)
   })
 
   Array.create_shared_method('.to_t', TosSpec, [], &lambda {|vm|
@@ -81,7 +81,7 @@ module XfOOrth
     begin
       vm.push(Time.new(*self))
     rescue
-      error "F40: Cannot convert \"#{self.to_s}\" to a Time instance"
+      error "F40: Cannot convert #{self.to_s} to a Time instance"
     end
   })
 
@@ -148,18 +148,18 @@ module XfOOrth
 
   #[time] .as_utc [time]
   Time.create_shared_method('.as_utc', TosSpec, [], &lambda {|vm|
-    vm.push(self.localtime(0))
+    vm.push(self.clone.localtime(0))
   })
 
   #[time] .as_local [time]
   Time.create_shared_method('.as_local', TosSpec, [], &lambda {|vm|
-    vm.push(self.localtime)
+    vm.push(self.clone.localtime)
   })
 
-  #[offset time] .with_offset [time]
-  Time.create_shared_method('.with_offset', TosSpec, [], &lambda {|vm|
+  #[offset time] .as_zone [time]
+  Time.create_shared_method('.as_zone', TosSpec, [], &lambda {|vm|
     offset = Integer.foorth_coerce(vm.pop)
-    vm.push(self.localtime(offset))
+    vm.push(self.clone.localtime(offset))
   })
 
 

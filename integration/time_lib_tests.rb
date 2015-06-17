@@ -120,7 +120,7 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('[ 2015 6 14 18 50 0.0      0 ] .to_t .as_local',
                   [Time.at(1434322200+ofs)])
 
-    foorth_equal('3600 [ 2015 6 14 18 50 0.0 ] .to_t .with_offset',
+    foorth_equal('3600 [ 2015 6 14 18 50 0.0 ] .to_t .as_zone',
                  [Time.at(1434322200).localtime(3600)])
 
   end
