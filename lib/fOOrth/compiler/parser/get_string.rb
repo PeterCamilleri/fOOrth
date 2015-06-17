@@ -61,10 +61,7 @@ module XfOOrth
     #Get a hex character from the input stream.
     def process_hex_character
       next_char = @source.get
-
-      unless "0123456789ABCDEFabcdef".include?(next_char)
-        error "F10: Invalid hex character: '#{next_char}'"
-      end
+      error "F10: Invalid hex character: '#{next_char}'" unless /\h/ =~ next_char
 
       next_char
     end

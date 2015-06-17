@@ -43,31 +43,4 @@ class String
     nil
   end
 
-  #New comparison methods.
-
-  #The min max > operator
-  def foorth_gt(other)
-    self > other.to_s
-  end
-
-  #The min max >= operator
-  def foorth_ge(other)
-    self >= other.to_s
-  end
-
-  #The min max < operator
-  def foorth_lt(other)
-    self < other.to_s
-  end
-
-  #The min max <= operator
-  def foorth_le(other)
-    self <= other.to_s
-  end
-
-  #The min max <=> operator
-  def foorth_cp(other)
-    self <=> other.to_s
-  end
-
 end
