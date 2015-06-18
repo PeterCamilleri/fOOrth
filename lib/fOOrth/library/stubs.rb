@@ -48,6 +48,11 @@ module XfOOrth
   Object.create_shared_method('@',      TosSpec, [:stub])
   Object.create_shared_method('!',      TosSpec, [:stub])
 
+  Object.create_shared_method('parse',     NosSpec, [:stub])
+  Object.create_shared_method('parse!',    NosSpec, [:stub])
+  Object.create_shared_method('p"',        NosSpec, [:stub])
+  Object.create_shared_method('p!"',       NosSpec, [:stub])
+
   #Procedure literal stubs.
   Object.create_shared_method('.each{{',   NosSpec, [:stub])
   Object.create_shared_method('.new{{',    NosSpec, [:stub])
@@ -56,44 +61,14 @@ module XfOOrth
   Object.create_shared_method('.open{{',   NosSpec, [:stub])
   Object.create_shared_method('.create{{', NosSpec, [:stub])
   Object.create_shared_method('.append{{', NosSpec, [:stub])
+  Object.create_shared_method('.do{{',     NosSpec, [:stub])
 
   #Define some "crossover" symbols.
- #SymbolMap.add_entry('.init',          :foorth_new) -- aliased in core.rb
-  SymbolMap.add_entry('.is_class?',     :foorth_is_class?)
+  SymbolMap.add_entry('.is_class?',     "foorth_is_class?".to_sym)
   SymbolMap.add_entry('.to_s',          :to_foorth_s)
   SymbolMap.add_entry('.strlen',        :foorth_strlen)
   SymbolMap.add_entry('.strmax',        :foorth_strmax)
   SymbolMap.add_entry('.strmax2',       :foorth_strmax2)
   SymbolMap.add_entry('.pp',            :foorth_pretty)
   SymbolMap.add_entry('.load',          :foorth_load_file)
-end
-
-#* Runtime library support stubs.
-class Object
-
-  # Runtime stub for >
-  def foorth_gt(_other)
-    error "F12: A #{self.foorth_name} does not support >."
-  end
-
-  # Runtime stub for <
-  def foorth_lt(_other)
-    error "F12: A #{self.foorth_name} does not support <."
-  end
-
-  # Runtime stub for >=
-  def foorth_ge(_other)
-    error "F12: A #{self.foorth_name} does not support >=."
-  end
-
-  # Runtime stub for <=
-  def foorth_le(_other)
-    error "F12: A #{self.foorth_name} does not support <=."
-  end
-
-  # Runtime stub for <=>
-  def foorth_cp(_other)
-    error "F12: A #{self.foorth_name} does not support <=>."
-  end
-
 end

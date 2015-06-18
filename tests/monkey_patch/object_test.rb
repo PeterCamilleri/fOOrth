@@ -41,34 +41,4 @@ class ObjectMonkeyPatchTester < Minitest::Test
     assert_raises(XfOOrth::XfOOrthError) { error('Failure IS an option!') }
   end
 
-  def test_foorth_gt
-    assert(('4').foorth_gt('0'))
-    refute(('4').foorth_gt('4'))
-    refute(('4').foorth_gt('8'))
-  end
-
-  def test_foorth_ge
-    assert(('4').foorth_ge('0'))
-    assert(('4').foorth_ge('4'))
-    refute(('4').foorth_ge('8'))
-  end
-
-  def test_foorth_lt
-    refute(('4').foorth_lt('0'))
-    refute(('4').foorth_lt('4'))
-    assert(('4').foorth_lt('8'))
-  end
-
-  def test_foorth_le
-    refute(('4').foorth_le('0'))
-    assert(('4').foorth_le('4'))
-    assert(('4').foorth_le('8'))
-  end
-
-  def test_foorth_cp
-    assert_equal( 1, ('4').foorth_cp('0'))
-    assert_equal( 0, ('4').foorth_cp('4'))
-    assert_equal(-1, ('4').foorth_cp('8'))
-  end
-
 end

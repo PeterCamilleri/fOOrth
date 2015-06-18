@@ -15,6 +15,7 @@ require_relative 'library/integer_library'
 require_relative 'library/rational_library'
 require_relative 'library/complex_library'
 require_relative 'library/string_library'
+require_relative 'library/time_library'
 require_relative 'library/array_library'
 require_relative 'library/hash_library'
 require_relative 'library/procedure_library'
@@ -25,6 +26,7 @@ require_relative 'library/in_stream_library'
 require_relative 'library/out_stream_library'
 require_relative 'library/queue_library'
 require_relative 'library/stack_library'
+require_relative 'library/mutex_library'
 
 #* library.rb - The word library portion of the fOOrth language system.
 module XfOOrth

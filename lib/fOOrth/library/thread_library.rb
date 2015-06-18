@@ -8,6 +8,8 @@ module XfOOrth
 
   #Class Methods
 
+  Thread.create_exclusive_method('.new', TosSpec, [:stub])
+
   # [name Thread]  .new{{ ... }} [a_thread]
   Thread.create_exclusive_method('.new{{', NosSpec, [], &lambda {|vm|
     block = vm.pop

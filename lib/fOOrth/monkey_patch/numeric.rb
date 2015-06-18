@@ -27,33 +27,4 @@ class Numeric
     self
   end
 
-  #New comparison methods. The foorth_ prefix is short for min_max_.
-  #These methods process and handle the special MaxNumeric and
-  #MinNumeric modules.
-
-  #The min max > operator
-  def foorth_gt(other)
-    self > foorth_coerce(other)
-  end
-
-  #The min max >= operator
-  def foorth_ge(other)
-    self >= foorth_coerce(other)
-  end
-
-  #The min max < operator
-  def foorth_lt(other)
-    self < foorth_coerce(other)
-  end
-
-  #The min max <= operator
-  def foorth_le(other)
-    self <= foorth_coerce(other)
-  end
-
-  #The min max <=> operator
-  def foorth_cp(other)
-    self <=> foorth_coerce(other)
-  end
-
 end
