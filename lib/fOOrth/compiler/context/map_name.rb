@@ -22,6 +22,7 @@ module XfOOrth
 
     #Do a search of dictionaries based on the syntax of the name.
     def do_map_name
+      self[@symbol]              ||
       case @name[0]
       when '.'
         do_object_class_map      ||
@@ -49,7 +50,6 @@ module XfOOrth
         spec_error
 
       else
-        self[@symbol]            ||
         do_object_class_map      ||
         do_vm_target_map         ||
         do_global_target_map     ||
