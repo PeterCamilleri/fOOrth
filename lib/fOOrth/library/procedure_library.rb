@@ -17,6 +17,18 @@ module XfOOrth
   Proc.create_shared_method('.call_with', TosSpec, [],
     &lambda {|vm| vm.pop.instance_exec(vm, &self); })
 
+  # [v procedure] .call_v [unspecified]
+  Proc.create_shared_method('.call_v', TosSpec, [],
+    &lambda {|vm| v = vm.pop; self.call(vm, v); })
+
+  # [x procedure] .call_x [unspecified]
+  Proc.create_shared_method('.call_x', TosSpec, [],
+    &lambda {|vm| x = vm.pop; self.call(vm, nil, x); })
+
+  # [v x procedure] .call_vx [unspecified]
+  Proc.create_shared_method('.call_vx', TosSpec, [],
+    &lambda {|vm| v, x = vm.popm(2); self.call(vm, v, x); })
+
   # [procedure] .start [a_thread]
   Proc.create_shared_method('.start', TosSpec, [], &lambda {|vm|
     vm.push(self.do_thread_start(vm, '-'))
