@@ -141,22 +141,22 @@ module XfOOrth
 
   #Time zone control
 
-  #[time] .utc? [a boolean]
+  #[a_time] .utc? [a boolean]
   Time.create_shared_method('.utc?', TosSpec, [], &lambda {|vm|
     vm.push(self.utc_offset == 0)
   })
 
-  #[time] .as_utc [time]
+  #[a_time] .as_utc [a_time]
   Time.create_shared_method('.as_utc', TosSpec, [], &lambda {|vm|
     vm.push(self.clone.localtime(0))
   })
 
-  #[time] .as_local [time]
+  #[a_time] .as_local [a_time]
   Time.create_shared_method('.as_local', TosSpec, [], &lambda {|vm|
     vm.push(self.clone.localtime)
   })
 
-  #[offset time] .as_zone [time]
+  #[offset a_time] .as_zone [a_time]
   Time.create_shared_method('.as_zone', TosSpec, [], &lambda {|vm|
     offset = Integer.foorth_coerce(vm.pop)
     vm.push(self.clone.localtime(offset))
@@ -165,17 +165,17 @@ module XfOOrth
 
   #Turn Time values to/from strings
 
-  #[time] .time_s [string]
+  #[a_time] .time_s [string]
   Time.create_shared_method('.time_s', TosSpec, [], &lambda {|vm|
     vm.push(self.asctime)
   })
 
   format_action = lambda {|vm| vm.poke(self.strftime(vm.peek)); }
 
-  # [a_str] format ['a formatted string']
+  # [a_time a_string] format [a_string]
   Time.create_shared_method('format', NosSpec, [], &format_action)
 
-  # [a] f"str" ['a formatted string']
+  # [a_time] f"string" [a_string]
   Time.create_shared_method('f"', NosSpec, [], &format_action)
 
   parse_action = lambda do |vm|
@@ -189,10 +189,10 @@ module XfOOrth
     end
   end
 
-  # [a_str Time a_str] parse [time or nil]
+  # [a_string Time a_string] parse [a_time or nil]
   Time.create_exclusive_method('parse', NosSpec, [], &parse_action)
 
-  # [a_str Time] p"str" [time or nil]
+  # [a_string Time] p"string" [a_time or nil]
   Time.create_exclusive_method('p"', NosSpec, [], &parse_action)
 
   parse_bang_action = lambda do |vm|
@@ -206,10 +206,10 @@ module XfOOrth
     end
   end
 
-  # [a_str Time a_str] parse [time or nil]
+  # [a_string Time a_string] parse [a_time or nil]
   Time.create_exclusive_method('parse!', NosSpec, [], &parse_bang_action)
 
-  # [a_str Time] p"str" [time or nil]
+  # [a_string Time] p"str" [a_time or nil]
   Time.create_exclusive_method('p!"', NosSpec, [], &parse_bang_action)
 
 
@@ -237,7 +237,7 @@ module XfOOrth
 
   #Temporal mathematics, no Tardis required.
 
-  #[time float] + [time]
+  #[a_time a_float] + [a_time]
   Time.create_shared_method('+', NosSpec, [], &lambda {|vm|
     begin
       other = vm.peek
@@ -247,8 +247,8 @@ module XfOOrth
     end
   })
 
-  #[time float] - [time]
-  #[time time]  - [float]
+  #[a_time a_float] - [a_time]
+  #[a_time a_time]  - [a_float]
   Time.create_shared_method('-', NosSpec, [], &lambda {|vm|
     begin
       other = vm.peek

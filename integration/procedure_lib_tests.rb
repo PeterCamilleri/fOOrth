@@ -31,4 +31,10 @@ class ProcedureLibraryTester < Minitest::Test
     foorth_equal('4 {{ self dup + }} .call_with', [8])
   end
 
+  def test_calling_x_v_and_vx
+    foorth_equal('4 {{ v dup + }} .call_v', [8])
+    foorth_equal('4 {{ x dup + }} .call_x', [8])
+
+    foorth_equal('5 4 {{ v x 2dup + }} .call_vx', [5, 4, 9])
+  end
 end
