@@ -48,6 +48,7 @@ class Proc
     block, interlock = self, Queue.new
 
     result = Thread.new(vm.foorth_copy(vm_name)) do |vm_copy|
+
       begin
         self.foorth_init(vm_copy.compiler_reset.connect_vm_to_thread)
       ensure
