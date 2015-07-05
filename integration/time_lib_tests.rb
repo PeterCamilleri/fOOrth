@@ -6,7 +6,7 @@ gem              'minitest'
 require          'minitest/autorun'
 require          'minitest_visible'
 
-#Test the fOOrth compile library.
+#Test the fOOrth time and duration libraries.
 class TimeLibraryTester < Minitest::Test
 
   include XfOOrthTestExtensions
@@ -14,18 +14,19 @@ class TimeLibraryTester < Minitest::Test
   #Track mini-test progress.
   MinitestVisible.track self, __FILE__
 
-  def test_that_the_time_class_exists
+  def test_that_the_time_classes_exists
     foorth_equal('Time', [Time])
+    foorth_equal('Duration', [XfOOrth::Duration])
   end
 
   def test_that_new_not_allowed
     foorth_raises('Time .new')
+    foorth_raises('Duration .new')
   end
 
   def test_some_time_macros
     foorth_equal('now .class', [Time])
     foorth_equal('local_offset', [Time.now.utc_offset])
-
   end
 
   def test_converting_to_time
