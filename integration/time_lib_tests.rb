@@ -72,6 +72,10 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal("1 .to_d 0 =", [false])
     foorth_equal("0 .to_d 1 =", [false])
 
+    foorth_equal("0 0 .to_d =", [true])
+    foorth_equal("1 0 .to_d =", [false])
+    foorth_equal("0 1 .to_d =", [false])
+
     foorth_raises("0 .to_d 1+2i =")
     foorth_equal("try 0 .to_d 1+2i = catch drop error end",
     ["F40: Cannot coerce a Complex instance to a Duration"])
@@ -85,6 +89,10 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal("0 .to_d 0 >", [false])
     foorth_equal("1 .to_d 0 >", [true])
     foorth_equal("0 .to_d 1 >", [false])
+
+    foorth_equal("0 0 .to_d >", [false])
+    foorth_equal("1 0 .to_d >", [true])
+    foorth_equal("0 1 .to_d >", [false])
 
     foorth_raises("0 .to_d 1+2i >")
     foorth_equal("try 0 .to_d 1+2i > catch drop error end",
