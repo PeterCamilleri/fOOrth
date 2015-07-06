@@ -52,7 +52,7 @@ module XfOOrthTestExtensions
 
     begin
       vm.process_string(source)
-      msg = "Expected: #{err}\nActual: None"
+      msg = "Expected: #{err}\nActual: No exception raised."
       failed = true
 
     rescue Exception => e

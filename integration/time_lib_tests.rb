@@ -47,6 +47,50 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('0 .to_t .to_t!', [Time.at(0)])
   end
 
+  def test_converting_to_duration
+    foorth_equal('0 .to_d',         [XfOOrth::Duration.new("0/1".to_r)])
+    foorth_equal('infinity .to_d', [nil])
+    foorth_equal('1+2i .to_d',     [nil])
+
+    foorth_equal('0 .to_d!',       [XfOOrth::Duration.new("0/1".to_r)])
+    foorth_raises('infinity .to_d!')
+    foorth_raises('1+2i .to_d!')
+  end
+
+  def test_converting_from_a_duration
+    foorth_equal('5 .to_d .to_r', ["5/1".to_r])
+    foorth_equal('5 .to_d .to_f', [5.0])
+
+  end
+
+  def test_duration_comparisons
+    foorth_equal("0 .to_d 0 .to_d =", [true])
+    foorth_equal("1 .to_d 0 .to_d =", [false])
+    foorth_equal("0 .to_d 1 .to_d =", [false])
+
+    foorth_equal("0 .to_d 0 =", [true])
+    foorth_equal("1 .to_d 0 =", [false])
+    foorth_equal("0 .to_d 1 =", [false])
+
+    foorth_raises("0 .to_d 1+2i =")
+    foorth_equal("try 0 .to_d 1+2i = catch drop error end",
+    ["F40: Cannot coerce a Complex instance to a Duration"])
+
+
+
+    foorth_equal("0 .to_d 0 .to_d >", [false])
+    foorth_equal("1 .to_d 0 .to_d >", [true])
+    foorth_equal("0 .to_d 1 .to_d >", [false])
+
+    foorth_equal("0 .to_d 0 >", [false])
+    foorth_equal("1 .to_d 0 >", [true])
+    foorth_equal("0 .to_d 1 >", [false])
+
+    foorth_raises("0 .to_d 1+2i >")
+    foorth_equal("try 0 .to_d 1+2i > catch drop error end",
+    ["F40: Cannot coerce a Complex instance to a Duration"])
+  end
+
   def test_time_comparisons
     foorth_equal('1434322206 .to_t  1434322200 .to_t >  ', [true])
     foorth_equal('1434322206 .to_t  1434322200 .to_t >= ', [true])
