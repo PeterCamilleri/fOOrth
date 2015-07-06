@@ -48,11 +48,13 @@ class TimeLibraryTester < Minitest::Test
   end
 
   def test_converting_to_duration
-    foorth_equal('0 .to_d',         [XfOOrth::Duration.new("0/1".to_r)])
+    foorth_equal('0 .to_d',        [XfOOrth::Duration.new("0/1".to_r)])
+    foorth_equal('"apple"  .to_d', [nil])
     foorth_equal('infinity .to_d', [nil])
     foorth_equal('1+2i .to_d',     [nil])
 
     foorth_equal('0 .to_d!',       [XfOOrth::Duration.new("0/1".to_r)])
+    foorth_raises('"apple" .to_d!')
     foorth_raises('infinity .to_d!')
     foorth_raises('1+2i .to_d!')
   end
@@ -76,10 +78,24 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal("1 0 .to_d =", [false])
     foorth_equal("0 1 .to_d =", [false])
 
-    foorth_raises("0 .to_d 1+2i =")
-    foorth_equal("try 0 .to_d 1+2i = catch drop error end",
-    ["F40: Cannot coerce a Complex instance to a Duration"])
+    foorth_equal('0 .to_d "to" =', [false])
+    foorth_equal("0 .to_d 1+2i =", [false])
 
+
+    foorth_equal("0 .to_d! 0 .to_d <>", [false])
+    foorth_equal("1 .to_d 0 .to_d <>", [true])
+    foorth_equal("0 .to_d 1 .to_d <>", [true])
+
+    foorth_equal("0 .to_d 0 <>", [false])
+    foorth_equal("1 .to_d 0 <>", [true])
+    foorth_equal("0 .to_d 1 <>", [true])
+
+    foorth_equal("0 0 .to_d <>", [false])
+    foorth_equal("1 0 .to_d <>", [true])
+    foorth_equal("0 1 .to_d <>", [true])
+
+    foorth_equal('0 .to_d "to" <>', [true])
+    foorth_equal("0 .to_d 1+2i <>", [true])
 
 
     foorth_equal("0 .to_d 0 .to_d >", [false])
@@ -95,8 +111,71 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal("0 1 .to_d >", [false])
 
     foorth_raises("0 .to_d 1+2i >")
-    foorth_equal("try 0 .to_d 1+2i > catch drop error end",
-    ["F40: Cannot coerce a Complex instance to a Duration"])
+    foorth_raises('0 .to_d "to" >')
+
+
+    foorth_equal("0 .to_d 0 .to_d >=", [true])
+    foorth_equal("1 .to_d 0 .to_d >=", [true])
+    foorth_equal("0 .to_d 1 .to_d >=", [false])
+
+    foorth_equal("0 .to_d 0 >=", [true])
+    foorth_equal("1 .to_d 0 >=", [true])
+    foorth_equal("0 .to_d 1 >=", [false])
+
+    foorth_equal("0 0 .to_d >=", [true])
+    foorth_equal("1 0 .to_d >=", [true])
+    foorth_equal("0 1 .to_d >=", [false])
+
+    foorth_raises("0 .to_d 1+2i >=")
+    foorth_raises('0 .to_d "to" >=')
+
+
+    foorth_equal("0 .to_d 0 .to_d <", [false])
+    foorth_equal("1 .to_d 0 .to_d <", [false])
+    foorth_equal("0 .to_d 1 .to_d <", [true])
+
+    foorth_equal("0 .to_d 0 <", [false])
+    foorth_equal("1 .to_d 0 <", [false])
+    foorth_equal("0 .to_d 1 <", [true])
+
+    foorth_equal("0 0 .to_d <", [false])
+    foorth_equal("1 0 .to_d <", [false])
+    foorth_equal("0 1 .to_d <", [true])
+
+    foorth_raises("0 .to_d 1+2i <")
+    foorth_raises('0 .to_d "to" <')
+
+
+    foorth_equal("0 .to_d 0 .to_d <=", [true])
+    foorth_equal("1 .to_d 0 .to_d <=", [false])
+    foorth_equal("0 .to_d 1 .to_d <=", [true])
+
+    foorth_equal("0 .to_d 0 <=", [true])
+    foorth_equal("1 .to_d 0 <=", [false])
+    foorth_equal("0 .to_d 1 <=", [true])
+
+    foorth_equal("0 0 .to_d <=", [true])
+    foorth_equal("1 0 .to_d <=", [false])
+    foorth_equal("0 1 .to_d <=", [true])
+
+    foorth_raises("0 .to_d 1+2i <=")
+    foorth_raises('0 .to_d "to" <=')
+
+
+    foorth_equal("0 .to_d 0 .to_d <=>", [0])
+    foorth_equal("1 .to_d 0 .to_d <=>", [1])
+    foorth_equal("0 .to_d 1 .to_d <=>", [-1])
+
+    foorth_equal("0 .to_d 0 <=>", [0])
+    foorth_equal("1 .to_d 0 <=>", [1])
+    foorth_equal("0 .to_d 1 <=>", [-1])
+
+    foorth_equal("0 0 .to_d <=>", [0])
+    foorth_equal("1 0 .to_d <=>", [1])
+    foorth_equal("0 1 .to_d <=>", [-1])
+
+    foorth_raises("0 .to_d 1+2i <=>")
+    foorth_raises('0 .to_d "to" <=>')
   end
 
   def test_time_comparisons

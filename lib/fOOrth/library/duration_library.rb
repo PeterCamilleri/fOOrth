@@ -8,9 +8,6 @@ module XfOOrth
   #to July 4, 2015 5:43 PM.
   class Duration
 
-    #The period of time (in seconds) contained in this duration.
-    attr_accessor :period
-
     #Create a duration instance.
     #<br>Parameters
     #* period - The period of time of the duration.
@@ -18,30 +15,37 @@ module XfOOrth
       @period = period
     end
 
-    #Is this duration equal to other?
-    def eql?(other)
-      @period.eql?(Duration.foorth_coerce(other))
-    end
-
-    alias :== :eql?
-
-    #Convert this duration to a rational number.
-    def to_r
-      @period.to_r
-    end
-
-    #Convert this duration to a floating point number.
-    def to_f
-      @period.to_f
+    #Coerce the argument to match my type.
+    def self.foorth_coerce(arg)
+      Rational(arg)
+    rescue
+      error "F40: Cannot coerce a #{arg.foorth_name} to a Rational"
     end
 
     #Coerce the argument to match my type.
-    def self.foorth_coerce(arg)
-      Rational(arg.to_r)
+    def foorth_coerce(arg)
+      Rational(arg)
     rescue
-      error "F40: Cannot coerce a #{arg.foorth_name} to a Duration"
+      error "F40: Cannot coerce a #{arg.foorth_name} to a Rational"
     end
 
+    #Convert this duration to a rational number.
+    def to_r
+      @period
+    end
+
+    #Define equality for durations.
+    def eql?(other)
+      @period.eql?(XfOOrth.safe_rationalize(other))
+    end
+
+    #Alias to the standard operator.
+    alias :== :eql?
+
+    #Pass off all unknown methods to the period data.
+    def method_missing(symbol, *args, &block)
+      @period.send(symbol, *args, &block)
+    end
 
   end
 
@@ -54,7 +58,7 @@ module XfOOrth
   #Helper Methods .to_d and .to_d!
 
   #[number] .to_d [a_duration]
-  Numeric.create_shared_method('.to_d', TosSpec, [], &lambda {|vm|
+  Object.create_shared_method('.to_d', TosSpec, [], &lambda {|vm|
     begin
       vm.push(Duration.new(Rational(self)))
     rescue
@@ -63,7 +67,7 @@ module XfOOrth
   })
 
   #[number] .to_d! [a_duration]
-  Numeric.create_shared_method('.to_d!', TosSpec, [], &lambda {|vm|
+  Object.create_shared_method('.to_d!', TosSpec, [], &lambda {|vm|
     begin
       vm.push(Duration.new(Rational(self)))
     rescue
@@ -84,12 +88,6 @@ module XfOOrth
       vm.push(self)
     end
   })
-
-  # Some comparison words.
-  # [b,a] > if b > a then [true] else [false]
-  Duration.create_shared_method('>', NosSpec, [],
-    &lambda {|vm| vm.poke(self.to_r > Duration.foorth_coerce(vm.peek)); })
-
 
 
 end
