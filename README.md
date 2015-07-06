@@ -38,10 +38,13 @@ The fOOrth Language System is documented in The fOOrth User Guide. This is
 currently only available in Open Office format, and is still also very much
 a work in progress. Please see The_fOOrth_User_Guide.odt in the docs folder.
 
-As each version of fOOrth is made available, expect to see portable document
-format versions of the guide for each released version.
+Also for those who do not have or don't want Open Office: As each major
+version of fOOrth is made available, expect to see portable document format
+(pdf) versions of the guide. (In the docs folder in the repository)
 
 ## Contributing
+
+#### Plan A
 
 1. Fork it
 2. Switch to the development branch ('git branch development')
@@ -50,9 +53,15 @@ format versions of the guide for each released version.
 5. Push to the branch ('git push origin my-new-feature')
 6. Create new Pull Request
 
-It is strongly encouraged to apply all new coding efforts to the
-development branch and not master.
 
 For more details on the branching strategy, please see:
 http://nvie.com/posts/a-successful-git-branching-model/
 
+
+#### Plan B
+
+Go to the GitHub repository and raise an issue calling attention to some
+aspect that could use some TLC or a suggestion or idea. Apply labels to
+the issue that match the point you are trying to make. Then follow your
+issue and keep up-to-date as it is worked on. Or not as pleases you.
+All input are greatly appreciated.
