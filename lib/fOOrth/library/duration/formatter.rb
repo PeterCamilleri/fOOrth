@@ -11,10 +11,10 @@ module XfOOrth
 
     ##
     #The specification of the formatter method of the \Duration class.
-    #<br>Raw Formats (in seconds and fractions)
+    #<br>Raw Formats (in seconds and fractions):
     #* %{w{.p}}f - Total seconds in floating point format.
     #* %{w}r - Total seconds in rational format
-    #<br>Where
+    #<br>Where:
     #* w is an optional field width parameter.
     #* p is an optional precision parameter.
     attr_formatter :strfmt,

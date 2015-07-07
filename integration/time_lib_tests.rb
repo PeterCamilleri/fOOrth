@@ -27,6 +27,8 @@ class TimeLibraryTester < Minitest::Test
   def test_some_time_macros
     foorth_equal('now .class', [Time])
     foorth_equal('local_offset', [Time.now.utc_offset])
+    foorth_equal('Duration .intervals',
+                 [[31556952.0, 2629746.0, 86400, 3600, 60, 1]])
   end
 
   def test_converting_to_time
@@ -232,6 +234,8 @@ class TimeLibraryTester < Minitest::Test
 
   def test_some_time_to_string
     foorth_equal('1434322206 .to_t .time_s ', [Time.at(1434322206).asctime])
+
+    foorth_equal('10 .to_d .to_s', ["Duration instance <10.0 seconds>"])
   end
 
   def test_time_array_stuff

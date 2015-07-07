@@ -1,5 +1,6 @@
 # coding: utf-8
 
+require_relative 'duration/intervals'
 require_relative 'duration/formatter'
 
 #* library/duration_library.rb - The duration support fOOrth library.
@@ -94,5 +95,9 @@ module XfOOrth
     end
   })
 
+  #Default conversion to string. See duration/formatter for formatted output.
+  Duration.create_shared_method('.to_s', TosSpec, [], &lambda {|vm|
+    vm.push("Duration instance <#{self.period.to_f} seconds>" )
+  })
 
 end
