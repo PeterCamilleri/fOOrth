@@ -251,8 +251,8 @@ module XfOOrth
   #[a_time a_time]  - [a_float]
   Time.create_shared_method('-', NosSpec, [], &lambda {|vm|
     begin
-      other = vm.peek
-      vm.poke(self - other)
+      result = self - (other = vm.peek)
+      vm.poke(result.is_a?(Time) ? result : Duration.new(result.rationalize))
     rescue TypeError
       error "F40: Unable to subtract a Time instance and a #{other.foorth_name}"
     end
