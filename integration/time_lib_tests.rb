@@ -178,6 +178,16 @@ class TimeLibraryTester < Minitest::Test
     foorth_raises('0 .to_d "to" <=>')
   end
 
+  def test_some_duration_formatting
+    foorth_equal('4/3 .to_d f"%r seconds"    ', ["4/3 seconds"])
+    foorth_equal('4/3 .to_d f"%8r seconds"   ', ["     4/3 seconds"])
+    foorth_equal('44/3 .to_d f"%4r seconds"  ', ["44/3 seconds"])
+
+    foorth_equal('4/3 .to_d f"%f seconds"    ', ["1.333333 seconds"])
+    foorth_equal('4/3 .to_d f"%8.2f seconds" ', ["    1.33 seconds"])
+    foorth_equal('100.25 .to_d f"%4.2f seconds"', ["100.25 seconds"])
+  end
+
   def test_time_comparisons
     foorth_equal('1434322206 .to_t  1434322200 .to_t >  ', [true])
     foorth_equal('1434322206 .to_t  1434322200 .to_t >= ', [true])

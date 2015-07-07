@@ -1,5 +1,7 @@
 # coding: utf-8
 
+require_relative 'duration/formatter'
+
 #* library/duration_library.rb - The duration support fOOrth library.
 module XfOOrth
 
@@ -7,6 +9,9 @@ module XfOOrth
   #directly associated with a date or time. Like 10 minutes as opposed
   #to July 4, 2015 5:43 PM.
   class Duration
+
+    #The length of time of the duration.
+    attr_reader :period
 
     #Create a duration instance.
     #<br>Parameters
