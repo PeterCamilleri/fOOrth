@@ -189,12 +189,28 @@ class TimeLibraryTester < Minitest::Test
   end
 
   def test_time_comparisons
+    foorth_equal('1434322206 .to_t  1434322206 .to_t >  ', [false])
+    foorth_equal('1434322200 .to_t  1434322206 .to_t >  ', [false])
     foorth_equal('1434322206 .to_t  1434322200 .to_t >  ', [true])
+
+    foorth_equal('1434322206 .to_t  1434322206 .to_t >= ', [true])
+    foorth_equal('1434322200 .to_t  1434322206 .to_t >= ', [false])
     foorth_equal('1434322206 .to_t  1434322200 .to_t >= ', [true])
+
+    foorth_equal('1434322206 .to_t  1434322206 .to_t <  ', [false])
+    foorth_equal('1434322200 .to_t  1434322206 .to_t <  ', [true])
     foorth_equal('1434322206 .to_t  1434322200 .to_t <  ', [false])
+
+    foorth_equal('1434322206 .to_t  1434322206 .to_t <= ', [true])
+    foorth_equal('1434322200 .to_t  1434322206 .to_t <= ', [true])
     foorth_equal('1434322206 .to_t  1434322200 .to_t <= ', [false])
 
+    foorth_equal('1434322206 .to_t  1434322206 .to_t =  ', [true])
+    foorth_equal('1434322200 .to_t  1434322206 .to_t =  ', [false])
     foorth_equal('1434322206 .to_t  1434322200 .to_t =  ', [false])
+
+    foorth_equal('1434322206 .to_t  1434322206 .to_t <> ', [false])
+    foorth_equal('1434322200 .to_t  1434322206 .to_t <> ', [true])
     foorth_equal('1434322206 .to_t  1434322200 .to_t <> ', [true])
 
     foorth_equal('1434322206 .to_t  1434322200 .to_t <=>', [1])

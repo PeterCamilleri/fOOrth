@@ -11,7 +11,7 @@ module XfOOrth
 
     ##
     #The specification of the formatter method of the \Duration class.
-    #<br>Raw Formats
+    #<br>Raw Formats (in seconds and fractions)
     #* %{w{.p}}f - Total seconds in floating point format.
     #* %{w}r - Total seconds in rational format
     #<br>Where
