@@ -24,11 +24,19 @@ class TimeLibraryTester < Minitest::Test
     foorth_raises('Duration .new')
   end
 
-  def test_some_time_macros
+  def test_some_time_duration_values
     foorth_equal('now .class', [Time])
     foorth_equal('local_offset', [Time.now.utc_offset])
+
     foorth_equal('Duration .intervals',
                  [[31556952.0, 2629746.0, 86400, 3600, 60, 1]])
+
+    foorth_equal('Duration .sec_per_year', [31556952.0])
+    foorth_equal('Duration .sec_per_month', [2629746.0])
+    foorth_equal('Duration .sec_per_day', [86400])
+    foorth_equal('Duration .sec_per_hour', [3600])
+    foorth_equal('Duration .sec_per_min', [60])
+    foorth_equal('Duration .sec_per_sec', [1])
   end
 
   def test_converting_to_time
