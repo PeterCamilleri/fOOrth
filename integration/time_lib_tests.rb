@@ -29,14 +29,14 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('local_offset', [Time.now.utc_offset])
 
     foorth_equal('Duration .intervals',
-                 [[31556952.0, 2629746.0, 86400, 3600, 60, 1]])
+                 [[31_556_952, 2_629_746, 86_400, 3_600, 60, 1]])
 
-    foorth_equal('Duration .sec_per_year', [31556952.0])
-    foorth_equal('Duration .sec_per_month', [2629746.0])
-    foorth_equal('Duration .sec_per_day', [86400])
-    foorth_equal('Duration .sec_per_hour', [3600])
-    foorth_equal('Duration .sec_per_min', [60])
-    foorth_equal('Duration .sec_per_sec', [1])
+    foorth_equal('Duration .sec_per_year',  [31_556_952])
+    foorth_equal('Duration .sec_per_month', [ 2_629_746])
+    foorth_equal('Duration .sec_per_day',   [    86_400])
+    foorth_equal('Duration .sec_per_hour',  [     3_600])
+    foorth_equal('Duration .sec_per_min',   [        60])
+    foorth_equal('Duration .sec_per_sec',   [         1])
   end
 
   def test_converting_to_time
@@ -340,6 +340,31 @@ class TimeLibraryTester < Minitest::Test
                  [Time.at(1434322200)])
 
     foorth_raises('"Someday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse!')
+  end
+
+  def test_some_duration_formatting_and_support
+    foorth_equal('0 .to_d .largest_interval',   [5])
+    foorth_equal('0.1 .to_d .largest_interval', [5])
+    foorth_equal('1 .to_d .largest_interval',   [5])
+    foorth_equal('59 .to_d .largest_interval',  [5])
+
+    foorth_equal('60 .to_d .largest_interval',   [4])
+    foorth_equal('60.02 .to_d .largest_interval', [4])
+    foorth_equal('120.02 .to_d .largest_interval', [4])
+    foorth_equal('3120.02 .to_d .largest_interval', [4])
+    foorth_equal('3599.99 .to_d .largest_interval', [4])
+
+    foorth_equal('3600 .to_d .largest_interval', [3])
+    foorth_equal('86399 .to_d .largest_interval', [3])
+
+    foorth_equal('86400 .to_d .largest_interval', [2])
+
+    foorth_equal('2629746 .to_d .largest_interval', [1])
+
+    foorth_equal('31556952 .to_d .largest_interval', [0])
+
+
+
   end
 
 end
