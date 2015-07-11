@@ -61,10 +61,10 @@ module XfOOrth
   #Stub out .new
   Duration.create_exclusive_method('.new', TosSpec, [:stub])
 
-  #Helper Methods .to_d and .to_d!
+  #Helper Methods .to_duration and .to_duration!
 
-  #[number] .to_d [a_duration]
-  Object.create_shared_method('.to_d', TosSpec, [], &lambda {|vm|
+  #[number] .to_duration [a_duration]
+  Object.create_shared_method('.to_duration', TosSpec, [], &lambda {|vm|
     begin
       vm.push(Duration.new(Rational(self)))
     rescue
@@ -72,8 +72,8 @@ module XfOOrth
     end
   })
 
-  #[number] .to_d! [a_duration]
-  Object.create_shared_method('.to_d!', TosSpec, [], &lambda {|vm|
+  #[number] .to_duration! [a_duration]
+  Object.create_shared_method('.to_duration!', TosSpec, [], &lambda {|vm|
     begin
       vm.push(Duration.new(Rational(self)))
     rescue
@@ -81,15 +81,15 @@ module XfOOrth
     end
   })
 
-  #[a_duration] .to_d [a_duration]
-  Duration.create_shared_method('.to_d', TosSpec, [], &lambda {|vm|
+  #[a_duration] .to_duration [a_duration]
+  Duration.create_shared_method('.to_duration', TosSpec, [], &lambda {|vm|
     begin
       vm.push(self)
     end
   })
 
-  #[a_duration] .to_d! [a_duration]
-  Duration.create_shared_method('.to_d!', TosSpec, [], &lambda {|vm|
+  #[a_duration] .to_duration! [a_duration]
+  Duration.create_shared_method('.to_duration!', TosSpec, [], &lambda {|vm|
     begin
       vm.push(self)
     end

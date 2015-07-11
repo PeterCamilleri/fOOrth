@@ -58,144 +58,144 @@ class TimeLibraryTester < Minitest::Test
   end
 
   def test_converting_to_duration
-    foorth_equal('0 .to_d',        [XfOOrth::Duration.new("0/1".to_r)])
-    foorth_equal('"apple"  .to_d', [nil])
-    foorth_equal('infinity .to_d', [nil])
-    foorth_equal('1+2i .to_d',     [nil])
+    foorth_equal('0 .to_duration',        [XfOOrth::Duration.new("0/1".to_r)])
+    foorth_equal('"apple"  .to_duration', [nil])
+    foorth_equal('infinity .to_duration', [nil])
+    foorth_equal('1+2i .to_duration',     [nil])
 
-    foorth_equal('0 .to_d!',       [XfOOrth::Duration.new("0/1".to_r)])
-    foorth_raises('"apple" .to_d!')
-    foorth_raises('infinity .to_d!')
-    foorth_raises('1+2i .to_d!')
+    foorth_equal('0 .to_duration!',       [XfOOrth::Duration.new("0/1".to_r)])
+    foorth_raises('"apple" .to_duration!')
+    foorth_raises('infinity .to_duration!')
+    foorth_raises('1+2i .to_duration!')
   end
 
   def test_converting_from_a_duration
-    foorth_equal('5 .to_d .to_r', ["5/1".to_r])
-    foorth_equal('5 .to_d .to_f', [5.0])
+    foorth_equal('5 .to_duration .to_r', ["5/1".to_r])
+    foorth_equal('5 .to_duration .to_f', [5.0])
 
   end
 
   def test_duration_comparisons
-    foorth_equal("0 .to_d 0 .to_d =", [true])
-    foorth_equal("1 .to_d 0 .to_d =", [false])
-    foorth_equal("0 .to_d 1 .to_d =", [false])
+    foorth_equal("0 .to_duration 0 .to_duration =", [true])
+    foorth_equal("1 .to_duration 0 .to_duration =", [false])
+    foorth_equal("0 .to_duration 1 .to_duration =", [false])
 
-    foorth_equal("0 .to_d 0 =", [true])
-    foorth_equal("1 .to_d 0 =", [false])
-    foorth_equal("0 .to_d 1 =", [false])
+    foorth_equal("0 .to_duration 0 =", [true])
+    foorth_equal("1 .to_duration 0 =", [false])
+    foorth_equal("0 .to_duration 1 =", [false])
 
-    foorth_equal("0 0 .to_d =", [true])
-    foorth_equal("1 0 .to_d =", [false])
-    foorth_equal("0 1 .to_d =", [false])
+    foorth_equal("0 0 .to_duration =", [true])
+    foorth_equal("1 0 .to_duration =", [false])
+    foorth_equal("0 1 .to_duration =", [false])
 
-    foorth_equal('0 .to_d "to" =', [false])
-    foorth_equal("0 .to_d 1+2i =", [false])
-
-
-    foorth_equal("0 .to_d! 0 .to_d <>", [false])
-    foorth_equal("1 .to_d 0 .to_d <>", [true])
-    foorth_equal("0 .to_d 1 .to_d <>", [true])
-
-    foorth_equal("0 .to_d 0 <>", [false])
-    foorth_equal("1 .to_d 0 <>", [true])
-    foorth_equal("0 .to_d 1 <>", [true])
-
-    foorth_equal("0 0 .to_d <>", [false])
-    foorth_equal("1 0 .to_d <>", [true])
-    foorth_equal("0 1 .to_d <>", [true])
-
-    foorth_equal('0 .to_d "to" <>', [true])
-    foorth_equal("0 .to_d 1+2i <>", [true])
+    foorth_equal('0 .to_duration "to" =', [false])
+    foorth_equal("0 .to_duration 1+2i =", [false])
 
 
-    foorth_equal("0 .to_d 0 .to_d >", [false])
-    foorth_equal("1 .to_d 0 .to_d >", [true])
-    foorth_equal("0 .to_d 1 .to_d >", [false])
+    foorth_equal("0 .to_duration! 0 .to_duration <>", [false])
+    foorth_equal("1 .to_duration 0 .to_duration <>", [true])
+    foorth_equal("0 .to_duration 1 .to_duration <>", [true])
 
-    foorth_equal("0 .to_d 0 >", [false])
-    foorth_equal("1 .to_d 0 >", [true])
-    foorth_equal("0 .to_d 1 >", [false])
+    foorth_equal("0 .to_duration 0 <>", [false])
+    foorth_equal("1 .to_duration 0 <>", [true])
+    foorth_equal("0 .to_duration 1 <>", [true])
 
-    foorth_equal("0 0 .to_d >", [false])
-    foorth_equal("1 0 .to_d >", [true])
-    foorth_equal("0 1 .to_d >", [false])
+    foorth_equal("0 0 .to_duration <>", [false])
+    foorth_equal("1 0 .to_duration <>", [true])
+    foorth_equal("0 1 .to_duration <>", [true])
 
-    foorth_raises("0 .to_d 1+2i >")
-    foorth_raises('0 .to_d "to" >')
-
-
-    foorth_equal("0 .to_d 0 .to_d >=", [true])
-    foorth_equal("1 .to_d 0 .to_d >=", [true])
-    foorth_equal("0 .to_d 1 .to_d >=", [false])
-
-    foorth_equal("0 .to_d 0 >=", [true])
-    foorth_equal("1 .to_d 0 >=", [true])
-    foorth_equal("0 .to_d 1 >=", [false])
-
-    foorth_equal("0 0 .to_d >=", [true])
-    foorth_equal("1 0 .to_d >=", [true])
-    foorth_equal("0 1 .to_d >=", [false])
-
-    foorth_raises("0 .to_d 1+2i >=")
-    foorth_raises('0 .to_d "to" >=')
+    foorth_equal('0 .to_duration "to" <>', [true])
+    foorth_equal("0 .to_duration 1+2i <>", [true])
 
 
-    foorth_equal("0 .to_d 0 .to_d <", [false])
-    foorth_equal("1 .to_d 0 .to_d <", [false])
-    foorth_equal("0 .to_d 1 .to_d <", [true])
+    foorth_equal("0 .to_duration 0 .to_duration >", [false])
+    foorth_equal("1 .to_duration 0 .to_duration >", [true])
+    foorth_equal("0 .to_duration 1 .to_duration >", [false])
 
-    foorth_equal("0 .to_d 0 <", [false])
-    foorth_equal("1 .to_d 0 <", [false])
-    foorth_equal("0 .to_d 1 <", [true])
+    foorth_equal("0 .to_duration 0 >", [false])
+    foorth_equal("1 .to_duration 0 >", [true])
+    foorth_equal("0 .to_duration 1 >", [false])
 
-    foorth_equal("0 0 .to_d <", [false])
-    foorth_equal("1 0 .to_d <", [false])
-    foorth_equal("0 1 .to_d <", [true])
+    foorth_equal("0 0 .to_duration >", [false])
+    foorth_equal("1 0 .to_duration >", [true])
+    foorth_equal("0 1 .to_duration >", [false])
 
-    foorth_raises("0 .to_d 1+2i <")
-    foorth_raises('0 .to_d "to" <')
-
-
-    foorth_equal("0 .to_d 0 .to_d <=", [true])
-    foorth_equal("1 .to_d 0 .to_d <=", [false])
-    foorth_equal("0 .to_d 1 .to_d <=", [true])
-
-    foorth_equal("0 .to_d 0 <=", [true])
-    foorth_equal("1 .to_d 0 <=", [false])
-    foorth_equal("0 .to_d 1 <=", [true])
-
-    foorth_equal("0 0 .to_d <=", [true])
-    foorth_equal("1 0 .to_d <=", [false])
-    foorth_equal("0 1 .to_d <=", [true])
-
-    foorth_raises("0 .to_d 1+2i <=")
-    foorth_raises('0 .to_d "to" <=')
+    foorth_raises("0 .to_duration 1+2i >")
+    foorth_raises('0 .to_duration "to" >')
 
 
-    foorth_equal("0 .to_d 0 .to_d <=>", [0])
-    foorth_equal("1 .to_d 0 .to_d <=>", [1])
-    foorth_equal("0 .to_d 1 .to_d <=>", [-1])
+    foorth_equal("0 .to_duration 0 .to_duration >=", [true])
+    foorth_equal("1 .to_duration 0 .to_duration >=", [true])
+    foorth_equal("0 .to_duration 1 .to_duration >=", [false])
 
-    foorth_equal("0 .to_d 0 <=>", [0])
-    foorth_equal("1 .to_d 0 <=>", [1])
-    foorth_equal("0 .to_d 1 <=>", [-1])
+    foorth_equal("0 .to_duration 0 >=", [true])
+    foorth_equal("1 .to_duration 0 >=", [true])
+    foorth_equal("0 .to_duration 1 >=", [false])
 
-    foorth_equal("0 0 .to_d <=>", [0])
-    foorth_equal("1 0 .to_d <=>", [1])
-    foorth_equal("0 1 .to_d <=>", [-1])
+    foorth_equal("0 0 .to_duration >=", [true])
+    foorth_equal("1 0 .to_duration >=", [true])
+    foorth_equal("0 1 .to_duration >=", [false])
 
-    foorth_raises("0 .to_d 1+2i <=>")
-    foorth_raises('0 .to_d "to" <=>')
+    foorth_raises("0 .to_duration 1+2i >=")
+    foorth_raises('0 .to_duration "to" >=')
+
+
+    foorth_equal("0 .to_duration 0 .to_duration <", [false])
+    foorth_equal("1 .to_duration 0 .to_duration <", [false])
+    foorth_equal("0 .to_duration 1 .to_duration <", [true])
+
+    foorth_equal("0 .to_duration 0 <", [false])
+    foorth_equal("1 .to_duration 0 <", [false])
+    foorth_equal("0 .to_duration 1 <", [true])
+
+    foorth_equal("0 0 .to_duration <", [false])
+    foorth_equal("1 0 .to_duration <", [false])
+    foorth_equal("0 1 .to_duration <", [true])
+
+    foorth_raises("0 .to_duration 1+2i <")
+    foorth_raises('0 .to_duration "to" <')
+
+
+    foorth_equal("0 .to_duration 0 .to_duration <=", [true])
+    foorth_equal("1 .to_duration 0 .to_duration <=", [false])
+    foorth_equal("0 .to_duration 1 .to_duration <=", [true])
+
+    foorth_equal("0 .to_duration 0 <=", [true])
+    foorth_equal("1 .to_duration 0 <=", [false])
+    foorth_equal("0 .to_duration 1 <=", [true])
+
+    foorth_equal("0 0 .to_duration <=", [true])
+    foorth_equal("1 0 .to_duration <=", [false])
+    foorth_equal("0 1 .to_duration <=", [true])
+
+    foorth_raises("0 .to_duration 1+2i <=")
+    foorth_raises('0 .to_duration "to" <=')
+
+
+    foorth_equal("0 .to_duration 0 .to_duration <=>", [0])
+    foorth_equal("1 .to_duration 0 .to_duration <=>", [1])
+    foorth_equal("0 .to_duration 1 .to_duration <=>", [-1])
+
+    foorth_equal("0 .to_duration 0 <=>", [0])
+    foorth_equal("1 .to_duration 0 <=>", [1])
+    foorth_equal("0 .to_duration 1 <=>", [-1])
+
+    foorth_equal("0 0 .to_duration <=>", [0])
+    foorth_equal("1 0 .to_duration <=>", [1])
+    foorth_equal("0 1 .to_duration <=>", [-1])
+
+    foorth_raises("0 .to_duration 1+2i <=>")
+    foorth_raises('0 .to_duration "to" <=>')
   end
 
   def test_some_duration_formatting
-    foorth_equal('4/3 .to_d f"%r seconds"    ', ["4/3 seconds"])
-    foorth_equal('4/3 .to_d f"%8r seconds"   ', ["     4/3 seconds"])
-    foorth_equal('44/3 .to_d f"%4r seconds"  ', ["44/3 seconds"])
+    foorth_equal('4/3 .to_duration f"%r seconds"    ', ["4/3 seconds"])
+    foorth_equal('4/3 .to_duration f"%8r seconds"   ', ["     4/3 seconds"])
+    foorth_equal('44/3 .to_duration f"%4r seconds"  ', ["44/3 seconds"])
 
-    foorth_equal('4/3 .to_d f"%f seconds"    ', ["1.333333 seconds"])
-    foorth_equal('4/3 .to_d f"%8.2f seconds" ', ["    1.33 seconds"])
-    foorth_equal('100.25 .to_d f"%4.2f seconds"', ["100.25 seconds"])
+    foorth_equal('4/3 .to_duration f"%f seconds"    ', ["1.333333 seconds"])
+    foorth_equal('4/3 .to_duration f"%8.2f seconds" ', ["    1.33 seconds"])
+    foorth_equal('100.25 .to_duration f"%4.2f seconds"', ["100.25 seconds"])
   end
 
   def test_time_comparisons
@@ -243,7 +243,7 @@ class TimeLibraryTester < Minitest::Test
   def test_some_time_to_string
     foorth_equal('1434322206 .to_t .time_s ', [Time.at(1434322206).asctime])
 
-    foorth_equal('10 .to_d .to_s', ["Duration instance <10.0 seconds>"])
+    foorth_equal('10 .to_duration .to_s', ["Duration instance <10.0 seconds>"])
   end
 
   def test_time_array_stuff
@@ -343,25 +343,25 @@ class TimeLibraryTester < Minitest::Test
   end
 
   def test_some_duration_formatting_and_support
-    foorth_equal('0 .to_d .largest_interval',   [5])
-    foorth_equal('0.1 .to_d .largest_interval', [5])
-    foorth_equal('1 .to_d .largest_interval',   [5])
-    foorth_equal('59 .to_d .largest_interval',  [5])
+    foorth_equal('0 .to_duration .largest_interval',   [5])
+    foorth_equal('0.1 .to_duration .largest_interval', [5])
+    foorth_equal('1 .to_duration .largest_interval',   [5])
+    foorth_equal('59 .to_duration .largest_interval',  [5])
 
-    foorth_equal('60 .to_d .largest_interval',   [4])
-    foorth_equal('60.02 .to_d .largest_interval', [4])
-    foorth_equal('120.02 .to_d .largest_interval', [4])
-    foorth_equal('3120.02 .to_d .largest_interval', [4])
-    foorth_equal('3599.99 .to_d .largest_interval', [4])
+    foorth_equal('60 .to_duration .largest_interval',   [4])
+    foorth_equal('60.02 .to_duration .largest_interval', [4])
+    foorth_equal('120.02 .to_duration .largest_interval', [4])
+    foorth_equal('3120.02 .to_duration .largest_interval', [4])
+    foorth_equal('3599.99 .to_duration .largest_interval', [4])
 
-    foorth_equal('3600 .to_d .largest_interval', [3])
-    foorth_equal('86399 .to_d .largest_interval', [3])
+    foorth_equal('3600 .to_duration .largest_interval', [3])
+    foorth_equal('86399 .to_duration .largest_interval', [3])
 
-    foorth_equal('86400 .to_d .largest_interval', [2])
+    foorth_equal('86400 .to_duration .largest_interval', [2])
 
-    foorth_equal('2629746 .to_d .largest_interval', [1])
+    foorth_equal('2629746 .to_duration .largest_interval', [1])
 
-    foorth_equal('31556952 .to_d .largest_interval', [0])
+    foorth_equal('31556952 .to_duration .largest_interval', [0])
 
 
 
