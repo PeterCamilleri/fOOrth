@@ -19,10 +19,7 @@ module XfOOrth
     #* p is an optional precision parameter.
     attr_formatter :strfmt,
     {
-      "%f"  => lambda do
-        format = fmt.width > 0 ? "%#{fmt.width}.#{fmt.prec}f" : "%f"
-        cat format % src.period.to_f
-      end,
+      "%f"  => lambda {cat "%#{fmt.parm_str}f" % src.period.to_f },
       "%r"  => lambda {cat src.period.to_r.to_s.rjust(fmt.width) }
     }
 
