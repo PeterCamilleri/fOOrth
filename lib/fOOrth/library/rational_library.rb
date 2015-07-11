@@ -6,9 +6,9 @@ module XfOOrth
   #Connect the Rational class to the fOOrth class system.
   Rational.create_foorth_proxy
 
-  #Rationalize a value with no tears.
+  #Rationalize a value (but NOT nil!) with no tears.
   def self.safe_rationalize(value)
-    value.rationalize
+    value && value.rationalize
   rescue
     value
   end
