@@ -67,6 +67,29 @@ class TimeLibraryTester < Minitest::Test
     foorth_raises('"apple" .to_duration!')
     foorth_raises('infinity .to_duration!')
     foorth_raises('1+2i .to_duration!')
+
+    foorth_equal('[           0 ] .to_duration', [XfOOrth::Duration.new(       0.to_r)])
+    foorth_equal('[           1 ] .to_duration', [XfOOrth::Duration.new(       1.to_r)])
+    foorth_equal('[         1 1 ] .to_duration', [XfOOrth::Duration.new(      61.to_r)])
+    foorth_equal('[       1 1 1 ] .to_duration', [XfOOrth::Duration.new(    3661.to_r)])
+    foorth_equal('[     1 1 1 1 ] .to_duration', [XfOOrth::Duration.new(   90061.to_r)])
+    foorth_equal('[   1 1 1 1 1 ] .to_duration', [XfOOrth::Duration.new( 2719807.to_r)])
+    foorth_equal('[ 1 1 1 1 1 1 ] .to_duration', [XfOOrth::Duration.new(34276759.to_r)])
+
+    foorth_equal('[ 1 1 1 1 1 1 1 ] .to_duration', [nil])
+    foorth_equal('[ 1 "apple" 1 1 ] .to_duration', [nil])
+
+    foorth_equal('[           0 ] .to_duration!', [XfOOrth::Duration.new(       0.to_r)])
+    foorth_equal('[           1 ] .to_duration!', [XfOOrth::Duration.new(       1.to_r)])
+    foorth_equal('[         1 1 ] .to_duration!', [XfOOrth::Duration.new(      61.to_r)])
+    foorth_equal('[       1 1 1 ] .to_duration!', [XfOOrth::Duration.new(    3661.to_r)])
+    foorth_equal('[     1 1 1 1 ] .to_duration!', [XfOOrth::Duration.new(   90061.to_r)])
+    foorth_equal('[   1 1 1 1 1 ] .to_duration!', [XfOOrth::Duration.new( 2719807.to_r)])
+    foorth_equal('[ 1 1 1 1 1 1 ] .to_duration!', [XfOOrth::Duration.new(34276759.to_r)])
+
+    foorth_raises('[ 1 1 1 1 1 1 1 ] .to_duration!')
+    foorth_raises('[ 1 "apple" 1 1 ] .to_duration!')
+
   end
 
   def test_converting_from_a_duration

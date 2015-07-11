@@ -81,6 +81,26 @@ module XfOOrth
     end
   })
 
+  Array.create_shared_method('.to_duration', TosSpec, [], &lambda {|vm|
+    begin
+      result, interval = 0, Duration::Intervals.reverse_each
+      self.reverse_each {|value| result += value * interval.next }
+      vm.push(result)
+    rescue
+      vm.push(nil)
+    end
+  })
+
+  Array.create_shared_method('.to_duration!', TosSpec, [], &lambda {|vm|
+    begin
+      result, interval = 0, Duration::Intervals.reverse_each
+      self.reverse_each {|value| result += value * interval.next }
+      vm.push(result)
+    rescue
+      error "F40: Cannot convert #{self.to_s} to a Duration instance"
+    end
+  })
+
   #[a_duration] .to_duration [a_duration]
   Duration.create_shared_method('.to_duration', TosSpec, [], &lambda {|vm|
     begin
