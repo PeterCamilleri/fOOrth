@@ -85,7 +85,7 @@ module XfOOrth
     begin
       result, interval = 0, Duration::Intervals.reverse_each
       self.reverse_each {|value| result += value * interval.next }
-      vm.push(result)
+      vm.push(Duration.new(result))
     rescue
       vm.push(nil)
     end
@@ -95,7 +95,7 @@ module XfOOrth
     begin
       result, interval = 0, Duration::Intervals.reverse_each
       self.reverse_each {|value| result += value * interval.next }
-      vm.push(result)
+      vm.push(Duration.new(result))
     rescue
       error "F40: Cannot convert #{self.to_s} to a Duration instance"
     end

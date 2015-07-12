@@ -90,6 +90,11 @@ class TimeLibraryTester < Minitest::Test
     foorth_raises('[ 1 1 1 1 1 1 1 ] .to_duration!')
     foorth_raises('[ 1 "apple" 1 1 ] .to_duration!')
 
+    foorth_equal('[       2.5 ] .to_duration', [XfOOrth::Duration.new(  (2.5).to_r)])
+    foorth_equal('[     2.5 0 ] .to_duration', [XfOOrth::Duration.new(    150.to_r)])
+    foorth_equal('[   2.5 0 0 ] .to_duration', [XfOOrth::Duration.new(   9000.to_r)])
+    foorth_equal('[ 2.5 0 0 0 ] .to_duration', [XfOOrth::Duration.new( 216000.to_r)])
+
   end
 
   def test_converting_from_a_duration
