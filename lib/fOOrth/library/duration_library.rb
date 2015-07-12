@@ -40,6 +40,18 @@ module XfOOrth
       @period
     end
 
+    #Convert this duration to an array
+    def to_a
+      temp = @period
+
+      Duration::Intervals.map do |interval|
+        value = (temp / interval).to_i
+        temp -= value * interval
+        value
+      end
+
+    end
+
     #Define equality for durations.
     def eql?(other)
       @period.eql?(XfOOrth.safe_rationalize(other))
@@ -113,6 +125,11 @@ module XfOOrth
     begin
       vm.push(self)
     end
+  })
+
+  #[a_duration] .to_a [an_array]
+  Duration.create_shared_method('.to_a', TosSpec, [], &lambda{|vm|
+    vm.push(self.to_a)
   })
 
   #Default conversion to string. See duration/formatter for formatted output.

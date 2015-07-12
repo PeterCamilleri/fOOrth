@@ -101,6 +101,10 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('5 .to_duration .to_r', ["5/1".to_r])
     foorth_equal('5 .to_duration .to_f', [5.0])
 
+    foorth_equal('5        .to_duration .to_a', [[0, 0, 0, 0, 0, 5]])
+    foorth_equal('60       .to_duration .to_a', [[0, 0, 0, 0, 1, 0]])
+    foorth_equal('31556952 .to_duration .to_a', [[1, 0, 0, 0, 0, 0]])
+
   end
 
   def test_duration_comparisons
