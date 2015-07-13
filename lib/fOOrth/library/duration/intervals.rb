@@ -27,27 +27,27 @@ module XfOOrth
 
     #How many months in this duration?
     def months
-      ((@period - (@period/A_YEAR).to_i*A_YEAR)/A_MONTH).to_i
+      ((@period % A_YEAR)/A_MONTH).to_i
     end
 
     #How many days in this duration?
     def days
-      self.to_a[2]
+      ((@period % A_MONTH)/A_DAY).to_i
     end
 
     #How many hours in this duration?
     def hours
-      self.to_a[3]
+      (((@period % A_MONTH) % A_DAY)/AN_HOUR).to_i
     end
 
     #How many minutes in this duration?
     def minutes
-      self.to_a[4]
+      (((@period % A_MONTH) % AN_HOUR)/A_MINUTE).to_i
     end
 
     #How many seconds in this duration?
     def seconds
-      self.to_a[5]
+      ((@period % A_MONTH) % A_MINUTE)
     end
 
   end
