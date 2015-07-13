@@ -18,7 +18,7 @@ module XfOOrth
     #<br>Parameters
     #* period - The period of time of the duration.
     def initialize(period)
-      @period = period
+      @period = period.rationalize
     end
 
     #Coerce the argument to match my type.
@@ -45,9 +45,13 @@ module XfOOrth
       temp = @period
 
       Duration::Intervals.map do |interval|
-        value = (temp / interval).to_i
-        temp -= value * interval
-        value
+        if interval > A_SECOND
+          value = (temp / interval).to_i
+          temp -= value * interval
+          value
+        else
+          temp.to_f
+        end
       end
 
     end
@@ -78,7 +82,7 @@ module XfOOrth
   #[number] .to_duration [a_duration]
   Object.create_shared_method('.to_duration', TosSpec, [], &lambda {|vm|
     begin
-      vm.push(Duration.new(Rational(self)))
+      vm.push(Duration.new(self))
     rescue
       vm.push(nil)
     end
@@ -87,7 +91,7 @@ module XfOOrth
   #[number] .to_duration! [a_duration]
   Object.create_shared_method('.to_duration!', TosSpec, [], &lambda {|vm|
     begin
-      vm.push(Duration.new(Rational(self)))
+      vm.push(Duration.new(self))
     rescue
       error "F40: Cannot convert #{self.to_s} to a Duration instance"
     end

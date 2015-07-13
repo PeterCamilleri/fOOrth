@@ -37,6 +37,76 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('Duration .sec_per_hour',  [     3_600])
     foorth_equal('Duration .sec_per_min',   [        60])
     foorth_equal('Duration .sec_per_sec',   [         1])
+
+    foorth_equal('Duration .sec_per_year        .to_duration .years  ', [1])
+    foorth_equal('Duration .sec_per_year  3/2 * .to_duration .years  ', [1])
+    foorth_equal('Duration .sec_per_year  2   * .to_duration .years  ', [2])
+
+    foorth_equal('Duration .sec_per_year        .to_duration .months ', [0])
+    foorth_equal('Duration .sec_per_year  3/2 * .to_duration .months ', [6])
+    foorth_equal('Duration .sec_per_year  2   * .to_duration .months ', [0])
+    foorth_equal('Duration .sec_per_month       .to_duration .months ', [1])
+    foorth_equal('Duration .sec_per_month 3/2 * .to_duration .months ', [1])
+    foorth_equal('Duration .sec_per_month 2   * .to_duration .months ', [2])
+
+    foorth_equal('Duration .sec_per_year        .to_duration .days   ', [0])
+    foorth_equal('Duration .sec_per_year  3/2 * .to_duration .days   ', [0])
+    foorth_equal('Duration .sec_per_year  2   * .to_duration .days   ', [0])
+    foorth_equal('Duration .sec_per_month       .to_duration .days   ', [0])
+    foorth_equal('Duration .sec_per_month 3/2 * .to_duration .days   ', [15])
+    foorth_equal('Duration .sec_per_month 2   * .to_duration .days   ', [0])
+    foorth_equal('Duration .sec_per_day         .to_duration .days   ', [1])
+    foorth_equal('Duration .sec_per_day   3/2 * .to_duration .days   ', [1])
+    foorth_equal('Duration .sec_per_day   2   * .to_duration .days   ', [2])
+
+    foorth_equal('Duration .sec_per_year        .to_duration .hours  ', [0])
+    foorth_equal('Duration .sec_per_year  3/2 * .to_duration .hours  ', [0])
+    foorth_equal('Duration .sec_per_year  2   * .to_duration .hours  ', [0])
+    foorth_equal('Duration .sec_per_month       .to_duration .hours  ', [0])
+    foorth_equal('Duration .sec_per_month 3/2 * .to_duration .hours  ', [5])
+    foorth_equal('Duration .sec_per_month 2   * .to_duration .hours  ', [0])
+    foorth_equal('Duration .sec_per_day         .to_duration .hours  ', [0])
+    foorth_equal('Duration .sec_per_day   3/2 * .to_duration .hours  ', [0])
+    foorth_equal('Duration .sec_per_day   2   * .to_duration .hours  ', [0])
+    foorth_equal('Duration .sec_per_hour        .to_duration .hours  ', [1])
+    foorth_equal('Duration .sec_per_hour  3/2 * .to_duration .hours  ', [1])
+    foorth_equal('Duration .sec_per_hour  2   * .to_duration .hours  ', [2])
+
+    foorth_equal('Duration .sec_per_year        .to_duration .minutes', [0])
+    foorth_equal('Duration .sec_per_year  3/2 * .to_duration .minutes', [0])
+    foorth_equal('Duration .sec_per_year  2   * .to_duration .minutes', [0])
+    foorth_equal('Duration .sec_per_month       .to_duration .minutes', [0])
+    foorth_equal('Duration .sec_per_month 3/2 * .to_duration .minutes', [14])
+    foorth_equal('Duration .sec_per_month 2   * .to_duration .minutes', [0])
+    foorth_equal('Duration .sec_per_day         .to_duration .minutes', [0])
+    foorth_equal('Duration .sec_per_day   3/2 * .to_duration .minutes', [0])
+    foorth_equal('Duration .sec_per_day   2   * .to_duration .minutes', [0])
+    foorth_equal('Duration .sec_per_hour        .to_duration .minutes', [0])
+    foorth_equal('Duration .sec_per_hour  3/2 * .to_duration .minutes', [0])
+    foorth_equal('Duration .sec_per_hour  2   * .to_duration .minutes', [0])
+    foorth_equal('Duration .sec_per_min         .to_duration .minutes', [1])
+    foorth_equal('Duration .sec_per_min   3/2 * .to_duration .minutes', [1])
+    foorth_equal('Duration .sec_per_min   2   * .to_duration .minutes', [2])
+
+    foorth_equal('Duration .sec_per_year        .to_duration .seconds', [0])
+    foorth_equal('Duration .sec_per_year  3/2 * .to_duration .seconds', [0])
+    foorth_equal('Duration .sec_per_year  2   * .to_duration .seconds', [0])
+    foorth_equal('Duration .sec_per_month       .to_duration .seconds', [0])
+    foorth_equal('Duration .sec_per_month 3/2 * .to_duration .seconds', [33])
+    foorth_equal('Duration .sec_per_month 2   * .to_duration .seconds', [0])
+    foorth_equal('Duration .sec_per_day         .to_duration .seconds', [0])
+    foorth_equal('Duration .sec_per_day   3/2 * .to_duration .seconds', [0])
+    foorth_equal('Duration .sec_per_day   2   * .to_duration .seconds', [0])
+    foorth_equal('Duration .sec_per_hour        .to_duration .seconds', [0])
+    foorth_equal('Duration .sec_per_hour  3/2 * .to_duration .seconds', [0])
+    foorth_equal('Duration .sec_per_hour  2   * .to_duration .seconds', [0])
+    foorth_equal('Duration .sec_per_min         .to_duration .seconds', [0])
+    foorth_equal('Duration .sec_per_min   3/2 * .to_duration .seconds', [0])
+    foorth_equal('Duration .sec_per_min   2   * .to_duration .seconds', [0])
+    foorth_equal('                        1     .to_duration .seconds', [1])
+    foorth_equal('                        3/2   .to_duration .seconds', [1.5])
+    foorth_equal('                        2     .to_duration .seconds', [2])
+
   end
 
   def test_converting_to_time
@@ -101,9 +171,12 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('5 .to_duration .to_r', ["5/1".to_r])
     foorth_equal('5 .to_duration .to_f', [5.0])
 
-    foorth_equal('5        .to_duration .to_a', [[0, 0, 0, 0, 0, 5]])
-    foorth_equal('60       .to_duration .to_a', [[0, 0, 0, 0, 1, 0]])
-    foorth_equal('31556952 .to_duration .to_a', [[1, 0, 0, 0, 0, 0]])
+    foorth_equal('0.4          .to_duration .to_a', [[0, 0, 0, 0, 0, 0.4]])
+    foorth_equal('5.4          .to_duration .to_a', [[0, 0, 0, 0, 0, 5.4]])
+    foorth_equal('5            .to_duration .to_a', [[0, 0, 0, 0, 0, 5  ]])
+    foorth_equal('60           .to_duration .to_a', [[0, 0, 0, 0, 1, 0  ]])
+    foorth_equal('31556952     .to_duration .to_a', [[1, 0, 0, 0, 0, 0  ]])
+    foorth_equal('315569523/10 .to_duration .to_a', [[1, 0, 0, 0, 0, 0.3]])
 
   end
 
@@ -125,8 +198,8 @@ class TimeLibraryTester < Minitest::Test
 
 
     foorth_equal("0 .to_duration! 0 .to_duration <>", [false])
-    foorth_equal("1 .to_duration 0 .to_duration <>", [true])
-    foorth_equal("0 .to_duration 1 .to_duration <>", [true])
+    foorth_equal("1 .to_duration  0 .to_duration <>", [true])
+    foorth_equal("0 .to_duration  1 .to_duration <>", [true])
 
     foorth_equal("0 .to_duration 0 <>", [false])
     foorth_equal("1 .to_duration 0 <>", [true])
