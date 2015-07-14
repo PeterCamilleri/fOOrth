@@ -409,10 +409,19 @@ class TimeLibraryTester < Minitest::Test
     foorth_raises('1434322206 .to_t "apple"  + ')
 
     foorth_equal('1434322206 .to_t 100 - ', [Time.at(1434322206-100)])
-    foorth_equal('1434322206 .to_t 1434322206 .to_t - ', [XfOOrth::Duration.new(0.to_r)])
+    foorth_equal('1434322206 .to_t 1434322206 .to_t -       ', [XfOOrth::Duration.new(0.to_r)])
     foorth_equal('1434322206 .to_t 1434322206 .to_t - .class', [XfOOrth::Duration])
 
     foorth_raises('1434322206 .to_t "apple"  - ')
+  end
+
+  def test_some_duration_math
+    foorth_equal('100 .to_duration 100              + ', [200] )
+    foorth_equal('100 .to_duration 100 .to_duration + ', [200] )
+
+    foorth_equal('100 .to_duration 100              + .class', [XfOOrth::Duration] )
+    foorth_equal('100 .to_duration 100 .to_duration + .class', [XfOOrth::Duration] )
+
   end
 
   def test_some_time_to_string

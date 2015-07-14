@@ -12,7 +12,7 @@ module XfOOrth
   class Duration
 
     #The length of time of the duration.
-    attr_reader :period
+    attr_accessor :period
 
     #Create a duration instance.
     #<br>Parameters
@@ -39,6 +39,9 @@ module XfOOrth
     def to_r
       @period
     end
+
+    #Alias to the standard operator.
+    alias :rationalize :to_r
 
     #Convert this duration to an array
     def to_a
@@ -140,5 +143,10 @@ module XfOOrth
   Duration.create_shared_method('.to_s', TosSpec, [], &lambda {|vm|
     vm.push("Duration instance <#{self.period.to_f} seconds>" )
   })
+
+  # Some stack arithmetic words.
+  # [b,a] + [Duration(b+a)]
+  Duration.create_shared_method('+', NosSpec, [],
+    &lambda {|vm| self.period += Rational.foorth_coerce(vm.peek); vm.poke(self); })
 
 end
