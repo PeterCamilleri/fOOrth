@@ -22,17 +22,8 @@ module XfOOrth
     end
 
     #Coerce the argument to match my type.
-    def self.foorth_coerce(arg)
-      Rational(arg)
-    rescue
-      error "F40: Cannot coerce a #{arg.foorth_name} to a Rational"
-    end
-
-    #Coerce the argument to match my type.
     def foorth_coerce(arg)
-      Rational(arg)
-    rescue
-      error "F40: Cannot coerce a #{arg.foorth_name} to a Rational"
+      @period.foorth_coerce(arg)
     end
 
     #Convert this duration to a rational number.
@@ -40,11 +31,15 @@ module XfOOrth
       @period
     end
 
-    #Alias to the standard operator.
+    #Alias rationalize to the to_r method.
     alias :rationalize :to_r
+
+    #Alias to_foorth_r to the to_r method.
     alias :to_foorth_r :to_r
 
-    #Convert this duration to an array
+    #Convert this duration to an array.
+    #<br>Endemic Code Smells
+    # :reek:FeatureEnvy
     def to_a
       temp = @period
 
@@ -65,7 +60,7 @@ module XfOOrth
       @period.eql?(other.to_foorth_r)
     end
 
-    #Alias to the standard operator.
+    #Alias == to the eql? operator.
     alias :== :eql?
 
     #Pass off all unknown methods to the period data.
@@ -144,10 +139,5 @@ module XfOOrth
   Duration.create_shared_method('.to_s', TosSpec, [], &lambda {|vm|
     vm.push("Duration instance <#{self.period.to_f} seconds>" )
   })
-
-  # Some stack arithmetic words.
-  # [b,a] + [Duration(b+a)]
-  Duration.create_shared_method('+', NosSpec, [],
-    &lambda {|vm| self.period += Rational.foorth_coerce(vm.peek); vm.poke(self); })
 
 end
