@@ -42,6 +42,7 @@ module XfOOrth
 
     #Alias to the standard operator.
     alias :rationalize :to_r
+    alias :to_foorth_r :to_r
 
     #Convert this duration to an array
     def to_a
@@ -61,7 +62,7 @@ module XfOOrth
 
     #Define equality for durations.
     def eql?(other)
-      @period.eql?(XfOOrth.safe_rationalize(other))
+      @period.eql?(other.to_foorth_r)
     end
 
     #Alias to the standard operator.

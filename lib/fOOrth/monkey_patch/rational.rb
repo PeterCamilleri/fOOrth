@@ -9,20 +9,21 @@ class Rational
     "'#{self.to_s}'.to_r"
   end
 
+  #Convert this object to a rational. Returns self.
+  def to_foorth_r
+    self
+  end
+
   #Argument coercion methods.
 
   #Coerce the argument to match my type.
   def self.foorth_coerce(arg)
-    Rational(arg)
-  rescue
-    error "F40: Cannot coerce a #{arg.foorth_name} to a Rational"
+    arg.to_foorth_r || (error "F40: Cannot coerce a #{arg.foorth_name} to a Rational")
   end
 
   #Coerce the argument to match my type.
   def foorth_coerce(arg)
-    Rational(arg)
-  rescue
-    error "F40: Cannot coerce a #{arg.foorth_name} to a Rational"
+    arg.to_foorth_r || (error "F40: Cannot coerce a #{arg.foorth_name} to a Rational")
   end
 
 end

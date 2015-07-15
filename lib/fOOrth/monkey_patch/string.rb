@@ -43,4 +43,9 @@ class String
     nil
   end
 
+  #Convert this string to a rational. Return a number or nil on fail.
+  def to_foorth_r
+    self.to_foorth_n.to_foorth_r
+  end
+
 end

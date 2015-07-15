@@ -18,8 +18,13 @@ class Complex
     error "F40: Cannot coerce a #{arg.foorth_name} to a Complex"
   end
 
-  #Convert this number to a single character string.
+  #Cannot convert this number to a single character string.
   def to_foorth_c
     error "F40: Cannot convert a Complex instance to a character"
+  end
+
+  #Cannot convert this number to a Rational.
+  def to_foorth_r
+    nil
   end
 end
