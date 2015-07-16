@@ -12,7 +12,7 @@ module XfOOrth
     #* A string with the next non-comment language element or nil if none
     #  could be found.
     #<br>Endemic Code Smells
-    #  :reek:TooManyStatements
+    #*  :reek:TooManyStatements
     def get_word_or_string
       return nil unless (word = get_word)
 

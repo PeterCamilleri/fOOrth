@@ -39,7 +39,7 @@ module XfOOrth
 
     #Convert this duration to an array.
     #<br>Endemic Code Smells
-    # :reek:FeatureEnvy
+    #* :reek:FeatureEnvy -- false positive.
     def to_a
       temp = @period
 

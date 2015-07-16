@@ -23,7 +23,7 @@ class Rational
 
   #Coerce the argument to match my type.
   #<br>Endemic Code Smells
-  # :reek:FeatureEnvy
+  #* :reek:FeatureEnvy  -- false positive
   def foorth_coerce(arg)
     arg.to_foorth_r || (error "F40: Cannot coerce a #{arg.foorth_name} to a Rational")
   end

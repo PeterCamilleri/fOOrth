@@ -38,11 +38,11 @@ module XfOOrth
   #used to facilitate the stack oriented processing of data and language
   #elements.
   #* fOOrth.rb - Version info lives here.
-  #<br>Endemic Code Smells
-  # :reek:UtilityFunction
   class VirtualMachine
 
     #Get the version string for this virtual machine.
+    #<br>Endemic Code Smells
+    #* :reek:UtilityFunction
     def version
       XfOOrth.version
     end

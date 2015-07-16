@@ -19,7 +19,7 @@ module XfOOrth
 
     #The worker bee for delayed_compile_mode.
     #<br>Endemic Code Smells
-    # :reek:FeatureEnvy
+    #* :reek:FeatureEnvy -- false positive
     def do_delayed_compile_mode(start)
       buffer, depth = start + ' ', 1
 

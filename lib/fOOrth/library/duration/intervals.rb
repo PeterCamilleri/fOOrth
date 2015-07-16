@@ -6,13 +6,25 @@ module XfOOrth
   #Intervals support for the \Duration class.
   class Duration
 
+    #Seconds in a second.
     A_SECOND = 1.to_r
+
+    #Seconds in a minute.
     A_MINUTE = (60 * A_SECOND).to_r
+
+    #Seconds in an hour.
     AN_HOUR  = (60 * A_MINUTE).to_r
+
+    #Seconds in a day.
     A_DAY    = (24 * AN_HOUR).to_r
+
+    #Seconds in a (average) month.
     A_MONTH  = (Rational(365_2425, 120000) * A_DAY).to_r
+
+    #Seconds in a (average) year.
     A_YEAR   = (12 * A_MONTH).to_r
 
+    #An array of interval values.
     Intervals = [A_YEAR, A_MONTH, A_DAY, AN_HOUR, A_MINUTE, A_SECOND]
 
     #Find the largest interval for this duration
@@ -25,7 +37,7 @@ module XfOOrth
       (@period/A_YEAR).to_i
     end
 
-    #How many years in this duration?
+    #How many total years in this duration?
     def as_years
       (@period/A_YEAR).to_f
     end

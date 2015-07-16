@@ -364,13 +364,34 @@ class TimeLibraryTester < Minitest::Test
   end
 
   def test_some_duration_formatting
-    foorth_equal('4/3 .to_duration f"%r seconds"    ', ["4/3 seconds"])
-    foorth_equal('4/3 .to_duration f"%8r seconds"   ', ["     4/3 seconds"])
-    foorth_equal('44/3 .to_duration f"%4r seconds"  ', ["44/3 seconds"])
+    foorth_equal('4/3 .to_duration f"%r seconds"      ',   ["4/3 seconds"])
+    foorth_equal('4/3 .to_duration f"%8r seconds"     ',   ["     4/3 seconds"])
+    foorth_equal('4/3 .to_duration f"%-8r seconds"    ',   ["4/3      seconds"])
+    foorth_equal('44/3 .to_duration f"%4r seconds"    ',   ["44/3 seconds"])
 
-    foorth_equal('4/3 .to_duration f"%f seconds"    ', ["1.333333 seconds"])
-    foorth_equal('4/3 .to_duration f"%8.2f seconds" ', ["    1.33 seconds"])
-    foorth_equal('100.25 .to_duration f"%4.2f seconds"', ["100.25 seconds"])
+    foorth_equal('4/3 .to_duration f"%f seconds"      ',   ["1.333333 seconds"])
+    foorth_equal('4/3 .to_duration f"%8.2f seconds"   ',   ["    1.33 seconds"])
+    foorth_equal('4/3 .to_duration f"%-8.2f seconds"  ',   ["1.33     seconds"])
+    foorth_equal('100.25 .to_duration f"%4.2f seconds"',   ["100.25 seconds"])
+
+    foorth_equal('                           0 .to_duration f"%y years"  ', ["0 years"])
+    foorth_equal('Duration .sec_per_year       .to_duration f"%y year"   ', ["1 year"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%3y years" ', ["  2 years"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%-3y years"', ["2   years"])
+
+    foorth_equal('                           0 .to_duration f"%?3y" ', [""])
+    foorth_equal('Duration .sec_per_year       .to_duration f"%?3y" ', ["  1"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%?-3y"', ["2  "])
+
+    foorth_equal('                           0 .to_duration f"%4.1Y years" ', [" 0.0 years"])
+    foorth_equal('Duration .sec_per_year       .to_duration f"%4.1Y years" ', [" 1.0 years"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%4.1Y years" ', [" 2.5 years"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%-4.1Y years"', ["2.5  years"])
+
+    foorth_equal('                           0 .to_duration f"%?4.1Y" ', [""])
+    foorth_equal('Duration .sec_per_year       .to_duration f"%?4.1Y" ', [" 1.0"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%?4.1Y" ', [" 2.5"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%?-4.1Y"', ["2.5 "])
   end
 
   def test_time_comparisons
@@ -531,7 +552,7 @@ class TimeLibraryTester < Minitest::Test
     foorth_raises('"Someday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse!')
   end
 
-  def test_some_duration_formatting_and_support
+  def test_some_duration_formatting_support
     foorth_equal('0 .to_duration .largest_interval',   [5])
     foorth_equal('0.1 .to_duration .largest_interval', [5])
     foorth_equal('1 .to_duration .largest_interval',   [5])
@@ -551,9 +572,6 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('2629746 .to_duration .largest_interval', [1])
 
     foorth_equal('31556952 .to_duration .largest_interval', [0])
-
-
-
   end
 
 end
