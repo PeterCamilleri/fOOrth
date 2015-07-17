@@ -21,6 +21,26 @@ module XfOOrth
     #* %${w}Y - Label for total (with fractional) years.
     #* %?${w}y - Label for whole years, suppress if absent.
     #* %?${w}Y - Label for total (with fractional) years, suppress if absent.
+    #<br>Month Formats:
+    #* %{w}o - Whole months in the year.
+    #* %{w{.p}}O - Total (with fractional) months.
+    #* %?{w}o - Whole months in the year, suppress if absent.
+    #* %?{w{.p}}O - Total (with fractional) months, suppress if absent.
+    #<br>Month Label Formats:
+    #* %${w}o - Label for whole months in the year.
+    #* %${w}O - Label for total (with fractional) months.
+    #* %?${w}o - Label for whole months in the year, suppress if absent.
+    #* %?${w}O - Label for total (with fractional) months, suppress if absent.
+    #<br>Day Formats:
+    #* %{w}d - Whole days in the month.
+    #* %{w{.p}}D - Total (with fractional) days.
+    #* %?{w}d - Whole days in the month, suppress if absent.
+    #* %?{w{.p}}D - Total (with fractional) days, suppress if absent.
+    #<br>Day Label Formats:
+    #* %${w}d - Label for whole days in the month.
+    #* %${w}D - Label for total (with fractional) days.
+    #* %?${w}d - Label for whole days in the month, suppress if absent.
+    #* %?${w}D - Label for total (with fractional) days, suppress if absent.
     #<br>Raw Formats (in seconds and fractions):
     #* %{w{.p}}f - Total seconds in floating point format.
     #* %{w}r - Total seconds in rational format.
@@ -46,9 +66,28 @@ module XfOOrth
 
       "%$y" => lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(0, tmp[:year])},
       "%?$y"=> lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(0, tmp[:year]) if tmp[:year] >= 1},
-
       "%$Y" => lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(0, tmp[0])},
       "%?$Y"=> lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(0, tmp[0]) if tmp[0] > 0},
+
+      "%o"  => lambda {cat "%#{fmt.parm_str}d" % tmp[:month]},
+      "%?o" => lambda {cat "%#{fmt.parm_str}d" % tmp[:month] if tmp[:month] >= 1},
+      "%O"  => lambda {cat "%#{fmt.parm_str}f" % tmp[1]},
+      "%?O" => lambda {cat "%#{fmt.parm_str}f" % tmp[1] if tmp[1] > 0},
+
+      "%$o" => lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(1, tmp[:month])},
+      "%?$o"=> lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(1, tmp[:month]) if tmp[:month] >= 1},
+      "%$O" => lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(1, tmp[1])},
+      "%?$O"=> lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(1, tmp[1]) if tmp[1] > 0},
+
+      "%d"  => lambda {cat "%#{fmt.parm_str}d" % tmp[:day]},
+      "%?d" => lambda {cat "%#{fmt.parm_str}d" % tmp[:day] if tmp[:day] >= 1},
+      "%D"  => lambda {cat "%#{fmt.parm_str}f" % tmp[2]},
+      "%?D" => lambda {cat "%#{fmt.parm_str}f" % tmp[2] if tmp[2] > 0},
+
+      "%$d" => lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(2, tmp[:day])},
+      "%?$d"=> lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(2, tmp[:day]) if tmp[:day] >= 1},
+      "%$D" => lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(2, tmp[2])},
+      "%?$D"=> lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(2, tmp[2]) if tmp[2] > 0},
 
 
       "%f"  => lambda {cat "%#{fmt.parm_str}f" % src.period.to_f},
