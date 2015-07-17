@@ -32,35 +32,12 @@ module XfOOrth
         tmp[:sec]   = arr[5]
       end,
 
-      "%y"  => lambda {cat "%#{fmt.parm_str}d" % tmp[:year]      },
-      "%-y" => lambda {cat "%-#{fmt.parm_str}d" % tmp[:year]     },
-
-      "%?y" => lambda do
-        cat "%#{fmt.parm_str}d" % tmp[:year] if tmp[:year] >= 1
-      end,
-      "%?-y"=> lambda do
-        cat "%-#{fmt.parm_str}d" % tmp[:year] if tmp[:year] >= 1
-      end,
-
-      "%Y"  => lambda do
-        cat "%#{fmt.parm_str}f" % src.as_years
-      end,
-      "%-Y" => lambda do
-        cat "%-#{fmt.parm_str}f" % src.as_years
-      end,
-
-      "%?Y" => lambda do
-        cat "%#{fmt.parm_str}f" % src.as_years if src.as_years > 0
-      end,
-      "%?-Y"=> lambda do
-        cat "%-#{fmt.parm_str}f" % src.as_years if src.as_years > 0
-      end,
-
-
+      "%y"  => lambda {cat "%#{fmt.parm_str}d" % tmp[:year] },
+      "%?y" => lambda {cat "%#{fmt.parm_str}d" % tmp[:year] if tmp[:year] >= 1},
+      "%Y"  => lambda {cat "%#{fmt.parm_str}f" % src.as_years},
+      "%?Y" => lambda {cat "%#{fmt.parm_str}f" % src.as_years if src.as_years > 0},
       "%f"  => lambda {cat "%#{fmt.parm_str}f" % src.period.to_f },
-      "%-f" => lambda {cat "%-#{fmt.parm_str}f" % src.period.to_f},
-      "%r"  => lambda {cat src.period.to_r.to_s.rjust(fmt.width) },
-      "%-r" => lambda {cat src.period.to_r.to_s.ljust(fmt.width) }
+      "%r"  => lambda {cat "%#{fmt.parm_str}s" % src.period.to_s }
     }
 
 
