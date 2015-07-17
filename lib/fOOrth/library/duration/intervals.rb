@@ -25,11 +25,21 @@ module XfOOrth
     A_YEAR   = (12 * A_MONTH).to_r
 
     #An array of interval values.
-    Intervals = [A_YEAR, A_MONTH, A_DAY, AN_HOUR, A_MINUTE, A_SECOND]
+    INTERVALS = [A_YEAR, A_MONTH, A_DAY, AN_HOUR, A_MINUTE, A_SECOND]
+
+    #An array of interval labels.
+    LABELS = ["years", "months", "days", "hours", "minutes", "seconds"]
+
+    #Pick the appropriate label
+    def self.pick_label(index, qty=1)
+      result = LABELS[index]
+      result = result.chop if qty == 1
+      " " + result
+    end
 
     #Find the largest interval for this duration
     def largest_interval
-      (0..5).detect {|idx| Intervals[idx] <= period} || 5
+      (0..5).detect {|idx| INTERVALS[idx] <= period} || 5
     end
 
     #How many whole years in this duration?
@@ -104,7 +114,12 @@ module XfOOrth
 
   #[Duration] .intervals [array]
   Duration.create_exclusive_method('.intervals', TosSpec, [], &lambda {|vm|
-    vm.push(Duration::Intervals)
+    vm.push(Duration::INTERVALS)
+  })
+
+  #[Duration] .labels [array]
+  Duration.create_exclusive_method('.labels', TosSpec, [], &lambda {|vm|
+    vm.push(Duration::LABELS)
   })
 
   #[Duration] .sec_per_year [a_rational]

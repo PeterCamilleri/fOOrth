@@ -43,7 +43,7 @@ module XfOOrth
     def to_a
       temp = @period
 
-      Duration::Intervals.map do |interval|
+      Duration::INTERVALS.map do |interval|
         if interval > A_SECOND
           value = (temp / interval).to_i
           temp -= value * interval
@@ -98,7 +98,7 @@ module XfOOrth
 
   Array.create_shared_method('.to_duration', TosSpec, [], &lambda {|vm|
     begin
-      result, interval = 0, Duration::Intervals.reverse_each
+      result, interval = 0, Duration::INTERVALS.reverse_each
       self.reverse_each {|value| result += value * interval.next }
       vm.push(Duration.new(result))
     rescue
@@ -108,7 +108,7 @@ module XfOOrth
 
   Array.create_shared_method('.to_duration!', TosSpec, [], &lambda {|vm|
     begin
-      result, interval = 0, Duration::Intervals.reverse_each
+      result, interval = 0, Duration::INTERVALS.reverse_each
       self.reverse_each {|value| result += value * interval.next }
       vm.push(Duration.new(result))
     rescue

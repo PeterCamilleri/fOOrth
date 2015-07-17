@@ -31,6 +31,9 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('Duration .intervals',
                  [[31_556_952, 2_629_746, 86_400, 3_600, 60, 1]])
 
+    foorth_equal('Duration .labels',
+                 [["years", "months", "days", "hours", "minutes", "seconds"]])
+
     foorth_equal('Duration .sec_per_year',  [31_556_952])
     foorth_equal('Duration .sec_per_month', [ 2_629_746])
     foorth_equal('Duration .sec_per_day',   [    86_400])
@@ -374,24 +377,25 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('4/3 .to_duration f"%-8.2f seconds"  ',   ["1.33     seconds"])
     foorth_equal('100.25 .to_duration f"%4.2f seconds"',   ["100.25 seconds"])
 
-    foorth_equal('                           0 .to_duration f"%y years"  ', ["0 years"])
-    foorth_equal('Duration .sec_per_year       .to_duration f"%y year"   ', ["1 year"])
-    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%3y years" ', ["  2 years"])
-    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%-3y years"', ["2   years"])
+    foorth_equal('                           0 .to_duration f"%y%$y"    ', ["0 years"])
+    foorth_equal('Duration .sec_per_year       .to_duration f"%y%$y"    ', ["1 year"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%3y%$y"   ', ["  2 years"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%-3y%$y"  ', ["2   years"])
 
-    foorth_equal('                           0 .to_duration f"%?3y" ', [""])
-    foorth_equal('Duration .sec_per_year       .to_duration f"%?3y" ', ["  1"])
-    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%?-3y"', ["2  "])
+    foorth_equal('                           0 .to_duration f"%?3y%?$y" ', [""])
+    foorth_equal('Duration .sec_per_year       .to_duration f"%?3y%?$y" ', ["  1 year"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%?3y%?$y" ', ["  2 years"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%?-3y%?$y"', ["2   years"])
 
-    foorth_equal('                           0 .to_duration f"%4.1Y years" ', [" 0.0 years"])
-    foorth_equal('Duration .sec_per_year       .to_duration f"%4.1Y years" ', [" 1.0 years"])
-    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%4.1Y years" ', [" 2.5 years"])
-    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%-4.1Y years"', ["2.5  years"])
+    foorth_equal('                           0 .to_duration f"%4.1Y%$Y" ', [" 0.0 years"])
+    foorth_equal('Duration .sec_per_year       .to_duration f"%4.1Y%$Y" ', [" 1.0 year"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%4.1Y%$Y" ', [" 2.5 years"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%-4.1Y%$Y"', ["2.5  years"])
 
-    foorth_equal('                           0 .to_duration f"%?4.1Y" ', [""])
-    foorth_equal('Duration .sec_per_year       .to_duration f"%?4.1Y" ', [" 1.0"])
-    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%?4.1Y" ', [" 2.5"])
-    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%?-4.1Y"', ["2.5 "])
+    foorth_equal('                           0 .to_duration f"%?4.1Y%?$Y" ', [""])
+    foorth_equal('Duration .sec_per_year       .to_duration f"%?4.1Y%?$Y" ', [" 1.0 year"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%?4.1Y%?$Y" ', [" 2.5 years"])
+    foorth_equal('Duration .sec_per_year 5/2 * .to_duration f"%?-4.1Y%?$Y"', ["2.5  years"])
   end
 
   def test_time_comparisons
