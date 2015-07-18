@@ -367,15 +367,15 @@ class TimeLibraryTester < Minitest::Test
   end
 
   def test_some_duration_formatting
-    foorth_equal('4/3 .to_duration f"%r seconds"      ',   ["4/3 seconds"])
-    foorth_equal('4/3 .to_duration f"%8r seconds"     ',   ["     4/3 seconds"])
-    foorth_equal('4/3 .to_duration f"%-8r seconds"    ',   ["4/3      seconds"])
-    foorth_equal('44/3 .to_duration f"%4r seconds"    ',   ["44/3 seconds"])
+    foorth_equal('4/3    .to_duration f"%r seconds"    ', ["4/3 seconds"])
+    foorth_equal('4/3    .to_duration f"%8r seconds"   ', ["     4/3 seconds"])
+    foorth_equal('4/3    .to_duration f"%-8r seconds"  ', ["4/3      seconds"])
+    foorth_equal('44/3   .to_duration f"%4r seconds"   ', ["44/3 seconds"])
 
-    foorth_equal('4/3 .to_duration f"%f seconds"      ',   ["1.333333 seconds"])
-    foorth_equal('4/3 .to_duration f"%8.2f seconds"   ',   ["    1.33 seconds"])
-    foorth_equal('4/3 .to_duration f"%-8.2f seconds"  ',   ["1.33     seconds"])
-    foorth_equal('100.25 .to_duration f"%4.2f seconds"',   ["100.25 seconds"])
+    foorth_equal('4/3    .to_duration f"%f seconds"    ', ["1.333333 seconds"])
+    foorth_equal('4/3    .to_duration f"%8.2f seconds" ', ["    1.33 seconds"])
+    foorth_equal('4/3    .to_duration f"%-8.2f seconds"', ["1.33     seconds"])
+    foorth_equal('100.25 .to_duration f"%4.2f seconds" ', ["100.25 seconds"])
 
     foorth_equal('                           0 .to_duration f"%y%$y"       ', ["0 years"])
     foorth_equal('Duration .sec_per_year       .to_duration f"%y%$y"       ', ["1 year"])
@@ -452,6 +452,80 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('Duration .sec_per_month 5/2 * .to_duration f"%?-4.1D%?$D"', ["76.1 days"])
     foorth_equal('Duration .sec_per_day         .to_duration f"%?-4.1D%?$D"', ["1.0  day"])
     foorth_equal('Duration .sec_per_day   5/2 * .to_duration f"%?-4.1D%?$D"', ["2.5  days"])
+
+    foorth_equal('                            0 .to_duration f"%h%$h"      ', ["0 hours"])
+    foorth_equal('Duration .sec_per_day         .to_duration f"%-3h%$h"    ', ["0   hours"])
+    foorth_equal('Duration .sec_per_day   5/2 * .to_duration f"%-3h%$h"    ', ["12  hours"])
+    foorth_equal('Duration .sec_per_hour        .to_duration f"%-3h%$h"    ', ["1   hour"])
+    foorth_equal('Duration .sec_per_hour  5/2 * .to_duration f"%-3h%$h"    ', ["2   hours"])
+
+    foorth_equal('                            0 .to_duration f"%?h%?$h"    ', [""])
+    foorth_equal('Duration .sec_per_day         .to_duration f"%?-3h%?$h"  ', [""])
+    foorth_equal('Duration .sec_per_day   5/2 * .to_duration f"%?-3h%?$h"  ', ["12  hours"])
+    foorth_equal('Duration .sec_per_hour        .to_duration f"%?-3h%?$h"  ', ["1   hour"])
+    foorth_equal('Duration .sec_per_hour  5/2 * .to_duration f"%?-3h%?$h"  ', ["2   hours"])
+
+    foorth_equal('                            0 .to_duration f"%4.1H%$H"   ', [" 0.0 hours"])
+    foorth_equal('Duration .sec_per_day         .to_duration f"%-4.1H%$H"  ', ["24.0 hours"])
+    foorth_equal('Duration .sec_per_day   5/2 * .to_duration f"%-4.1H%$H"  ', ["60.0 hours"])
+    foorth_equal('Duration .sec_per_hour        .to_duration f"%-4.1H%$H"  ', ["1.0  hour"])
+    foorth_equal('Duration .sec_per_hour  5/2 * .to_duration f"%-4.1H%$H"  ', ["2.5  hours"])
+
+    foorth_equal('                            0 .to_duration f"%?4.1H%?$H" ', [""])
+    foorth_equal('Duration .sec_per_day         .to_duration f"%?-4.1H%?$H"', ["24.0 hours"])
+    foorth_equal('Duration .sec_per_day   5/2 * .to_duration f"%?-4.1H%?$H"', ["60.0 hours"])
+    foorth_equal('Duration .sec_per_hour        .to_duration f"%?-4.1H%?$H"', ["1.0  hour"])
+    foorth_equal('Duration .sec_per_hour  5/2 * .to_duration f"%?-4.1H%?$H"', ["2.5  hours"])
+
+    foorth_equal('                            0 .to_duration f"%m%$m"      ', ["0 minutes"])
+    foorth_equal('Duration .sec_per_hour        .to_duration f"%-3m%$m"    ', ["0   minutes"])
+    foorth_equal('Duration .sec_per_hour  5/2 * .to_duration f"%-3m%$m"    ', ["30  minutes"])
+    foorth_equal('Duration .sec_per_min         .to_duration f"%-3m%$m"    ', ["1   minute"])
+    foorth_equal('Duration .sec_per_min   5/2 * .to_duration f"%-3m%$m"    ', ["2   minutes"])
+
+    foorth_equal('                            0 .to_duration f"%?m%?$m"    ', [""])
+    foorth_equal('Duration .sec_per_hour        .to_duration f"%?-3m%?$m"  ', [""])
+    foorth_equal('Duration .sec_per_hour  5/2 * .to_duration f"%?-3m%?$m"  ', ["30  minutes"])
+    foorth_equal('Duration .sec_per_min         .to_duration f"%?-3m%?$m"  ', ["1   minute"])
+    foorth_equal('Duration .sec_per_min   5/2 * .to_duration f"%?-3m%?$m"  ', ["2   minutes"])
+
+    foorth_equal('                            0 .to_duration f"%4.1M%$M"   ', [" 0.0 minutes"])
+    foorth_equal('Duration .sec_per_hour        .to_duration f"%-4.1M%$M"  ', ["60.0 minutes"])
+    foorth_equal('Duration .sec_per_hour  5/2 * .to_duration f"%-4.1M%$M"  ', ["150.0 minutes"])
+    foorth_equal('Duration .sec_per_min         .to_duration f"%-4.1M%$M"  ', ["1.0  minute"])
+    foorth_equal('Duration .sec_per_min   5/2 * .to_duration f"%-4.1M%$M"  ', ["2.5  minutes"])
+
+    foorth_equal('                            0 .to_duration f"%?4.1M%?$M" ', [""])
+    foorth_equal('Duration .sec_per_hour        .to_duration f"%?-4.1M%?$M"', ["60.0 minutes"])
+    foorth_equal('Duration .sec_per_hour  5/2 * .to_duration f"%?-4.1M%?$M"', ["150.0 minutes"])
+    foorth_equal('Duration .sec_per_min         .to_duration f"%?-4.1M%?$M"', ["1.0  minute"])
+    foorth_equal('Duration .sec_per_min   5/2 * .to_duration f"%?-4.1M%?$M"', ["2.5  minutes"])
+
+    foorth_equal('                            0 .to_duration f"%s%$s"      ', ["0 seconds"])
+    foorth_equal('Duration .sec_per_min         .to_duration f"%-3s%$s"    ', ["0   seconds"])
+    foorth_equal('Duration .sec_per_min   5/2 * .to_duration f"%-3s%$s"    ', ["30  seconds"])
+    foorth_equal('                          1   .to_duration f"%-3s%$s"    ', ["1   second"])
+    foorth_equal('                        5/2   .to_duration f"%-3s%$s"    ', ["2   seconds"])
+
+    foorth_equal('                            0 .to_duration f"%?s%?$s"    ', [""])
+    foorth_equal('Duration .sec_per_min         .to_duration f"%?-3s%?$s"  ', [""])
+    foorth_equal('Duration .sec_per_min   5/2 * .to_duration f"%?-3s%?$s"  ', ["30  seconds"])
+    foorth_equal('                          1   .to_duration f"%?-3s%?$s"  ', ["1   second"])
+    foorth_equal('                        5/2   .to_duration f"%?-3s%?$s"  ', ["2   seconds"])
+
+    foorth_equal('                            0 .to_duration f"%4.1S%$S"   ', [" 0.0 seconds"])
+    foorth_equal('Duration .sec_per_min         .to_duration f"%-4.1S%$S"  ', ["60.0 seconds"])
+    foorth_equal('Duration .sec_per_min   5/2 * .to_duration f"%-4.1S%$S"  ', ["150.0 seconds"])
+    foorth_equal('                          1   .to_duration f"%-4.1S%$S"  ', ["1.0  second"])
+    foorth_equal('                        5/2   .to_duration f"%-4.1S%$S"  ', ["2.5  seconds"])
+
+    foorth_equal('                            0 .to_duration f"%?4.1S%?$S" ', [""])
+    foorth_equal('Duration .sec_per_min         .to_duration f"%?-4.1S%?$S"', ["60.0 seconds"])
+    foorth_equal('Duration .sec_per_min   5/2 * .to_duration f"%?-4.1S%?$S"', ["150.0 seconds"])
+    foorth_equal('                          1   .to_duration f"%?-4.1S%?$S"', ["1.0  second"])
+    foorth_equal('                        5/2   .to_duration f"%?-4.1S%?$S"', ["2.5  seconds"])
+
+
 
 
   end
