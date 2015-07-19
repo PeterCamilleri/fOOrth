@@ -573,17 +573,53 @@ class TimeLibraryTester < Minitest::Test
   end
 
   def test_some_duration_math
-    foorth_equal('100 .to_duration 50              + ', [150] )
-    foorth_equal('100 .to_duration 50 .to_duration + ', [150] )
+    foorth_equal('100              50 .to_duration +        ', [150] )
+    foorth_equal('100 .to_duration 50              +        ', [150] )
+    foorth_equal('100 .to_duration 50 .to_duration +        ', [150] )
 
-    foorth_equal('100 .to_duration 50              - ', [50] )
-    foorth_equal('100 .to_duration 50 .to_duration - ', [50] )
+    foorth_equal('100              50 .to_duration + .class ', [Fixnum] )
+    foorth_equal('100 .to_duration 50              + .class ', [XfOOrth::Duration] )
+    foorth_equal('100 .to_duration 50 .to_duration + .class ', [XfOOrth::Duration] )
 
-    foorth_equal('100 .to_duration 50              * ', [5000] )
-    foorth_equal('100 .to_duration 50 .to_duration * ', [5000] )
+    foorth_equal('100 .to_duration dup 50              + distinct?', [true] )
+    foorth_equal('100 .to_duration dup 50 .to_duration + distinct?', [true] )
 
-    foorth_equal('100 .to_duration 50              / ', [2] )
-    foorth_equal('100 .to_duration 50 .to_duration / ', [2] )
+
+    foorth_equal('100              50 .to_duration -        ', [50] )
+    foorth_equal('100 .to_duration 50              -        ', [50] )
+    foorth_equal('100 .to_duration 50 .to_duration -        ', [50] )
+
+    foorth_equal('100              50 .to_duration - .class ', [Fixnum] )
+    foorth_equal('100 .to_duration 50              - .class ', [XfOOrth::Duration] )
+    foorth_equal('100 .to_duration 50 .to_duration - .class ', [XfOOrth::Duration] )
+
+    foorth_equal('100 .to_duration dup 50              - distinct?', [true] )
+    foorth_equal('100 .to_duration dup 50 .to_duration - distinct?', [true] )
+
+
+    foorth_equal('100              50 .to_duration *        ', [5000] )
+    foorth_equal('100 .to_duration 50              *        ', [5000] )
+    foorth_equal('100 .to_duration 50 .to_duration *        ', [5000] )
+
+    foorth_equal('100              50 .to_duration * .class ', [Fixnum] )
+    foorth_equal('100 .to_duration 50              * .class ', [XfOOrth::Duration] )
+    foorth_equal('100 .to_duration 50 .to_duration * .class ', [XfOOrth::Duration] )
+
+    foorth_equal('100 .to_duration dup 50              * distinct?', [true] )
+    foorth_equal('100 .to_duration dup 50 .to_duration * distinct?', [true] )
+
+
+    foorth_equal('100              50 .to_duration /        ', [2] )
+    foorth_equal('100 .to_duration 50              /        ', [2] )
+    foorth_equal('100 .to_duration 50 .to_duration /        ', [2] )
+
+    foorth_equal('100              50 .to_duration / .class ', [Fixnum] )
+    foorth_equal('100 .to_duration 50              / .class ', [XfOOrth::Duration] )
+    foorth_equal('100 .to_duration 50 .to_duration / .class ', [XfOOrth::Duration] )
+
+    foorth_equal('100 .to_duration dup 50              / distinct?', [true] )
+    foorth_equal('100 .to_duration dup 50 .to_duration / distinct?', [true] )
+
   end
 
   def test_some_time_to_string
