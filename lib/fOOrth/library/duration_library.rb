@@ -1,5 +1,6 @@
 # coding: utf-8
 
+require_relative 'duration/make'
 require_relative 'duration/intervals'
 require_relative 'duration/formatter'
 
@@ -10,16 +11,6 @@ module XfOOrth
   #directly associated with a date or time. Like 10 minutes as opposed
   #to July 4, 2015 5:43 PM.
   class Duration
-
-    #The length of time of the duration.
-    attr_accessor :period
-
-    #Create a duration instance.
-    #<br>Parameters
-    #* period - The period of time of the duration.
-    def initialize(period)
-      @period = period.rationalize
-    end
 
     #Coerce the argument to match my type.
     def foorth_coerce(arg)
@@ -70,65 +61,6 @@ module XfOOrth
 
   end
 
-  #Connect the Duration class to the fOOrth class system
-  Duration.create_foorth_proxy("Duration")
-
-  #Stub out .new
-  Duration.create_exclusive_method('.new', TosSpec, [:stub])
-
-  #Helper Methods .to_duration and .to_duration!
-
-  #[number] .to_duration [a_duration]
-  Object.create_shared_method('.to_duration', TosSpec, [], &lambda {|vm|
-    begin
-      vm.push(Duration.new(self))
-    rescue
-      vm.push(nil)
-    end
-  })
-
-  #[number] .to_duration! [a_duration]
-  Object.create_shared_method('.to_duration!', TosSpec, [], &lambda {|vm|
-    begin
-      vm.push(Duration.new(self))
-    rescue
-      error "F40: Cannot convert #{self.to_s} to a Duration instance"
-    end
-  })
-
-  Array.create_shared_method('.to_duration', TosSpec, [], &lambda {|vm|
-    begin
-      result, interval = 0, Duration::INTERVALS.reverse_each
-      self.reverse_each {|value| result += value * interval.next }
-      vm.push(Duration.new(result))
-    rescue
-      vm.push(nil)
-    end
-  })
-
-  Array.create_shared_method('.to_duration!', TosSpec, [], &lambda {|vm|
-    begin
-      result, interval = 0, Duration::INTERVALS.reverse_each
-      self.reverse_each {|value| result += value * interval.next }
-      vm.push(Duration.new(result))
-    rescue
-      error "F40: Cannot convert #{self.to_s} to a Duration instance"
-    end
-  })
-
-  #[a_duration] .to_duration [a_duration]
-  Duration.create_shared_method('.to_duration', TosSpec, [], &lambda {|vm|
-    begin
-      vm.push(self)
-    end
-  })
-
-  #[a_duration] .to_duration! [a_duration]
-  Duration.create_shared_method('.to_duration!', TosSpec, [], &lambda {|vm|
-    begin
-      vm.push(self)
-    end
-  })
 
   #[a_duration] .to_a [an_array]
   Duration.create_shared_method('.to_a', TosSpec, [], &lambda{|vm|
