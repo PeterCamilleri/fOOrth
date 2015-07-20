@@ -122,33 +122,33 @@ module XfOOrth
     vm.push(Duration::LABELS)
   })
 
-  #[Duration] .sec_per_year [a_rational]
-  Duration.create_exclusive_method('.sec_per_year', TosSpec, [], &lambda {|vm|
+  #[] a_year [a_duration]
+  VirtualMachine.create_shared_method('a_year', VmSpec, [], &lambda {|vm|
     vm.push(Duration::A_YEAR)
   })
 
-  #[Duration] .sec_per_month [a_rational]
-  Duration.create_exclusive_method('.sec_per_month', TosSpec, [], &lambda {|vm|
+  #[] a_month [a_duration]
+  VirtualMachine.create_shared_method('a_month', VmSpec, [], &lambda {|vm|
     vm.push(Duration::A_MONTH)
   })
 
-  #[Duration] .sec_per_day [a_rational]
-  Duration.create_exclusive_method('.sec_per_day', TosSpec, [], &lambda {|vm|
+  #[] a_day [a_duration]
+  VirtualMachine.create_shared_method('a_day', VmSpec, [], &lambda {|vm|
     vm.push(Duration::A_DAY)
   })
 
-  #[Duration] .sec_per_hour [a_rational]
-  Duration.create_exclusive_method('.sec_per_hour', TosSpec, [], &lambda {|vm|
+  #[] an_hour [a_duration]
+  VirtualMachine.create_shared_method('an_hour', VmSpec, [], &lambda {|vm|
     vm.push(Duration::AN_HOUR)
   })
 
-  #[Duration] .sec_per_min [a_rational]
-  Duration.create_exclusive_method('.sec_per_min', TosSpec, [], &lambda {|vm|
+  #[] a_minute [a_duration]
+  VirtualMachine.create_shared_method('a_minute', VmSpec, [], &lambda {|vm|
     vm.push(Duration::A_MINUTE)
   })
 
-  #[Duration] .sec_per_sec [a_rational]
-  Duration.create_exclusive_method('.sec_per_sec', TosSpec, [], &lambda {|vm|
+  #[] a_second [a_duration]
+  VirtualMachine.create_shared_method('a_second', VmSpec, [], &lambda {|vm|
     vm.push(Duration::A_SECOND)
   })
 
