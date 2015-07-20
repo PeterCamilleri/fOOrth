@@ -41,6 +41,13 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('Duration .sec_per_min',   [        60])
     foorth_equal('Duration .sec_per_sec',   [         1])
 
+    foorth_equal('Duration .sec_per_year  .class', [XfOOrth::Duration])
+    foorth_equal('Duration .sec_per_month .class', [XfOOrth::Duration])
+    foorth_equal('Duration .sec_per_day   .class', [XfOOrth::Duration])
+    foorth_equal('Duration .sec_per_hour  .class', [XfOOrth::Duration])
+    foorth_equal('Duration .sec_per_min   .class', [XfOOrth::Duration])
+    foorth_equal('Duration .sec_per_sec   .class', [XfOOrth::Duration])
+
     foorth_equal('Duration .sec_per_year        .to_duration .years  ', [1])
     foorth_equal('Duration .sec_per_year  3/2 * .to_duration .years  ', [1])
     foorth_equal('Duration .sec_per_year  2   * .to_duration .years  ', [2])
