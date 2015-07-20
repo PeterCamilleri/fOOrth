@@ -17,15 +17,15 @@ module XfOOrth
     #<br>Endemic Code Smells
     #* :reek:FeatureEnvy -- false positive.
     def to_a
-      temp = @period
+      balance = @period
 
       Duration::INTERVALS.map do |interval|
         if interval > A_SECOND
-          value = (temp / interval).to_i
-          temp -= value * interval
+          value = (balance / interval).to_i
+          balance -= value * interval
           value
         else
-          temp.to_f
+          balance.to_f
         end
       end
 
