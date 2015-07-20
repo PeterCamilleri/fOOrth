@@ -7,22 +7,22 @@ module XfOOrth
   class Duration
 
     #Seconds in a second.
-    A_SECOND = 1.to_r
+    A_SECOND = Duration.new(1.to_r)
 
     #Seconds in a minute.
-    A_MINUTE = (60 * A_SECOND).to_r
+    A_MINUTE = Duration.new(60 * A_SECOND.to_r)
 
     #Seconds in an hour.
-    AN_HOUR  = (60 * A_MINUTE).to_r
+    AN_HOUR  = Duration.new(60 * A_MINUTE.to_r)
 
     #Seconds in a day.
-    A_DAY    = (24 * AN_HOUR).to_r
+    A_DAY    = Duration.new(24 * AN_HOUR.to_r)
 
     #Seconds in a (average) month.
-    A_MONTH  = (Rational(365_2425, 120000) * A_DAY).to_r
+    A_MONTH  = Duration.new(Rational(365_2425, 120000) * A_DAY.to_r)
 
     #Seconds in a (average) year.
-    A_YEAR   = (12 * A_MONTH).to_r
+    A_YEAR   = Duration.new(12 * A_MONTH.to_r)
 
     #An array of interval values.
     INTERVALS = [A_YEAR, A_MONTH, A_DAY, AN_HOUR, A_MINUTE, A_SECOND]
@@ -44,62 +44,62 @@ module XfOOrth
 
     #How many whole years in this duration?
     def years
-      (@period/A_YEAR).to_i
+      (@period/A_YEAR.to_r).to_i
     end
 
     #How many total years in this duration?
     def as_years
-      (@period/A_YEAR).to_f
+      (@period/A_YEAR.to_r).to_f
     end
 
 
     #How many months into the year in this duration?
     def months
-      ((@period % A_YEAR)/A_MONTH).to_i
+      ((@period % A_YEAR.to_r)/A_MONTH.to_r).to_i
     end
 
     #How many total months in this duration?
     def as_months
-      (@period/A_MONTH).to_f
+      (@period/A_MONTH.to_r).to_f
     end
 
 
     #How many days into the month in this duration?
     def days
-      ((@period % A_MONTH)/A_DAY).to_i
+      ((@period % A_MONTH.to_r)/A_DAY.to_r).to_i
     end
 
     #How many total days in this duration?
     def as_days
-      (@period/A_DAY).to_f
+      (@period/A_DAY.to_r).to_f
     end
 
 
     #How many hours into the day in this duration?
     def hours
-      (((@period % A_MONTH) % A_DAY)/AN_HOUR).to_i
+      (((@period % A_MONTH.to_r) % A_DAY.to_r)/AN_HOUR.to_r).to_i
     end
 
     #How many total hours in this duration?
     def as_hours
-      (@period/AN_HOUR).to_f
+      (@period/AN_HOUR.to_r).to_f
     end
 
 
     #How many minutes into the hour in this duration?
     def minutes
-      (((@period % A_MONTH) % AN_HOUR)/A_MINUTE).to_i
+      (((@period % A_MONTH.to_r) % AN_HOUR.to_r)/A_MINUTE.to_r).to_i
     end
 
     #How many total minutes in this duration?
     def as_minutes
-      (@period/A_MINUTE).to_f
+      (@period/A_MINUTE.to_r).to_f
     end
 
 
     #How many seconds into the minute in this duration?
     def seconds
-      ((@period % A_MONTH) % A_MINUTE)
+      ((@period % A_MONTH.to_r) % A_MINUTE.to_r)
     end
 
     #How many total seconds in this duration?

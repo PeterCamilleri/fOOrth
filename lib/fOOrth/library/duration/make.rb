@@ -44,7 +44,7 @@ module XfOOrth
   Array.create_shared_method('.to_duration', TosSpec, [], &lambda {|vm|
     begin
       result, interval = 0, Duration::INTERVALS.reverse_each
-      self.reverse_each {|value| result += value * interval.next }
+      self.reverse_each {|value| result += value * interval.next.to_r }
       vm.push(Duration.new(result))
     rescue
       vm.push(nil)
@@ -54,7 +54,7 @@ module XfOOrth
   Array.create_shared_method('.to_duration!', TosSpec, [], &lambda {|vm|
     begin
       result, interval = 0, Duration::INTERVALS.reverse_each
-      self.reverse_each {|value| result += value * interval.next }
+      self.reverse_each {|value| result += value * interval.next.to_r }
       vm.push(Duration.new(result))
     rescue
       error "F40: Cannot convert #{self.to_s} to a Duration instance"

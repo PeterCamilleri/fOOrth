@@ -19,8 +19,10 @@ module XfOOrth
     def to_a
       balance = @period
 
-      Duration::INTERVALS.map do |interval|
-        if interval > A_SECOND
+      Duration::INTERVALS.map do |item|
+        interval = item.to_r
+
+        if interval > 1
           value = (balance / interval).to_i
           balance -= value * interval
           value
