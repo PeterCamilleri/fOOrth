@@ -531,9 +531,6 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('a_second       f"%?-4.1S%?$S" ', ["1.0  second"])
     foorth_equal('a_second 5/2 * f"%?-4.1S%?$S" ', ["2.5  seconds"])
 
-
-
-
   end
 
   def test_time_comparisons
@@ -568,10 +565,20 @@ class TimeLibraryTester < Minitest::Test
 
   def test_some_time_math
     foorth_equal('1434322206 .to_t 100 + ', [Time.at(1434322206+100)])
+    foorth_equal('1434322206 .to_t 100 + .class', [Time])
+
+    foorth_equal('1434322206 .to_t a_minute + ', [Time.at(1434322206+60)])
+    foorth_equal('1434322206 .to_t a_minute + .class', [Time])
+
     foorth_raises('1434322206 .to_t now  + ')
     foorth_raises('1434322206 .to_t "apple"  + ')
 
     foorth_equal('1434322206 .to_t 100 - ', [Time.at(1434322206-100)])
+    foorth_equal('1434322206 .to_t 100 - .class', [Time])
+
+    foorth_equal('1434322206 .to_t a_minute - ', [Time.at(1434322206-60)])
+    foorth_equal('1434322206 .to_t a_minute - .class', [Time])
+
     foorth_equal('1434322206 .to_t 1434322206 .to_t -       ', [XfOOrth::Duration.new(0.to_r)])
     foorth_equal('1434322206 .to_t 1434322206 .to_t - .class', [XfOOrth::Duration])
 
