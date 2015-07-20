@@ -12,71 +12,34 @@ module XfOOrth
     ##
     #The specification of the formatter method of the \Duration class.
     #<br>Year Formats:
-    #* %{w}y - Whole years.
-    #* %{w{.p}}Y - Total (with fractional) years.
-    #* %?{w}y - Whole years, suppress if absent.
-    #* %?{w{.p}}Y - Total (with fractional) years, suppress if absent.
-    #<br>Year Label Formats:
-    #* %${w}y - Label for whole years.
-    #* %${w}Y - Label for total (with fractional) years.
-    #* %?${w}y - Label for whole years, suppress if absent.
-    #* %?${w}Y - Label for total (with fractional) years, suppress if absent.
+    #* %{?}{$}{w}y - Whole years.
+    #* %{?}{$}{w{.p}}Y - Total (with fractional) years.
     #<br>Month Formats:
-    #* %{w}o - Whole months in the year.
-    #* %{w{.p}}O - Total (with fractional) months.
-    #* %?{w}o - Whole months in the year, suppress if absent.
-    #* %?{w{.p}}O - Total (with fractional) months, suppress if absent.
-    #<br>Month Label Formats:
-    #* %${w}o - Label for whole months in the year.
-    #* %${w}O - Label for total (with fractional) months.
-    #* %?${w}o - Label for whole months in the year, suppress if absent.
-    #* %?${w}O - Label for total (with fractional) months, suppress if absent.
+    #* %{?}{$}{w}o - Whole months in the year.
+    #* %{?}{$}{w{.p}}O - Total (with fractional) months.
     #<br>Day Formats:
-    #* %{w}d - Whole days in the month.
-    #* %{w{.p}}D - Total (with fractional) days.
-    #* %?{w}d - Whole days in the month, suppress if absent.
-    #* %?{w{.p}}D - Total (with fractional) days, suppress if absent.
-    #<br>Day Label Formats:
-    #* %${w}d - Label for whole days in the month.
-    #* %${w}D - Label for total (with fractional) days.
-    #* %?${w}d - Label for whole days in the month, suppress if absent.
-    #* %?${w}D - Label for total (with fractional) days, suppress if absent.
+    #* %{?}{$}{w}d - Whole days in the month.
+    #* %{?}{$}{w{.p}}D - Total (with fractional) days.
     #<br>Hour Formats:
-    #* %{w}h - Whole hours in the day.
-    #* %{w{.p}}H - Total (with fractional) hours.
-    #* %?{w}h - Whole hours in the day, suppress if absent.
-    #* %?{w{.p}}H - Total (with fractional) hours, suppress if absent.
-    #<br>Hour Label Formats:
-    #* %${w}h - Label for whole hours in the day.
-    #* %${w}H - Label for total (with fractional) hours.
-    #* %?${w}h - Label for whole hours in the day, suppress if absent.
-    #* %?${w}H - Label for total (with fractional) hours, suppress if absent.
+    #* %{?}{$}{w}h - Whole hours in the day.
+    #* %{?}{$}{w{.p}}H - Total (with fractional) hours.
     #<br>Minute Formats:
-    #* %{w}m - Whole minutes in the hour.
-    #* %{w{.p}}M - Total (with fractional) minutes.
-    #* %?{w}m - Whole minutes in the hour, suppress if absent.
-    #* %?{w{.p}}M - Total (with fractional) minutes, suppress if absent.
-    #<br>Minute Label Formats:
-    #* %${w}m - Label for whole minutes in the hour.
-    #* %${w}M - Label for total (with fractional) minutes.
-    #* %?${w}m - Label for whole minutes in the hour, suppress if absent.
-    #* %?${w}M - Label for total (with fractional) minutes, suppress if absent.
+    #* %{?}{$}{w}m - Whole minutes in the hour.
+    #* %{?}{$}{w{.p}}M - Total (with fractional) minutes.
     #<br>Second Formats:
-    #* %{w}s - Whole seconds in the minute.
-    #* %{w{.p}}S - Total (with fractional) seconds.
-    #* %?{w}s - Whole seconds in the minute, suppress if absent.
-    #* %?{w{.p}}S - Total (with fractional) seconds, suppress if absent.
-    #<br>Second Label Formats:
-    #* %${w}s - Label for whole seconds in the minute.
-    #* %${w}S - Label for total (with fractional) seconds.
-    #* %?${w}s - Label for whole seconds in the minute, suppress if absent.
-    #* %?${w}S - Label for total (with fractional) seconds, suppress if absent.
+    #* %{?}{$}{w}s - Whole seconds in the minute.
+    #* %{?}{$}{w{.p}}S - Total (with fractional) seconds.
+    #<br>Brief Summary Formats:
+    #* %{?}{$}{w{.p}}B - Total (with fractional) of the largest, non-zero time unit.
     #<br>Raw Formats (in seconds and fractions):
     #* %{w{.p}}f - Total seconds in floating point format.
     #* %{w}r - Total seconds in rational format.
     #<br>Where:
+    #* \? is an optional flag indicating that the data should be suppressed if absent.
+    #* \$ is an optional flag indication to retrieve the corresponding text label.
     #* w is an optional field width parameter.
     #* p is an optional precision parameter.
+
     attr_formatter :strfmt,
     {
       :before => lambda do
@@ -149,6 +112,19 @@ module XfOOrth
       "%$S" => lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(5, tmp[5])},
       "%?$S"=> lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(5, tmp[5]) if tmp[5] > 0},
 
+      "%B"  => lambda {cat "%#{fmt.parm_str}f" % tmp[src.largest_interval]},
+      "%?B" => lambda {cat "%#{fmt.parm_str}f" % tmp[src.largest_interval] if src.period > 0},
+
+      "%$B" => lambda do
+        index = src.largest_interval
+        cat "%#{fmt.parm_str}s" % Duration.pick_label(index, tmp[index])
+      end,
+      "%?$B" => lambda do
+        if src.period > 0
+          index = src.largest_interval
+          cat "%#{fmt.parm_str}s" % Duration.pick_label(index, tmp[index])
+        end
+      end,
 
 
       "%f"  => lambda {cat "%#{fmt.parm_str}f" % src.period.to_f},

@@ -531,6 +531,23 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('a_second       f"%?-4.1S%?$S" ', ["1.0  second"])
     foorth_equal('a_second 5/2 * f"%?-4.1S%?$S" ', ["2.5  seconds"])
 
+    foorth_equal('a_year   5/2 *  f"%4.1B%$B"   ', [" 2.5 years"])
+    foorth_equal('a_year          f"%4.1B%$B"   ', [" 1.0 year"])
+    foorth_equal('a_month  5/2 *  f"%4.1B%$B"   ', [" 2.5 months"])
+    foorth_equal('a_month         f"%4.1B%$B"   ', [" 1.0 month"])
+    foorth_equal('a_day    5/2 *  f"%4.1B%$B"   ', [" 2.5 days"])
+    foorth_equal('a_day           f"%4.1B%$B"   ', [" 1.0 day"])
+    foorth_equal('an_hour  5/2 *  f"%4.1B%$B"   ', [" 2.5 hours"])
+    foorth_equal('an_hour         f"%4.1B%$B"   ', [" 1.0 hour"])
+    foorth_equal('a_minute 5/2 *  f"%4.1B%$B"   ', [" 2.5 minutes"])
+    foorth_equal('a_minute        f"%4.1B%$B"   ', [" 1.0 minute"])
+    foorth_equal('a_second 5/2 *  f"%4.1B%$B"   ', [" 2.5 seconds"])
+    foorth_equal('a_second        f"%4.1B%$B"   ', [" 1.0 second"])
+    foorth_equal('0 .to_duration  f"%4.1B%$B"   ', [" 0.0 seconds"])
+
+    foorth_equal('a_second        f"%?4.1B%?$B" ', [" 1.0 second"])
+    foorth_equal('0 .to_duration  f"%?4.1B%?$B" ', [""])
+
   end
 
   def test_time_comparisons
