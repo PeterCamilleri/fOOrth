@@ -52,12 +52,16 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('a_year   3/2 * .years     ', [1])
     foorth_equal('a_year     2 * .years     ', [2])
 
+    foorth_equal('a_year   3/2 * .years .class', [Fixnum])
+
     foorth_equal('a_year         .months    ', [0])
     foorth_equal('a_year   3/2 * .months    ', [6])
     foorth_equal('a_year     2 * .months    ', [0])
     foorth_equal('a_month        .months    ', [1])
     foorth_equal('a_month  3/2 * .months    ', [1])
     foorth_equal('a_month    2 * .months    ', [2])
+
+    foorth_equal('a_month  3/2 * .months .class', [Fixnum])
 
     foorth_equal('a_year         .days      ', [0])
     foorth_equal('a_year   3/2 * .days      ', [0])
@@ -68,6 +72,8 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('a_day          .days      ', [1])
     foorth_equal('a_day    3/2 * .days      ', [1])
     foorth_equal('a_day      2 * .days      ', [2])
+
+    foorth_equal('a_day    3/2 * .days .class', [Fixnum])
 
     foorth_equal('a_year         .hours     ', [0])
     foorth_equal('a_year   3/2 * .hours     ', [0])
@@ -81,6 +87,8 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('an_hour        .hours     ', [1])
     foorth_equal('an_hour  3/2 * .hours     ', [1])
     foorth_equal('an_hour    2 * .hours     ', [2])
+
+    foorth_equal('an_hour  3/2 * .hours .class', [Fixnum])
 
     foorth_equal('a_year         .minutes   ', [0])
     foorth_equal('a_year   3/2 * .minutes   ', [0])
@@ -97,6 +105,8 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('a_minute       .minutes   ', [1])
     foorth_equal('a_minute 3/2 * .minutes   ', [1])
     foorth_equal('a_minute   2 * .minutes   ', [2])
+
+    foorth_equal('a_minute 3/2 * .minutes .class', [Fixnum])
 
     foorth_equal('a_year         .seconds   ', [0])
     foorth_equal('a_year   3/2 * .seconds   ', [0])
@@ -116,6 +126,8 @@ class TimeLibraryTester < Minitest::Test
     foorth_equal('a_second       .seconds   ', [1])
     foorth_equal('a_second 3/2 * .seconds   ', [1.5])
     foorth_equal('a_second   2 * .seconds   ', [2])
+
+    foorth_equal('a_second 3/2 * .seconds .class', [Float])
 
     foorth_equal('a_year         .as_years  ', [1])
     foorth_equal('a_year   3/2 * .as_years  ', [1.5])

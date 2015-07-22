@@ -99,7 +99,7 @@ module XfOOrth
 
     #How many seconds into the minute in this duration?
     def seconds
-      ((@period % A_MONTH.to_r) % A_MINUTE.to_r)
+      ((@period % A_MONTH.to_r) % A_MINUTE.to_f)
     end
 
     #How many total seconds in this duration?
