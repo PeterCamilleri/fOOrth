@@ -54,4 +54,40 @@ module XfOOrth
     vm.poke(Duration.new(result))
   })
 
+  # [a_duration] 1+ [a_duration+1]
+  Duration.create_shared_method('1+', TosSpec, [], &lambda {|vm|
+    result = @period + 1
+    vm.push(Duration.new(result))
+  })
+
+  # [a_duration] 1- [a_duration-1]
+  Duration.create_shared_method('1-', TosSpec, [], &lambda {|vm|
+    result = @period - 1
+    vm.push(Duration.new(result))
+  })
+
+  # [a_duration] 2+ [a_duration+2]
+  Duration.create_shared_method('2+', TosSpec, [], &lambda {|vm|
+    result = @period + 2
+    vm.push(Duration.new(result))
+  })
+
+  # [a_duration] 2- [a_duration-2]
+  Duration.create_shared_method('2-', TosSpec, [], &lambda {|vm|
+    result = @period - 2
+    vm.push(Duration.new(result))
+  })
+
+  # [a_duration] 2* [a_duration*2]
+  Duration.create_shared_method('2*', TosSpec, [], &lambda {|vm|
+    result = @period * 2
+    vm.push(Duration.new(result))
+  })
+
+  # [a_duration] 2/ [a_duration/2]
+  Duration.create_shared_method('2/', TosSpec, [], &lambda {|vm|
+    result = @period / 2
+    vm.push(Duration.new(result))
+  })
+
 end

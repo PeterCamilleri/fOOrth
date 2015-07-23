@@ -134,7 +134,13 @@ module XfOOrth
 
   end
 
-  format_action = lambda {|vm| vm.poke(self.strfmt(vm.peek)); }
+  format_action = lambda do |vm|
+    begin
+      vm.poke(self.strfmt(vm.peek))
+    rescue => err
+      error "F40: Formating error: #{err.message}."
+    end
+  end
 
   # [a_time a_string] format [a_string]
   Duration.create_shared_method('format', NosSpec, [], &format_action)
