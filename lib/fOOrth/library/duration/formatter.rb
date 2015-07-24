@@ -27,7 +27,7 @@ module XfOOrth
     #* %{?}{$}{w}m - Whole minutes in the hour.
     #* %{?}{$}{w{.p}}M - Total (with fractional) minutes.
     #<br>Second Formats:
-    #* %{?}{$}{w}s - Whole seconds in the minute.
+    #* %{?}{$}{w{.p}}s - Total (with fractional) seconds in the minute.
     #* %{?}{$}{w{.p}}S - Total (with fractional) seconds.
     #<br>Brief Summary Formats:
     #* %{?}{$}{w{.p}}B - Total (with fractional) of the largest, non-zero time unit.
@@ -102,8 +102,8 @@ module XfOOrth
       "%$M" => lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(4, tmp[4])},
       "%?$M"=> lambda {cat "%#{fmt.parm_str}s" % Duration.pick_label(4, tmp[4]) if tmp[4] > 0},
 
-      "%s"  => lambda {cat "%#{fmt.parm_str}d" % tmp[:sec]},
-      "%?s" => lambda {cat "%#{fmt.parm_str}d" % tmp[:sec] if tmp[:sec] >= 1},
+      "%s"  => lambda {cat "%#{fmt.parm_str}f" % tmp[:sec]},
+      "%?s" => lambda {cat "%#{fmt.parm_str}f" % tmp[:sec] if tmp[:sec] >= 1},
       "%S"  => lambda {cat "%#{fmt.parm_str}f" % tmp[5]},
       "%?S" => lambda {cat "%#{fmt.parm_str}f" % tmp[5] if tmp[5] > 0},
 
