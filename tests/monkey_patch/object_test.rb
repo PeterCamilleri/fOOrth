@@ -36,6 +36,12 @@ class ObjectMonkeyPatchTester < Minitest::Test
     assert_equal(obj.to_foorth_n, nil)
   end
 
+  #Test for conversion to a rational.
+  def test_to_rational
+    obj = Object.new
+    assert_equal(obj.to_foorth_r, nil)
+  end
+
   #Test the quick fail raise in fOOrth.
   def test_that_exceptions_are_easy_to_raise
     assert_raises(XfOOrth::XfOOrthError) { error('Failure IS an option!') }

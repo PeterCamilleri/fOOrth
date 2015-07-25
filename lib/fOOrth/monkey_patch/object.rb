@@ -23,6 +23,11 @@ class Object
     nil
   end
 
+  #Convert this object to a rational. Returns nil for fail.
+  def to_foorth_r
+    nil
+  end
+
   #Fail with XfOOrthError argument error.
   def error(msg)
     fail XfOOrth::XfOOrthError, msg, caller

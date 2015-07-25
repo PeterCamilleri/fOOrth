@@ -249,16 +249,26 @@ class NumericLibraryTester < Minitest::Test
     foorth_equal("1 2 rational",     ['1/2'.to_r])
     foorth_equal("3.1 4 rational",   ['31/40'.to_r])
     foorth_equal('"3.1" 4 rational', ['31/40'.to_r])
+    foorth_equal('pi 1 rational',    ['245_850_922/78_256_779'.to_r])
     foorth_equal('"apple" 4 rational', [nil])
 
     foorth_equal("1 2 rational!",     ['1/2'.to_r])
     foorth_equal("3.1 4 rational!",   ['31/40'.to_r])
     foorth_equal('"3.1" 4 rational!', ['31/40'.to_r])
     foorth_raises('"apple" 4 rational!')
+    foorth_raises('nil 4 rational!')
+    foorth_raises('false 4 rational!')
+    foorth_raises('true 4 rational!')
   end
 
-  def test_that_we_rationalize_too_much
+  def test_that_we_do_not_rationalize_too_much
     foorth_equal('0.01 pi      .rationalize_to', ['22/7'.to_r])
+    foorth_equal('0.001 pi     .rationalize_to', ['201/64'.to_r])
+    foorth_equal('0.0001 pi    .rationalize_to', ['333/106'.to_r])
+    foorth_equal('0.00001 pi   .rationalize_to', ['355/113'.to_r])
+    foorth_equal('0.000001 pi  .rationalize_to', ['355/113'.to_r])
+    foorth_equal('0.0000001 pi .rationalize_to', ['75948/24175'.to_r])
+
     foorth_equal('0.01 1234/55 .rationalize_to', ['157/7'.to_r])
 
     foorth_raises('0.01 1+5i .rationalize_to')

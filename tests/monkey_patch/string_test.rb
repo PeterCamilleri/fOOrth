@@ -43,4 +43,11 @@ class StringMonkeyPatchTester < Minitest::Test
     assert_equal('2cats'.to_foorth_n, nil)
   end
 
+  def test_to_rational
+    assert_equal(Rational(1,2), '1/2'.to_foorth_r)
+    assert_equal(nil, 'apple'.to_foorth_r)
+
+  end
+
+
 end

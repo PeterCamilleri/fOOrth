@@ -171,7 +171,7 @@ module XfOOrth
   #*target - The object that is to receive this method.
   #*name - The name of the method to be created.
   #<br>Endemic Code Smells
-  #* :reek:ControlParameter
+  #* :reek:ControlParameter -- false positive
   def self.validate_string_method(type, target, name)
     if type == TosSpec && name[-1] == '"' && target != String
       error "F13: Creating a string method #{name} on a #{target.foorth_name}"

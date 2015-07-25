@@ -20,7 +20,7 @@ module XfOOrth
     #* Nested loops must be in the same compiler context in order to use this
     #  mechanism. Otherwise, loop index counters must be passed in explicitly.
     #<br>Endemic Code Smells
-    #* :reek:FeatureEnvy
+    #* :reek:FeatureEnvy  -- false positive
     def vm_do(jloop = [0, 0, 0], &block)
       #Pop the start and ending values from the stack.
       start_index, end_index = popm(2)

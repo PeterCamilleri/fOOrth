@@ -62,7 +62,13 @@ module XfOOrth
   String.create_shared_method('.rstrip', TosSpec, [],
     &lambda {|vm| vm.push(self.rstrip); })
 
-  format_action = lambda {|vm| vm.poke(vm.peek % self.in_array); }
+  format_action = lambda do |vm|
+    begin
+      vm.poke(vm.peek % self.in_array)
+    rescue => err
+      error "F40: Formating error: #{err.message}."
+    end
+  end
 
   # [a_str] format ['a formatted string']
   Object.create_shared_method('format', NosSpec, [], &format_action)

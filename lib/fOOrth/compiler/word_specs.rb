@@ -26,7 +26,7 @@ module XfOOrth
     #* :macro - Identifies the spec as a macro spec to assist debugging.
     #* :stub - The word is a place holder in the hierarchy.
     #<br>Endemic Code Smells
-    #* :reek:ControlParameter  -- reek is on crack!
+    #* :reek:ControlParameter -- false positive
     def initialize(name, symbol, tags=[], &block)
       @tags = tags
       @does = block || lambda do |*_any|
