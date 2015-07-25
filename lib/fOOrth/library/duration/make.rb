@@ -37,7 +37,7 @@ module XfOOrth
     begin
       vm.push(Duration.new(self))
     rescue
-      error "F40: Cannot convert #{self.to_s} to a Duration instance"
+      error "F40: Cannot convert #{self.foorth_name} to a Duration instance"
     end
   })
 
@@ -57,7 +57,7 @@ module XfOOrth
       self.reverse_each {|value| result += value * interval.next.to_r }
       vm.push(Duration.new(result))
     rescue
-      error "F40: Cannot convert #{self.to_s} to a Duration instance"
+      error "F40: Cannot convert #{self.foorth_name} to a Duration instance"
     end
   })
 
