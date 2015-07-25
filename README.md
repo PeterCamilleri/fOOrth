@@ -61,7 +61,7 @@ http://nvie.com/posts/a-successful-git-branching-model/
 #### Plan B
 
 Go to the GitHub repository and raise an issue calling attention to some
-aspect that could use some TLC or a suggestion or idea. Apply labels to
-the issue that match the point you are trying to make. Then follow your
-issue and keep up-to-date as it is worked on. Or not as pleases you.
-All input are greatly appreciated.
+aspect that could use some TLC or a suggestion or an idea. Apply labels
+to the issue that match the point you are trying to make. Then follow
+your issue and keep up-to-date as it is worked on. All input are greatly
+appreciated.
