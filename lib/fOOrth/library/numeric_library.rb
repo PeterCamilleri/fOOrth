@@ -133,27 +133,27 @@ module XfOOrth
   Numeric.create_shared_method('.abs', TosSpec, [],
     &lambda {|vm| vm.push(self.abs); })
 
-  # [a] 1+ [|a|]
+  # [a] 1+ [a+1]
   Numeric.create_shared_method('1+', TosSpec, [],
     &lambda {|vm| vm.push(self+1); })
 
-  # [a] 1- [|a|]
+  # [a] 1- [a-1]
   Numeric.create_shared_method('1-', TosSpec, [],
     &lambda {|vm| vm.push(self-1); })
 
-  # [a] 2+ [|a|]
+  # [a] 2+ [a+2]
   Numeric.create_shared_method('2+', TosSpec, [],
     &lambda {|vm| vm.push(self+2); })
 
-  # [a] 2- [|a|]
+  # [a] 2- [a-2]
   Numeric.create_shared_method('2-', TosSpec, [],
     &lambda {|vm| vm.push(self-2); })
 
-  # [a] 2* [|a|]
+  # [a] 2* [a*2]
   Numeric.create_shared_method('2*', TosSpec, [],
     &lambda {|vm| vm.push(self*2); })
 
-  # [a] 2/ [|a|]
+  # [a] 2/ [a/2]
   Numeric.create_shared_method('2/', TosSpec, [],
     &lambda {|vm| vm.push(self/2); })
 

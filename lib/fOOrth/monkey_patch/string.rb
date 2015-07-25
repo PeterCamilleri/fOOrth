@@ -11,7 +11,7 @@ class String
 
   #Coerce the argument to match my type.
   #<br>Endemic Code Smells
-  #* :reek:FeatureEnvy
+  #* :reek:FeatureEnvy -- false positive
   def foorth_coerce(arg)
     arg.to_s
   rescue
@@ -41,6 +41,11 @@ class String
     end
   rescue
     nil
+  end
+
+  #Convert this string to a rational. Return a number or nil on fail.
+  def to_foorth_r
+    self.to_foorth_n.to_foorth_r
   end
 
 end

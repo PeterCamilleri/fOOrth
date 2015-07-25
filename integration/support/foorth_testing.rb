@@ -30,7 +30,7 @@ module XfOOrthTestExtensions
     vm.process_string(source)
 
     unless remainder == vm.data_stack
-      msg = "Expected: #{remainder.inspect}\nActual: #{vm.data_stack.inspect}"
+      msg = "Expected: #{remainder.inspect}\n  Actual: #{vm.data_stack.inspect}"
       raise MiniTest::Assertion, msg, caller
     end
   ensure
@@ -52,12 +52,12 @@ module XfOOrthTestExtensions
 
     begin
       vm.process_string(source)
-      msg = "Expected: #{err}\nActual: None"
+      msg = "Expected: #{err}\n  Actual: No exception raised."
       failed = true
 
     rescue Exception => e
       unless e.class == err
-        msg = "Expected: #{err}\nActual: #{e.class}"
+        msg = "Expected: #{err}\n  Actual: #{e.class}"
         failed = true
       end
     end
@@ -84,7 +84,7 @@ module XfOOrthTestExtensions
     end
 
     if expected != actual
-      msg = "Expected: #{expected.inspect}\nActual: #{actual.inspect}"
+      msg = "Expected: #{expected.inspect}\n  Actual: #{actual.inspect}"
       raise MiniTest::Assertion, msg, caller
     end
 
@@ -123,7 +123,7 @@ module XfOOrthTestExtensions
     end
 
     if expected != actual
-      msg = "Expected: #{expected.inspect}\nActual: #{actual.inspect}"
+      msg = "Expected: #{expected.inspect}\n  Actual: #{actual.inspect}"
       raise MiniTest::Assertion, msg, caller
     end
 

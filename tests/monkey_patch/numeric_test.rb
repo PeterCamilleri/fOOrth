@@ -53,5 +53,10 @@ class NumericMonkeyPatchTester < Minitest::Test
     assert_equal(Rational(65,1).to_foorth_n, Rational(65,1))
   end
 
+  #Test for conversion to a rational.
+  def test_to_rational
+    assert_equal(Rational(13,10), (1.3).to_foorth_r)
+  end
+
 end
 

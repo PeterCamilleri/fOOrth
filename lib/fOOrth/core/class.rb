@@ -35,7 +35,11 @@ class Class
   def create_shared_method(name, spec_class, options, &block)
     sym = XfOOrth::SymbolMap.add_entry(name)
     spec = spec_class.new(name, sym, options, &block)
-    define_method(sym, &spec.does)
+
+    unless self == Object && options.include?(:stub)
+      define_method(sym, &spec.does)
+    end
+
     foorth_shared[sym] = spec
   end
 

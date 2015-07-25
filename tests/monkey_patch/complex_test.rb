@@ -18,4 +18,8 @@ class ComplexMonkeyPatchTester < Minitest::Test
     assert_equal(comp.foorth_embed, 'Complex(1,2)')
   end
 
+  def test_that_it_is_not_rationalizable
+    comp = Complex(1,2)
+    assert_equal(nil, comp.to_foorth_r)
+  end
 end

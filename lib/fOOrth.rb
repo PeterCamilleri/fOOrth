@@ -5,6 +5,7 @@
 require          'safe_clone'
 require          'full_clone'
 require          'in_array'
+require          'format_engine'
 require          'English'
 
 require_relative 'fOOrth/version'
@@ -40,6 +41,8 @@ module XfOOrth
   class VirtualMachine
 
     #Get the version string for this virtual machine.
+    #<br>Endemic Code Smells
+    #* :reek:UtilityFunction
     def version
       XfOOrth.version
     end

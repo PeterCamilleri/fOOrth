@@ -27,4 +27,9 @@ class Numeric
     self
   end
 
+  #Convert this numeric to a rational.
+  def to_foorth_r
+    self.rationalize
+  end
+
 end

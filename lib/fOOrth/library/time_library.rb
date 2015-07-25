@@ -241,7 +241,7 @@ module XfOOrth
   Time.create_shared_method('+', NosSpec, [], &lambda {|vm|
     begin
       other = vm.peek
-      vm.poke(self + other)
+      vm.poke(self + other.to_foorth_r)
     rescue TypeError
       error "F40: Unable to add a Time instance and a #{other.foorth_name}"
     end
@@ -252,7 +252,8 @@ module XfOOrth
   Time.create_shared_method('-', NosSpec, [], &lambda {|vm|
     begin
       other = vm.peek
-      vm.poke(self - other)
+      result = self - (other.is_a?(Time) ? other : other.to_foorth_r)
+      vm.poke(result.is_a?(Time) ? result : Duration.new(result.rationalize))
     rescue TypeError
       error "F40: Unable to subtract a Time instance and a #{other.foorth_name}"
     end

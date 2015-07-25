@@ -19,15 +19,15 @@ module XfOOrth
 
   # [v procedure] .call_v [unspecified]
   Proc.create_shared_method('.call_v', TosSpec, [],
-    &lambda {|vm| v = vm.pop; self.call(vm, v); })
+    &lambda {|vm| value = vm.pop; self.call(vm, value); })
 
   # [x procedure] .call_x [unspecified]
   Proc.create_shared_method('.call_x', TosSpec, [],
-    &lambda {|vm| x = vm.pop; self.call(vm, nil, x); })
+    &lambda {|vm| index = vm.pop; self.call(vm, nil, index); })
 
   # [v x procedure] .call_vx [unspecified]
   Proc.create_shared_method('.call_vx', TosSpec, [],
-    &lambda {|vm| v, x = vm.popm(2); self.call(vm, v, x); })
+    &lambda {|vm| value, index = vm.popm(2); self.call(vm, value, index); })
 
   # [procedure] .start [a_thread]
   Proc.create_shared_method('.start', TosSpec, [], &lambda {|vm|
@@ -48,8 +48,13 @@ class Proc
     block, interlock = self, Queue.new
 
     result = Thread.new(vm.foorth_copy(vm_name)) do |vm_copy|
-      self.foorth_init(vm_copy.compiler_reset.connect_vm_to_thread)
-      interlock.push(:ready)
+
+      begin
+        self.foorth_init(vm_copy.compiler_reset.connect_vm_to_thread)
+      ensure
+        interlock.push(:ready)
+      end
+
       vm_copy.instance_exec(vm_copy, &block)
     end
 

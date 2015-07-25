@@ -119,5 +119,6 @@ module XfOOrth
 
 end
 
+#Shut up already!
 module Exception::Gem #:nodoc: don't document this!
 end

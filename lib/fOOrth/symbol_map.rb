@@ -27,7 +27,7 @@ module XfOOrth
     #<br>Returns:
     #* The symbol that corresponds to the name.
     #<br>Endemic Code Smells
-    #* :reek:ControlParameter  -- reek is on crack!
+    #* :reek:ControlParameter -- false positive
     def self.add_entry(name, presym=nil)
       @sync.synchronize do
         unless (symbol = @fwd_map[name])
