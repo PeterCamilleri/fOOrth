@@ -179,9 +179,11 @@ class ArrayLibraryTester < Minitest::Test
   end
 
   def test_gather
-    foorth_equal('    1 2 3    gather', [[1,2,3]])
-    foorth_equal('    1 2 3 3 .gather', [[1,2,3]])
-    foorth_equal('5 6 1 2 3 3 .gather', [5,6,[1,2,3]])
+    foorth_equal('               gather', [[]])
+    foorth_equal('    1 2 3      gather', [[1,2,3]])
+
+    foorth_equal('    1 2 3 3   .gather', [[1,2,3]])
+    foorth_equal('5 6 1 2 3 3   .gather', [5,6,[1,2,3]])
 
     foorth_raises('5 6 1 2 3 -1 .gather')
     foorth_raises('5 6 1 2 3  0 .gather')

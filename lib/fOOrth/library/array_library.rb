@@ -251,9 +251,8 @@ module XfOOrth
 
   #[ x0 x1 ... xN N] .gather [array]
   Integer.create_shared_method('.gather', TosSpec, [], &lambda {|vm|
-    unless self > 0 && self <= vm.data_stack.length
-      error "F30: Invalid .gather count value."
-    end
+    error "F30: Invalid .gather count value." unless self > 0
+    error "F30: Data stack underflow." unless self <= vm.data_stack.length
 
     temp = vm.data_stack.pop(self)
     vm.data_stack << temp
