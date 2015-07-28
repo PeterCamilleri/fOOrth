@@ -173,6 +173,23 @@ class ArrayLibraryTester < Minitest::Test
     foorth_raises('1 2 3 4 20 .join')
   end
 
+  def test_scatter
+    foorth_equal('[ 1 2 3 ]     .scatter', [1, 2, 3])
+    foorth_equal('5 6 [ 1 2 3 ] .scatter', [5, 6, 1, 2, 3])
+  end
+
+  def test_gather
+    foorth_equal('               gather', [[]])
+    foorth_equal('    1 2 3      gather', [[1,2,3]])
+
+    foorth_equal('    1 2 3 3   .gather', [[1,2,3]])
+    foorth_equal('5 6 1 2 3 3   .gather', [5,6,[1,2,3]])
+
+    foorth_raises('5 6 1 2 3 -1 .gather')
+    foorth_raises('5 6 1 2 3  0 .gather')
+    foorth_raises('5 6 1 2 3  9 .gather')
+  end
+
   def test_array_to_s
     foorth_equal('[ 1 2 3 ] .to_s', ["[ 1 2 3 ]"])
   end
