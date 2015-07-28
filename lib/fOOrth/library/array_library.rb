@@ -239,6 +239,27 @@ module XfOOrth
     vm.push(result)
   })
 
+  #[array] .scatter [ a0 a1 ... aN ]
+  Array.create_shared_method('.scatter', TosSpec, [], &lambda {|vm|
+    vm.data_stack += self
+  })
+
+  #[ x0 x1 ... xN] gather [array]
+  VirtualMachine.create_shared_method('gather', VmSpec, [], &lambda{|vm|
+    @data_stack = [@data_stack]
+  })
+
+  #[ x0 x1 ... xN N] .gather [array]
+  Integer.create_shared_method('.gather', TosSpec, [], &lambda {|vm|
+    unless self > 0 && self <= vm.data_stack.length
+      error "F30: Invalid .gather count value."
+    end
+
+    temp = vm.data_stack.pop(self)
+    vm.data_stack << temp
+  })
+
+
   $fcpl = 80 #fOOrth Character Per Line
   $flpp = 50 #fOOrth Lines Per Page
 

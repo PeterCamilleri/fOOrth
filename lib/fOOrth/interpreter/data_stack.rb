@@ -7,7 +7,7 @@ module XfOOrth
   class VirtualMachine
     #The fOOrth data stack. This is the primary means used to hold data
     #for processing.
-    attr_reader :data_stack
+    attr_accessor :data_stack
 
     #Add an entry to the data stack.
     #<br>Parameters:
