@@ -56,7 +56,7 @@ module XfOOrth
     def connect_vm_to_thread
       #Check for duplicates.
       current = Thread.current
-      error "F60: Only one virtual machine allowed per thread" if current[:vm]
+      error "F91: Only one virtual machine allowed per thread" if current[:vm]
 
       #This virtual machine is associated with this thread.
       current[:vm] = self
