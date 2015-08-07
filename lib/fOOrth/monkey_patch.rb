@@ -2,6 +2,7 @@
 
 #A collection of standard library monkey patches required by foorth.
 
+require_relative 'monkey_patch/exceptions'
 require_relative 'monkey_patch/object'
 require_relative 'monkey_patch/false'
 require_relative 'monkey_patch/nil'
