@@ -9,7 +9,6 @@ require          'format_engine'
 require          'English'
 
 require_relative 'fOOrth/version'
-require_relative 'fOOrth/exceptions'
 require_relative 'fOOrth/debug'
 require_relative 'fOOrth/monkey_patch'
 require_relative 'fOOrth/symbol_map'

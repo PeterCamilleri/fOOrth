@@ -1,7 +1,6 @@
 # coding: utf-8
 
-require_relative '../lib/fOOrth/exceptions'
-require_relative '../lib/fOOrth/monkey_patch/object'
+require_relative '../lib/fOOrth/monkey_patch'
 require_relative '../lib/fOOrth/symbol_map'
 gem              'minitest'
 require          'minitest/autorun'
