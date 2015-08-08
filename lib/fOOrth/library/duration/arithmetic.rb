@@ -3,6 +3,7 @@
 #* library/duration/arithmetic.rb - Arithmetic operator support for durations.
 module XfOOrth
 
+  #* library/duration/arithmetic.rb - Arithmetic operator support for durations.
   class Duration
 
     #Coerce the argument to match my type.
