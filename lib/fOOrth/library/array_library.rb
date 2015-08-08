@@ -10,8 +10,14 @@ module XfOOrth
   # The default implementation from Object is used for this.
 
   # [n] Array .new_size [[0,0,...0]]; create an array of n zeros.
-  Array.create_exclusive_method('.new_size', TosSpec, [],
-    &lambda {|vm| vm.poke(self.new(Integer.foorth_coerce(vm.peek), 0)); })
+  Array.create_exclusive_method('.new_size', TosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self.new(Integer.foorth_coerce(vm.peek), 0));
+    rescue
+      vm.pop
+      raise
+    end
+  })
 
   # [v] Array .new_value [[v]]; create an array of a single value.
   Array.create_exclusive_method('.new_value', TosSpec, [],
@@ -19,8 +25,13 @@ module XfOOrth
 
   # [v n] Array .new_values [[v,v,...v]]; create an array of a n values.
   Array.create_exclusive_method('.new_values', TosSpec, [], &lambda {|vm|
-    count = Integer.foorth_coerce(vm.pop)
-    vm.poke(self.new(count, vm.peek))
+    begin
+      count = Integer.foorth_coerce(vm.pop)
+      vm.poke(self.new(count, vm.peek))
+    rescue
+      vm.pop
+      raise
+    end
   })
 
   # [n] Array .new{{ ... }} [[array]]; create an array of a n computed values.
@@ -107,17 +118,38 @@ module XfOOrth
     &lambda {|vm| vm.poke(self + vm.peek.in_array); })
 
   # [w [3 1 2]] .left [[3 1]]; assumes w = 2
-  Array.create_shared_method('.left', TosSpec, [],
-    &lambda {|vm| vm.poke(self.first(Integer.foorth_coerce(vm.peek))); })
+  Array.create_shared_method('.left', TosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self.first(Integer.foorth_coerce(vm.peek)));
+    rescue
+      vm.pop
+      raise
+    end
+  })
 
   # [w [3 1 2]] .-left [2]    // Assumes w = 2
-  Array.create_shared_method('.-left', TosSpec, [],
-    &lambda {|vm| vm.poke(self[(Integer.foorth_coerce(vm.peek))..-1]); })
+  Array.create_shared_method('.-left', TosSpec, [], &lambda {|vm|
+    begin
+      width = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid width: #{width} in .-left" if width < 0
+      vm.poke(self[width..-1]);
+    rescue
+      vm.pop
+      raise
+    end
+  })
 
   # [w [0 8 9] [1 2 3 4]] .+left [[0 8 9 3 4]] // Assumes w = 2
   Array.create_shared_method('.+left', TosSpec, [], &lambda {|vm|
-    ins = vm.pop
-    vm.poke(ins + self[(Integer.foorth_coerce(vm.peek))..-1])
+    begin
+      ins = vm.pop.in_array
+      width = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid width: #{width} in .+left" if width < 0
+      vm.poke(ins + self[width..-1])
+    rescue
+      vm.pop
+      raise
+    end
   })
 
   # [w [3 1 2]] .right [[1 2]]; assumes w = 2
