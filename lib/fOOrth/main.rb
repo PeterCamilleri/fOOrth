@@ -20,34 +20,25 @@ module XfOOrth
     vm = Thread.current[:vm]
     running = false
 
-    begin
+    loop do
+      begin
+        running ||= start_up(vm)
+        vm.process_console
 
-      loop do
-        begin
-          running ||= start_up(vm)
-          vm.process_console
+      rescue Interrupt, ForceExit, SilentExit => err
+        puts "\n#{err.foorth_message}"
+        break
 
-        rescue XfOOrthError, ZeroDivisionError => error
-          vm.display_abort(error)
+      rescue StandardError => err
+        vm.display_abort(err)
 
-        end
-
-        break unless running
+      rescue Exception => err
+        puts "\n#{err.class.to_s.gsub(/.*::/, '')} detected: #{err}"
+        puts err.backtrace
+        break
       end
 
-    rescue Interrupt
-      puts "\nProgram interrupted. Exiting fOOrth."
-
-    rescue ForceExit
-      puts "\nQuit command received. Exiting fOOrth."
-
-    rescue SilentExit
-      puts
-
-    rescue Exception => err
-      puts "\n#{err.class.to_s.gsub(/.*::/, '')} detected: #{err}"
-      puts err.backtrace
-
+      break unless running
     end
 
     vm
@@ -92,7 +83,8 @@ module XfOOrth
       opts.each do |opt, arg|
 
         unless found
-          puts; found = true
+          puts
+          found = true
         end
 
         case opt
@@ -121,6 +113,7 @@ module XfOOrth
       puts "--load  -l <filename>   Load the specified fOOrth source file."
       puts "--debug -d              Default to debug ON."
       puts "--quit  -q              Quit after processing the command line."
+      puts "--show  -s              Default to show results ON."
       puts "--words -w              List the current vocabulary."
       puts
       raise SilentExit

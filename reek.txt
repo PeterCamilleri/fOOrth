@@ -1,1 +1,7 @@
-0 total warnings
+lib/fOOrth/library/duration/arithmetic.rb -- 1 warning:
+  [6]:XfOOrth::Duration has no descriptive comment (IrresponsibleModule)
+lib/fOOrth/library/duration/intervals.rb -- 1 warning:
+  [36]:XfOOrth::Duration#self.pick_label is controlled by argument qty (ControlParameter)
+lib/fOOrth/library/duration/make.rb -- 1 warning:
+  [6]:XfOOrth::Duration has no descriptive comment (IrresponsibleModule)
+3 total warnings

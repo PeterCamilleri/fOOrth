@@ -104,6 +104,16 @@ class SystemCallError
 
 end
 
+# Extensions to Interrupt to support fOOrth.
+class Interrupt
+
+  #The message text for the interrupt. Needed as Ruby provides none.
+  def message
+    "Interrupt detected. Exiting fOOrth."
+  end
+
+end
+
 #Shut up already!
 module Exception::Gem #:nodoc: don't document this!
 end
@@ -121,9 +131,23 @@ module XfOOrth
   end
 
   #The exception raised to force the fOOrth language system to exit.
-  class ForceExit    < StandardError; end
+  class ForceExit < StandardError
+
+    #Get the error message for this exception.
+    def foorth_message
+      "F00: Quit command received. Exiting fOOrth."
+    end
+
+  end
 
   #The exception raised to silently force the fOOrth language system to exit.
-  class SilentExit    < StandardError; end
+  class SilentExit < StandardError
+
+    #Get the error message for this exception. Nothing... It's silent!
+    def foorth_message
+      ""
+    end
+
+  end
 
 end
