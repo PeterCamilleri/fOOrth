@@ -136,18 +136,64 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('2           [ 9 3 5 ]   .right  ', [[3,5]])
     foorth_equal('2           [ 9 3 5 ]   .-right ', [[9]])
     foorth_equal('2 [ 0 8 9 ] [ 9 3 5 ]   .+right ', [[9,0,8,9]])
+    foorth_equal('2 "apple"   [ 9 3 5 ]   .+right ', [[9,"apple"]])
+
+    foorth_equal('try "apple" [ 9 3 5 ] .right catch end', [])
+    foorth_equal('try -1      [ 9 3 5 ] .right catch end', [])
+
+    foorth_equal('try "apple" [ 9 3 5 ] .-right catch end', [])
+    foorth_equal('try -1      [ 9 3 5 ] .-right catch end', [])
+
+    foorth_equal('try -2      [ 0 8 9 ] [ 9 3 5 ] .+right catch end', [])
+    foorth_equal('try "apple" [ 0 8 9 ] [ 9 3 5 ] .+right catch end', [])
   end
 
   def test_the_mid_group
     foorth_equal('1 2           [ 9 3 5 7 ] .mid  ', [[3,5]])
     foorth_equal('1 2           [ 9 3 5 7 ] .-mid ', [[9,7]])
     foorth_equal('1 2 [ 0 8 9 ] [ 9 3 5 7 ] .+mid ', [[9,0,8,9,7]])
+    foorth_equal('1 2 "apple"   [ 9 3 5 7 ] .+mid ', [[9,"apple",7]])
+
+    foorth_equal('try "apple" 2 [ 9 3 5 7 ] .mid catch end', [])
+    foorth_equal('try 1 "apple" [ 9 3 5 7 ] .mid catch end', [])
+    foorth_equal('try -1      2 [ 9 3 5 7 ] .mid catch end', [])
+    foorth_equal('try 1      -2 [ 9 3 5 7 ] .mid catch end', [])
+
+    foorth_equal('try "apple" 2 [ 9 3 5 7 ] .-mid catch end', [])
+    foorth_equal('try 1 "apple" [ 9 3 5 7 ] .-mid catch end', [])
+    foorth_equal('try -1      2 [ 9 3 5 7 ] .-mid catch end', [])
+    foorth_equal('try 1      -2 [ 9 3 5 7 ] .-mid catch end', [])
+
+    foorth_equal('try "apple" 2 [ 0 8 9 ] [ 9 3 5 7 ] .+mid catch end ', [])
+    foorth_equal('try 1 "apple" [ 0 8 9 ] [ 9 3 5 7 ] .+mid catch end ', [])
+    foorth_equal('try -1      2 [ 0 8 9 ] [ 9 3 5 7 ] .+mid catch end ', [])
+    foorth_equal('try 1      -2 [ 0 8 9 ] [ 9 3 5 7 ] .+mid catch end ', [])
   end
 
   def test_the_midlr_group
     foorth_equal('1 1           [ 9 3 5 7 ] .midlr  ', [[3,5]])
     foorth_equal('1 1           [ 9 3 5 7 ] .-midlr ', [[9,7]])
+    foorth_equal('0 2           [ 9 3 5 7 ] .-midlr ', [[5,7]])
+    foorth_equal('2 0           [ 9 3 5 7 ] .-midlr ', [[9,3]])
     foorth_equal('1 1 [ 0 8 9 ] [ 9 3 5 7 ] .+midlr ', [[9,0,8,9,7]])
+    foorth_equal('0 2 [ 0 8 9 ] [ 9 3 5 7 ] .+midlr ', [[0,8,9,5,7]])
+    foorth_equal('2 0 [ 0 8 9 ] [ 9 3 5 7 ] .+midlr ', [[9,3,0,8,9]])
+    foorth_equal('1 1 "apple"   [ 9 3 5 7 ] .+midlr ', [[9,"apple",7]])
+
+    foorth_equal('try "apple" 2 [ 9 3 5 7 ] .midlr catch end', [])
+    foorth_equal('try 2 "apple" [ 9 3 5 7 ] .midlr catch end', [])
+    foorth_equal('try -2      2 [ 9 3 5 7 ] .midlr catch end', [])
+    foorth_equal('try 2      -2 [ 9 3 5 7 ] .midlr catch end', [])
+
+    foorth_equal('try "apple" 2 [ 9 3 5 7 ] .-midlr catch end', [])
+    foorth_equal('try 2 "apple" [ 9 3 5 7 ] .-midlr catch end', [])
+    foorth_equal('try -2      2 [ 9 3 5 7 ] .-midlr catch end', [])
+    foorth_equal('try 2      -2 [ 9 3 5 7 ] .-midlr catch end', [])
+
+    foorth_equal('try "apple" 1 [ 0 8 9 ] [ 9 3 5 7 ] .+midlr catch end', [])
+    foorth_equal('try 1 "apple" [ 0 8 9 ] [ 9 3 5 7 ] .+midlr catch end', [])
+    foorth_equal('try -1      1 [ 0 8 9 ] [ 9 3 5 7 ] .+midlr catch end', [])
+    foorth_equal('try 1      -1 [ 0 8 9 ] [ 9 3 5 7 ] .+midlr catch end', [])
   end
 
   def test_other_array_ops
