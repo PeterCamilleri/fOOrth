@@ -43,25 +43,25 @@ class ExceptionLibraryTester < Minitest::Test
   end
 
   def test_for_try_catch
-    foorth_equal('try 5 0 + catch drop 6 end ', [5])
-    foorth_equal('try 5 0 / catch drop 6 end ', [6])
-    foorth_equal('try 5 0 / catch drop error end ', ["E15: divided by 0"])
+    foorth_equal('try 5 0 + catch 6 end ', [5])
+    foorth_equal('try 5 0 / catch 6 end ', [6])
+    foorth_equal('try 5 0 / catch error end ', ["E15: divided by 0"])
   end
 
   def test_for_exception_methods
-    foorth_equal('try 5 0 / catch drop ?"E15" if 0 then end ', [0])
+    foorth_equal('try 5 0 / catch ?"E15" if 0 then end ', [0])
   end
 
   def test_with_finally
-    foorth_equal('try 5 0 + drop catch drop finally "apple" end', ["apple"])
-    foorth_equal('try 5 0 / drop catch drop finally "apple" end', ["apple"])
+    foorth_equal('try 5 0 + drop catch finally "apple" end', ["apple"])
+    foorth_equal('try 5 0 / drop catch finally "apple" end', ["apple"])
   end
 
   def test_for_bad_constructs_errors
-    foorth_raises('try 5 0 / catch drop 6 catch ."YA!" end ')
-    foorth_raises('try 5 0 / finally drop 6 finally ."YA!" end ')
-    foorth_raises('try 5 0 / catch drop 6 finally error   ."YA!" end ')
-    foorth_raises('try 5 0 / catch drop 6 finally ?"E150" ."YA!" end ')
+    foorth_raises('try 5 0 / catch 6 catch ."YA!" end ')
+    foorth_raises('try 5 0 / finally 6 finally ."YA!" end ')
+    foorth_raises('try 5 0 / catch 6 finally error   ."YA!" end ')
+    foorth_raises('try 5 0 / catch 6 finally ?"E150" ."YA!" end ')
 
   end
 

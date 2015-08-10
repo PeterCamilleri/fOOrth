@@ -90,6 +90,29 @@ class StandardLibraryTester < Minitest::Test
 
   end
 
+  def test_dyadic_error_recovery
+    #Insufficient parameters.
+    foorth_equal('try       5 +   catch end', [])
+
+    #Stub action.
+    foorth_equal('try false 5 +   catch end', [])
+
+    #Bad parameters.
+    foorth_equal('try 5 false >   catch end', [])
+    foorth_equal('try 5 false <   catch end', [])
+    foorth_equal('try 5 false >=  catch end', [])
+    foorth_equal('try 5 false <=  catch end', [])
+    foorth_equal('try 5 false <=> catch end', [])
+    foorth_equal('try 5 false +   catch end', [])
+    foorth_equal('try 5 false -   catch end', [])
+    foorth_equal('try 5 false *   catch end', [])
+    foorth_equal('try 5 false **  catch end', [])
+    foorth_equal('try 5 false /   catch end', [])
+    foorth_equal('try 5 false mod catch end', [])
+
+
+  end
+
   def test_some_logical_and
     foorth_equal("false false &&", [false])
     foorth_equal("false true  &&", [false])
