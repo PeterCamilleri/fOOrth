@@ -170,7 +170,14 @@ module XfOOrth
     vm.push(self.asctime)
   })
 
-  format_action = lambda {|vm| vm.poke(self.strftime(vm.peek)); }
+  format_action = lambda {|vm|
+    begin
+      vm.poke(self.strftime(vm.peek));
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  }
 
   # [a_time a_string] format [a_string]
   Time.create_shared_method('format', NosSpec, [], &format_action)
@@ -216,23 +223,48 @@ module XfOOrth
   #Time comparison operations
 
   Time.create_shared_method('>', NosSpec, [], &lambda {|vm|
-    vm.poke(self.to_f > Float.foorth_coerce(vm.peek))
+    begin
+      vm.poke(self.to_f > Float.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   Time.create_shared_method('>=', NosSpec, [], &lambda {|vm|
-    vm.poke(self.to_f >= Float.foorth_coerce(vm.peek))
+    begin
+      vm.poke(self.to_f >= Float.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   Time.create_shared_method('<', NosSpec, [], &lambda {|vm|
-    vm.poke(self.to_f < Float.foorth_coerce(vm.peek))
+    begin
+      vm.poke(self.to_f < Float.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   Time.create_shared_method('<=', NosSpec, [], &lambda {|vm|
-    vm.poke(self.to_f <= Float.foorth_coerce(vm.peek))
+    begin
+      vm.poke(self.to_f <= Float.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   Time.create_shared_method('<=>', NosSpec, [], &lambda {|vm|
-    vm.poke(self.to_f <=> Float.foorth_coerce(vm.peek))
+    begin
+      vm.poke(self.to_f <=> Float.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   #Temporal mathematics, no Tardis required.
@@ -243,7 +275,11 @@ module XfOOrth
       other = vm.peek
       vm.poke(self + other.to_foorth_r)
     rescue TypeError
+      vm.data_stack.pop
       error "F40: Unable to add a Time instance and a #{other.foorth_name}"
+    rescue
+      vm.data_stack.pop
+      raise
     end
   })
 
@@ -255,7 +291,11 @@ module XfOOrth
       result = self - (other.is_a?(Time) ? other : other.to_foorth_r)
       vm.poke(result.is_a?(Time) ? result : Duration.new(result.rationalize))
     rescue TypeError
+      vm.data_stack.pop
       error "F40: Unable to subtract a Time instance and a #{other.foorth_name}"
+    rescue
+      vm.data_stack.pop
+      raise
     end
   })
 

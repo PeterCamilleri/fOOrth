@@ -110,6 +110,14 @@ class StandardLibraryTester < Minitest::Test
     foorth_equal('try 5 false /   catch end', [])
     foorth_equal('try 5 false mod catch end', [])
 
+    foorth_equal('try now false >   catch end', [])
+    foorth_equal('try now false <   catch end', [])
+    foorth_equal('try now false >=  catch end', [])
+    foorth_equal('try now false <=  catch end', [])
+    foorth_equal('try now false <=> catch end', [])
+    foorth_equal('try now false +   catch end', [])
+    foorth_equal('try now false -   catch end', [])
+    foorth_equal('try now false format catch end', [])
 
   end
 
