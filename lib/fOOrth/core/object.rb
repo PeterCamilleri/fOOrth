@@ -62,7 +62,11 @@ class Object
   #* block - Any block that might have passed to the method.
   def method_missing(symbol, *args, &block)
     if (name = XfOOrth::SymbolMap.unmap(symbol))
-      error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol})."
+      if (stub_spec = Object.foorth_shared[symbol])
+        stub_spec.does.call(*args, &block)
+      else
+        error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol})."
+      end
     else
       super
     end
