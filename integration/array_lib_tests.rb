@@ -109,11 +109,16 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('$tte @ ',                                   [10])
 
     foorth_equal('  0 $tte .[]@ ',                            [10])
+    foorth_equal(' -1 $tte .[]@ ',                            [16])
     foorth_equal('1 0 $tte .[]! ',                            [])
     foorth_equal('$tte @ ',                                   [1])
 
     foorth_equal(' 10  $tte .[]@ ',                           [nil])
     foorth_equal('-10  $tte .[]@ ',                           [nil])
+
+    foorth_equal(' "0" $tte .[]@ ',                           [1])
+    foorth_equal('try "apple" $tte .[]@ catch end ',          [])
+
   end
 
   def test_the_left_group
@@ -210,6 +215,11 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('[ 9 3 5 ] 0       + ', [[9,3,5,0]])
     foorth_equal('[ 9 3 5 ] [ 0 ]   + ', [[9,3,5,0]])
     foorth_equal('[ 9 3 5 ] { }     + ', [[9,3,5,{}]])
+
+    foorth_equal('[ "9" 3 5 ] .sort   ', [[3,5,"9"]])
+    foorth_equal('[ 9 "3" 5 ] .sort   ', [["3",5,9]])
+
+    foorth_equal('try [ 9 "apple" 5 ] .sort catch end', [])
   end
 
   def test_formatting_and_related
@@ -228,6 +238,9 @@ class ArrayLibraryTester < Minitest::Test
 
     foorth_raises('[ 9 0 1 "pear" ] .min')
     foorth_raises('[ 9 0 1 "apple" ] .max')
+
+    foorth_equal('try [ 9 0 1 "pear" ] .min catch end', [])
+    foorth_equal('try [ 9 0 1 "pear" ] .max catch end', [])
   end
 
   def test_array_empty

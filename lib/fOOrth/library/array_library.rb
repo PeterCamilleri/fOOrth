@@ -80,8 +80,14 @@ module XfOOrth
   })
 
   # [i a] .[]@ [a[i]]
-  Array.create_shared_method('.[]@', TosSpec, [],
-    &lambda {|vm| vm.poke(self[Integer.foorth_coerce(vm.peek)]); })
+  Array.create_shared_method('.[]@', TosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self[Integer.foorth_coerce(vm.peek)])
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [v i a] .[]! []; a[i]=v
   Array.create_shared_method('.[]!', TosSpec, [], &lambda {|vm|
@@ -121,6 +127,7 @@ module XfOOrth
   Array.create_shared_method('.left', TosSpec, [], &lambda {|vm|
     begin
       width = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid width: #{width} in .left" if width < 0
       vm.poke(self.first(width));
     rescue
       vm.data_stack.pop
@@ -157,6 +164,7 @@ module XfOOrth
   Array.create_shared_method('.right', TosSpec, [], &lambda {|vm|
     begin
       width = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid width: #{width} in .right" if width < 0
       vm.poke(self.last(width))
     rescue
       vm.data_stack.pop
@@ -208,8 +216,8 @@ module XfOOrth
     begin
       width = Integer.foorth_coerce(vm.pop)
       posn = Integer.foorth_coerce(vm.peek)
-      error "F41: Invalid index: #{posn} in .mid"  if posn < 0
-      error "F41: Invalid width: #{width} in .mid" if width < 0
+      error "F41: Invalid index: #{posn} in .-mid"  if posn < 0
+      error "F41: Invalid width: #{width} in .-mid" if width < 0
       vm.poke(self[0...posn] + self[(posn+width)..-1])
     rescue
       vm.data_stack.pop
