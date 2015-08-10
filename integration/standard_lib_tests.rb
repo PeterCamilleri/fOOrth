@@ -119,6 +119,17 @@ class StandardLibraryTester < Minitest::Test
     foorth_equal('try now false -   catch end', [])
     foorth_equal('try now false format catch end', [])
 
+    foorth_equal('try 10 .to_duration false >   catch end', [])
+    foorth_equal('try 10 .to_duration false <   catch end', [])
+    foorth_equal('try 10 .to_duration false >=  catch end', [])
+    foorth_equal('try 10 .to_duration false <=  catch end', [])
+    foorth_equal('try 10 .to_duration false <=> catch end', [])
+    foorth_equal('try 10 .to_duration false +   catch end', [])
+    foorth_equal('try 10 .to_duration false -   catch end', [])
+    foorth_equal('try 10 .to_duration false *   catch end', [])
+    foorth_equal('try 10 .to_duration false /   catch end', [])
+    foorth_equal('try 10 .to_duration f"%Z"     catch end', [])
+
   end
 
   def test_some_logical_and

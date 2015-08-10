@@ -33,26 +33,46 @@ module XfOOrth
 
   #[a_duration numeric/duration] + [a_duration]
   Duration.create_shared_method('+', NosSpec, [], &lambda {|vm|
-    result = @period + @period.foorth_coerce(vm.peek)
-    vm.poke(Duration.new(result))
+    begin
+      result = @period + @period.foorth_coerce(vm.peek)
+      vm.poke(Duration.new(result))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   #[a_duration numeric/duration] - [a_duration]
   Duration.create_shared_method('-', NosSpec, [], &lambda {|vm|
-    result = @period - @period.foorth_coerce(vm.peek)
-    vm.poke(Duration.new(result))
+    begin
+      result = @period - @period.foorth_coerce(vm.peek)
+      vm.poke(Duration.new(result))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   #[a_duration numeric/duration] * [a_duration]
   Duration.create_shared_method('*', NosSpec, [], &lambda {|vm|
-    result = @period * @period.foorth_coerce(vm.peek)
-    vm.poke(Duration.new(result))
+    begin
+      result = @period * @period.foorth_coerce(vm.peek)
+      vm.poke(Duration.new(result))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   #[a_duration numeric/duration] / [a_duration]
   Duration.create_shared_method('/', NosSpec, [], &lambda {|vm|
-    result = @period / @period.foorth_coerce(vm.peek)
-    vm.poke(Duration.new(result))
+    begin
+      result = @period / @period.foorth_coerce(vm.peek)
+      vm.poke(Duration.new(result))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   # [a_duration] 1+ [a_duration+1]

@@ -138,6 +138,7 @@ module XfOOrth
     begin
       vm.poke(self.strfmt(vm.peek))
     rescue => err
+      vm.data_stack.pop
       error "F40: Formating error: #{err.message}."
     end
   end
