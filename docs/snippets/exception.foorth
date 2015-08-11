@@ -22,7 +22,7 @@
     try
       50 i 5 - / . space
     catch
-      drop ."oops "
+      ."oops "
     end
   loop ;
 
@@ -50,7 +50,6 @@
       1 0 / out_file .
       ."Danger has passed." cr
     catch
-      drop
       ."Error detected." cr
     finally
       out_file .close
