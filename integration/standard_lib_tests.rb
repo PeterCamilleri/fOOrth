@@ -90,6 +90,61 @@ class StandardLibraryTester < Minitest::Test
 
   end
 
+  def test_dyadic_error_recovery
+    #Insufficient parameters.
+    foorth_equal('try       5 +   catch end', [])
+
+    #Stub action.
+    foorth_equal('try false 5 +   catch end', [])
+
+    #Bad parameters.
+    foorth_equal('try 5 false >   catch end', [])
+    foorth_equal('try 5 false <   catch end', [])
+    foorth_equal('try 5 false >=  catch end', [])
+    foorth_equal('try 5 false <=  catch end', [])
+    foorth_equal('try 5 false <=> catch end', [])
+    foorth_equal('try 5 false +   catch end', [])
+    foorth_equal('try 5 false -   catch end', [])
+    foorth_equal('try 5 false *   catch end', [])
+    foorth_equal('try 5 false **  catch end', [])
+    foorth_equal('try 5 false /   catch end', [])
+    foorth_equal('try 5 false mod catch end', [])
+
+    foorth_equal('try now false >   catch end', [])
+    foorth_equal('try now false <   catch end', [])
+    foorth_equal('try now false >=  catch end', [])
+    foorth_equal('try now false <=  catch end', [])
+    foorth_equal('try now false <=> catch end', [])
+    foorth_equal('try now false +   catch end', [])
+    foorth_equal('try now false -   catch end', [])
+    foorth_equal('try now false format catch end', [])
+
+    foorth_equal('try 10 .to_duration false >   catch end', [])
+    foorth_equal('try 10 .to_duration false <   catch end', [])
+    foorth_equal('try 10 .to_duration false >=  catch end', [])
+    foorth_equal('try 10 .to_duration false <=  catch end', [])
+    foorth_equal('try 10 .to_duration false <=> catch end', [])
+    foorth_equal('try 10 .to_duration false +   catch end', [])
+    foorth_equal('try 10 .to_duration false -   catch end', [])
+    foorth_equal('try 10 .to_duration false *   catch end', [])
+    foorth_equal('try 10 .to_duration false /   catch end', [])
+    foorth_equal('try 10 .to_duration f"%Z"     catch end', [])
+
+    foorth_equal('try 11 false and catch end', [])
+    foorth_equal('try 11 false or  catch end', [])
+    foorth_equal('try 11 false xor catch end', [])
+    foorth_equal('try 11 false <<  catch end', [])
+    foorth_equal('try 11 false >>  catch end', [])
+
+    foorth_equal('try 11 false max catch end', [])
+    foorth_equal('try 11 false min catch end', [])
+
+
+    foorth_equal('try 11  false format catch end', [])
+    foorth_equal('try "a" false *      catch end', [])
+
+  end
+
   def test_some_logical_and
     foorth_equal("false false &&", [false])
     foorth_equal("false true  &&", [false])

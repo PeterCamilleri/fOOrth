@@ -48,24 +48,54 @@ module XfOOrth
 
   # Some comparison words.
   # [b,a] > if b > a then [true] else [false]
-  Numeric.create_shared_method('>', NosSpec, [],
-    &lambda {|vm| vm.poke(self > self.foorth_coerce(vm.peek)); })
+  Numeric.create_shared_method('>', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self > self.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [b,a] < if b < a then [true] else [false]
-  Numeric.create_shared_method('<', NosSpec, [],
-    &lambda {|vm| vm.poke(self < self.foorth_coerce(vm.peek)); })
+  Numeric.create_shared_method('<', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self < self.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [b,a] >= if b >= a then [true] else [false]
-  Numeric.create_shared_method('>=', NosSpec, [],
-    &lambda {|vm| vm.poke(self >= self.foorth_coerce(vm.peek)); })
+  Numeric.create_shared_method('>=', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self >= self.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [b,a] <= if b <= a then [true] else [false]
-  Numeric.create_shared_method('<=', NosSpec, [],
-    &lambda {|vm| vm.poke(self <= self.foorth_coerce(vm.peek)); })
+  Numeric.create_shared_method('<=', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self <= self.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [b,a] <=> if b <=> a then [true] else [false]
-  Numeric.create_shared_method('<=>', NosSpec, [],
-    &lambda {|vm| vm.poke(self <=> self.foorth_coerce(vm.peek)); })
+  Numeric.create_shared_method('<=>', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self <=> self.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # Some comparison with zero words.
   # [b,a] 0= if b == 0 then [true] else [false]
@@ -98,28 +128,64 @@ module XfOOrth
 
   # Some stack arithmetic words.
   # [b,a] + [b+a]
-  Numeric.create_shared_method('+', NosSpec, [],
-    &lambda {|vm| vm.poke(self + self.foorth_coerce(vm.peek)); })
+  Numeric.create_shared_method('+', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self + self.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [b,a] - [b-a]
-  Numeric.create_shared_method('-', NosSpec, [],
-    &lambda {|vm| vm.poke(self - self.foorth_coerce(vm.peek)); })
+  Numeric.create_shared_method('-', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self - self.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [b,a] * [b*a]
-  Numeric.create_shared_method('*', NosSpec, [],
-    &lambda {|vm| vm.poke(self * self.foorth_coerce(vm.peek)); })
+  Numeric.create_shared_method('*', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self * self.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [b,a] ** [b**a]
-  Numeric.create_shared_method('**', NosSpec, [],
-    &lambda {|vm| vm.poke(self ** Float.foorth_coerce(vm.peek)); })
+  Numeric.create_shared_method('**', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self ** Float.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [b,a] / [b/a]
-  Numeric.create_shared_method('/', NosSpec, [],
-    &lambda {|vm| vm.poke(self / self.foorth_coerce(vm.peek)); })
+  Numeric.create_shared_method('/', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self / self.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [b,a] mod [b%a]
-  Numeric.create_shared_method('mod', NosSpec, [],
-    &lambda {|vm| vm.poke(self % self.foorth_coerce(vm.peek)); })
+  Numeric.create_shared_method('mod', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self % self.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [a] neg [-a]
   Numeric.create_shared_method('neg', TosSpec, [],
