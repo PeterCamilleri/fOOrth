@@ -31,6 +31,8 @@ module XfOOrth
     LABELS = ["years", "months", "days", "hours", "minutes", "seconds"]
 
     #Pick the appropriate label
+    #<br>Endemic Code Smells
+    #* :reek:ControlParameter
     def self.pick_label(index, qty=1)
       result = LABELS[index]
       result = result.chop if qty == 1

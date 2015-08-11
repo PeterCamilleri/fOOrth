@@ -66,6 +66,7 @@ module XfOOrth
     begin
       vm.poke(vm.peek % self.in_array)
     rescue => err
+      vm.data_stack.pop
       error "F40: Formating error: #{err.message}."
     end
   end
@@ -198,8 +199,14 @@ module XfOOrth
     &lambda {|vm| vm.poke(self << vm.peek.to_s); })
 
   # ["b", n] * ["bbb..."]
-  String.create_shared_method('*', NosSpec, [],
-    &lambda {|vm| vm.poke(self * Integer.foorth_coerce(vm.peek)); })
+  String.create_shared_method('*', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self * Integer.foorth_coerce(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # ["abCD"] .to_upper ["ABCD"]
   String.create_shared_method('.to_upper', TosSpec, [],

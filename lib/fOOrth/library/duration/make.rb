@@ -3,6 +3,7 @@
 #* library/duration/make.rb - Support for duration constructor.
 module XfOOrth
 
+  #* library/duration/make.rb - Support for duration constructor.
   class Duration
     #The length of time of the duration.
     attr_accessor :period

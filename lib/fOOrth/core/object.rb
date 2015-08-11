@@ -60,9 +60,16 @@ class Object
   #* symbol - The symbol of the missing method.
   #* args - Any arguments that were passed to that method.
   #* block - Any block that might have passed to the method.
+  #<br>Note:
+  #* Since stubs for Object class do not create methods, an attempt is made
+  #  to execute the stub if the symbol maps and is in the Object class.
   def method_missing(symbol, *args, &block)
     if (name = XfOOrth::SymbolMap.unmap(symbol))
-      error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol})."
+      if (stub_spec = Object.foorth_shared[symbol])
+        self.instance_exec(*args, &stub_spec.does)
+      else
+        error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol})."
+      end
     else
       super
     end

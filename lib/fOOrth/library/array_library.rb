@@ -10,8 +10,14 @@ module XfOOrth
   # The default implementation from Object is used for this.
 
   # [n] Array .new_size [[0,0,...0]]; create an array of n zeros.
-  Array.create_exclusive_method('.new_size', TosSpec, [],
-    &lambda {|vm| vm.poke(self.new(Integer.foorth_coerce(vm.peek), 0)); })
+  Array.create_exclusive_method('.new_size', TosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self.new(Integer.foorth_coerce(vm.peek), 0));
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [v] Array .new_value [[v]]; create an array of a single value.
   Array.create_exclusive_method('.new_value', TosSpec, [],
@@ -19,8 +25,13 @@ module XfOOrth
 
   # [v n] Array .new_values [[v,v,...v]]; create an array of a n values.
   Array.create_exclusive_method('.new_values', TosSpec, [], &lambda {|vm|
-    count = Integer.foorth_coerce(vm.pop)
-    vm.poke(self.new(count, vm.peek))
+    begin
+      count = Integer.foorth_coerce(vm.pop)
+      vm.poke(self.new(count, vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   # [n] Array .new{{ ... }} [[array]]; create an array of a n computed values.
@@ -69,8 +80,14 @@ module XfOOrth
   })
 
   # [i a] .[]@ [a[i]]
-  Array.create_shared_method('.[]@', TosSpec, [],
-    &lambda {|vm| vm.poke(self[Integer.foorth_coerce(vm.peek)]); })
+  Array.create_shared_method('.[]@', TosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self[Integer.foorth_coerce(vm.peek)])
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [v i a] .[]! []; a[i]=v
   Array.create_shared_method('.[]!', TosSpec, [], &lambda {|vm|
@@ -107,76 +124,163 @@ module XfOOrth
     &lambda {|vm| vm.poke(self + vm.peek.in_array); })
 
   # [w [3 1 2]] .left [[3 1]]; assumes w = 2
-  Array.create_shared_method('.left', TosSpec, [],
-    &lambda {|vm| vm.poke(self.first(Integer.foorth_coerce(vm.peek))); })
+  Array.create_shared_method('.left', TosSpec, [], &lambda {|vm|
+    begin
+      width = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid width: #{width} in .left" if width < 0
+      vm.poke(self.first(width));
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [w [3 1 2]] .-left [2]    // Assumes w = 2
-  Array.create_shared_method('.-left', TosSpec, [],
-    &lambda {|vm| vm.poke(self[(Integer.foorth_coerce(vm.peek))..-1]); })
+  Array.create_shared_method('.-left', TosSpec, [], &lambda {|vm|
+    begin
+      width = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid width: #{width} in .-left" if width < 0
+      vm.poke(self[width..-1]);
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [w [0 8 9] [1 2 3 4]] .+left [[0 8 9 3 4]] // Assumes w = 2
   Array.create_shared_method('.+left', TosSpec, [], &lambda {|vm|
-    ins = vm.pop
-    vm.poke(ins + self[(Integer.foorth_coerce(vm.peek))..-1])
+    begin
+      ins = vm.pop.in_array
+      width = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid width: #{width} in .+left" if width < 0
+      vm.poke(ins + self[width..-1])
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   # [w [3 1 2]] .right [[1 2]]; assumes w = 2
-  Array.create_shared_method('.right', TosSpec, [],
-    &lambda {|vm| vm.poke(self.last(Integer.foorth_coerce(vm.peek))); })
+  Array.create_shared_method('.right', TosSpec, [], &lambda {|vm|
+    begin
+      width = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid width: #{width} in .right" if width < 0
+      vm.poke(self.last(width))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [w [3 1 2]] .-right [[3]]   // Assumes w = 2
-  Array.create_shared_method('.-right', TosSpec, [],
-    &lambda {|vm| vm.poke(self[0...(0-(Integer.foorth_coerce(vm.peek)))]); })
+  Array.create_shared_method('.-right', TosSpec, [], &lambda {|vm|
+    begin
+      width = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid width: #{width} in .-right" if width < 0
+      vm.poke(self[0...(0-width)]);
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [w [0 8 9] [1 2 3 4]] .+right [[1 2 0 8 9]] // Assumes w = 2
   Array.create_shared_method('.+right', TosSpec, [], &lambda {|vm|
-    ins = vm.pop
-    width = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...(0-width)] + ins)
+    begin
+      ins = vm.pop.in_array
+      width = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid width: #{width} in .+right" if width < 0
+      vm.poke(self[0...(0-width)] + ins)
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   # [n w [1 2 3 4 5 6 7 8]] .mid [[3 4 5 6]] // Assumes n = 2, w = 4
   Array.create_shared_method('.mid', TosSpec, [], &lambda {|vm|
-    width = Integer.foorth_coerce(vm.pop)
-    posn = Integer.foorth_coerce(vm.pop)
-    vm.push(self[posn...(posn+width)])
+    begin
+      width = Integer.foorth_coerce(vm.pop)
+      posn = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid index: #{posn} in .mid"  if posn < 0
+      error "F41: Invalid width: #{width} in .mid" if width < 0
+      vm.poke(self[posn...(posn+width)])
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   # [n w [1 2 3 4 5 6 7 8]] .-mid [[1 2 7 8]] // Assumes n = 2, w = 4
   Array.create_shared_method('.-mid', TosSpec, [], &lambda {|vm|
-    width = Integer.foorth_coerce(vm.pop)
-    posn = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...posn] + self[(posn+width)..-1])
+    begin
+      width = Integer.foorth_coerce(vm.pop)
+      posn = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid index: #{posn} in .-mid"  if posn < 0
+      error "F41: Invalid width: #{width} in .-mid" if width < 0
+      vm.poke(self[0...posn] + self[(posn+width)..-1])
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   # [n w [0 8 9] [1 2 3 4 5 6 7 8]] .+mid [[1 2 0 8 9 7 8]] // Assumes n = 2, w = 4
   Array.create_shared_method('.+mid', TosSpec, [], &lambda {|vm|
-    ins = vm.pop
-    width = Integer.foorth_coerce(vm.pop)
-    posn = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...posn] + ins + self[(posn+width)..-1])
+    begin
+      ins = vm.pop.in_array
+      width = Integer.foorth_coerce(vm.pop)
+      posn = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid index: #{posn} in .+mid"  if posn < 0
+      error "F41: Invalid width: #{width} in .+mid" if width < 0
+      vm.poke(self[0...posn] + ins + self[(posn+width)..-1])
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
-  # [l r [1 2 3 4 5 6 7 8]] .midlr [[2 3 4 5 6 7]] // Assumes n = 1, w = 1
+  # [l r [1 2 3 4 5 6 7 8]] .midlr [[2 3 4 5 6 7]] // Assumes l = 1, r = 1
   Array.create_shared_method('.midlr', TosSpec, [], &lambda {|vm|
-    right = Integer.foorth_coerce(vm.pop)
-    left  = Integer.foorth_coerce(vm.pop)
-    vm.push(self[left...(0-right)])
+    begin
+      right = Integer.foorth_coerce(vm.pop)
+      left  = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid left width: #{left} in .midlr"  if left < 0
+      error "F41: Invalid right width: #{right} in .midlr" if right < 0
+      vm.poke(self[left..(0-right-1)])
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   # [l r [1 2 3 4 5 6 7 8]] .-midlr [[1 8]] // Assumes l = 1, r = 1
   Array.create_shared_method('.-midlr', TosSpec, [], &lambda {|vm|
-    right = Integer.foorth_coerce(vm.pop)
-    left  = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...left] + self[((0-right))..-1])
+    begin
+      right = Integer.foorth_coerce(vm.pop)
+      left  = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid left width: #{left} in .-midlr"  if left < 0
+      error "F41: Invalid right width: #{right} in .-midlr" if right < 0
+      vm.poke(self.first(left) + self.last(right))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   # [l r [0 8 9] [1 2 3 4 5 6 7 8]] .+midlr [[1 0 8 9 8]] // Assumes l = 1, r = 1
   Array.create_shared_method('.+midlr', TosSpec, [], &lambda {|vm|
-    ins = vm.pop
-    right = Integer.foorth_coerce(vm.pop)
-    left  = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...left] + ins + self[((0-right))..-1])
+    begin
+      ins = vm.pop.in_array
+      right = Integer.foorth_coerce(vm.pop)
+      left  = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid left width: #{left} in .-midlr"  if left < 0
+      error "F41: Invalid right width: #{right} in .-midlr" if right < 0
+      vm.poke(self.first(left) + ins + self.last(right))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
   })
 
   # [a] .min [smallest_element]
@@ -238,6 +342,26 @@ module XfOOrth
 
     vm.push(result)
   })
+
+  #[array] .scatter [ a0 a1 ... aN ]
+  Array.create_shared_method('.scatter', TosSpec, [], &lambda {|vm|
+    vm.data_stack += self
+  })
+
+  #[ x0 x1 ... xN] gather [array]
+  VirtualMachine.create_shared_method('gather', VmSpec, [], &lambda{|vm|
+    @data_stack = [@data_stack]
+  })
+
+  #[ x0 x1 ... xN N] .gather [array]
+  Integer.create_shared_method('.gather', TosSpec, [], &lambda {|vm|
+    error "F30: Invalid .gather count value." unless self > 0
+    error "F30: Data stack underflow." unless self <= vm.data_stack.length
+
+    temp = vm.data_stack.pop(self)
+    vm.data_stack << temp
+  })
+
 
   $fcpl = 80 #fOOrth Character Per Line
   $flpp = 50 #fOOrth Lines Per Page

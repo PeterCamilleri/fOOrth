@@ -7,7 +7,7 @@ module XfOOrth
   class VirtualMachine
     #The fOOrth data stack. This is the primary means used to hold data
     #for processing.
-    attr_reader :data_stack
+    attr_accessor :data_stack
 
     #Add an entry to the data stack.
     #<br>Parameters:
@@ -29,10 +29,7 @@ module XfOOrth
     #<br>Note:
     #* If the stack is empty this will raise an XfOOrthError exception.
     def pop
-      unless @data_stack.length >= 1
-        error "F30: Data Stack Underflow: pop"
-      end
-
+      error "F30: Data Stack Underflow: pop" if @data_stack.empty?
       @data_stack.pop
     end
 
@@ -44,11 +41,13 @@ module XfOOrth
     #<br>Note:
     #* Raises an XfOOrthError exception if the stack has too few data.
     def popm(count)
-      unless @data_stack.length >= count
-        error "F30: Data Stack Underflow: popm"
+      begin
+        error "F30: Data Stack Underflow: popm" if @data_stack.length < count
+        @data_stack.pop(count)
+      rescue
+        @data_stack = []
+        raise
       end
-
-      @data_stack.pop(count)
     end
 
     #Remove the "top" entry from the data stack as a boolean.
@@ -84,10 +83,7 @@ module XfOOrth
     #<br>Note:
     #* Attempting to poke an empty stack will fail with an XfOOrthError exception.
     def poke(datum)
-      unless @data_stack.length >= 1
-        error "F30: Data Stack Underflow: poke"
-      end
-
+      error "F30: Data Stack Underflow: poke" if @data_stack.empty?
       @data_stack[-1] = datum
     end
 
@@ -111,13 +107,18 @@ module XfOOrth
     #* If the stack has less than 2 elements, this will raise an
     #  XfOOrthError exception.
     def swap_pop
-      unless @data_stack.length >= 2
-        error "F30: Data Stack Underflow: swap_pop"
-      end
+      begin
+        unless @data_stack.length >= 2
+          error "F30: Data Stack Underflow: swap_pop"
+        end
 
-      nos, tos = @data_stack.pop(2)
-      @data_stack << tos
-      nos
+        nos, tos = @data_stack.pop(2)
+        @data_stack << tos
+        nos
+      rescue
+        @data_stack = []
+        raise
+      end
     end
 
   end

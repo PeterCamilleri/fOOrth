@@ -29,11 +29,15 @@ module XfOOrth
     #* :reek:ControlParameter -- false positive
     def initialize(name, symbol, tags=[], &block)
       @tags = tags
-      @does = block || lambda do |*_any|
+      @does = block || get_stub_action(name, symbol)
+      build_builds_string(name, symbol)
+    end
+
+    #Get the default action if none is specified.
+    def get_stub_action(name, symbol)
+      lambda do |*_any|
         error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol.inspect})."
       end
-
-      build_builds_string(name, symbol)
     end
 
     #Look up an tag of interest.
@@ -85,6 +89,15 @@ module XfOOrth
     def build_builds_string(_name, symbol)
       @builds = "vm.swap_pop.#{symbol}(vm); "
     end
+
+    #Get the default action if none is specified.
+    def get_stub_action(name, symbol)
+      lambda do |vm|
+        vm.data_stack.pop
+        error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol.inspect})."
+      end
+    end
+
   end
 
   #A class used to specify the compile of fOOrth classes.
