@@ -130,6 +130,19 @@ class StandardLibraryTester < Minitest::Test
     foorth_equal('try 10 .to_duration false /   catch end', [])
     foorth_equal('try 10 .to_duration f"%Z"     catch end', [])
 
+    foorth_equal('try 11 false and catch end', [])
+    foorth_equal('try 11 false or  catch end', [])
+    foorth_equal('try 11 false xor catch end', [])
+    foorth_equal('try 11 false <<  catch end', [])
+    foorth_equal('try 11 false >>  catch end', [])
+
+    foorth_equal('try 11 false max catch end', [])
+    foorth_equal('try 11 false min catch end', [])
+
+
+    foorth_equal('try 11  false format catch end', [])
+    foorth_equal('try "a" false *      catch end', [])
+
   end
 
   def test_some_logical_and
