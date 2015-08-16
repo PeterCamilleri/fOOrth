@@ -52,7 +52,7 @@ class CoreTester < Minitest::Test
     obj = Object.new
 
     #Get the virtual machine.
-    vm = Thread.current[:vm]
+    vm = XfOOrth::VirtualMachine.vm
 
     XfOOrth::SymbolMap.add_entry("a_test_two", :a_test_two)
 

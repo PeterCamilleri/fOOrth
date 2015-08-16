@@ -17,7 +17,7 @@ class StandardLibraryTester < Minitest::Test
   def test_basic_constants
     refute(Thread.current[:vm].nil?)
 
-    foorth_equal("self",      [Thread.current[:vm]])
+    foorth_equal("self",      [XfOOrth::VirtualMachine.vm])
     foorth_equal("true",      [true])
     foorth_equal("false",     [false])
     foorth_equal("nil",       [nil])
