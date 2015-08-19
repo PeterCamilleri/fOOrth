@@ -362,6 +362,25 @@ module XfOOrth
     vm.data_stack << temp
   })
 
+  #[an_array] .to_a [an_array]
+  Array.create_shared_method('.to_a', TosSpec, [],
+    &lambda {|vm| vm.push(self) })
+
+  #[an_array] .to_h [a_hash]
+  Array.create_shared_method('.to_h', TosSpec, [], &lambda {|vm|
+    result = {}
+    self.each_with_index { |val, idx| result[idx] = val }
+    vm.push(result)
+  })
+
+  #[an_array] .values [an_array]
+  Array.create_shared_method('.values', TosSpec, [],
+    &lambda {|vm| vm.push(self) })
+
+  #[an_array] .keys [an_array]
+  Array.create_shared_method('.keys', TosSpec, [],
+    &lambda {|vm| vm.push((0...self.length).to_a) })
+
 
   $fcpl = 80 #fOOrth Character Per Line
   $flpp = 50 #fOOrth Lines Per Page
