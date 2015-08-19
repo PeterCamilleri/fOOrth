@@ -22,6 +22,10 @@ class StandardLibraryTester < Minitest::Test
     foorth_equal("false",     [false])
     foorth_equal("nil",       [nil])
 
+    foorth_equal("true  .class .to_s", ['True'])
+    foorth_equal("false .class .to_s", ['False'])
+    foorth_equal("nil   .class .to_s", ['Nil'])
+
     foorth_equal("epsilon",   [Float::EPSILON])
     foorth_equal("infinity",  [Float::INFINITY]) #and beyond...
     foorth_equal("-infinity", [-Float::INFINITY])
