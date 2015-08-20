@@ -84,6 +84,40 @@ module XfOOrth
     vm.push(result + "}")
   })
 
+  #[a_hash] .to_h [a_hash]
+  Hash.create_shared_method('.to_h', TosSpec, [],
+    &lambda{|vm| vm.push(self)})
+
+  #[a_hash] .to_a [an_array]
+  Hash.create_shared_method('.to_a', TosSpec, [],
+    &lambda{|vm| vm.push(self.values)})
+
+  # [a_hash] .map{{ ... }} [mapped_hash]
+  Hash.create_shared_method('.map{{', NosSpec, [], &lambda { |vm|
+    block = vm.pop
+    result = {}
+
+    self.each do |idx, val|
+      block.call(vm, val, idx)
+      result[idx] = vm.pop
+    end
+
+    vm.push(result)
+  })
+
+  # [a_hash] .select{{ ... }} [selected_hash]
+  Hash.create_shared_method('.select{{', NosSpec, [], &lambda { |vm|
+    block = vm.pop
+    result = {}
+
+    self.each do |idx, val|
+      block.call(vm, val, idx)
+      result[idx] = val if vm.pop
+    end
+
+    vm.push(result)
+  })
+
 
   # [h] .pp []; pretty print the hash!
   Hash.create_shared_method('.pp', TosSpec, [], &lambda {|vm|

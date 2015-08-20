@@ -279,5 +279,11 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('[ 1 2 3 ] .to_s', ["[ 1 2 3 ]"])
   end
 
+  def test_compatibility_methods
+    foorth_equal('[ 2 4 6 8 ] .to_a   ', [[2,4,6,8]])
+    foorth_equal('[ 2 4 6 8 ] .to_h   ', [{0=>2, 1=>4, 2=>6, 3=>8}])
+    foorth_equal('[ 2 4 6 8 ] .values ', [[2,4,6,8]])
+    foorth_equal('[ 2 4 6 8 ] .keys   ', [[0,1,2,3]])
+  end
 
 end

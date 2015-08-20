@@ -73,6 +73,12 @@ class HashLibraryTester < Minitest::Test
     foorth_equal('{ 1 2 -> 3 4 -> } .to_s', ["{ 1 2 -> 3 4 -> }"])
   end
 
+  def test_compatibility_methods
+    foorth_equal('{ 0 2 -> 1 4 -> 2 6 -> 3 8 -> } .to_h ', [{0=>2, 1=>4, 2=>6, 3=>8}])
+    foorth_equal('{ 0 2 -> 1 4 -> 2 6 -> 3 8 -> } .to_a ', [[2,4,6,8]])
+    foorth_equal('{ 0 2 -> 1 4 -> 2 6 -> 3 8 -> } .map{{ v 1+ }}', [{0=>3,1=>5,2=>7,3=>9}])
+    foorth_equal('{ 0 2 -> 1 4 -> 2 6 -> 3 8 -> } .select{{ v 2/ 1 and 0= }}', [{1=>4, 3=>8}])
+  end
 
 
 end
