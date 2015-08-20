@@ -92,27 +92,27 @@ module XfOOrth
   Hash.create_shared_method('.to_a', TosSpec, [],
     &lambda{|vm| vm.push(self.values)})
 
-  # [a_hash] .map{{ ... }} [mapped_array]
+  # [a_hash] .map{{ ... }} [mapped_hash]
   Hash.create_shared_method('.map{{', NosSpec, [], &lambda { |vm|
     block = vm.pop
-    result = []
+    result = {}
 
     self.each do |idx, val|
       block.call(vm, val, idx)
-      result << vm.pop
+      result[idx] = vm.pop
     end
 
     vm.push(result)
   })
 
-  # [a_hash] .select{{ ... }} [selected_array]
+  # [a_hash] .select{{ ... }} [selected_hash]
   Hash.create_shared_method('.select{{', NosSpec, [], &lambda { |vm|
     block = vm.pop
-    result = []
+    result = {}
 
     self.each do |idx, val|
       block.call(vm, val, idx)
-      result << val if vm.pop
+      result[idx] = val if vm.pop
     end
 
     vm.push(result)
