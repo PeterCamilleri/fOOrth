@@ -74,12 +74,12 @@ module XfOOrth
     vm.push(self[0])
   })
 
-  # [v a] ! [], a[0] = v
+  # [ v a ] ! [], a[0] = v
   Array.create_shared_method('!', TosSpec, [], &lambda { |vm|
     self[0] = vm.pop
   })
 
-  # [i a] .[]@ [a[i]]
+  # [ i a ] .[]@ [ a[i] ]
   Array.create_shared_method('.[]@', TosSpec, [], &lambda {|vm|
     begin
       vm.poke(self[Integer.foorth_coerce(vm.peek)])
@@ -89,33 +89,33 @@ module XfOOrth
     end
   })
 
-  # [v i a] .[]! []; a[i]=v
+  # [ v i a ] .[]! []; a[i]=v
   Array.create_shared_method('.[]!', TosSpec, [], &lambda {|vm|
     value, index = vm.popm(2)
     self[Integer.foorth_coerce(index)] = value;
   })
 
-  # [[1 2 3]] .reverse [[3 2 1]]
+  # [ [ 1 2 3 ] ] .reverse [ [ 3 2 1 ] ]
   Array.create_shared_method('.reverse', TosSpec, [],
     &lambda {|vm| vm.push(self.reverse); })
 
-  # [[3 1 2]] .sort [[1 2 3]]
+  # [ [ 3 1 2 ] ] .sort [ [ 1 2 3 ] ]
   Array.create_shared_method('.sort', TosSpec, [],
     &lambda {|vm| vm.push(self.sort {|va,vb| va <=> va.foorth_coerce(vb)}); })
 
-  # [[ 1 2 3]] .shuffle [[x y z]]
+  # [ [ 1 2 3 ] ] .shuffle  [ [ x y z ] ]
   Array.create_shared_method('.shuffle', TosSpec, [],
     &lambda {|vm| vm.push(self.shuffle); })
 
-  # [[3 1 2]] .length [3]]
+  # [ [ 3 1 2 ] ] .length [ 3 ]
   Array.create_shared_method('.length', TosSpec, [],
     &lambda {|vm| vm.push(self.length); })
 
-  # [an_array] .empty? [a_boolean]]
+  # [ an_array ] .empty? [ a_boolean ]
   Array.create_shared_method('.empty?', TosSpec, [],
     &lambda {|vm| vm.push(self.empty?); })
 
-  # [[3 1 2] n] << [[3 1 2 n]]
+  # [ [ 3 1 2 ] n ] << [ [ 3 1 2 n ] ]
   Array.create_shared_method('<<', NosSpec, [],
     &lambda {|vm| vm.poke(self << vm.peek); })
 
@@ -123,7 +123,7 @@ module XfOOrth
   Array.create_shared_method('+', NosSpec, [],
     &lambda {|vm| vm.poke(self + vm.peek.in_array); })
 
-  # [w [3 1 2]] .left [[3 1]]; assumes w = 2
+  # [w [ 3 1 2 ] ] .left [ [ 3 1 ] ]; assumes w = 2
   Array.create_shared_method('.left', TosSpec, [], &lambda {|vm|
     begin
       width = Integer.foorth_coerce(vm.peek)
@@ -135,7 +135,7 @@ module XfOOrth
     end
   })
 
-  # [w [3 1 2]] .-left [2]    // Assumes w = 2
+  # [w [ 3 1 2 ] ] .-left [ 2 ]    // Assumes w = 2
   Array.create_shared_method('.-left', TosSpec, [], &lambda {|vm|
     begin
       width = Integer.foorth_coerce(vm.peek)
@@ -147,7 +147,7 @@ module XfOOrth
     end
   })
 
-  # [w [0 8 9] [1 2 3 4]] .+left [[0 8 9 3 4]] // Assumes w = 2
+  # [w [ 0 8 9 ] [ 1 2 3 4 ] ] .+left [ [ 0 8 9 3 4 ] ] // Assumes w = 2
   Array.create_shared_method('.+left', TosSpec, [], &lambda {|vm|
     begin
       ins = vm.pop.in_array
@@ -160,7 +160,7 @@ module XfOOrth
     end
   })
 
-  # [w [1 2 3 4 ]] .^left [[3 4] [ 1 2 ]]; assumes w = 2
+  # [w [ 1 2 3 4 ] ] .^left [ [ 3 4 ] [ 1 2 ] ]; assumes w = 2
   Array.create_shared_method('.^left', TosSpec, [], &lambda {|vm|
     begin
       width = Integer.foorth_coerce(vm.peek)
@@ -175,7 +175,7 @@ module XfOOrth
   })
 
 
-  # [w [3 1 2]] .right [[1 2]]; assumes w = 2
+  # [w [ 3 1 2 ] ] .right [ [ 1 2 ] ]; assumes w = 2
   Array.create_shared_method('.right', TosSpec, [], &lambda {|vm|
     begin
       width = Integer.foorth_coerce(vm.peek)
@@ -187,7 +187,7 @@ module XfOOrth
     end
   })
 
-  # [w [3 1 2]] .-right [[3]]   // Assumes w = 2
+  # [w [ 3 1 2 ] ] .-right [ [ 3 ] ]   // Assumes w = 2
   Array.create_shared_method('.-right', TosSpec, [], &lambda {|vm|
     begin
       width = Integer.foorth_coerce(vm.peek)
@@ -199,7 +199,7 @@ module XfOOrth
     end
   })
 
-  # [w [0 8 9] [1 2 3 4]] .+right [[1 2 0 8 9]] // Assumes w = 2
+  # [w [ 0 8 9 ] [ 1 2 3 4 ] ] .+right [ [ 1 2 0 8 9 ] ] // Assumes w = 2
   Array.create_shared_method('.+right', TosSpec, [], &lambda {|vm|
     begin
       ins = vm.pop.in_array
@@ -212,7 +212,22 @@ module XfOOrth
     end
   })
 
-  # [n w [1 2 3 4 5 6 7 8]] .mid [[3 4 5 6]] // Assumes n = 2, w = 4
+  # [w [ 1 2 3 4 ] ] .^right [ [ 1 2 ] [ 3 4 ] ]; assumes w = 2
+  Array.create_shared_method('.^right', TosSpec, [], &lambda {|vm|
+    begin
+      width = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid width: #{width} in .^left" if width < 0
+
+      vm.poke(self[0...(0-width)])
+      vm.push(self.last(width));
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
+
+
+  # [n w [ 1 2 3 4 5 6 7 8 ] ] .mid [ [ 3 4 5 6 ] ] // Assumes n = 2, w = 4
   Array.create_shared_method('.mid', TosSpec, [], &lambda {|vm|
     begin
       width = Integer.foorth_coerce(vm.pop)
@@ -226,7 +241,7 @@ module XfOOrth
     end
   })
 
-  # [n w [1 2 3 4 5 6 7 8]] .-mid [[1 2 7 8]] // Assumes n = 2, w = 4
+  # [n w [ 1 2 3 4 5 6 7 8 ] ] .-mid [ [ 1 2 7 8 ] ] // Assumes n = 2, w = 4
   Array.create_shared_method('.-mid', TosSpec, [], &lambda {|vm|
     begin
       width = Integer.foorth_coerce(vm.pop)
@@ -240,7 +255,7 @@ module XfOOrth
     end
   })
 
-  # [n w [0 8 9] [1 2 3 4 5 6 7 8]] .+mid [[1 2 0 8 9 7 8]] // Assumes n = 2, w = 4
+  # [n w [ 0 8 9 ] [ 1 2 3 4 5 6 7 8 ] ] .+mid [ [ 1 2 0 8 9 7 8 ] ] // Assumes n=2, w=4
   Array.create_shared_method('.+mid', TosSpec, [], &lambda {|vm|
     begin
       ins = vm.pop.in_array
@@ -255,7 +270,7 @@ module XfOOrth
     end
   })
 
-  # [l r [1 2 3 4 5 6 7 8]] .midlr [[2 3 4 5 6 7]] // Assumes l = 1, r = 1
+  # [l r [ 1 2 3 4 5 6 7 8 ] ] .midlr [ [ 2 3 4 5 6 7 ] ] // Assumes l=1, r=1
   Array.create_shared_method('.midlr', TosSpec, [], &lambda {|vm|
     begin
       right = Integer.foorth_coerce(vm.pop)
@@ -269,7 +284,7 @@ module XfOOrth
     end
   })
 
-  # [l r [1 2 3 4 5 6 7 8]] .-midlr [[1 8]] // Assumes l = 1, r = 1
+  # [l r [ 1 2 3 4 5 6 7 8 ] ] .-midlr [ [ 1 8 ] ] // Assumes l = 1, r = 1
   Array.create_shared_method('.-midlr', TosSpec, [], &lambda {|vm|
     begin
       right = Integer.foorth_coerce(vm.pop)
@@ -283,7 +298,7 @@ module XfOOrth
     end
   })
 
-  # [l r [0 8 9] [1 2 3 4 5 6 7 8]] .+midlr [[1 0 8 9 8]] // Assumes l = 1, r = 1
+  # [l r [ 0 8 9 ] [ 1 2 3 4 5 6 7 8 ] ] .+midlr [ [ 1 0 8 9 8 ] ] // Assumes l = 1, r = 1
   Array.create_shared_method('.+midlr', TosSpec, [], &lambda {|vm|
     begin
       ins = vm.pop.in_array
@@ -298,7 +313,7 @@ module XfOOrth
     end
   })
 
-  # [a] .min [smallest_element]
+  # [ a ] .min [ smallest_element ]
   Array.create_shared_method('.min', TosSpec, [], &lambda {|vm|
     result = self[0]
 
@@ -310,7 +325,7 @@ module XfOOrth
     vm.push(result)
   })
 
-  # [a] .max [largest_element]
+  # [ a ] .max [ largest_element ]
   Array.create_shared_method('.max', TosSpec, [], &lambda {|vm|
     result = self[0]
 
@@ -322,18 +337,18 @@ module XfOOrth
     vm.push(result)
   })
 
-  # [array] .split [a0, a1, ... aN]
+  # [ array ] .split [ a0 a1 ... aN ]
   Array.create_shared_method('.split', TosSpec, [], &lambda {|vm|
     vm.pushm(self)
   })
 
-  # [a1 a2 ... aN N] .join [[a1, a2, ... aN]]
+  # [ a1 a2 aN N ] .join [ [ a1 a2 ... aN ] ]
   Integer.create_shared_method('.join', TosSpec, [], &lambda {|vm|
     error "F30: Invalid array size: .join" if self < 0
     vm.push(vm.popm(self))
   })
 
-  # [array] .to_s [string]
+  # [ array ] .to_s [ string ]
   Array.create_shared_method('.to_s', TosSpec, [], &lambda {|vm|
     result = "[ "
 
@@ -345,7 +360,7 @@ module XfOOrth
     vm.push(result + "]")
   })
 
-  # [l 2 3 ... n] .strmax [widest]
+  # [ l 2 3 ... n ] .strmax [ widest ]
   Array.create_shared_method('.strmax', TosSpec, [], &lambda {|vm|
     result = 0
 
@@ -358,17 +373,17 @@ module XfOOrth
     vm.push(result)
   })
 
-  #[array] .scatter [ a0 a1 ... aN ]
+  #[ array ] .scatter [ a0 a1 ... aN ]
   Array.create_shared_method('.scatter', TosSpec, [], &lambda {|vm|
     vm.data_stack += self
   })
 
-  #[ x0 x1 ... xN] gather [array]
+  #[ x0 x1 ... xN] gather [ array ]
   VirtualMachine.create_shared_method('gather', VmSpec, [], &lambda{|vm|
     @data_stack = [@data_stack]
   })
 
-  #[ x0 x1 ... xN N] .gather [array]
+  #[ x0 x1 ... xN N] .gather [ array ]
   Integer.create_shared_method('.gather', TosSpec, [], &lambda {|vm|
     error "F30: Invalid .gather count value." unless self > 0
     error "F30: Data stack underflow." unless self <= vm.data_stack.length
@@ -377,22 +392,22 @@ module XfOOrth
     vm.data_stack << temp
   })
 
-  #[an_array] .to_a [an_array]
+  #[ an_array ] .to_a [ an_array ]
   Array.create_shared_method('.to_a', TosSpec, [],
     &lambda {|vm| vm.push(self) })
 
-  #[an_array] .to_h [a_hash]
+  #[ an_array ] .to_h [ a_hash ]
   Array.create_shared_method('.to_h', TosSpec, [], &lambda {|vm|
     result = {}
     self.each_with_index { |val, idx| result[idx] = val }
     vm.push(result)
   })
 
-  #[an_array] .values [an_array]
+  #[ an_array ] .values [ an_array ]
   Array.create_shared_method('.values', TosSpec, [],
     &lambda {|vm| vm.push(self) })
 
-  #[an_array] .keys [an_array]
+  #[ an_array ] .keys [ an_array ]
   Array.create_shared_method('.keys', TosSpec, [],
     &lambda {|vm| vm.push((0...self.length).to_a) })
 
@@ -400,7 +415,7 @@ module XfOOrth
   $fcpl = 80 #fOOrth Character Per Line
   $flpp = 50 #fOOrth Lines Per Page
 
-  # [l 2 3 ... n] .pp []; pretty print the array!
+  # [ l 2 3 ... n ] .pp []; pretty print the array!
   Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
     self.foorth_strmax(vm)
     width = vm.pop + 1
