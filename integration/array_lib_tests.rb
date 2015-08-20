@@ -126,6 +126,7 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('2           [ 9 3 5 ]   .-left  ', [[5]])
     foorth_equal('2 [ 0 8 9 ] [ 9 3 5 ]   .+left  ', [[0,8,9,5]])
     foorth_equal('2 "apple"   [ 9 3 5 ]   .+left  ', [["apple",5]])
+    foorth_equal('2 [ 0 8 9 7 ]           .^left  ', [[9,7], [0,8]])
 
     foorth_equal('try "apple" [ 9 3 5 ] .left catch end', [])
     foorth_equal('try -1      [ 9 3 5 ] .left catch end', [])
@@ -135,6 +136,9 @@ class ArrayLibraryTester < Minitest::Test
 
     foorth_equal('try -2      [ 0 8 9 ] [ 9 3 5 ] .+left catch end', [])
     foorth_equal('try "apple" [ 0 8 9 ] [ 9 3 5 ] .+left catch end', [])
+
+    foorth_equal('try -2      [ 0 8 9 7 ] .^left catch end ', [])
+    foorth_equal('try "apple" [ 0 8 9 7 ] .^left catch end ', [])
   end
 
   def test_the_right_group

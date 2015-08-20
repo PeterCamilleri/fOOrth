@@ -160,6 +160,21 @@ module XfOOrth
     end
   })
 
+  # [w [1 2 3 4 ]] .^left [[3 4] [ 1 2 ]]; assumes w = 2
+  Array.create_shared_method('.^left', TosSpec, [], &lambda {|vm|
+    begin
+      width = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid width: #{width} in .^left" if width < 0
+
+      vm.poke(self[width..-1])
+      vm.push(self.first(width));
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
+
+
   # [w [3 1 2]] .right [[1 2]]; assumes w = 2
   Array.create_shared_method('.right', TosSpec, [], &lambda {|vm|
     begin
