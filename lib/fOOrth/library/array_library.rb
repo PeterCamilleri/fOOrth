@@ -216,7 +216,7 @@ module XfOOrth
   Array.create_shared_method('.^right', TosSpec, [], &lambda {|vm|
     begin
       width = Integer.foorth_coerce(vm.peek)
-      error "F41: Invalid width: #{width} in .^left" if width < 0
+      error "F41: Invalid width: #{width} in .^right" if width < 0
 
       vm.poke(self[0...(0-width)])
       vm.push(self.last(width));
@@ -270,6 +270,22 @@ module XfOOrth
     end
   })
 
+  # [n w [ 1 2 3 4 5 6 7 8 ] ] .^mid [ [ 1 2 7 8 ] [ 3 4 5 6 ] ] // For n=2, w=4
+  Array.create_shared_method('.^mid', TosSpec, [], &lambda {|vm|
+    begin
+      width = Integer.foorth_coerce(vm.pop)
+      posn = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid index: #{posn} in .^mid"  if posn < 0
+      error "F41: Invalid width: #{width} in .^mid" if width < 0
+      vm.poke(self[0...posn] + self[(posn+width)..-1])
+      vm.push(self[posn...(posn+width)])
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
+
+
   # [l r [ 1 2 3 4 5 6 7 8 ] ] .midlr [ [ 2 3 4 5 6 7 ] ] // Assumes l=1, r=1
   Array.create_shared_method('.midlr', TosSpec, [], &lambda {|vm|
     begin
@@ -312,6 +328,22 @@ module XfOOrth
       raise
     end
   })
+
+  # [l r [ 1 2 3 4 5 ] ] .midlr [ [ 1 5 ] [ 2 3 4 ] ] // Assumes l=1, r=1
+  Array.create_shared_method('.^midlr', TosSpec, [], &lambda {|vm|
+    begin
+      right = Integer.foorth_coerce(vm.pop)
+      left  = Integer.foorth_coerce(vm.peek)
+      error "F41: Invalid left width: #{left} in .midlr"  if left < 0
+      error "F41: Invalid right width: #{right} in .midlr" if right < 0
+      vm.poke(self.first(left) + self.last(right))
+      vm.push(self[left..(0-right-1)])
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
+
 
   # [ a ] .min [ smallest_element ]
   Array.create_shared_method('.min', TosSpec, [], &lambda {|vm|
