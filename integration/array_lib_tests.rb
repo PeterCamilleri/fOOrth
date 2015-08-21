@@ -221,6 +221,57 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('try 1 "apple" [ 9 3 5 7 ] .^midlr catch end ', [])
   end
 
+  def test_the_dequeue_methods
+    foorth_run('[ 1 2 3 ] val$: $tdqm')
+
+    #Test the non-mutating methods.
+    foorth_equal('$tdqm .pop_left', [[2,3], 1])
+    foorth_equal('$tdqm ', [[1,2,3]])
+    foorth_raises('[ ] .pop_left')
+
+    foorth_equal('$tdqm .pop_right', [[1,2], 3])
+    foorth_equal('$tdqm ', [[1,2,3]])
+    foorth_raises('[ ] .pop_right')
+
+    foorth_equal('0 $tdqm .push_left', [[0,1,2,3]])
+    foorth_equal('$tdqm ', [[1,2,3]])
+
+    foorth_equal('4 $tdqm .push_right', [[1,2,3,4]])
+    foorth_equal('$tdqm ', [[1,2,3]])
+
+    foorth_equal('$tdqm .peek_left', [[1,2,3], 1])
+    foorth_equal('$tdqm ', [[1,2,3]])
+    foorth_raises('[ ] .peek_left')
+
+    foorth_equal('$tdqm .peek_right', [[1,2,3], 3])
+    foorth_equal('$tdqm ', [[1,2,3]])
+    foorth_raises('[ ] .peek_right')
+
+
+    #Test the mutating methods.
+    foorth_equal('$tdqm .pop_left!', [1])
+    foorth_equal('$tdqm ', [[2,3]])
+    foorth_raises('[ ] .pop_left!')
+
+    foorth_equal('$tdqm .pop_right!', [3])
+    foorth_equal('$tdqm ', [[2]])
+    foorth_raises('[ ] .pop_right!')
+
+    foorth_equal('1 $tdqm .push_left!', [])
+    foorth_equal('$tdqm ', [[1,2]])
+
+    foorth_equal('3 $tdqm .push_right!', [])
+    foorth_equal('$tdqm ', [[1,2,3]])
+
+    foorth_equal('$tdqm .peek_left!', [1])
+    foorth_equal('$tdqm ', [[1,2,3]])
+    foorth_raises('[ ] .peek_left!')
+
+    foorth_equal('$tdqm .peek_right!', [3])
+    foorth_equal('$tdqm ', [[1,2,3]])
+    foorth_raises('[ ] .peek_right!')
+  end
+
   def test_other_array_ops
     foorth_equal('[ 0 1 2 ] .reverse   ', [[2,1,0]])
     foorth_equal('[ 9 3 5 ] .sort      ', [[3,5,9]])

@@ -123,6 +123,8 @@ module XfOOrth
   Array.create_shared_method('+', NosSpec, [],
     &lambda {|vm| vm.poke(self + vm.peek.in_array); })
 
+
+  # The LEFT group
   # [w [ 3 1 2 ] ] .left [ [ 3 1 ] ]; assumes w = 2
   Array.create_shared_method('.left', TosSpec, [], &lambda {|vm|
     begin
@@ -175,6 +177,7 @@ module XfOOrth
   })
 
 
+  #The RIGHT group
   # [w [ 3 1 2 ] ] .right [ [ 1 2 ] ]; assumes w = 2
   Array.create_shared_method('.right', TosSpec, [], &lambda {|vm|
     begin
@@ -227,6 +230,7 @@ module XfOOrth
   })
 
 
+  # The MID group
   # [n w [ 1 2 3 4 5 6 7 8 ] ] .mid [ [ 3 4 5 6 ] ] // Assumes n = 2, w = 4
   Array.create_shared_method('.mid', TosSpec, [], &lambda {|vm|
     begin
@@ -286,6 +290,7 @@ module XfOOrth
   })
 
 
+  # The MIDLR group
   # [l r [ 1 2 3 4 5 6 7 8 ] ] .midlr [ [ 2 3 4 5 6 7 ] ] // Assumes l=1, r=1
   Array.create_shared_method('.midlr', TosSpec, [], &lambda {|vm|
     begin
@@ -342,6 +347,82 @@ module XfOOrth
       vm.data_stack.pop
       raise
     end
+  })
+
+
+  #The DEQUEUE LEFT group
+  #[ [ 1 2 3 ] ] .pop_left [ [ 2 3 ] 1 ]
+  Array.create_shared_method('.pop_left', TosSpec, [], &lambda{|vm|
+    error "F31: Array underflow error on .pop_left" if self.empty?
+    vm.push(self[1..-1]);
+    vm.push(self.first)
+  })
+
+  #[ [ 1 2 3 ] ] .pop_left! [ 1 ]; Mutates original array.
+  Array.create_shared_method('.pop_left!', TosSpec, [], &lambda{|vm|
+    error "F31: Array underflow error on .pop_left" if self.empty?
+    vm.push(self.delete_at(0))
+  })
+
+  #[ 0 [ 1 2 3 ] ] .push_left [ [ 0 1 2 3 ] ]
+  Array.create_shared_method('.push_left', TosSpec, [], &lambda{|vm|
+    vm.poke([ vm.peek ] + self)
+  })
+
+  #[ 0 [ 1 2 3 ] ] .push_left! [ ]; Mutates original array.
+  Array.create_shared_method('.push_left!', TosSpec, [], &lambda{|vm|
+    self.insert(0, vm.pop)
+  })
+
+  #[ [ 1 2 3 ] ] .peek_left [ [ 1 2 3 ] 1 ]
+  Array.create_shared_method('.peek_left', TosSpec, [], &lambda{|vm|
+    error "F31: Array underflow error on .peek_left" if self.empty?
+    vm.push(self);
+    vm.push(self.first)
+  })
+
+  #[ [ 1 2 3 ] ] .peek_left! [ 1 ]
+  Array.create_shared_method('.peek_left!', TosSpec, [], &lambda{|vm|
+    error "F31: Array underflow error on .peek_left!" if self.empty?
+    vm.push(self.first)
+  })
+
+
+  #The DEQUEUE RIGHT group
+  #[ [ 1 2 3 ] ] .pop_right [ [ 1 2 ] 3 ]
+  Array.create_shared_method('.pop_right', TosSpec, [], &lambda{|vm|
+    error "F31: Array underflow error on .pop_right" if self.empty?
+    vm.push(self[0...-1]);
+    vm.push(self.last)
+  })
+
+  #[ [ 1 2 3 ] ] .pop_right! [ 3 ]; Mutates original array.
+  Array.create_shared_method('.pop_right!', TosSpec, [], &lambda{|vm|
+    error "F31: Array underflow error on .pop_right!" if self.empty?
+    vm.push(self.pop)
+  })
+
+  #[ 4 [ 1 2 3 ] ] .push_right [ [ 1 2 3 4 ] ]
+  Array.create_shared_method('.push_right', TosSpec, [], &lambda{|vm|
+    vm.poke(self + [ vm.peek ])
+  })
+
+  #[ 4 [ 1 2 3 ] ] .push_right! [ ]; Mutates original array.
+  Array.create_shared_method('.push_right!', TosSpec, [], &lambda{|vm|
+    self << vm.pop
+  })
+
+  #[ [ 1 2 3 ] ] .peek_right [ [ 1 2 3 ] 3 ]
+  Array.create_shared_method('.peek_right', TosSpec, [], &lambda{|vm|
+    error "F31: Array underflow error on .peek_right" if self.empty?
+    vm.push(self);
+    vm.push(self.last)
+  })
+
+  #[ [ 1 2 3 ] ] .peek_right! [ [ 1 2 3 ] 3 ]
+  Array.create_shared_method('.peek_right!', TosSpec, [], &lambda{|vm|
+    error "F31: Array underflow error on .peek_right" if self.empty?
+    vm.push(self.last)
   })
 
 
