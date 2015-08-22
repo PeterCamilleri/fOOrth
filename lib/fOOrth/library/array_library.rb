@@ -360,7 +360,7 @@ module XfOOrth
 
   #[ [ 1 2 3 ] ] .pop_left! [ 1 ]; Mutates original array.
   Array.create_shared_method('.pop_left!', TosSpec, [], &lambda{|vm|
-    error "F31: Array underflow error on .pop_left" if self.empty?
+    error "F31: Array underflow error on .pop_left!" if self.empty?
     vm.push(self.delete_at(0))
   })
 
@@ -421,7 +421,7 @@ module XfOOrth
 
   #[ [ 1 2 3 ] ] .peek_right! [ [ 1 2 3 ] 3 ]
   Array.create_shared_method('.peek_right!', TosSpec, [], &lambda{|vm|
-    error "F31: Array underflow error on .peek_right" if self.empty?
+    error "F31: Array underflow error on .peek_right!" if self.empty?
     vm.push(self.last)
   })
 
