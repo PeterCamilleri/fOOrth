@@ -16,7 +16,7 @@ module XfOOrth
       &lambda {|vm| vm << "vm.push(#{symbol}); "} )
   }
 
-  #The lambda used to define local variables. fOOrth language definition is:
+  #The lambda used to define local values. fOOrth language definition is:
   # [n] val: lv [], lv = n
   Local_Val_Action = lambda {|vm|
     name   = vm.parser.get_word()
