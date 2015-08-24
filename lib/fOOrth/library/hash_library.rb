@@ -9,6 +9,34 @@ module XfOOrth
   # [] Hash .new [{}]; create an empty hash.
   # The default implementation from Object is used for this.
 
+  #[object Hash] .new_default [hash]
+  Hash.create_exclusive_method('.new_default', TosSpec, [], &lambda{|vm|
+    begin
+      vm.poke(Hash.new(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
+
+  #[Hash] .new_default{{ ... }} [{}]
+  Hash.create_exclusive_method('.new_default{{', NosSpec, [], &lambda{|vm|
+    begin
+      block = vm.peek
+
+      result = Hash.new do |hsh, idx|
+        hsh.instance_exec(vm, nil, idx, &block)
+        vm.pop
+      end
+
+      vm.poke(result)
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
+
+
   # [] { k1 v1 -> ... kn vn -> } [{k1=>v1,...kn=>vn}]; a hash literal value
   VirtualMachine.create_shared_method('{', VmSpec, [:immediate], &lambda { |vm|
     vm.nest_mode('vm.push(Hash.new); ', :hash_literal)
