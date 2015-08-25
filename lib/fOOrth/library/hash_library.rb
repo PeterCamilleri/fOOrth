@@ -24,12 +24,11 @@ module XfOOrth
     begin
       block = vm.peek
 
-      result = Hash.new do |hsh, idx|
-        hsh.instance_exec(vm, nil, idx, &block)
-        vm.pop
-      end
-
-      vm.poke(result)
+      vm.poke(Hash.new do |hsh, idx|
+        cvm = Thread.current[:vm]
+        hsh.instance_exec(cvm, nil, idx, &block)
+        cvm.pop
+      end)
     rescue
       vm.data_stack.pop
       raise
