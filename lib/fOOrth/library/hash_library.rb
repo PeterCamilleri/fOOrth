@@ -35,6 +35,21 @@ module XfOOrth
     end
   })
 
+  #[object hash] .default []
+  Hash.create_shared_method('.default', TosSpec, [], &lambda{|vm|
+    self.default = vm.pop
+  })
+
+  #[object] .default{{ ... }} []
+  Hash.create_shared_method('.default{{', NosSpec, [], &lambda{|vm|
+    block = vm.pop
+
+    self.default_proc = lambda do |hsh, idx|
+      cvm = Thread.current[:vm]
+      hsh.instance_exec(cvm, nil, idx, &block)
+      cvm.pop
+    end
+  })
 
   # [] { k1 v1 -> ... kn vn -> } [{k1=>v1,...kn=>vn}]; a hash literal value
   VirtualMachine.create_shared_method('{', VmSpec, [:immediate], &lambda { |vm|

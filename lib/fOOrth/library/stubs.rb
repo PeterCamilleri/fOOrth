@@ -62,6 +62,7 @@ module XfOOrth
   Object.create_shared_method('.create{{',      NosSpec, [:stub])
   Object.create_shared_method('.append{{',      NosSpec, [:stub])
   Object.create_shared_method('.do{{',          NosSpec, [:stub])
+  Object.create_shared_method('.default{{',     NosSpec, [:stub])
   Object.create_shared_method('.new_default{{', NosSpec, [:stub])
 
   #Define some "crossover" symbols.
