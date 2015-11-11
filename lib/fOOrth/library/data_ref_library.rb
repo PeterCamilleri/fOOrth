@@ -16,7 +16,7 @@ module XfOOrth
       &lambda {|vm| vm << "vm.push(#{symbol}); "} )
   }
 
-  #The lambda used to define local variables. fOOrth language definition is:
+  #The lambda used to define local values. fOOrth language definition is:
   # [n] val: lv [], lv = n
   Local_Val_Action = lambda {|vm|
     name   = vm.parser.get_word()
@@ -41,7 +41,7 @@ module XfOOrth
     vm.context.recvr.create_shared_method(name, InstanceVarSpec, [])
   }
 
-  #The lambda used to define instance variables. fOOrth language definition is:
+  #The lambda used to define instance values. fOOrth language definition is:
   # [n] val@: @iv [], @iv = n
   Inst_Val_Action = lambda { |vm|
     name   = vm.parser.get_word()
@@ -64,6 +64,7 @@ module XfOOrth
     vm.create_exclusive_method(name, ThreadVarSpec, [])
   })
 
+  # Thread values.
   # [n] val#: #tv [], Thread.current[#tv] = n
   VirtualMachine.create_shared_method('val#:', VmSpec, [], &lambda {|vm|
     name   = vm.parser.get_word()
@@ -85,7 +86,7 @@ module XfOOrth
     $FOORTH_GLOBALS[symbol] = GlobalVarSpec.new(name, symbol, [])
   })
 
-  # Global Variables
+  # Global Values
   # [n] val$: $gv [], $gv = n
   VirtualMachine.create_shared_method('val$:', VmSpec, [], &lambda {|vm|
     name   = vm.parser.get_word()

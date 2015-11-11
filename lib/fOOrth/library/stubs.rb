@@ -54,14 +54,16 @@ module XfOOrth
   Object.create_shared_method('p!"',       NosSpec, [:stub])
 
   #Procedure literal stubs.
-  Object.create_shared_method('.each{{',   NosSpec, [:stub])
-  Object.create_shared_method('.new{{',    NosSpec, [:stub])
-  Object.create_shared_method('.map{{',    NosSpec, [:stub])
-  Object.create_shared_method('.select{{', NosSpec, [:stub])
-  Object.create_shared_method('.open{{',   NosSpec, [:stub])
-  Object.create_shared_method('.create{{', NosSpec, [:stub])
-  Object.create_shared_method('.append{{', NosSpec, [:stub])
-  Object.create_shared_method('.do{{',     NosSpec, [:stub])
+  Object.create_shared_method('.each{{',        NosSpec, [:stub])
+  Object.create_shared_method('.new{{',         NosSpec, [:stub])
+  Object.create_shared_method('.map{{',         NosSpec, [:stub])
+  Object.create_shared_method('.select{{',      NosSpec, [:stub])
+  Object.create_shared_method('.open{{',        NosSpec, [:stub])
+  Object.create_shared_method('.create{{',      NosSpec, [:stub])
+  Object.create_shared_method('.append{{',      NosSpec, [:stub])
+  Object.create_shared_method('.do{{',          NosSpec, [:stub])
+  Object.create_shared_method('.default{{',     NosSpec, [:stub])
+  Object.create_shared_method('.new_default{{', NosSpec, [:stub])
 
   #Define some "crossover" symbols.
   SymbolMap.add_entry('.is_class?',     "foorth_is_class?".to_sym)

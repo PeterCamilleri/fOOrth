@@ -22,6 +22,42 @@ class HashLibraryTester < Minitest::Test
     foorth_equal('{ 1 4 do i dup 3 * -> loop }', [{1=>3, 2=>6, 3=>9}])
   end
 
+  def test_hashes_with_defaults
+    foorth_run('{ } val$: $thwd')
+    foorth_equal('$thwd', [{}])
+    foorth_equal('"apple" $thwd .[]@', [nil])
+    foorth_run('99 "apple" $thwd .[]!')
+    foorth_equal('"apple" $thwd .[]@', [99])
+
+    foorth_run('42 Hash .new_default val$: $thwd')
+    foorth_equal('$thwd', [{}])
+    foorth_equal('"apple" $thwd .[]@', [42])
+    foorth_run('99 "apple" $thwd .[]!')
+    foorth_equal('"apple" $thwd .[]@', [99])
+
+    foorth_run('Hash .new_default{{ 42 }} val$: $thwd')
+    foorth_equal('$thwd', [{}])
+    foorth_equal('"apple" $thwd .[]@', [42])
+    foorth_run('99 "apple" $thwd .[]!')
+    foorth_equal('"apple" $thwd .[]@', [99])
+
+    foorth_run('{ } val$: $thwd')
+    foorth_equal('$thwd', [{}])
+    foorth_equal('"apple" $thwd .[]@', [nil])
+    foorth_run('24 $thwd .default')
+    foorth_equal('"apple" $thwd .[]@', [24])
+    foorth_run('99 "apple" $thwd .[]!')
+    foorth_equal('"apple" $thwd .[]@', [99])
+
+    foorth_run('{ } val$: $thwd')
+    foorth_equal('$thwd', [{}])
+    foorth_equal('"apple" $thwd .[]@', [nil])
+    foorth_run('$thwd .default{{ 12 }}')
+    foorth_equal('"apple" $thwd .[]@', [12])
+    foorth_run('99 "apple" $thwd .[]!')
+    foorth_equal('"apple" $thwd .[]@', [99])
+  end
+
   def test_hashes_in_variables
     foorth_equal('{ 1 3 -> 2 6 -> 3 9 -> } val$: $thiv1 ', [])
     foorth_equal('$thiv1', [{1=>3, 2=>6, 3=>9}])
