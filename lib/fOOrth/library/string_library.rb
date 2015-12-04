@@ -268,4 +268,9 @@ module XfOOrth
     system(self)
   })
 
+  # [a_string] .shell_out [a_string]
+  String.create_shared_method('.shell_out', TosSpec, [], &lambda {|vm|
+    IO.popen(self, "r") {|io| vm.push(io.read) }
+  })
+
 end
