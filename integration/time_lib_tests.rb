@@ -742,25 +742,25 @@ class TimeLibraryTester < Minitest::Test
   end
 
   def test_time_parsing
-    foorth_equal('"Sunday June 14 at 06:50 PM" Time p"%A %B %d at %I:%M %p"',
+    foorth_equal('"Sunday June 14, 2015 at 06:50 PM" Time p"%A %B %d, %Y at %I:%M %p"',
                  [Time.at(1434322200)])
 
     foorth_equal('"Someday June 14 at 06:50 PM" Time p"%A %B %d at %I:%M %p"',
                  [nil])
 
-    foorth_equal('"Sunday June 14 at 06:50 PM" Time p!"%A %B %d at %I:%M %p"',
+    foorth_equal('"Sunday June 14, 2015 at 06:50 PM" Time p!"%A %B %d, %Y at %I:%M %p"',
                  [Time.at(1434322200)])
 
     foorth_raises('"Someday June 14 at 06:50 PM" Time p!"%A %B %d at %I:%M %p"')
 
 
-    foorth_equal('"Sunday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse',
+    foorth_equal('"Sunday June 14, 2015 at 06:50 PM" Time "%A %B %d, %Y at %I:%M %p" parse',
                  [Time.at(1434322200)])
 
     foorth_equal('"Someday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse',
                  [nil])
 
-    foorth_equal('"Sunday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse!',
+    foorth_equal('"Sunday June 14, 2015 at 06:50 PM" Time "%A %B %d, %Y at %I:%M %p" parse!',
                  [Time.at(1434322200)])
 
     foorth_raises('"Someday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse!')
