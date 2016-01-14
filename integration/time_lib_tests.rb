@@ -671,7 +671,7 @@ class TimeLibraryTester < Minitest::Test
   end
 
   def test_time_array_stuff
-    ofs = Time.now.utc_offset
+    ofs = -14400
 
     foorth_equal('1434322200 .to_t .to_a', [[2015, 6, 14, 18, 50, 0.0, ofs]])
 
@@ -705,7 +705,7 @@ class TimeLibraryTester < Minitest::Test
   end
 
   def test_time_zone_control
-    ofs = Time.now.utc_offset
+    ofs = -14400
 
     foorth_equal('[ 2015 6 14 18 50 0.0 -14400 ] .to_t .utc?', [false])
     foorth_equal('[ 2015 6 14 18 50 0.0      0 ] .to_t .utc?', [true])
@@ -742,25 +742,25 @@ class TimeLibraryTester < Minitest::Test
   end
 
   def test_time_parsing
-    foorth_equal('"Sunday June 14 at 06:50 PM" Time p"%A %B %d at %I:%M %p"',
+    foorth_equal('"Sunday June 14, 2015 at 06:50 PM" Time p"%A %B %d, %Y at %I:%M %p"',
                  [Time.at(1434322200)])
 
     foorth_equal('"Someday June 14 at 06:50 PM" Time p"%A %B %d at %I:%M %p"',
                  [nil])
 
-    foorth_equal('"Sunday June 14 at 06:50 PM" Time p!"%A %B %d at %I:%M %p"',
+    foorth_equal('"Sunday June 14, 2015 at 06:50 PM" Time p!"%A %B %d, %Y at %I:%M %p"',
                  [Time.at(1434322200)])
 
     foorth_raises('"Someday June 14 at 06:50 PM" Time p!"%A %B %d at %I:%M %p"')
 
 
-    foorth_equal('"Sunday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse',
+    foorth_equal('"Sunday June 14, 2015 at 06:50 PM" Time "%A %B %d, %Y at %I:%M %p" parse',
                  [Time.at(1434322200)])
 
     foorth_equal('"Someday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse',
                  [nil])
 
-    foorth_equal('"Sunday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse!',
+    foorth_equal('"Sunday June 14, 2015 at 06:50 PM" Time "%A %B %d, %Y at %I:%M %p" parse!',
                  [Time.at(1434322200)])
 
     foorth_raises('"Someday June 14 at 06:50 PM" Time "%A %B %d at %I:%M %p" parse!')

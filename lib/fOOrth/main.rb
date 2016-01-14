@@ -17,7 +17,7 @@ module XfOOrth
   #<br>Endemic Code Smells
   #* :reek:TooManyStatements
   def self.main
-    vm = Thread.current[:vm]
+    vm = VirtualMachine.vm('Console')
     running = false
 
     loop do

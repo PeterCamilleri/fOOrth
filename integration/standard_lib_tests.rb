@@ -17,10 +17,14 @@ class StandardLibraryTester < Minitest::Test
   def test_basic_constants
     refute(Thread.current[:vm].nil?)
 
-    foorth_equal("self",      [Thread.current[:vm]])
+    foorth_equal("self",      [XfOOrth::VirtualMachine.vm])
     foorth_equal("true",      [true])
     foorth_equal("false",     [false])
     foorth_equal("nil",       [nil])
+
+    foorth_equal("true  .class .to_s", ['True'])
+    foorth_equal("false .class .to_s", ['False'])
+    foorth_equal("nil   .class .to_s", ['Nil'])
 
     foorth_equal("epsilon",   [Float::EPSILON])
     foorth_equal("infinity",  [Float::INFINITY]) #and beyond...

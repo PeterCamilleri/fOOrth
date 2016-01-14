@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+#
+# Stamdalone execution of the fOOrth environment.
+#
+
+require_relative '../demo'
+
+XfOOrth::main

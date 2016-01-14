@@ -126,6 +126,7 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('2           [ 9 3 5 ]   .-left  ', [[5]])
     foorth_equal('2 [ 0 8 9 ] [ 9 3 5 ]   .+left  ', [[0,8,9,5]])
     foorth_equal('2 "apple"   [ 9 3 5 ]   .+left  ', [["apple",5]])
+    foorth_equal('2 [ 0 8 9 7 ]           .^left  ', [[9,7], [0,8]])
 
     foorth_equal('try "apple" [ 9 3 5 ] .left catch end', [])
     foorth_equal('try -1      [ 9 3 5 ] .left catch end', [])
@@ -135,6 +136,9 @@ class ArrayLibraryTester < Minitest::Test
 
     foorth_equal('try -2      [ 0 8 9 ] [ 9 3 5 ] .+left catch end', [])
     foorth_equal('try "apple" [ 0 8 9 ] [ 9 3 5 ] .+left catch end', [])
+
+    foorth_equal('try -2      [ 0 8 9 7 ] .^left catch end ', [])
+    foorth_equal('try "apple" [ 0 8 9 7 ] .^left catch end ', [])
   end
 
   def test_the_right_group
@@ -142,6 +146,7 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('2           [ 9 3 5 ]   .-right ', [[9]])
     foorth_equal('2 [ 0 8 9 ] [ 9 3 5 ]   .+right ', [[9,0,8,9]])
     foorth_equal('2 "apple"   [ 9 3 5 ]   .+right ', [[9,"apple"]])
+    foorth_equal('2 [ 0 8 9 7 ]           .^right ', [[0,8], [9,7]])
 
     foorth_equal('try "apple" [ 9 3 5 ] .right catch end', [])
     foorth_equal('try -1      [ 9 3 5 ] .right catch end', [])
@@ -151,6 +156,9 @@ class ArrayLibraryTester < Minitest::Test
 
     foorth_equal('try -2      [ 0 8 9 ] [ 9 3 5 ] .+right catch end', [])
     foorth_equal('try "apple" [ 0 8 9 ] [ 9 3 5 ] .+right catch end', [])
+
+    foorth_equal('try -2      [ 0 8 9 7 ] .^right catch end ', [])
+    foorth_equal('try "apple" [ 0 8 9 7 ] .^right catch end ', [])
   end
 
   def test_the_mid_group
@@ -158,6 +166,7 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('1 2           [ 9 3 5 7 ] .-mid ', [[9,7]])
     foorth_equal('1 2 [ 0 8 9 ] [ 9 3 5 7 ] .+mid ', [[9,0,8,9,7]])
     foorth_equal('1 2 "apple"   [ 9 3 5 7 ] .+mid ', [[9,"apple",7]])
+    foorth_equal('1 2           [ 9 3 5 7 ] .^mid ', [[9,7], [3,5]])
 
     foorth_equal('try "apple" 2 [ 9 3 5 7 ] .mid catch end', [])
     foorth_equal('try 1 "apple" [ 9 3 5 7 ] .mid catch end', [])
@@ -173,6 +182,11 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('try 1 "apple" [ 0 8 9 ] [ 9 3 5 7 ] .+mid catch end ', [])
     foorth_equal('try -1      2 [ 0 8 9 ] [ 9 3 5 7 ] .+mid catch end ', [])
     foorth_equal('try 1      -2 [ 0 8 9 ] [ 9 3 5 7 ] .+mid catch end ', [])
+
+    foorth_equal('try -1  2     [ 9 3 5 7 ] .^mid catch end', [])
+    foorth_equal('try "apple" 2 [ 9 3 5 7 ] .^mid catch end', [])
+    foorth_equal('try 1 -2      [ 9 3 5 7 ] .^mid catch end', [])
+    foorth_equal('try 1 "apple" [ 9 3 5 7 ] .^mid catch end', [])
   end
 
   def test_the_midlr_group
@@ -184,6 +198,7 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('0 2 [ 0 8 9 ] [ 9 3 5 7 ] .+midlr ', [[0,8,9,5,7]])
     foorth_equal('2 0 [ 0 8 9 ] [ 9 3 5 7 ] .+midlr ', [[9,3,0,8,9]])
     foorth_equal('1 1 "apple"   [ 9 3 5 7 ] .+midlr ', [[9,"apple",7]])
+    foorth_equal('1 1           [ 9 3 5 7 ] .^midlr ', [[9,7], [3,5]])
 
     foorth_equal('try "apple" 2 [ 9 3 5 7 ] .midlr catch end', [])
     foorth_equal('try 2 "apple" [ 9 3 5 7 ] .midlr catch end', [])
@@ -199,6 +214,62 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('try 1 "apple" [ 0 8 9 ] [ 9 3 5 7 ] .+midlr catch end', [])
     foorth_equal('try -1      1 [ 0 8 9 ] [ 9 3 5 7 ] .+midlr catch end', [])
     foorth_equal('try 1      -1 [ 0 8 9 ] [ 9 3 5 7 ] .+midlr catch end', [])
+
+    foorth_equal('try -1      1 [ 9 3 5 7 ] .^midlr catch end ', [])
+    foorth_equal('try "apple" 1 [ 9 3 5 7 ] .^midlr catch end ', [])
+    foorth_equal('try 1      -1 [ 9 3 5 7 ] .^midlr catch end ', [])
+    foorth_equal('try 1 "apple" [ 9 3 5 7 ] .^midlr catch end ', [])
+  end
+
+  def test_the_dequeue_methods
+    foorth_run('[ 1 2 3 ] val$: $tdqm')
+
+    #Test the non-mutating methods.
+    foorth_equal('$tdqm .pop_left', [[2,3], 1])
+    foorth_equal('$tdqm ', [[1,2,3]])
+    foorth_raises('[ ] .pop_left')
+
+    foorth_equal('$tdqm .pop_right', [[1,2], 3])
+    foorth_equal('$tdqm ', [[1,2,3]])
+    foorth_raises('[ ] .pop_right')
+
+    foorth_equal('0 $tdqm .push_left', [[0,1,2,3]])
+    foorth_equal('$tdqm ', [[1,2,3]])
+
+    foorth_equal('4 $tdqm .push_right', [[1,2,3,4]])
+    foorth_equal('$tdqm ', [[1,2,3]])
+
+    foorth_equal('$tdqm .peek_left', [[1,2,3], 1])
+    foorth_equal('$tdqm ', [[1,2,3]])
+    foorth_raises('[ ] .peek_left')
+
+    foorth_equal('$tdqm .peek_right', [[1,2,3], 3])
+    foorth_equal('$tdqm ', [[1,2,3]])
+    foorth_raises('[ ] .peek_right')
+
+
+    #Test the mutating methods.
+    foorth_equal('$tdqm .pop_left!', [1])
+    foorth_equal('$tdqm ', [[2,3]])
+    foorth_raises('[ ] .pop_left!')
+
+    foorth_equal('$tdqm .pop_right!', [3])
+    foorth_equal('$tdqm ', [[2]])
+    foorth_raises('[ ] .pop_right!')
+
+    foorth_equal('1 $tdqm .push_left!', [])
+    foorth_equal('$tdqm ', [[1,2]])
+
+    foorth_equal('3 $tdqm .push_right!', [])
+    foorth_equal('$tdqm ', [[1,2,3]])
+
+    foorth_equal('$tdqm .peek_left!', [1])
+    foorth_equal('$tdqm ', [[1,2,3]])
+    foorth_raises('[ ] .peek_left!')
+
+    foorth_equal('$tdqm .peek_right!', [3])
+    foorth_equal('$tdqm ', [[1,2,3]])
+    foorth_raises('[ ] .peek_right!')
   end
 
   def test_other_array_ops
@@ -279,5 +350,11 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('[ 1 2 3 ] .to_s', ["[ 1 2 3 ]"])
   end
 
+  def test_compatibility_methods
+    foorth_equal('[ 2 4 6 8 ] .to_a   ', [[2,4,6,8]])
+    foorth_equal('[ 2 4 6 8 ] .to_h   ', [{0=>2, 1=>4, 2=>6, 3=>8}])
+    foorth_equal('[ 2 4 6 8 ] .values ', [[2,4,6,8]])
+    foorth_equal('[ 2 4 6 8 ] .keys   ', [[0,1,2,3]])
+  end
 
 end

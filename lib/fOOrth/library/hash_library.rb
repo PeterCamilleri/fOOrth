@@ -9,6 +9,48 @@ module XfOOrth
   # [] Hash .new [{}]; create an empty hash.
   # The default implementation from Object is used for this.
 
+  #[object Hash] .new_default [hash]
+  Hash.create_exclusive_method('.new_default', TosSpec, [], &lambda{|vm|
+    begin
+      vm.poke(Hash.new(vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
+
+  #[Hash] .new_default{{ ... }} [{}]
+  Hash.create_exclusive_method('.new_default{{', NosSpec, [], &lambda{|vm|
+    begin
+      block = vm.peek
+
+      vm.poke(Hash.new do |hsh, idx|
+        cvm = Thread.current[:vm]
+        hsh.instance_exec(cvm, nil, idx, &block)
+        cvm.pop
+      end)
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
+
+  #[object hash] .default []
+  Hash.create_shared_method('.default', TosSpec, [], &lambda{|vm|
+    self.default = vm.pop
+  })
+
+  #[object] .default{{ ... }} []
+  Hash.create_shared_method('.default{{', NosSpec, [], &lambda{|vm|
+    block = vm.pop
+
+    self.default_proc = lambda do |hsh, idx|
+      cvm = Thread.current[:vm]
+      hsh.instance_exec(cvm, nil, idx, &block)
+      cvm.pop
+    end
+  })
+
   # [] { k1 v1 -> ... kn vn -> } [{k1=>v1,...kn=>vn}]; a hash literal value
   VirtualMachine.create_shared_method('{', VmSpec, [:immediate], &lambda { |vm|
     vm.nest_mode('vm.push(Hash.new); ', :hash_literal)
@@ -82,6 +124,40 @@ module XfOOrth
     end
 
     vm.push(result + "}")
+  })
+
+  #[a_hash] .to_h [a_hash]
+  Hash.create_shared_method('.to_h', TosSpec, [],
+    &lambda{|vm| vm.push(self)})
+
+  #[a_hash] .to_a [an_array]
+  Hash.create_shared_method('.to_a', TosSpec, [],
+    &lambda{|vm| vm.push(self.values)})
+
+  # [a_hash] .map{{ ... }} [mapped_hash]
+  Hash.create_shared_method('.map{{', NosSpec, [], &lambda { |vm|
+    block = vm.pop
+    result = {}
+
+    self.each do |idx, val|
+      block.call(vm, val, idx)
+      result[idx] = vm.pop
+    end
+
+    vm.push(result)
+  })
+
+  # [a_hash] .select{{ ... }} [selected_hash]
+  Hash.create_shared_method('.select{{', NosSpec, [], &lambda { |vm|
+    block = vm.pop
+    result = {}
+
+    self.each do |idx, val|
+      block.call(vm, val, idx)
+      result[idx] = val if vm.pop
+    end
+
+    vm.push(result)
   })
 
 

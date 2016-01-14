@@ -1,0 +1,7 @@
+// Filter values in an array.
+// [an_array value] filter [array_less_than_pivot array_greater_equal_pivot]
+
+: filter
+  val: pivot [ ] val: lt  [ ] val: ge
+  .each{{ v pivot < if lt else ge then v << drop }}
+  lt ge ;

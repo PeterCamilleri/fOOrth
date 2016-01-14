@@ -6,6 +6,17 @@ module XfOOrth
   #* initialize.rb - The initialize method for the virtual machine
   class VirtualMachine
 
+    #Get or create a virtual machine for this thread.
+    #<br>Paramters:
+    #* name - The name of the virtual machine, if one is created. If a virtual
+    #  machine already exists for this thread, this parameter is ignored.
+    #<br>Note: Non-intuitive code.
+    #* VitualMachine.new connects to the thread, setting up
+    #  \Thread.current[:vm] as a side-effect. Thus it is not done here.
+    def self.vm(name='-')
+      Thread.current[:vm] || VirtualMachine.new(name)
+    end
+
     #Set true for verbose compiler play-by-plays and detailed error reports.
     attr_accessor :debug
 
@@ -28,10 +39,7 @@ module XfOOrth
       @name, @debug, @show_stack, @data = name, false, false, {}
 
       #Bring the major sub-systems to a known state.
-      interpreter_reset
-      compiler_reset
-
-      connect_vm_to_thread
+      self.reset.connect_vm_to_thread
     end
 
     #Create a copy of a donor vm instance.
@@ -50,6 +58,12 @@ module XfOOrth
       @data_stack = @data_stack.clone
       @name       = name
       @data       = @data.full_clone
+    end
+
+    #Reset the interpreter and the compiler.
+    def reset
+      interpreter_reset
+      compiler_reset
     end
 
     #Connect the vm to a thread variable.

@@ -5,19 +5,19 @@
 module XfOOrth
 
   # Connect the TrueClass class to the fOOrth class system.
-  TrueClass.create_foorth_proxy
+  TrueClass.create_foorth_proxy('True')
 
   # [] true [true]
   VirtualMachine.create_shared_method('true', MacroSpec, [:macro, "vm.push(true); "])
 
   #Connect the FalseClass class to the fOOrth class system.
-  FalseClass.create_foorth_proxy
+  FalseClass.create_foorth_proxy('False')
 
   # [] false [false]
   VirtualMachine.create_shared_method('false', MacroSpec, [:macro, "vm.push(false); "])
 
   # Connect the NilClass class to the fOOrth class system.
-  NilClass.create_foorth_proxy
+  NilClass.create_foorth_proxy('Nil')
 
   # [] nil [nil]
   VirtualMachine.create_shared_method('nil', MacroSpec, [:macro, "vm.push(nil); "])

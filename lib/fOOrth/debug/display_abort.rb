@@ -25,8 +25,7 @@ module XfOOrth
         puts
       end
 
-      interpreter_reset
-      compiler_reset
+      reset
     end
 
   end

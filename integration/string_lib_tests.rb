@@ -181,4 +181,8 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('"1 2 +" .call ', [3])
   end
 
+  def test_capturing_shell_output
+    foorth_equal('"ls" .shell_out .class ', [String])
+  end
+
 end
