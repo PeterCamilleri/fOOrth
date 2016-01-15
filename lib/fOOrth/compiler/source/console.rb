@@ -1,5 +1,7 @@
 # coding: utf-8
-require 'readline' #It sucks, but it will do for now.
+
+$no_alias_read_line_module = true
+require 'mini_readline'
 
 #* compiler/console.rb - The fOOrth console support file.
 module XfOOrth
@@ -21,7 +23,7 @@ module XfOOrth
     def get
       read do
         cmd_prompt = self.prompt
-        Readline.readline(cmd_prompt, true).rstrip
+        MiniReadline.readline(cmd_prompt, true).rstrip
       end
     end
 
