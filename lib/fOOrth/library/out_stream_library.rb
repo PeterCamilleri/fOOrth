@@ -113,7 +113,7 @@ module XfOOrth
   out_stream.create_shared_method('.spaces', TosSpec, [],
     &lambda {|vm| file << " " * Integer.foorth_coerce(vm.pop())})
 
-  #{self = an_outstream} [count] .spaces []; print out spaces to the OutStream self.
+  #{self = an_outstream} [count] ~spaces []; print out spaces to the OutStream self.
   out_stream.create_shared_method('~spaces', SelfSpec, [],
     &lambda {|vm| file << " " * Integer.foorth_coerce(vm.pop())})
 
