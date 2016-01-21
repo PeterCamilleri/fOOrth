@@ -23,7 +23,7 @@ module XfOOrth
     #* The next character of user input as a string.
     def get
       read do
-        @edit.readline(self.prompt, eoi_detect: true).rstrip
+        @edit.readline(prompt: self.prompt, eoi_detect: true).rstrip
       end
     end
 

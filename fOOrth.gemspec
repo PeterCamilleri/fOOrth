@@ -35,5 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'full_clone'
   spec.add_runtime_dependency 'safe_clone'
   spec.add_runtime_dependency 'in_array'
-  spec.add_runtime_dependency 'mini_readline', ">= 0.1.3"
+  spec.add_runtime_dependency 'mini_readline', ">= 0.2"
 end
