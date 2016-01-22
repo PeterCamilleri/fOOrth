@@ -12,7 +12,7 @@ module XfOOrth
     #Initialize a new console command source.
     def initialize
       reset_read_point
-      @edit = MiniReadline::Readline.new
+      @edit = MiniReadline::Readline.new(history: true, eoi_detect: true)
     end
 
     alias close reset_read_point
@@ -23,7 +23,7 @@ module XfOOrth
     #* The next character of user input as a string.
     def get
       read do
-        @edit.readline(prompt: self.prompt, eoi_detect: true).rstrip
+        @edit.readline(prompt: prompt).rstrip
       end
     end
 
