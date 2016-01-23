@@ -15,7 +15,7 @@ module XfOOrth
         next_char = @source.get
 
         if next_char == "\\"
-          result << process_backslash
+          break if process_backslash(result)
         elsif next_char == '"' || @source.eoln?
           vm.quotes, done = 0, true
         elsif next_char >= ' '
@@ -27,11 +27,12 @@ module XfOOrth
     end
 
     #Process a backlash character found with a string in the source text.
-    def process_backslash
+    def process_backslash(buffer)
       next_char = @source.get
 
       if next_char == ' ' && @source.eoln?
         next_char = skip_white_space_or_to_eoln
+        return true if ['"', ' '].include?(next_char)
       elsif next_char == 'n'
         next_char = "\n"
       elsif next_char == 'x'
@@ -42,7 +43,8 @@ module XfOOrth
         error "F10: Invalid string literal value: '\\#{next_char}'"
       end
 
-      next_char
+      buffer << next_char
+      false
     end
 
     #Process an 8 bit hex character constant.
