@@ -53,6 +53,10 @@ class StringLibraryTester < Minitest::Test
     #foorth_equal(')load"integration/load_test_one"', [42])
   end
 
+  def test_split_strings
+    foorth_equal('load"integration/load_test_two"', ["foo  "])
+  end
+
   def test_for_lines
     foorth_equal(' "abc\\ndef\\n123" .lines ',  [["abc", "def", "123"]])
   end
