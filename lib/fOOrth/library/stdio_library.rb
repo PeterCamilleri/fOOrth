@@ -49,4 +49,8 @@ module XfOOrth
   VirtualMachine.create_shared_method('accept"', VmSpec, [],
     &lambda {|vm| poke(MiniReadline.readline(peek.to_s, true)); })
 
+  #Get a string from the console.
+  # "prompt" [] .accept [string]; gets a string from the console.
+  String.create_shared_method('.accept', TosSpec, [],
+    &lambda{|vm|  vm.push(MiniReadline.readline(self, true))})
 end
