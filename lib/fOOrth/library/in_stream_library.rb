@@ -51,7 +51,7 @@ module XfOOrth
     vm.push(file.gets.chomp)
   })
 
-  #{self = an_outstream} [] ~gets ["a_string"]
+  #{self = an_instream} [] ~gets ["a_string"]
   in_stream.create_shared_method('~gets', SelfSpec, [], &lambda {|vm|
     vm.push(file.gets.chomp)
   })
@@ -62,7 +62,7 @@ module XfOOrth
     vm.push(file.getc)
   })
 
-  #{self = an_outstream} [] ~getc ["a_character"]
+  #{self = an_instream} [] ~getc ["a_character"]
   in_stream.create_shared_method('~getc', SelfSpec, [], &lambda {|vm|
     vm.push(file.getc)
   })

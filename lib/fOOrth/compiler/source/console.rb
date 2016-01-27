@@ -12,7 +12,9 @@ module XfOOrth
     #Initialize a new console command source.
     def initialize
       reset_read_point
-      @edit = MiniReadline::Readline.new(history: true, eoi_detect: true)
+      @edit = MiniReadline::Readline.new(history: true,
+                                         auto_complete: true,
+                                         eoi_detect: true)
     end
 
     alias close reset_read_point
