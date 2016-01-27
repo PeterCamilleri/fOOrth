@@ -177,6 +177,16 @@ class InOutStreamLibraryTester < Minitest::Test
     do_cleanup
   end
 
+  def test_put_and_append_all
+    foorth_equal('[ "A" "B" "C" ] ' + $osfn + 'OutStream .put_all')
+    assert_equal(["A\n", "B\n", "C\n"], IO.readlines($osfn[1...-2]))
+
+    foorth_equal('[ "D" "E" "F" ] ' + $osfn + 'OutStream .append_all')
+    assert_equal(["A\n", "B\n", "C\n", "D\n", "E\n", "F\n"], IO.readlines($osfn[1...-2]))
+
+    do_cleanup
+  end
+
 
   def do_cleanup
     name = $osfn[1...-2]

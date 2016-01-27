@@ -117,4 +117,30 @@ module XfOOrth
   out_stream.create_shared_method('~spaces', SelfSpec, [],
     &lambda {|vm| file << " " * Integer.foorth_coerce(vm.pop())})
 
+  # [text_array "file_name" OutStream] .put_all []; Write the array to file_name
+  out_stream.create_exclusive_method('.put_all', TosSpec, [], &lambda {|vm|
+    file_name = vm.pop.to_s
+    file_source = vm.pop
+    out_stream = XfOOrth_OutStream.new(file_name, 'w')
+
+    begin
+      file_source.each {|line| out_stream.file.puts(line) }
+    ensure
+      out_stream.file.close
+    end
+  })
+
+  # [text_array "file_name" OutStream] .append_all []; Append the array to file_name
+  out_stream.create_exclusive_method('.append_all', TosSpec, [], &lambda {|vm|
+    file_name = vm.pop.to_s
+    file_source = vm.pop
+    out_stream = XfOOrth_OutStream.new(file_name, 'a')
+
+    begin
+      file_source.each {|line| out_stream.file.puts(line) }
+    ensure
+      out_stream.file.close
+    end
+  })
+
 end
