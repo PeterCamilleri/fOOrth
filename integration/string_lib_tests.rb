@@ -189,4 +189,9 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('"ls" .shell_out .class ', [String])
   end
 
+  def test_parsing_some_strings
+    foorth_equal('"1 2 3" p"%d %d %d"', [[1,2,3]])
+    foorth_equal('"1 2 3" "%d %d %d" parse', [[1,2,3]])
+  end
+
 end
