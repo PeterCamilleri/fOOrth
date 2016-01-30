@@ -7,6 +7,7 @@ class Exception
   FOORTH_EXCEPTION_CODE = {
     SignalException                             =>  "E30:",
       Interrupt                                 =>  "E30,01:",
+      MiniReadlineEOI                           =>  "E30,02:",
     StandardError                               =>  "E:",
       ArgumentError                             =>  "E01:",
         Gem::Requirement::BadRequirementError   =>  "E01,01:",

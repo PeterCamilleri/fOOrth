@@ -1,5 +1,4 @@
 # coding: utf-8
-require 'readline' #It sucks, but it will do for now.
 
 #* compiler/console.rb - The fOOrth console support file.
 module XfOOrth
@@ -11,7 +10,13 @@ module XfOOrth
     include ReadPoint
 
     #Initialize a new console command source.
-    alias initialize reset_read_point
+    def initialize
+      reset_read_point
+      @edit = MiniReadline::Readline.new(history: true,
+                                         auto_complete: true,
+                                         eoi_detect: true)
+    end
+
     alias close reset_read_point
     alias flush reset_read_point
 
@@ -20,8 +25,7 @@ module XfOOrth
     #* The next character of user input as a string.
     def get
       read do
-        cmd_prompt = self.prompt
-        Readline.readline(cmd_prompt, true).rstrip
+        @edit.readline(prompt: prompt).rstrip
       end
     end
 

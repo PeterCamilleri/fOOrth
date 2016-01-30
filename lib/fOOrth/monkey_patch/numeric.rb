@@ -13,12 +13,10 @@ class Numeric
   def to_foorth_c
     as_int = Integer.foorth_coerce(self)
 
-    if as_int < 0 || as_int > 65535
+    if as_int < 0 || as_int > 1114111
       error "F40: Can't convert #{self} to a character."
-    elsif as_int < 128
-      as_int.chr.force_encoding("utf-8")
     else
-      eval("\"\\u#{'%04X' % as_int}\"")
+      [as_int].pack('U')
     end
   end
 

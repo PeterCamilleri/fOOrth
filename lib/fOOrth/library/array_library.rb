@@ -466,8 +466,12 @@ module XfOOrth
     result = "[ "
 
     self.each do |value|
-      value.to_foorth_s(vm)
-      result << vm.pop + " "
+      if value.is_a?(String)
+        result << value.inspect + " "
+      else
+        value.to_foorth_s(vm)
+        result << vm.pop + " "
+      end
     end
 
     vm.push(result + "]")

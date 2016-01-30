@@ -37,7 +37,7 @@ class NumericMonkeyPatchTester < Minitest::Test
     end
 
     assert_raises(XfOOrth::XfOOrthError) do
-      99120.to_foorth_c
+      1114112.to_foorth_c
     end
 
     assert_raises(XfOOrth::XfOOrthError) do

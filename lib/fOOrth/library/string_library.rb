@@ -1,5 +1,7 @@
 # coding: utf-8
 
+require 'scanf'
+
 #* library/string_library.rb - String support for the fOOrth library.
 module XfOOrth
 
@@ -71,11 +73,20 @@ module XfOOrth
     end
   end
 
-  # [a_str] format ['a formatted string']
+  # [object_or_array fmt_str] format ['a formatted string']
   Object.create_shared_method('format', NosSpec, [], &format_action)
 
-  # [a] f"str" ['a formatted string']
+  # [object_or_array] f"fmt_str" ['a formatted string']
   Object.create_shared_method('f"', NosSpec, [], &format_action)
+
+  parse_action = lambda {|vm| vm.poke(self.scanf(vm.peek))}
+
+  # [a_str fmt_str] parse [result_array]
+  String.create_shared_method('parse', NosSpec, [], &parse_action)
+
+  # [a_str] p"fmt_str" [result_array]
+  String.create_shared_method('p"', NosSpec, [], &parse_action)
+
 
   #LEFT Group
 

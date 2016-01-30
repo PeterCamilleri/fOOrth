@@ -8,6 +8,9 @@ require          'in_array'
 require          'format_engine'
 require          'English'
 
+$no_alias_read_line_module = true
+require 'mini_readline'
+
 require_relative 'fOOrth/version'
 require_relative 'fOOrth/debug'
 require_relative 'fOOrth/monkey_patch'

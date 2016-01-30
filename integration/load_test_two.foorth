@@ -1,0 +1,4 @@
+// Test for string parsing with a continuation.
+
+"foo  \
+   "

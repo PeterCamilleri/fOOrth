@@ -1,7 +1,8 @@
 # coding: utf-8
 # A Simple Interactive Ruby Environment
 
-require 'readline' #YUK
+$no_alias_read_line_module = true
+require 'mini_readline'
 require 'pp'
 
 class Object
@@ -25,8 +26,7 @@ end
 class SIRE
   #Set up the interactive session.
   def initialize
-    @_done    = false
-    @running = false
+    @_done = false
 
     puts "Welcome to a Simple Interactive Ruby Environment\n"
     puts "Use command 'q' to quit.\n\n"
@@ -75,10 +75,13 @@ class SIRE
   def run_sire
     until @_done
       @_break = false
-      exec_line(Readline.readline('SIRE>', true))
+      exec_line(MiniReadline.readline('SIRE>', true))
     end
 
     puts "\n\n"
+
+  rescue Interrupt => e
+    puts "\nInterrupted! Program Terminating."
   end
 
 end

@@ -25,7 +25,7 @@ module XfOOrth
         running ||= start_up(vm)
         vm.process_console
 
-      rescue Interrupt, ForceExit, SilentExit => err
+      rescue Interrupt, ForceExit, SilentExit, MiniReadlineEOI => err
         puts "\n#{err.foorth_message}"
         break
 

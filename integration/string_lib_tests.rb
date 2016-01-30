@@ -53,6 +53,10 @@ class StringLibraryTester < Minitest::Test
     #foorth_equal(')load"integration/load_test_one"', [42])
   end
 
+  def test_split_strings
+    foorth_equal('load"integration/load_test_two"', ["foo  "])
+  end
+
   def test_for_lines
     foorth_equal(' "abc\\ndef\\n123" .lines ',  [["abc", "def", "123"]])
   end
@@ -183,6 +187,11 @@ class StringLibraryTester < Minitest::Test
 
   def test_capturing_shell_output
     foorth_equal('"ls" .shell_out .class ', [String])
+  end
+
+  def test_parsing_some_strings
+    foorth_equal('"1 2 3" p"%d %d %d"', [[1,2,3]])
+    foorth_equal('"1 2 3" "%d %d %d" parse', [[1,2,3]])
   end
 
 end
