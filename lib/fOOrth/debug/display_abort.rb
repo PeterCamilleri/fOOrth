@@ -22,6 +22,9 @@ module XfOOrth
           puts "Error: No context is available!"
         end
 
+        puts "\nInternal Backtrace Dump:"
+        puts
+        puts exception.backtrace
         puts
       end
 
