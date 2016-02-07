@@ -470,7 +470,7 @@ module XfOOrth
         result << value.inspect + " "
       else
         value.to_foorth_s(vm)
-        result << vm.pop + " "
+        result << (vm.pop || value.inspect) + " "
       end
     end
 
