@@ -69,6 +69,19 @@ module XfOOrth
     IRB.start
   })
 
+  #Start a Pry session (IRB)
+  VirtualMachine.create_shared_method(')pry', VmSpec, [], &lambda {|vm|
+    require 'pry'
+
+    puts
+    puts "Starting an PRY console for fOOrth."
+    puts "Enter quit to return to fOOrth."
+    puts
+
+    ARGV.clear
+    Pry.start
+  })
+
   #Get the VM timer start time.
   VirtualMachine.create_shared_method(')start', VmSpec, [], &lambda {|vm|
     puts "Start time is #{vm.start_time}"
