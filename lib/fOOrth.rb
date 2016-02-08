@@ -9,6 +9,8 @@ require 'format_engine'
 require 'ruby_sscanf'
 require 'English'
 
+require 'pp'
+
 $no_alias_read_line_module = true
 require 'mini_readline'
 

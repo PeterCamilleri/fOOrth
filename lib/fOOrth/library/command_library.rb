@@ -1,7 +1,5 @@
 # coding: utf-8
 
-require 'pp'
-
 #* library/command_library.rb - The utility command fOOrth library.
 module XfOOrth
 
