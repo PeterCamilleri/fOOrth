@@ -47,10 +47,7 @@ module XfOOrth
 
     #Get a token for the procedure literal.
     def get_procedure_token
-      unless (token = get_token)
-        error "F12: Error, Invalid control/structure nesting."
-      end
-
+      error "F12: Error, Invalid nesting." unless (token = get_token)
       token
     end
 
