@@ -5,6 +5,24 @@ $no_alias_read_line_module = true
 require 'mini_readline'
 require 'pp'
 
+if ARGV[0] == 'local'
+  require_relative 'lib/fOOrth'
+  puts "\nOption(local) Loaded fOOrth from the local code folder."
+elsif defined?(XfOOrth)
+  puts "The fOOrth system is already loaded."
+else
+  begin
+    require 'fOOrth'
+    puts "\nLoaded fOOrth from the system gem."
+  rescue LoadError
+    require_relative 'lib/fOOrth'
+    puts "\nLoaded fOOrth from the local code folder."
+  end
+end
+
+puts "fOOrth version = #{XfOOrth::VERSION}"
+puts
+
 class Object
   #Generate the class lineage of the object.
   def classes
@@ -27,6 +45,10 @@ class SIRE
   #Set up the interactive session.
   def initialize
     @_done = false
+    @_edit = MiniReadline::Readline.new(history: true,
+                                        auto_complete: true,
+                                        auto_source: MiniReadline::QuotedFileFolderSource,
+                                        eoi_detect: true)
 
     puts "Welcome to a Simple Interactive Ruby Environment\n"
     puts "Use command 'q' to quit.\n\n"
@@ -75,12 +97,12 @@ class SIRE
   def run_sire
     until @_done
       @_break = false
-      exec_line(MiniReadline.readline('SIRE>', true))
+      exec_line(@_edit.readline(prompt: 'SIRE>'))
     end
 
     puts "\n\n"
 
-  rescue Interrupt => e
+  rescue MiniReadlineEOI, Interrupt => e
     puts "\nInterrupted! Program Terminating."
   end
 
