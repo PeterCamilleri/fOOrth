@@ -74,19 +74,19 @@ module XfOOrth
 
   #Get the VM timer start time.
   #[] .start [start_time]
-  VirtualMachine.create_shared_method('.start', TosSpec, [], &lambda {|vm|
+  VirtualMachine.create_shared_method('.start_time', TosSpec, [], &lambda {|vm|
     vm.push(vm.start_time)
   })
 
   #Reset the VM timer start time.
   #[] .restart []
-  VirtualMachine.create_shared_method('.restart', TosSpec, [], &lambda {|vm|
+  VirtualMachine.create_shared_method('.restart_timer', TosSpec, [], &lambda {|vm|
     vm.start_time = Time.now
   })
 
   #Get the elapsed time.
   #[] .elapsed [elapsed_time_in_seconds]
-  VirtualMachine.create_shared_method('.elapsed', TosSpec, [], &lambda {|vm|
+  VirtualMachine.create_shared_method('.elapsed_time', TosSpec, [], &lambda {|vm|
     vm.push(Time.now - vm.start_time)
   })
 
