@@ -25,7 +25,7 @@ module XfOOrth
 
       begin
         token = get_procedure_token
-        process_procedure_token(token)
+        due_token(token)
       end until token.has_tag?(:end)
 
       close_procedure_literal
@@ -52,19 +52,6 @@ module XfOOrth
       end
 
       token
-    end
-
-    #Process the next token in the procedure literal.
-    def process_procedure_token(token)
-      dbg_puts token.to_s
-      code = token.code
-
-      if (token.has_tag?(:immediate)) && (!@force)
-        @context.recvr.instance_exec(self, &eval("lambda {|vm| #{code} }"))
-      else
-        @buffer << code
-        @force = false
-      end
     end
 
   end
