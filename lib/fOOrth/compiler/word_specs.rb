@@ -10,7 +10,7 @@ module XfOOrth
     #The compile-time text inserted into the buffer.
     attr_reader :builds
 
-    #The run-time action, a block that gets linked to the symbol.
+    #The run-time action; The block that gets linked to the method's symbol.
     attr_reader :does
 
     #The attributes tagged to this specification.
@@ -93,7 +93,10 @@ module XfOOrth
     #Get the default action if none is specified.
     def get_stub_action(name, symbol)
       lambda do |vm|
+        #NOS methods can leave an extra bit of mess on the stack which must
+        #be cleaned up at this time or it will cause further problems.
         vm.data_stack.pop
+
         error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol.inspect})."
       end
     end
