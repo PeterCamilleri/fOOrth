@@ -6,24 +6,26 @@ module XfOOrth
   #* compiler/process/procedure.rb - Get an embedded procedure literal.
   class VirtualMachine
 
+    private
+
     #Process optional string parameters.
     #<br>Parameters:
     #* token - The token to receive the generated code.
     #* word  - The text of the word.
     def procedure_parms(token, word)
       if word.end_with?('{{')
-        token.add(get_procedure, [:procedure])
+        token.add(get_procedure_literal, [:procedure])
       end
     end
 
     #Extract a procedure literal from the source code.
-    def get_procedure
+    def get_procedure_literal
       save, @buffer  = @buffer, ""
       open_procedure_literal
 
       begin
         token = get_procedure_token
-        process_procedure_token(token)
+        due_token(token)
       end until token.has_tag?(:end)
 
       close_procedure_literal
@@ -45,24 +47,8 @@ module XfOOrth
 
     #Get a token for the procedure literal.
     def get_procedure_token
-      unless (token = get_token)
-        error "F12: Error, Invalid control/structure nesting."
-      end
-
-      dbg_puts token.to_s
+      error "F12: Error, Invalid nesting." unless (token = get_token)
       token
-    end
-
-    #Process the next token in the procedure literal.
-    def process_procedure_token(token)
-      code = token.code
-
-      if (token.has_tag?(:immediate)) && (!@force)
-        @context.recvr.instance_exec(self, &eval("lambda {|vm| #{code} }"))
-      else
-        @buffer << code
-        @force = false
-      end
     end
 
   end

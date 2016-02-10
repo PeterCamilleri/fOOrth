@@ -2,11 +2,14 @@
 
 # The fOOrth Language System implemented via a Ruby gem.
 
-require          'safe_clone'
-require          'full_clone'
-require          'in_array'
-require          'format_engine'
-require          'English'
+require 'safe_clone'
+require 'full_clone'
+require 'in_array'
+require 'format_engine'
+require 'ruby_sscanf'
+require 'English'
+
+require 'pp'
 
 $no_alias_read_line_module = true
 require 'mini_readline'

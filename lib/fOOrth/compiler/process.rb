@@ -11,6 +11,8 @@ module XfOOrth
   #* compiler/process.rb - Process source code from a code source.
   class VirtualMachine
 
+    private
+
     #Process the source code provided by the source parameter.
     #<br>Parameters:
     #* source - A source object. Typically a Console, StringSource or FileSource.
@@ -24,15 +26,20 @@ module XfOOrth
     #The actual work of processing source code.
     def due_process
       while (token = get_token)
-        dbg_puts token.to_s
-        code = token.code
+        due_token(token)
+      end
+    end
 
-        if execute_mode || ((token.has_tag?(:immediate)) && (!@force))
-          @context.recvr.instance_exec(self, &eval("lambda {|vm| #{code} }"))
-        else
-          @buffer << code
-          @force = false
-        end
+    #Finally, process the taken.
+    def due_token(token)
+      dbg_puts token.to_s
+      code = token.code
+
+      if execute_mode || ((token.has_tag?(:immediate)) && (!@force))
+        @context.recvr.instance_exec(self, &eval("lambda {|vm| #{code} }"))
+      else
+        @buffer << code
+        @force = false
       end
     end
 

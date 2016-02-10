@@ -117,10 +117,10 @@ module XfOOrth
 
     self.each do |key, value|
       key.to_foorth_s(vm)
-      result << vm.pop + " "
+      result << (vm.pop || key.inspect) + " "
 
       value.to_foorth_s(vm)
-      result << vm.pop + " -> "
+      result << (vm.pop || value.inspect) + " -> "
     end
 
     vm.push(result + "}")

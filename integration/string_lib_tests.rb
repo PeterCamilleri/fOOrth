@@ -192,6 +192,26 @@ class StringLibraryTester < Minitest::Test
   def test_parsing_some_strings
     foorth_equal('"1 2 3" p"%d %d %d"', [[1,2,3]])
     foorth_equal('"1 2 3" "%d %d %d" parse', [[1,2,3]])
+
+    foorth_equal('"12 34 -56" p"%d %2d %4d"', [[12, 34, -56]])
+    foorth_equal('"255 0b11111111 0377 0xFF 0 " p"%i %i %i %i %i"', [[255, 255, 255, 255, 0]])
+    foorth_equal('"7 10 377" p"%o %o %o"', [[7, 8, 255]])
+    foorth_equal('"10 10011 11110000" p"%b %b %b"',[[2, 19, 240]])
+    foorth_equal('"0 F FF FFF FFFF" p"%x %x %x %x %x"', [[0, 15, 255, 4095, 65535]])
+    foorth_equal('"Hello Silly World" p"%s %*s %s"', [["Hello", "World"]])
+    foorth_equal('"Hello Silly World" p"%5c %*5c %5c"', [["Hello", "World"]])
+    foorth_equal('"42 The secret is X" p"%i %-1c"', [[42, "The secret is X"]])
+    foorth_equal('"42 The secret is X" p"%i %-2c%c"', [[42, "The secret is ", "X"]])
+    foorth_equal('"42 The secret is X" p"%i %*-2c%c"', [[42, "X"]])
+    foorth_equal('"9.99 1.234e56 -1e100" p"%f %f %f"', [[9.99, 1.234e56, -1e100]])
+    foorth_equal('"85% 75%" p"%f%% %f%%"', [[85, 75]])
+    foorth_equal('"12 34 -56" p"%u %u %u"', [[12, 34]])
+    foorth_equal('"1/2 3/4r -5/6" p"%r %r %r"', [['1/2'.to_r, '3/4'.to_r, '-5/6'.to_r]])
+    foorth_equal('"1+2i 3+4j -5e10-6.2i" p"%j %j %j"',
+                 [[Complex('1+2i'), Complex('3+4j'), Complex('-5e10-6.2i')]])
+    s = "\"'quote' 'silly' \\\"un quote\\\" 'a \\\\'' \" p\"%q %*q %q %q\"  "
+    foorth_equal(s, [["quote", "un quote", "a '"]])
+    foorth_equal('"a b c" p"%[a] %[b] %[c]"', [["a", "b", "c"]])
   end
 
 end
