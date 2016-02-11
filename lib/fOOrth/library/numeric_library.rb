@@ -100,11 +100,11 @@ module XfOOrth
   # Some comparison with zero words.
   # [b,a] 0= if b == 0 then [true] else [false]
   Numeric.create_shared_method('0=', TosSpec, [],
-    &lambda {|vm| vm.push(self == 0); })
+    &lambda {|vm| vm.push(self.zero?); })
 
   # [b,a] 0<> if b != 0 then [true] else [false]
   Numeric.create_shared_method('0<>', TosSpec, [],
-    &lambda {|vm| vm.push(self != 0); })
+    &lambda {|vm| vm.push(!self.zero?); })
 
   # [b,a] 0> if b > 0 then [true] else [false]
   Numeric.create_shared_method('0>', TosSpec, [],
