@@ -105,4 +105,12 @@ class ClassLibraryTester < Minitest::Test
     foorth_equal("10 T7 .new .a@", [10])
   end
 
+  def test_the_checking_of_classes
+    foorth_equal('12   Numeric .check', [12])
+    foorth_equal('"12" Numeric .check', [nil])
+
+    foorth_equal('12   Numeric .check!', [12])
+    foorth_raises('"12" Numeric .check!')
+  end
+
 end
