@@ -530,7 +530,7 @@ module XfOOrth
 
 
   $fcpl = 80 #fOOrth Character Per Line
-  $flpp = 50 #fOOrth Lines Per Page
+  $flpp = 52 #fOOrth Lines Per Page
 
   # [ l 2 3 ... n ] .pp []; pretty print the array!
   Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
