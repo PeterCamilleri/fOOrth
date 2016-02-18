@@ -10,7 +10,7 @@ require          'minitest_visible'
 class CoreTester < Minitest::Test
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_that_object_handles_no_method_errors
     #Get an object instance to test with.

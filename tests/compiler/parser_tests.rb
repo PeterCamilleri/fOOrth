@@ -10,7 +10,7 @@ require          'minitest_visible'
 class ParserTester < Minitest::Test
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   #Test simple parsing into words.
   def test_parsing_words_raw

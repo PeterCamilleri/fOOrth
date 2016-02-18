@@ -9,7 +9,7 @@ require          'minitest_visible'
 class ObjectMonkeyPatchTester < Minitest::Test
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   #Test that it does NOT foorth_embed.
   def test_foorth_embed_error

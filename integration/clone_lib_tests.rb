@@ -12,7 +12,7 @@ class CloneLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_some_cloning_around
     foorth_equal("33 clone", [33,33])

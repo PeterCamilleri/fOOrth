@@ -12,7 +12,7 @@ class ThreadLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_that_thread_classes_exist
     foorth_equal('Thread',    [Thread])

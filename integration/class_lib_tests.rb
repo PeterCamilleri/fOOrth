@@ -12,7 +12,7 @@ class ClassLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_that_the_class_class_is_available
     foorth_equal("Class", [Class])

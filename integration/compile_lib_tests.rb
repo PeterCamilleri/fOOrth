@@ -12,7 +12,7 @@ class CompileLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_creating_simple_words
     foorth_equal(': dbl dup + ; 4 dbl', [8])

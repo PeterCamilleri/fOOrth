@@ -10,7 +10,7 @@ require          'minitest_visible'
 class SpecTester < Minitest::Test
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   #Test simple parsing into words.
   def test_that_abstract_is_abstract_dammit

@@ -9,7 +9,7 @@ require          'minitest_visible'
 class CoerceProtocolTester < Minitest::Test
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   #Test the default stubs.
   def test_object_stubs

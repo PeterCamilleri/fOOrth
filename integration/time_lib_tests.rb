@@ -12,7 +12,7 @@ class TimeLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_that_the_time_classes_exists
     foorth_equal('Time', [Time])

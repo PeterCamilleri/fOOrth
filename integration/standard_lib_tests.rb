@@ -12,7 +12,7 @@ class StandardLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_basic_constants
     refute(Thread.current[:vm].nil?)

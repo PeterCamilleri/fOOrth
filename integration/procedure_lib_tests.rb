@@ -12,7 +12,7 @@ class ProcedureLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_lambda_basics
     foorth_equal("{{   }} .name ", ["Procedure instance"])

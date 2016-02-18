@@ -9,7 +9,7 @@ require          'minitest_visible'
 class CompilerModeTester < Minitest::Test
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_mode_nesting
     #Get the virtual machine.

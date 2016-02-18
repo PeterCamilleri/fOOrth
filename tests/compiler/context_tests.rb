@@ -22,7 +22,7 @@ end
 class ContextTester < Minitest::Test
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_data_store
     context = XfOOrth::Context.new(45, stuff: 'buy', price: :plenty)

@@ -10,7 +10,7 @@ require          'minitest_visible'
 class RationalMonkeyPatchTester < Minitest::Test
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   #Test that it embeds
   def test_foorth_embed
