@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rdoc', "~> 4.0.1"
 
   spec.add_runtime_dependency 'ruby_sscanf', ">= 0.1.1"
-  spec.add_runtime_dependency 'format_engine', ">= 0.5.1"
+  spec.add_runtime_dependency 'format_engine', ">= 0.6.0"
   spec.add_runtime_dependency 'full_clone'
   spec.add_runtime_dependency 'safe_clone'
   spec.add_runtime_dependency 'in_array'
