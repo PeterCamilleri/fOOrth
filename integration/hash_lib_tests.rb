@@ -12,7 +12,7 @@ class HashLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_some_hash_basics
     foorth_equal('Hash                    ', [Hash])

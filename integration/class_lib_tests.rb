@@ -12,7 +12,7 @@ class ClassLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_that_the_class_class_is_available
     foorth_equal("Class", [Class])
@@ -103,6 +103,14 @@ class ClassLibraryTester < Minitest::Test
     foorth_equal("T7 .: .a@ @a ;", [])
 
     foorth_equal("10 T7 .new .a@", [10])
+  end
+
+  def test_the_checking_of_classes
+    foorth_equal('12   Numeric .check', [12])
+    foorth_equal('"12" Numeric .check', [nil])
+
+    foorth_equal('12   Numeric .check!', [12])
+    foorth_raises('"12" Numeric .check!')
   end
 
 end

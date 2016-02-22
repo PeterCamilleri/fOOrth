@@ -12,7 +12,7 @@ class NumericLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_some_conversions
     foorth_equal('5    .to_n', [5])

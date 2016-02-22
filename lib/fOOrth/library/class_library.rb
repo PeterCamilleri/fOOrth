@@ -65,4 +65,26 @@ module XfOOrth
     end
   })
 
+  #Check that an object is of the correct class.
+  #[an_object a_class] .check [an_object or nil]
+  Class.create_shared_method('.check', TosSpec, [], &lambda {|vm|
+    object = vm.pop
+    vm.push(object.class <= self ? object : nil)
+  })
+
+  #Check that an object is of the correct class.
+  #[an_object a_class] .check! [an_object or error]
+  Class.create_shared_method('.check!', TosSpec, [], &lambda {|vm|
+    object = vm.pop
+
+    unless object.class <= self
+      error "F42: A #{object.foorth_name} is not compatible with a #{self.foorth_name}. "
+    end
+
+    vm.push(object)
+  })
+
 end
+
+
+

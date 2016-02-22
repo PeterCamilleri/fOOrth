@@ -10,7 +10,7 @@ require          'minitest_visible'
 class SymbolMapTester < Minitest::Test
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   #Test that we can add, map, and un-map names.
   def test_adding_mappings

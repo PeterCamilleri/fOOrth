@@ -12,7 +12,7 @@ class ArrayLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_some_array_basics
     foorth_equal('       Array                   ', [Array])

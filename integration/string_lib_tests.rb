@@ -12,7 +12,7 @@ class StringLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_string_literals
     foorth_equal(' ""          ',  [""])

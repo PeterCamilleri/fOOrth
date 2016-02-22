@@ -12,7 +12,7 @@ class QueueLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_the_queue_class_exists
     foorth_equal('Queue', [Queue])

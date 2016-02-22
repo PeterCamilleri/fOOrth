@@ -12,7 +12,7 @@ class ComparisonTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_greater_than
    foorth_raises("Object .new 4 > ")

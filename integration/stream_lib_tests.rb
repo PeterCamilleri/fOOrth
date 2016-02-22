@@ -12,7 +12,7 @@ class InOutStreamLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   # **** In Streams ****
 

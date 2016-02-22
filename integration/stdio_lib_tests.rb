@@ -11,7 +11,7 @@ class StdioLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_the_dot
     foorth_output('4 .', "4")

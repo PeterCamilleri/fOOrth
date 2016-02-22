@@ -10,7 +10,7 @@ require          'minitest_visible'
 class DataStackMapTester < Minitest::Test
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_data_stack_ops
     vm = Thread.current[:vm]

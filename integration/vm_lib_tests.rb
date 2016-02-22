@@ -12,7 +12,7 @@ class VMLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_that_the_VM_class_and_instance_are_available
     foorth_equal("VirtualMachine", [XfOOrth::VirtualMachine])

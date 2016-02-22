@@ -10,7 +10,7 @@ require          'minitest_visible'
 class FileSourceTester < Minitest::Test
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   #Test that we can read from a single line string
   def test_single_line_file

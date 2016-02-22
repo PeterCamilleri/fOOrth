@@ -12,7 +12,7 @@ class ExceptionLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_for_exception_patches
     assert_equal("E15: ZeroDivisionError", ZeroDivisionError.new.foorth_message)

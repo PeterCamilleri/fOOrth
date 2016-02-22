@@ -11,7 +11,7 @@ class StackLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_the_stack_class_exists
     foorth_equal('Stack',             [XfOOrth::XfOOrth_Stack])

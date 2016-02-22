@@ -139,7 +139,7 @@ module XfOOrth
     when '~'
       SelfSpec
 
-    when /[A-Z]|\$|\#|\@/
+    when /[0-9A-Z$@#]/
       error "F10: Invalid name for a method: #{name}"
 
     else

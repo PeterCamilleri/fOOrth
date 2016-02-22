@@ -530,7 +530,7 @@ module XfOOrth
 
 
   $fcpl = 80 #fOOrth Character Per Line
-  $flpp = 50 #fOOrth Lines Per Page
+  $flpp = 25 #fOOrth Lines Per Page
 
   # [ l 2 3 ... n ] .pp []; pretty print the array!
   Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
@@ -564,5 +564,14 @@ module XfOOrth
       puts "\n"
     end
   })
+
+  #Show the page length.
+  VirtualMachine.create_shared_method(')pl', MacroSpec,
+    [:macro, 'puts "Page Length = #{$flpp}"; '])
+
+
+  #Set/show the page length.
+  VirtualMachine.create_shared_method(')set_pl', MacroSpec,
+    [:macro, 'puts "New Page Length = #{$flpp = vm.pop.to_i}"; '])
 
 end

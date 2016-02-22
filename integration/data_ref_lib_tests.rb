@@ -12,7 +12,7 @@ class DataRefLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_basic_thread_variables
     foorth_equal('10 var#: #test1',   [])

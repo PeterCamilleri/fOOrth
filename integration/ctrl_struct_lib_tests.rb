@@ -12,7 +12,7 @@ class CtrlStructLibraryTester < Minitest::Test
   include XfOOrthTestExtensions
 
   #Track mini-test progress.
-  MinitestVisible.track self, __FILE__
+  include MinitestVisible
 
   def test_if_else_then_constructs
     foorth_equal('1 if "yay" then', ['yay'])
