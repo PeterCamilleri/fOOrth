@@ -95,7 +95,7 @@ module XfOOrth
   VirtualMachine.create_shared_method('_FILE_', VmSpec, [:immediate], &lambda{|vm|
     file_name = @parser.source.file_name
 
-    if execute_mode
+    if execute_mode?
       vm.push(file_name)
     else
       vm << "vm.push(#{file_name.inspect})"
