@@ -6,7 +6,7 @@ if ARGV[0] == 'local'
   require_relative 'lib/fOOrth'
   puts "\nOption(local) Loaded fOOrth from the local code folder."
 elsif defined?(XfOOrth)
-  puts "The fOOrth system is already loaded."
+  puts "\nThe fOOrth system is already loaded."
 else
   begin
     require 'fOOrth'
