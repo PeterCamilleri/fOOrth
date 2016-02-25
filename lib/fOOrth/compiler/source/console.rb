@@ -13,7 +13,7 @@ module XfOOrth
     def initialize
       reset_read_point
 
-      auto_src = lambda { SymbolMap.fwd_map.keys.sort  }
+      auto_src = lambda { SymbolMap.forward_map.keys.sort  }
 
       @edit = MiniReadline::Readline.new(history: true,
                                          auto_complete: true,

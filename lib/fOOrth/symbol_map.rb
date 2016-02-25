@@ -8,7 +8,7 @@ module XfOOrth
 
     class << self
       #Access to the mapping of names to symbols.
-      attr_reader :fwd_map
+      attr_reader :forward_map
 
       #Access to the mapping of symbols to names.
       attr_reader :rev_map
@@ -16,7 +16,7 @@ module XfOOrth
 
     @sync = Mutex.new
     @incrementer = '_000'
-    @fwd_map = Hash.new
+    @forward_map = Hash.new
     @rev_map = Hash.new
 
     #Add a global mapping for a string to a symbol that will not collide with
@@ -30,7 +30,7 @@ module XfOOrth
     #* :reek:ControlParameter -- false positive
     def self.add_entry(name, presym=nil)
       @sync.synchronize do
-        unless (symbol = @fwd_map[name])
+        unless (symbol = @forward_map[name])
           symbol = presym || (@incrementer.succ!).to_sym
           connect(name, symbol)
         else
@@ -47,7 +47,7 @@ module XfOOrth
     #<br>Returns:
     #* A symbol or nil if the symbol is not in the map.
     def self.map(name)
-      @fwd_map[name]
+      @forward_map[name]
     end
 
     #Get the entry for the mapping symbol. Return nil if there is no entry.
@@ -76,7 +76,7 @@ module XfOOrth
       end
 
       @rev_map[symbol] = name
-      @fwd_map[name] = symbol
+      @forward_map[name] = symbol
     end
   end
 end
