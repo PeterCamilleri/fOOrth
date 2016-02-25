@@ -11,13 +11,13 @@ module XfOOrth
       attr_reader :forward_map
 
       #Access to the mapping of symbols to names.
-      attr_reader :rev_map
+      attr_reader :reverse_map
     end
 
     @sync = Mutex.new
     @incrementer = '_000'
     @forward_map = Hash.new
-    @rev_map = Hash.new
+    @reverse_map = Hash.new
 
     #Add a global mapping for a string to a symbol that will not collide with
     #existing symbols.
@@ -56,7 +56,7 @@ module XfOOrth
     #<br>Returns:
     #* The name or nil if the symbol is not in the map.
     def self.unmap(mapped)
-      @rev_map[mapped]
+      @reverse_map[mapped]
     end
 
     #Reset the incrementer to the given string. This used for testing only.
@@ -71,11 +71,11 @@ module XfOOrth
     #Set up the internal workings of the mapping hashes.
     private
     def self.connect(name, symbol)
-      if (old = @rev_map[symbol]) && (old != name)
+      if (old = @reverse_map[symbol]) && (old != name)
         error "F90: Attempt to redefine #{name}."
       end
 
-      @rev_map[symbol] = name
+      @reverse_map[symbol] = name
       @forward_map[name] = symbol
     end
   end
