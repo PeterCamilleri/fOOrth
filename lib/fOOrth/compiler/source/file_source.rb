@@ -28,6 +28,10 @@ module XfOOrth
       "A file: #{@name}"
     end
 
+    #Get the name of the file
+    def file_name
+      @name
+    end
   end
 
 end

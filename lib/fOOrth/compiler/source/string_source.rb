@@ -21,6 +21,8 @@ module XfOOrth
       "A string."
     end
 
+    alias :file_name :source_name
+
   end
 
 end

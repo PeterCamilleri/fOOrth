@@ -1,0 +1,5 @@
+// Test the _FILE_ method
+
+_FILE_
+
+true if 7 _FILE_ then

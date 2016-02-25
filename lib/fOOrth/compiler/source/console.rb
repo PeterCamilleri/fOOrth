@@ -59,5 +59,7 @@ module XfOOrth
       "The console."
     end
 
+    alias :file_name :source_name
+
   end
 end
