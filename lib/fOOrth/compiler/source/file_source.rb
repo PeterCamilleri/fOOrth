@@ -30,7 +30,7 @@ module XfOOrth
 
     #Get the name of the file
     def file_name
-      @name
+      File.absolute_path(@name)
     end
   end
 
