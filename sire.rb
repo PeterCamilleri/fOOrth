@@ -109,6 +109,5 @@ class SIRE
 end
 
 if __FILE__ == $0
-  require './lib/fOOrth'
   SIRE.new.run_sire
 end
