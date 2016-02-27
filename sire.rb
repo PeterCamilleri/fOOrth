@@ -51,7 +51,12 @@ class SIRE
                                         eoi_detect: true)
 
     puts "Welcome to a Simple Interactive Ruby Environment\n"
-    puts "Use command 'q' to quit.\n\n"
+    puts
+    puts "Local commands:"
+    puts "    q       - quit SIRE."
+    puts "    r       - run fOOrth."
+    puts "obj classes - show the obj's class heritage."
+    puts
   end
 
   #Quit the interactive session.
@@ -59,6 +64,11 @@ class SIRE
     @_done = true
     puts
     "Bye bye for now!"
+  end
+
+  def r
+    ARGV.clear
+    XfOOrth::main.data_stack
   end
 
   #Load and run a file
