@@ -9,30 +9,41 @@ module XfOOrth
   #The fOOrth Fiber class.
   class XfOOrth_Fiber
 
+    NEW   = "new".freeze
+    ALIVE = "alive".freeze
+    DEAD  = "dead".freeze
+
     #Build up the fiber instance. A fiber is a light-weight coroutine.
     def initialize(stack=[], &block)
       @stack = stack
-      @fiber = Fiber.new &lambda{|vm| block.call(vm); nil }
-      @status = "new"
+      @fiber = Fiber.new &lambda{|vm| block.call(vm); nil}
+      @status = NEW
     end
 
     #What is the status of this fiber?
     def status
-      @status || "dead"
+      @status || DEAD
     end
 
     #Let the fiber run for one step.
     def step(vm)
       vm.data_stack, vm.fiber, @save = @stack, self, vm.data_stack
       @status = @fiber.resume(vm)
+    rescue FiberError
+      error "F72: Cannot step a dead fiber."
     ensure
       vm.data_stack, vm.fiber, @stack = @save, nil, vm.data_stack
+    end
+
+    #Yield back to the thread.
+    def yield
+      Fiber.yield(ALIVE)
     end
 
     #Yield a value back to the thread.
     def yield_value(value)
       @save << value
-      Fiber.yield("alive")
+      Fiber.yield(ALIVE)
     end
   end
 
@@ -74,15 +85,31 @@ module XfOOrth
     vm.push(XfOOrth_Fiber.new(&vm.pop))
   })
 
+  # [a_procedure] .to_fiber [a_fiber]
+  Proc.create_shared_method('.to_fiber', TosSpec, [], &lambda {|vm|
+    vm.push(XfOOrth_Fiber.new(&self))
+  })
+
   # [a_fiber] .step [undefined]; The fiber performs a processing step.
   XfOOrth_Fiber.create_shared_method('.step', TosSpec, [], &lambda {|vm|
     self.step(vm)
   })
 
+  # [] yield []; Yields obj to the containing thread.
+  VirtualMachine.create_shared_method('yield', VmSpec, [], &lambda {|vm|
+    error 'F71: May only yield in a fiber.' unless (fiber = vm.fiber)
+    fiber.yield
+  })
+
   # [obj] .yield []; Yields obj to the containing thread.
   VirtualMachine.create_shared_method('.yield', VmSpec, [], &lambda {|vm|
-    error 'F71: Only allowed in a fiber: ".yield"' unless (fiber = vm.fiber)
+    error 'F71: May only yield in a fiber.' unless (fiber = vm.fiber)
     fiber.yield_value(vm.pop)
+  })
+
+  # [a_fiber] .alive? [a_boolean]; Is the fiber still alive?
+  XfOOrth_Fiber.create_shared_method('.alive?', TosSpec, [], &lambda {|vm|
+    vm.push(!@status.nil?)
   })
 
 end
