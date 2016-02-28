@@ -10,15 +10,30 @@ module XfOOrth
   class XfOOrth_Fiber
 
     #Build up the fiber instance. A fiber is a light-weight coroutine.
-    def initialize(&block)
-      @fiber = Fiber.new &block
+    def initialize(stack=[], &block)
+      @stack = stack
+      @fiber = Fiber.new &lambda{|vm| block.call(vm); nil }
+      @status = "new"
     end
 
-    #Let the fiber run for one step
+    #What is the status of this fiber?
+    def status
+      @status || "dead"
+    end
+
+    #Let the fiber run for one step.
     def step(vm)
-      @fiber.resume(vm)
+      vm.data_stack, vm.fiber, @save = @stack, self, vm.data_stack
+      @status = @fiber.resume(vm)
+    ensure
+      vm.data_stack, vm.fiber, @stack = @save, nil, vm.data_stack
     end
 
+    #Yield a value back to the thread.
+    def yield_value(value)
+      @save << value
+      Fiber.yield("alive")
+    end
   end
 
   #The fOOrth Bundle class. A bundle contains multiple fibers.
@@ -49,11 +64,25 @@ module XfOOrth
         step(vm)
       end
     end
-
   end
 
-  #The .new method is stubbed out fir fibers.
+  #The .new method is stubbed out for fibers.
   fiber.create_exclusive_method('.new', TosSpec, [:stub])
 
+  # [Fiber] .new{{ ... }} [a_fiber]
+  XfOOrth_Fiber.create_exclusive_method('.new{{', NosSpec, [], &lambda {|vm|
+    vm.push(XfOOrth_Fiber.new(&vm.pop))
+  })
+
+  # [a_fiber] .step [undefined]; The fiber performs a processing step.
+  XfOOrth_Fiber.create_shared_method('.step', TosSpec, [], &lambda {|vm|
+    self.step(vm)
+  })
+
+  # [obj] .yield []; Yields obj to the containing thread.
+  VirtualMachine.create_shared_method('.yield', VmSpec, [], &lambda {|vm|
+    error 'F71: Only allowed in a fiber: ".yield"' unless (fiber = vm.fiber)
+    fiber.yield_value(vm.pop)
+  })
 
 end

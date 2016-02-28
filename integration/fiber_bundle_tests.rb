@@ -19,5 +19,22 @@ class FiberBundleLibraryTester < Minitest::Test
     foorth_equal('Bundle', [XfOOrth::XfOOrth_Bundle])
   end
 
+  def test_creating_a_fiber
+    test_code = <<-EOS
+      Fiber .new{{  }} .class .name
+    EOS
 
+    foorth_equal(test_code, ["Fiber"])
+  end
+
+  def test_processing_data
+    test_code = <<-EOS
+      // Create a fibonacci fiber.
+      Fiber .new{{ 1 1 begin dup .yield over + swap again }} val$: $fib
+
+      0 8 do $fib .step loop
+    EOS
+
+    foorth_equal(test_code, [1, 1, 2, 3, 5, 8, 13, 21])
+  end
 end
