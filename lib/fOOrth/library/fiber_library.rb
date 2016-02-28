@@ -25,6 +25,11 @@ module XfOOrth
       @status = NEW
     end
 
+    #Return this fiber as a fiber.
+    def to_fiber
+      self
+    end
+
     #What is the status of this fiber?
     def status
       @status || DEAD
@@ -98,6 +103,11 @@ module XfOOrth
   # [Fiber] .current [a_fiber or nil]
   XfOOrth_Fiber.create_exclusive_method('.current', NosSpec, [], &lambda {|vm|
     vm.push(vm.fiber)
+  })
+
+  # [a_fiber] .to_fiber [a_fiber]
+  XfOOrth_Fiber.create_shared_method('.to_fiber', TosSpec, [], &lambda {|vm|
+    vm.push(self)
   })
 
   # [a_fiber] .step [undefined]; The fiber performs a processing step.

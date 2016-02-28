@@ -98,4 +98,13 @@ class FiberBundleLibraryTester < Minitest::Test
     foorth_equal('$current .step', [current])
   end
 
+  def test_converting_a_fiber_to_a_fiber
+    foorth_run('Fiber .new{{  }} val$: $current')
+
+    symbol = XfOOrth::SymbolMap.map('$current')
+    current = eval "#{'$' + symbol.to_s}"
+
+    foorth_equal('$current .to_fiber', [current])
+  end
+
 end
