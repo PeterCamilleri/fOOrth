@@ -103,3 +103,13 @@ module XfOOrth
   })
 
 end
+
+#Monkey patch Procedure to support fibers.
+class Proc
+
+  #Convert this procedure to a fiber.
+  def to_fiber
+    XfOOrth::XfOOrth_Fiber.new(&self)
+  end
+
+end

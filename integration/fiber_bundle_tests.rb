@@ -19,6 +19,8 @@ class FiberBundleLibraryTester < Minitest::Test
     foorth_equal('Bundle', [XfOOrth::XfOOrth_Bundle])
   end
 
+  # Fiber tests!
+
   def test_creating_a_fiber
     test_code = <<-EOS
       Fiber .new{{  }} .class .name
@@ -105,6 +107,47 @@ class FiberBundleLibraryTester < Minitest::Test
     current = eval "#{'$' + symbol.to_s}"
 
     foorth_equal('$current .to_fiber', [current])
+  end
+
+  #Bundle tests!
+
+  def test_making_a_bundle_of_fibers
+    test_code = <<-EOS
+      // Create a bunch of fibers.
+      [ {{ 1 .yield }} {{ 2 .yield }} {{ 3 .yield }} ] .to_bundle val$: $bundle
+
+      $bundle .run
+    EOS
+
+    foorth_equal(test_code, [1, 2, 3])
+  end
+
+  def test_making_a_bundle_of_one_fiber
+    test_code = <<-EOS
+      // Create a bunch of one fiber.
+      {{ 1 .yield }} .to_bundle val$: $bundle
+
+      $bundle .run
+    EOS
+
+    foorth_equal(test_code, [1])
+  end
+
+  def test_making_a_bundle_of_nested_fibers
+    test_code = <<-EOS
+      // Create a bunch of fibers.
+      [ {{ 2 .yield }} {{ 4 .yield }} {{ 5 .yield }} ] .to_bundle val$: $sub
+
+      [ {{ 1 .yield }} $sub {{ 3 .yield }} ] .to_bundle val$: $bundle
+
+      $bundle .run
+    EOS
+
+    foorth_equal(test_code, [1, 2, 3, 4, 5])
+  end
+
+  def test_making_a_bundle_of_not_fibers
+    foorth_raises('[ 1 2 3 ] .to_bundle')
   end
 
 end
