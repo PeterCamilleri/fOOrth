@@ -86,4 +86,16 @@ class FiberBundleLibraryTester < Minitest::Test
   def test_making_a_fiber_from_not_a_procedure
     foorth_raises('42 .to_fiber')
   end
+
+  def test_getting_the_current_fiber
+    foorth_run('Fiber .new{{ Fiber .current .yield }} val$: $current')
+
+    foorth_equal('Fiber .current', [nil])
+
+    symbol = XfOOrth::SymbolMap.map('$current')
+    current = eval "#{'$' + symbol.to_s}"
+
+    foorth_equal('$current .step', [current])
+  end
+
 end

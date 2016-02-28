@@ -9,8 +9,13 @@ module XfOOrth
   #The fOOrth Fiber class.
   class XfOOrth_Fiber
 
+    #Tag for newly created fibers.
     NEW   = "new".freeze
+
+    #Tag for running fibers.
     ALIVE = "alive".freeze
+
+    #Tag for defunct fibers.
     DEAD  = "dead".freeze
 
     #Build up the fiber instance. A fiber is a light-weight coroutine.
@@ -88,6 +93,11 @@ module XfOOrth
   # [a_procedure] .to_fiber [a_fiber]
   Proc.create_shared_method('.to_fiber', TosSpec, [], &lambda {|vm|
     vm.push(XfOOrth_Fiber.new(&self))
+  })
+
+  # [Fiber] .current [a_fiber or nil]
+  XfOOrth_Fiber.create_exclusive_method('.current', NosSpec, [], &lambda {|vm|
+    vm.push(vm.fiber)
   })
 
   # [a_fiber] .step [undefined]; The fiber performs a processing step.
