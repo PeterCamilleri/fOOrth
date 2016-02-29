@@ -160,24 +160,31 @@ class FiberBundleLibraryTester < Minitest::Test
 
     foorth_equal('$bundle .step', [1])
     foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .length', [2])
 
     foorth_equal('$bundle .step', [2])
     foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .length', [2])
 
     foorth_equal('$bundle .step', [3])
     foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .length', [1])
 
     foorth_equal('$bundle .step', [4])
     foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .length', [1])
 
     foorth_equal('$bundle .step', [5])
     foorth_equal('$bundle .alive?', [false])
+    foorth_equal('$bundle .length', [0])
 
     foorth_equal('$bundle .step', [])
     foorth_equal('$bundle .alive?', [false])
+    foorth_equal('$bundle .length', [0])
 
     foorth_equal('$bundle .step', [])
     foorth_equal('$bundle .alive?', [false])
+    foorth_equal('$bundle .length', [0])
   end
 
   def test_converting_a_bundle_to_a_fiber
@@ -187,6 +194,17 @@ class FiberBundleLibraryTester < Minitest::Test
     test = eval "#{'$' + symbol.to_s}"
 
     foorth_equal('$test .to_fiber', [test])
+  end
+
+  def test_converting_a_proc_to_a_bundle
+    foorth_run('{{ }} .to_bundle val$: $test')
+
+    symbol = XfOOrth::SymbolMap.map('$test')
+    test = eval "#{'$' + symbol.to_s}"
+
+    foorth_equal('$test .to_fiber', [test])
+    foorth_equal('$test .alive?',   [true])
+    foorth_equal('$test .length',   [1])
   end
 
   def test_adding_fibers_to_a_bundle
