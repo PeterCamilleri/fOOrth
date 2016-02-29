@@ -59,8 +59,13 @@ module XfOOrth
     end
   end
 
-  # [a_bundle] .to_fiber [a_bundle] ; Bundles are compatible with fibers.
+  # [a_bundle] .to_fiber [a_bundle] ; Bundles are compatible with fibers!
   XfOOrth_Bundle.create_shared_method('.to_fiber', TosSpec, [], &lambda {|vm|
+    vm.push(self)
+  })
+
+  #[a_bundle] .to_bundle [a_bundle]; Bundles are compatible with bundles too!
+  XfOOrth_Bundle.create_shared_method('.to_bundle', TosSpec, [], &lambda{|vm|
     vm.push(self)
   })
 
