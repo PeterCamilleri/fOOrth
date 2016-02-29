@@ -17,6 +17,7 @@ class FiberBundleLibraryTester < Minitest::Test
   def test_that_the_fiber_classes_exist
     foorth_equal('Fiber',  [XfOOrth::XfOOrth_Fiber])
     foorth_equal('Bundle', [XfOOrth::XfOOrth_Bundle])
+    foorth_equal('SyncBundle', [XfOOrth::XfOOrth_SyncBundle])
   end
 
   # Fiber tests!
@@ -244,6 +245,136 @@ class FiberBundleLibraryTester < Minitest::Test
 
   def test_making_a_bundle_of_not_fibers
     foorth_raises('[ 1 2 3 ] .to_bundle')
+  end
+
+  #Synchronized Bundle tests!
+
+  def test_making_a_sync_bundle_of_fibers
+    test_code = <<-EOS
+      // Create a bunch of fibers.
+      [ {{ 1 .yield }} {{ 2 .yield }} {{ 3 .yield }} ] .to_sync_bundle val$: $bundle
+
+      $bundle .run
+    EOS
+
+    foorth_equal(test_code, [1, 2, 3])
+  end
+
+  def test_making_a_sync_bundle_of_one_fiber
+    test_code = <<-EOS
+      // Create a bunch of one fiber.
+      {{ 1 .yield }} .to_sync_bundle val$: $bundle
+
+      $bundle .run
+    EOS
+
+    foorth_equal(test_code, [1])
+  end
+
+  def test_making_a_sync_bundle_of_nested_fibers
+    test_code = <<-EOS
+      // Create a bunch of fibers.
+      [ {{ 2 .yield }} {{ 4 .yield 5 .yield }} ] .to_bundle val$: $sub
+
+      [ {{ 1 .yield }} $sub {{ 3 .yield }} ] .to_sync_bundle val$: $bundle
+
+      $bundle .run
+    EOS
+
+    foorth_equal(test_code, [1, 2, 3, 4, 5])
+  end
+
+  def test_a_sync_bundle_one_step_at_time
+    test_code = <<-EOS
+      // Create a bunch of fibers.
+      [ {{ 2 .yield }} {{ 4 .yield 5 .yield }} ] .to_bundle val$: $sub
+
+      [ {{ 1 .yield }} $sub {{ 3 .yield }} ] .to_sync_bundle val$: $bundle
+    EOS
+
+    foorth_run(test_code)
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [3])
+
+    foorth_equal('$bundle .step', [1])
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [3])
+
+    foorth_equal('$bundle .step', [2])
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [3])
+
+    foorth_equal('$bundle .step', [3])
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [3])
+
+    foorth_equal('$bundle .step', [])
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [2])
+
+    foorth_equal('$bundle .step', [4])
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [2])
+
+    foorth_equal('$bundle .step', [])
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [1])
+
+    foorth_equal('$bundle .step', [])
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [1])
+
+    foorth_equal('$bundle .step', [5])
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [1])
+
+    foorth_equal('$bundle .step', [])
+    foorth_equal('$bundle .alive?', [false])
+    foorth_equal('$bundle .status', ["dead"])
+    foorth_equal('$bundle .length', [0])
+  end
+
+  def test_converting_a_sync_bundle_to_a_fiber
+    foorth_run('[ {{  }} {{ }} ] .to_sync_bundle val$: $test')
+
+    symbol = XfOOrth::SymbolMap.map('$test')
+    test = eval "#{'$' + symbol.to_s}"
+
+    foorth_equal('$test .to_fiber', [test])
+  end
+
+  def test_converting_a_proc_to_a_sync_bundle
+    foorth_run('{{ }} .to_sync_bundle val$: $test')
+
+    symbol = XfOOrth::SymbolMap.map('$test')
+    test = eval "#{'$' + symbol.to_s}"
+
+    foorth_equal('$test .to_fiber', [test])
+    foorth_equal('$test .alive?',   [true])
+    foorth_equal('$test .length',   [1])
+  end
+
+  def test_adding_fibers_to_a_sync_bundle
+    foorth_run('SyncBundle .new val$: $add')
+    foorth_equal('{{ }} $add .add $add .length', [1])
+    foorth_equal('{{ }} $add .add $add .length', [2])
+    foorth_equal('{{ }} $add .add $add .length', [3])
+    foorth_equal('{{ }} $add .add $add .length', [4])
+
+    foorth_raises('42 $add .add $add .length')
+  end
+
+  def test_making_a_sync_bundle_of_not_fibers
+    foorth_raises('[ 1 2 3 ] .to_sync_bundle')
   end
 
 end

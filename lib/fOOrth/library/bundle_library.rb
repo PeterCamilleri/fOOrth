@@ -9,7 +9,7 @@ module XfOOrth
   #The fOOrth Bundle class. A bundle contains multiple fibers.
   class XfOOrth_Bundle
 
-    #Build up the fiber instance
+    #Build up the bundle instance
     def initialize(fibers=[])
       @fibers = fibers.in_array.map {|f| f.to_foorth_fiber}
       @current = 0
@@ -32,6 +32,11 @@ module XfOOrth
     #What is the status of this bundle?
     def status
       @fibers.empty? ? "dead" : "alive"
+    end
+
+    #how many fibers in this bundle?
+    def length
+      @fibers.length
     end
 
     #Let the fiber run for one step
@@ -96,7 +101,7 @@ module XfOOrth
 
   # [a_bundle] .length [a_count]; How many fibers does the bundle have?
   XfOOrth_Bundle.create_shared_method('.length', TosSpec, [], &lambda {|vm|
-    vm.push(@fibers.length)
+    vm.push(self.length)
   })
 
 end
