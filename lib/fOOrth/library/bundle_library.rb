@@ -11,7 +11,7 @@ module XfOOrth
 
     #Build up the fiber instance
     def initialize(fibers=[])
-      @fibers = fibers.in_array.map {|f| f.to_fiber}
+      @fibers = fibers.in_array.map {|f| f.to_foorth_fiber}
       @current = 0
     rescue NoMethodError
       error "F70: A bundle may only contain procedures, fibers, or bundles."
@@ -19,13 +19,13 @@ module XfOOrth
 
     #Add the fibers to this bundle.
     def add_fibers(fibers)
-      fibers.in_array.each {|f| @fibers << f.to_fiber}
+      fibers.in_array.each {|f| @fibers << f.to_foorth_fiber}
     rescue NoMethodError
       error "F70: A bundle may only contain procedures, fibers, or bundles."
     end
 
     #Return this bundle as a fiber.
-    def to_fiber
+    def to_foorth_fiber
       self
     end
 

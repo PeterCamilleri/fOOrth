@@ -26,7 +26,7 @@ module XfOOrth
     end
 
     #Return this fiber as a fiber.
-    def to_fiber
+    def to_foorth_fiber
       self
     end
 
@@ -113,7 +113,7 @@ end
 class Proc
 
   #Convert this procedure to a fiber.
-  def to_fiber
+  def to_foorth_fiber
     XfOOrth::XfOOrth_Fiber.new(&self)
   end
 
