@@ -50,9 +50,7 @@ module XfOOrth
 
     #Run the fiber bundle constantly until done.
     def run(vm)
-      until @fibers.empty?
-        step(vm)
-      end
+      while step(vm); end
     end
   end
 
