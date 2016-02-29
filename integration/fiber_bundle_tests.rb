@@ -146,6 +146,59 @@ class FiberBundleLibraryTester < Minitest::Test
     foorth_equal(test_code, [1, 2, 3, 4, 5])
   end
 
+  def test_a_bundle_one_step_at_time
+    test_code = <<-EOS
+      // Create a bunch of fibers.
+      [ {{ 2 .yield }} {{ 4 .yield }} {{ 5 .yield }} ] .to_bundle val$: $sub
+
+      [ {{ 1 .yield }} $sub {{ 3 .yield }} ] .to_bundle val$: $bundle
+    EOS
+
+    foorth_run(test_code)
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .length', [3])
+
+    foorth_equal('$bundle .step', [1])
+    foorth_equal('$bundle .alive?', [true])
+
+    foorth_equal('$bundle .step', [2])
+    foorth_equal('$bundle .alive?', [true])
+
+    foorth_equal('$bundle .step', [3])
+    foorth_equal('$bundle .alive?', [true])
+
+    foorth_equal('$bundle .step', [4])
+    foorth_equal('$bundle .alive?', [true])
+
+    foorth_equal('$bundle .step', [5])
+    foorth_equal('$bundle .alive?', [false])
+
+    foorth_equal('$bundle .step', [])
+    foorth_equal('$bundle .alive?', [false])
+
+    foorth_equal('$bundle .step', [])
+    foorth_equal('$bundle .alive?', [false])
+  end
+
+  def test_converting_a_bundle_to_a_fiber
+    foorth_run('[ {{  }} {{ }} ] .to_bundle val$: $test')
+
+    symbol = XfOOrth::SymbolMap.map('$test')
+    test = eval "#{'$' + symbol.to_s}"
+
+    foorth_equal('$test .to_fiber', [test])
+  end
+
+  def test_adding_fibers_to_a_bundle
+    foorth_run('Bundle .new val$: $add')
+    foorth_equal('{{ }} $add .add $add .length', [1])
+    foorth_equal('{{ }} $add .add $add .length', [2])
+    foorth_equal('{{ }} $add .add $add .length', [3])
+    foorth_equal('{{ }} $add .add $add .length', [4])
+
+    foorth_raises('42 $add .add $add .length')
+  end
+
   def test_making_a_bundle_of_not_fibers
     foorth_raises('[ 1 2 3 ] .to_bundle')
   end
