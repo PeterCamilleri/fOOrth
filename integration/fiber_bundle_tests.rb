@@ -62,11 +62,18 @@ class FiberBundleLibraryTester < Minitest::Test
     foorth_raises(test_code)
   end
 
-  def test_for_fiber_alive
+  def test_for_fiber_alive_and_status
     foorth_run('Fiber .new{{ yield }} val$: $alive')
+
     foorth_equal('$alive .alive?', [true])
+    foorth_equal('$alive .status', ["new"])
+
     foorth_equal('$alive .step $alive .alive?', [true])
+    foorth_equal('$alive .status', ["alive"])
+
     foorth_equal('$alive .step $alive .alive?', [false])
+    foorth_equal('$alive .status', ["dead"])
+
     foorth_raises('$alive .step')
   end
 
@@ -136,7 +143,7 @@ class FiberBundleLibraryTester < Minitest::Test
   def test_making_a_bundle_of_nested_fibers
     test_code = <<-EOS
       // Create a bunch of fibers.
-      [ {{ 2 .yield }} {{ 4 .yield }} {{ 5 .yield }} ] .to_bundle val$: $sub
+      [ {{ 2 .yield }} {{ 4 .yield 5 .yield }} ] .to_bundle val$: $sub
 
       [ {{ 1 .yield }} $sub {{ 3 .yield }} ] .to_bundle val$: $bundle
 
@@ -149,41 +156,59 @@ class FiberBundleLibraryTester < Minitest::Test
   def test_a_bundle_one_step_at_time
     test_code = <<-EOS
       // Create a bunch of fibers.
-      [ {{ 2 .yield }} {{ 4 .yield }} {{ 5 .yield }} ] .to_bundle val$: $sub
+      [ {{ 2 .yield }} {{ 4 .yield 5 .yield }} ] .to_bundle val$: $sub
 
       [ {{ 1 .yield }} $sub {{ 3 .yield }} ] .to_bundle val$: $bundle
     EOS
 
     foorth_run(test_code)
     foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
     foorth_equal('$bundle .length', [3])
 
     foorth_equal('$bundle .step', [1])
     foorth_equal('$bundle .alive?', [true])
-    foorth_equal('$bundle .length', [2])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [3])
 
     foorth_equal('$bundle .step', [2])
     foorth_equal('$bundle .alive?', [true])
-    foorth_equal('$bundle .length', [2])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [3])
 
     foorth_equal('$bundle .step', [3])
     foorth_equal('$bundle .alive?', [true])
-    foorth_equal('$bundle .length', [1])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [3])
+
+    foorth_equal('$bundle .step', [])
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [2])
 
     foorth_equal('$bundle .step', [4])
     foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [2])
+
+    foorth_equal('$bundle .step', [])
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [1])
+
+    foorth_equal('$bundle .step', [])
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
     foorth_equal('$bundle .length', [1])
 
     foorth_equal('$bundle .step', [5])
-    foorth_equal('$bundle .alive?', [false])
-    foorth_equal('$bundle .length', [0])
+    foorth_equal('$bundle .alive?', [true])
+    foorth_equal('$bundle .status', ["alive"])
+    foorth_equal('$bundle .length', [1])
 
     foorth_equal('$bundle .step', [])
     foorth_equal('$bundle .alive?', [false])
-    foorth_equal('$bundle .length', [0])
-
-    foorth_equal('$bundle .step', [])
-    foorth_equal('$bundle .alive?', [false])
+    foorth_equal('$bundle .status', ["dead"])
     foorth_equal('$bundle .length', [0])
   end
 

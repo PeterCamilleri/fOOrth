@@ -29,10 +29,15 @@ module XfOOrth
       self
     end
 
+    #What is the status of this bundle?
+    def status
+      @fibers.empty? ? "dead" : "alive"
+    end
+
     #Let the fiber run for one step
     def step(vm)
       if @current < @fibers.length
-        unless @fibers[@current].step(vm)
+        if @fibers[@current].step(vm)
           @current += 1
         else
           @fibers.delete_at(@current)
@@ -40,6 +45,7 @@ module XfOOrth
       end
 
       @current = 0 unless @current < @fibers.length
+      !@fibers.empty?
     end
 
     #Run the fiber bundle constantly until done.
@@ -83,6 +89,11 @@ module XfOOrth
   # [a_bundle] .alive? [a_boolean]; Does the bundle still have fibers in it?
   XfOOrth_Bundle.create_shared_method('.alive?', TosSpec, [], &lambda {|vm|
     vm.push(!@fibers.empty?)
+  })
+
+  # [a_bundle] .status [a_string]; Does the bundle still have fibers in it?
+  XfOOrth_Bundle.create_shared_method('.status', TosSpec, [], &lambda {|vm|
+    vm.push(status)
   })
 
   # [a_bundle] .length [a_count]; How many fibers does the bundle have?

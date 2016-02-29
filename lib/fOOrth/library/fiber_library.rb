@@ -40,7 +40,7 @@ module XfOOrth
       vm.data_stack, vm.fiber, @save = @stack, self, vm.data_stack
       @status = @fiber.resume(vm)
     rescue FiberError
-      error "F72: Cannot step a dead fiber."
+      error "F72: The fiber is dead, no further steps can be taken."
     ensure
       vm.data_stack, vm.fiber, @stack = @save, nil, vm.data_stack
     end
@@ -100,6 +100,11 @@ module XfOOrth
   # [a_fiber] .alive? [a_boolean]; Is the fiber still alive?
   XfOOrth_Fiber.create_shared_method('.alive?', TosSpec, [], &lambda {|vm|
     vm.push(!@status.nil?)
+  })
+
+  # [a_fiber] .alive? [a_string]; Is the fiber still alive?
+  XfOOrth_Fiber.create_shared_method('.status', TosSpec, [], &lambda {|vm|
+    vm.push(status)
   })
 
 end
