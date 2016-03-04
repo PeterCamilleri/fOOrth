@@ -12,8 +12,13 @@ module XfOOrth
     #Initialize a new console command source.
     def initialize
       reset_read_point
+
+      auto_src = lambda { SymbolMap.forward_map.keys.sort  }
+
       @edit = MiniReadline::Readline.new(history: true,
                                          auto_complete: true,
+                                         auto_source: MiniReadline::ArraySource,
+                                         array_src: auto_src,
                                          eoi_detect: true)
     end
 
@@ -58,6 +63,8 @@ module XfOOrth
     def source_name
       "The console."
     end
+
+    alias :file_name :source_name
 
   end
 end

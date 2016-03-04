@@ -11,6 +11,9 @@ module XfOOrth
       "#{self.class.foorth_name} instance <#{@name}>"
     end
 
+    #The currently active fiber, if any.
+    attr_accessor :fiber
+
     class << self
 
       #Create a new fOOrth subclass of this class. This is not allowed for the

@@ -34,7 +34,7 @@ module XfOOrth
     vm.push(self.do_thread_start(vm, '-'))
   })
 
-  # [procedure] .start_named [a_thread]
+  # [name procedure] .start_named [a_thread]
   Proc.create_shared_method('.start_named', TosSpec, [], &lambda {|vm|
     vm.push(self.do_thread_start(vm, vm.pop.to_s))
   })

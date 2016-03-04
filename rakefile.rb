@@ -50,13 +50,6 @@ task :console do
   IRB.start
 end
 
-desc "Run the Simple Interactive Ruby Environment."
-task :sire do
-  require './lib/fOOrth'
-  require './sire'
-  SIRE.new.run_sire
-end
-
 desc "Run an Interactive fOOrth Session."
 task :run do
   require './lib/fOOrth'

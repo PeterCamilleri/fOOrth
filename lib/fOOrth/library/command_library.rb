@@ -128,7 +128,7 @@ module XfOOrth
 
   #Dump the SymbolMap entries.
   VirtualMachine.create_shared_method(')entries', VmSpec, [], &lambda {|vm|
-    entries = SymbolMap.fwd_map.keys.sort
+    entries = SymbolMap.forward_map.keys.sort
     puts 'Symbol Map Entries = '
     entries.foorth_pretty(vm)
     puts

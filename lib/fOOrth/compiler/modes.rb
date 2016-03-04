@@ -15,7 +15,7 @@ module XfOOrth
     #<br>Parameters:
     #* text - Some text to be executed or deferred.
     def process_text(text)
-      if execute_mode
+      if execute_mode?
         dbg_puts "  Code=#{text.inspect}"
         @context.recvr.instance_exec(self, &eval("lambda {|vm| #{text} }"))
       else
@@ -24,7 +24,7 @@ module XfOOrth
     end
 
     #Check to see if the virtual machine is in execute mode.
-    def execute_mode
+    def execute_mode?
       @context[:mode] == :execute
     end
 

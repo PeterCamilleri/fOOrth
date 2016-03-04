@@ -17,7 +17,7 @@ module XfOOrth
       dbg_puts "  suspend_execute_mode"
       @context = Context.new(@context, ctrl: ctrl)
 
-      if execute_mode
+      if execute_mode?
         @context[:mode] = :deferred
         @buffer = ''
       end
