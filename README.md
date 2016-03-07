@@ -3,7 +3,7 @@
 The fOOrth language is an experimental variant of FORTH that attempts to
 incorporate object oriented and functional programming concepts. It also
 tries to extrapolate an alternate reality where FORTH was not frozen in the
-past, but continued to grow and develop with the times. Above this project
+past, but continued to grow and develop with the times. Above all this project
 is the result of nearly 30 years of thought on the design of threaded
 compilers and languages with simplified grammars and syntax.
 
