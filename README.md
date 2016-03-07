@@ -1,4 +1,4 @@
-# The fOOrth Language gem.
+![fOOrth Project Logo](images/fOOrth_logo.png)
 
 This file contains the read-me for the fOOrth language gem. The fOOrth
 language is an experimental variant of FORTH that attempts to incorporate
