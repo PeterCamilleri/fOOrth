@@ -1,12 +1,11 @@
 ![fOOrth Project Logo](images/fOOrth_logo.png)
 
-This file contains the read-me for the fOOrth language gem. The fOOrth
-language is an experimental variant of FORTH that attempts to incorporate
-object oriented and functional programming concepts.
-
-As an aside, there can be no doubt that the fOOrth project is an utter waste
-of anyone's time, unless one counts the insights gained into the inner
-workings of Ruby and meta programming.
+The fOOrth language is an experimental variant of FORTH that attempts to
+incorporate object oriented and functional programming concepts. It also
+tries to extrapolate an alternate reality where FORTH was not frozen in the
+past, but continued to grow and develop with the times. Above this project
+is the result of nearly 30 years of thought on the design of threaded
+compilers and languages with simplified grammars and syntax.
 
 ## Usage
 Adding fOOrth can be as simple as:
