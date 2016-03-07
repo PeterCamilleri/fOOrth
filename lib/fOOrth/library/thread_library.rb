@@ -47,6 +47,11 @@ module XfOOrth
     sleep(Float.foorth_coerce(self))
   })
 
+  #Put the current thread to sleep for the specified number of seconds.
+  Float.create_shared_method('.sleep', TosSpec, [], &lambda {|vm|
+    sleep(self)
+  })
+
   #Wait for a thread to finish.
   #[a_thread] .join []
   Thread.create_shared_method('.join', TosSpec, [], &lambda {|vm|
