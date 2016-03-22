@@ -29,7 +29,7 @@ module XfOOrth
       end until token.has_tag?(:end)
 
       close_procedure_literal
-      (result, @buffer = @buffer, save)[0]
+      (_, @buffer = @buffer, save)[0]
     end
 
     #Handle the opening of a procedure literal.

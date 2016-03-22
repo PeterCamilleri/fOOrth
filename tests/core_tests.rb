@@ -36,7 +36,7 @@ class CoreTester < Minitest::Test
 
     XfOOrth::SymbolMap.add_entry("a_test_one", :a_test_one)
 
-    spec = Object.create_shared_method("a_test_one", XfOOrth::TosSpec, []) {|vm| vm.push(9671111) }
+    spec = Object.create_shared_method("a_test_one", XfOOrth::TosSpec, []) {|lvm| lvm.push(9671111) }
 
     obj.a_test_one(vm)
 
@@ -56,8 +56,8 @@ class CoreTester < Minitest::Test
 
     XfOOrth::SymbolMap.add_entry("a_test_two", :a_test_two)
 
-    spec = obj.create_exclusive_method("a_test_two", XfOOrth::TosSpec, []) do |vm|
-      vm.push(9686668)
+    spec = obj.create_exclusive_method("a_test_two", XfOOrth::TosSpec, []) do |lvm|
+      lvm.push(9686668)
     end
 
     obj.a_test_two(vm)
@@ -108,11 +108,11 @@ class CoreTester < Minitest::Test
     assert_equal(XfOOrth::XfOOrth_MyClass, $FOORTH_GLOBALS[symbol].new_class)
 
     assert_raises(XfOOrth::XfOOrthError) do
-      no_class = Object.create_foorth_subclass('No Class')
+      Object.create_foorth_subclass('No Class')
     end
 
     assert_raises(XfOOrth::XfOOrthError) do
-      copy_class = Object.create_foorth_subclass('MyClass')
+      Object.create_foorth_subclass('MyClass')
     end
   end
 
@@ -126,11 +126,11 @@ class CoreTester < Minitest::Test
     assert_equal(String, $FOORTH_GLOBALS[symbol].new_class)
 
     assert_raises(XfOOrth::XfOOrthError) do
-      bad_class = Object.create_foorth_subclass('My Class')
+      Object.create_foorth_subclass('My Class')
     end
 
     assert_raises(XfOOrth::XfOOrthError) do
-      bad_class = Module.create_foorth_proxy('Mod ule')
+      Module.create_foorth_proxy('Mod ule')
     end
 
   end

@@ -55,6 +55,7 @@ class SIRE
     puts "Local commands:"
     puts "    q       - quit SIRE."
     puts "    r       - run fOOrth."
+    puts "    v       - version manifest"
     puts "obj classes - show the obj's class heritage."
     puts
   end
@@ -69,6 +70,14 @@ class SIRE
   def r
     ARGV.clear
     XfOOrth::main.data_stack
+  end
+
+  def v
+    puts "Version Manifest"
+    mods = ObjectSpace.each_object(Module).select{|c| c.const_defined?("VERSION")}
+    width = (mods.max_by{|m| m.to_s.length}).to_s.length
+    list = mods.map {|m| "#{m.to_s.ljust(width)} #{m.const_get(:VERSION)}" }
+    list.sort
   end
 
   #Load and run a file
