@@ -50,10 +50,6 @@ class Object
     self.class.map_foorth_shared(symbol)
   end
 
-  #The default foorth_init method does nothing.
-  def foorth_init(_vm)
-  end
-
   #The \method_missing hook is used to provide meaningful error messages
   #when problems are encountered.
   #<br>Parameters:

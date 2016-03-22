@@ -27,12 +27,14 @@ Rake::TestTask.new do |t|
   #List out all the test files.
   t.test_files = FileList['tests/**/*.rb']
   t.verbose = false
+  #t.warning = false
 end
 
 #Run the fOOrth integration test suite.
 Rake::TestTask.new(:integration) do |t|
   #List out all the test files.
   t.test_files = FileList['integration/*.rb']
+  t.warning = false
 end
 
 desc "Run a scan for smelly code!"

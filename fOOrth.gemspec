@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = XfOOrth::VERSION
   spec.authors       = ["Peter Camilleri"]
   spec.email         = "peter.c.camilleri@gmail.com"
-  spec.homepage      = "http://teuthida-technologies.com/"
+  spec.homepage      = "http://www.foorth.org/"
   spec.description   = "An Object Oriented FORTHesque language gem."
   spec.summary       = "FNF == fOOrth is Not FORTH."
   spec.license       = 'MIT'

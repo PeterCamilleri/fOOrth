@@ -16,7 +16,7 @@ module XfOOrth
   #Predefine the default implementation of the .init method. This method must
   #exist at this point in order to proceed further.
   name = '.init'
-  sym = SymbolMap.add_entry(name, :foorth_init)
+  SymbolMap.add_entry(name, :foorth_init)
   Object.create_shared_method(name, TosSpec, [], &lambda {|vm| })
 
   #Create a virtual machine instance for the main thread. The constructor
