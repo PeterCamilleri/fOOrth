@@ -93,7 +93,7 @@ module XfOOrth
         when "--show"
           defer << ")show "
         when "--load"
-          defer << "\"#{arg}\" .load "
+          defer << ")load#{arg.inspect}"
         when "--quit"
           defer << ")quit "
         when "--words"
