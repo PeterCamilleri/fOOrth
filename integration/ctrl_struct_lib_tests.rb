@@ -68,6 +68,11 @@ class CtrlStructLibraryTester < Minitest::Test
 
     foorth_run(': twc01 4 .with{{ self 2* }} ;')
     foorth_equal('twc01', [8])
+
+    foorth_equal('42 .with{{ self }}', [42])
+    foorth_equal('42 .with{{ [ 0 ] .each{{ self }} }}', [42])
+    foorth_equal('42 .with{{ 0 1 do self loop }}', [42])
+    foorth_equal('42 .with{{ {{ self }} .call }}', [42])
   end
 
   def test_for_unsupported_structures
