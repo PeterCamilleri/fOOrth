@@ -37,4 +37,10 @@ class ProcedureLibraryTester < Minitest::Test
 
     foorth_equal('5 4 {{ v x 2dup + }} .call_vx', [5, 4, 9])
   end
+
+  def test_local_data
+    foorth_equal('{{ 42 val: a a   }} .call', [42])
+    foorth_equal('{{ 42 var: a a @ }} .call', [42])
+  end
+
 end

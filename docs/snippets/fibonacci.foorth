@@ -1,0 +1,27 @@
+// A Fibonacci sequencer class.
+//  - Instance variables
+
+class: Fibonacci
+
+(Fibonacci .new a_fibonacci)
+Fibonacci .: .init  1 var@: @a 1 var@: @b ;
+
+(a_fibonacci .next a_value)
+Fibonacci .: .next  @a @ dup @b @ swap over + @b ! @a ! ;
+
+(a_value a_value a_fibonacci .reset -)
+Fibonacci .: .reset @b ! @a ! ;
+
+//Create a generator and save its value.
+Fibonacci .new val$: $fib
+
+//Create a testing word for the generator.
+: run_test 0 12 do $fib .next . space loop cr ;
+
+."Classical Fibonacci Sequence:" cr
+run_test
+
+0.5 0.5 $fib .reset
+
+."Modified Fibonacci Sequence:" cr
+run_test
