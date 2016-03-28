@@ -11,7 +11,7 @@ module XfOOrth
 
     #Build up the bundle instance
     def initialize(fibers=[])
-      @fibers = fibers.in_array.map {|f| f.to_foorth_fiber}
+      @fibers = fibers.in_array.map {|fiber| fiber.to_foorth_fiber}
       @current = 0
     rescue NoMethodError
       error "F70: A bundle may only contain procedures, fibers, or bundles."
@@ -19,7 +19,7 @@ module XfOOrth
 
     #Add the fibers to this bundle.
     def add_fibers(fibers)
-      fibers.in_array.each {|f| @fibers << f.to_foorth_fiber}
+      fibers.in_array.each {|fiber| @fibers << fiber.to_foorth_fiber}
     rescue NoMethodError
       error "F70: A bundle may only contain procedures, fibers, or bundles."
     end
@@ -40,6 +40,8 @@ module XfOOrth
     end
 
     #Let the fiber run for one step
+    #<br>Endemic Code Smells
+    #* :reek:DuplicateMethodCall
     def step(vm)
       if @current < @fibers.length
         if @fibers[@current].step(vm)

@@ -27,6 +27,8 @@ module XfOOrth
     end
 
     #Process a backlash character found with a string in the source text.
+    #<br>Endemic Code Smells
+    #* :reek:TooManyStatements
     def process_backslash(buffer)
       next_char = @source.get
 

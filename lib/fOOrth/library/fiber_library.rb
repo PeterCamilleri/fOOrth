@@ -36,6 +36,8 @@ module XfOOrth
     end
 
     #Let the fiber run for one step.
+    #<br>Endemic Code Smells
+    #* :reek:DuplicateMethodCall
     def step(vm)
       vm.data_stack, vm.fiber, @save = @stack, self, vm.data_stack
       @status = @fiber.resume(vm)
@@ -46,6 +48,8 @@ module XfOOrth
     end
 
     #Yield back to the thread.
+    #<br>Endemic Code Smells
+    #* :reek:UtilityFunction
     def yield
       Fiber.yield(ALIVE)
     end

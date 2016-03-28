@@ -107,3 +107,6 @@ UtilityFunction:
   enabled: true
   exclude: []
   max_helper_calls: 1
+UnusedPrivateMethod:
+  enabled: false
+  exclude: []
