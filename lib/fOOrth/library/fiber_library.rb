@@ -19,8 +19,8 @@ module XfOOrth
     DEAD  = "dead".freeze
 
     #Build up the fiber instance. A fiber is a light-weight coroutine.
-    def initialize(stack=[], &block)
-      @stack = stack
+    def initialize(&block)
+      @stack = []
       @fiber = Fiber.new &lambda{|vm| block.call(vm); nil}
       @status = NEW
     end
