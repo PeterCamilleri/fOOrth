@@ -108,11 +108,11 @@ module XfOOrth
   def self.add_common_compiler_locals(vm, ctrl)
     context = vm.context
 
-    #Support for local variables.
+    #Support for local data.
     context.create_local_method('var:', LocalSpec, [:immediate], &Local_Var_Action)
     context.create_local_method('val:', LocalSpec, [:immediate], &Local_Val_Action)
 
-    #Support for instance variables.
+    #Support for instance data.
     context.create_local_method('var@:', LocalSpec, [:immediate], &Inst_Var_Action)
     context.create_local_method('val@:', LocalSpec, [:immediate], &Inst_Val_Action)
 

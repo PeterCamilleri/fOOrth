@@ -1,1 +1,17 @@
-0 total warnings
+lib/fOOrth/compiler/parser/get_string.rb -- 1 warning:
+  [30]:TooManyStatements: XfOOrth::Parser#process_backslash has approx 9 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
+lib/fOOrth/compiler/process/procedure.rb -- 1 warning:
+  [15]:UnusedPrivateMethod: XfOOrth::VirtualMachine has the unused private instance method `procedure_parms` [https://github.com/troessner/reek/blob/master/docs/Unused-Private-Method.md]
+lib/fOOrth/compiler/process.rb -- 1 warning:
+  [19]:UnusedPrivateMethod: XfOOrth::VirtualMachine has the unused private instance method `process` [https://github.com/troessner/reek/blob/master/docs/Unused-Private-Method.md]
+lib/fOOrth/debug/display_abort.rb -- 1 warning:
+  [13]:TooManyStatements: XfOOrth::VirtualMachine#display_abort has approx 9 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
+lib/fOOrth/library/bundle_library.rb -- 4 warnings:
+  [44, 52]:DuplicateMethodCall: XfOOrth::XfOOrth_Bundle#step calls @current < @fibers.length 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
+  [44, 52]:DuplicateMethodCall: XfOOrth::XfOOrth_Bundle#step calls @fibers.length 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
+  [22]:UncommunicativeVariableName: XfOOrth::XfOOrth_Bundle#add_fibers has the variable name 'f' [https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md]
+  [14]:UncommunicativeVariableName: XfOOrth::XfOOrth_Bundle#initialize has the variable name 'f' [https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md]
+lib/fOOrth/library/fiber_library.rb -- 2 warnings:
+  [40, 45]:DuplicateMethodCall: XfOOrth::XfOOrth_Fiber#step calls vm.data_stack 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
+  [49]:UtilityFunction: XfOOrth::XfOOrth_Fiber#yield doesn't depend on instance state (maybe move it to another class?) [https://github.com/troessner/reek/blob/master/docs/Utility-Function.md]
+10 total warnings

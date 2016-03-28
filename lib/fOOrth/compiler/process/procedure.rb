@@ -35,8 +35,15 @@ module XfOOrth
     #Handle the opening of a procedure literal.
     def open_procedure_literal
       suspend_execute_mode("vm.push(lambda {|vm, val=nil, idx=nil| ", :procedure)
+
+      #Support for the standard procedure parameters.
       context.create_local_method('v',  MacroSpec, [:macro, "vm.push(val); "])
       context.create_local_method('x',  MacroSpec, [:macro, "vm.push(idx); "])
+
+      #Support for local data.
+      context.create_local_method('var:', LocalSpec, [:immediate], &Local_Var_Action)
+      context.create_local_method('val:', LocalSpec, [:immediate], &Local_Val_Action)
+
       context.create_local_method('}}', MacroSpec, [:macro, :end,     "}); "])
     end
 
