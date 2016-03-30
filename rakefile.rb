@@ -24,16 +24,17 @@ end
 
 #Run the fOOrth unit test suite.
 Rake::TestTask.new do |t|
-  #List out all the test files.
+  #List out all the unit test files.
   t.test_files = FileList['tests/**/*.rb']
   t.verbose = false
-  #t.warning = false
+  t.warning = true
 end
 
 #Run the fOOrth integration test suite.
 Rake::TestTask.new(:integration) do |t|
-  #List out all the test files.
+  #List out all the integration test files.
   t.test_files = FileList['integration/*.rb']
+  t.verbose = false
   t.warning = false
 end
 
