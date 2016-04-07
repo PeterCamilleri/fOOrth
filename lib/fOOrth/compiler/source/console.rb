@@ -64,7 +64,10 @@ module XfOOrth
       "The console."
     end
 
-    alias :file_name :source_name
+    #The console has no file name to return.
+    def fine_name
+      nil
+    end
 
   end
 end

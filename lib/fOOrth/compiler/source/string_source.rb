@@ -21,7 +21,10 @@ module XfOOrth
       "A string."
     end
 
-    alias :file_name :source_name
+    #A string source has no file name to return.
+    def file_name
+      nil
+    end
 
   end
 

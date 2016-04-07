@@ -181,7 +181,7 @@ class CompileLibraryTester < Minitest::Test
   end
 
   def test_for_FILE_method
-    foorth_equal('_FILE_', ['A string.'])
+    foorth_equal('_FILE_', [nil])
 
     nm = File.absolute_path('integration/_FILE_test.foorth')
     foorth_equal('"integration/_FILE_test.foorth" .load ', [nm, 7, nm])
