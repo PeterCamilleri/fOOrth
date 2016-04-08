@@ -86,11 +86,14 @@ class StandardLibraryTester < Minitest::Test
     foorth_equal("33 33 identical?", [true])
     foorth_equal("33 33 distinct?", [false])
 
-    foorth_equal('"33" "33" identical?', [false])
-    foorth_equal('"33" "33" distinct?', [true])
+    foorth_equal('"33" "33" identical?', [true])
+    foorth_equal('"33" "33" distinct?', [false])
 
     foorth_equal('"33" dup  identical?', [true])
     foorth_equal('"33" dup  distinct?', [false])
+
+    foorth_equal('*"33" *"33" identical?', [false])
+    foorth_equal('*"33" *"33" distinct?', [true])
 
   end
 

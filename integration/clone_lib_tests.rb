@@ -34,7 +34,7 @@ class CloneLibraryTester < Minitest::Test
 
   def test_some_clone_exclusion
     foorth_run('class: Tscx')
-    foorth_run('Tscx .: .init "a" val@: @a "b" val@: @b ;')
+    foorth_run('Tscx .: .init *"a" val@: @a *"b" val@: @b ;')
     foorth_run('Tscx .: .a @a ;')
     foorth_run('Tscx .: .b @b ;')
     foorth_run('Tscx .: .clone_exclude [ "@b" ] ;')
@@ -59,7 +59,7 @@ class CloneLibraryTester < Minitest::Test
   end
 
   def test_array_clone_exclusion
-    foorth_run('[ "a" "b" ] val$: $tacx1')
+    foorth_run('[ *"a" *"b" ] val$: $tacx1')
     foorth_run('$tacx1 .:: .clone_exclude [ 1 ] ;')
     foorth_run('$tacx1 .clone val$: $tacx2')
 
@@ -77,7 +77,7 @@ class CloneLibraryTester < Minitest::Test
   end
 
   def test_hash_clone_exclusion
-    foorth_run('{ 0 "a" -> 1 "b" -> } val$: $thcx1')
+    foorth_run('{ 0 *"a" -> 1 *"b" -> } val$: $thcx1')
     foorth_run('$thcx1 .:: .clone_exclude [ 1 ] ;')
     foorth_run('$thcx1 .clone val$: $thcx2')
 

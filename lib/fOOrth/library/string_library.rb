@@ -3,6 +3,8 @@
 #The \StringBuffer class is the mutable variant of the String class.
 class StringBuffer < String
 
+  #Create a string buffer from an object. Make sure that object is a
+  #string and make sure that string is not frozen.
   def initialize(text)
     super(text.to_s.dup)
   end
@@ -21,6 +23,16 @@ module XfOOrth
 
   # A no operation place holder for string literals
   VirtualMachine.create_shared_method('"', MacroSpec, [:macro, " "])
+
+  # StringBuffer literals.
+  VirtualMachine.create_shared_method('*"', VmSpec, [], &lambda { |vm|
+    push(StringBuffer.new(pop))
+  })
+
+  #Is this mutable? StringBuffers are, Strings are not.
+  # [a] .mutable? [flag]
+  String.create_shared_method('.mutable?', TosSpec, [],
+    &lambda {|vm| vm.push(!self.frozen?); })
 
   # [string] .each{{ ... }} [unspecified]
   String.create_shared_method('.each{{', NosSpec, [], &lambda { |vm|

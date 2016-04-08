@@ -19,6 +19,7 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('"A" .class ',   [String])
 
     foorth_equal('StringBuffer ', [StringBuffer])
+    foorth_equal('*"A" .class ',  [StringBuffer])
   end
 
   def test_string_literals
@@ -46,6 +47,11 @@ class StringLibraryTester < Minitest::Test
 
     foorth_equal(' "a\\x55b" ',  ["aUb"])
     foorth_equal(' "a\\u5555b" ',  ["a\u5555b"])
+
+    foorth_equal('"A"  .mutable?', [false])
+    foorth_equal('*"A" .mutable?', [true])
+
+
   end
 
   def test_file_loading
@@ -168,11 +174,11 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('"abc" 0     +',   ['abc0'])
     foorth_equal('"abc" "def" + ',  ['abcdef'])
 
-    foorth_equal('"abc" 0     <<',  ['abc0'])
-    foorth_equal('"abc" "def" << ', ['abcdef'])
+    foorth_equal('*"abc" 0     <<',  ['abc0'])
+    foorth_equal('*"abc" "def" << ', ['abcdef'])
 
-    foorth_equal('"abc" dup "def" +  distinct?', [true])
-    foorth_equal('"abc" dup "def" << distinct?', [false])
+    foorth_equal(' "abc" dup "def" +  distinct?', [true])
+    foorth_equal('*"abc" dup "def" << distinct?', [false])
   end
 
   def test_case_changing
