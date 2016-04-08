@@ -1,10 +1,23 @@
 # coding: utf-8
 
+#The \StringBuffer class is the mutable variant of the String class.
+class StringBuffer < String
+
+  def initialize(text)
+    super(text.to_s.dup)
+  end
+
+end
+
+
 #* library/string_library.rb - String support for the fOOrth library.
 module XfOOrth
 
   #Connect the String class to the fOOrth class system.
   String.create_foorth_proxy
+
+  #Connect the StringBuffer class to the fOOrth class system.
+  StringBuffer.create_foorth_proxy
 
   # A no operation place holder for string literals
   VirtualMachine.create_shared_method('"', MacroSpec, [:macro, " "])

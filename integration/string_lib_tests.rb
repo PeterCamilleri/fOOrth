@@ -14,6 +14,13 @@ class StringLibraryTester < Minitest::Test
   #Track mini-test progress.
   include MinitestVisible
 
+  def test_string_classes
+    foorth_equal('String ',       [String])
+    foorth_equal('"A" .class ',   [String])
+
+    foorth_equal('StringBuffer ', [StringBuffer])
+  end
+
   def test_string_literals
     foorth_equal(' ""          ',  [""])
     foorth_equal(' "\""        ',  ["\""])
