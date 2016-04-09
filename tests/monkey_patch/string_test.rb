@@ -52,6 +52,10 @@ class StringMonkeyPatchTester < Minitest::Test
     s = "abc"
     assert_equal(s.object_id, s.safe_clone.object_id)
     assert_equal(s.object_id, s.full_clone.object_id)
+
+    b = StringBuffer.new('abc')
+    refute_equal(b.object_id, b.safe_clone.object_id)
+    refute_equal(b.object_id, b.full_clone.object_id)
   end
 
 end
