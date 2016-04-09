@@ -101,6 +101,7 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('5 "too long" .ljust ', ['too long'])
 
     foorth_equal('5 "a" .ljust .mutable?', [false])
+    foorth_equal('5 *"a" .ljust .class', [String])
   end
 
   def test_center_justification
@@ -108,6 +109,7 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('5 "too long" .cjust ', ['too long'])
 
     foorth_equal('5 "a" .cjust .mutable?', [false])
+    foorth_equal('5 *"a" .cjust .class', [String])
   end
 
   def test_right_justification
@@ -115,10 +117,15 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('5 "too long" .rjust ', ['too long'])
 
     foorth_equal('5 "a" .rjust .mutable?', [false])
+    foorth_equal('5 *"a" .rjust .class', [String])
   end
 
   def test_left_strip
     foorth_equal('" a " .lstrip ', ["a "])
+
+    foorth_equal('*" a " .lstrip ', ["a "])
+
+
   end
 
   def test_center_strip

@@ -57,16 +57,19 @@ module XfOOrth
 
   #Some string manipulation methods.
   # [n a] .ljust ['a    ']; left justify
-  String.create_shared_method('.ljust', TosSpec, [],
-    &lambda {|vm| vm.poke(self.ljust(Integer.foorth_coerce(vm.peek)).freeze); })
+  String.create_shared_method('.ljust', TosSpec, [], &lambda {|vm|
+    vm.poke(self.to_s.ljust(Integer.foorth_coerce(vm.peek)).freeze);
+  })
 
   # [n a] .cjust ['  a  ']; center justify
-  String.create_shared_method('.cjust', TosSpec, [],
-    &lambda {|vm| vm.poke(self.center(Integer.foorth_coerce(vm.peek)).freeze); })
+  String.create_shared_method('.cjust', TosSpec, [], &lambda {|vm|
+    vm.poke(self.to_s.center(Integer.foorth_coerce(vm.peek)).freeze);
+  })
 
   # [n a] .rjust ['    a']; right justify
-  String.create_shared_method('.rjust', TosSpec, [],
-    &lambda {|vm| vm.poke(self.rjust(Integer.foorth_coerce(vm.peek)).freeze); })
+  String.create_shared_method('.rjust', TosSpec, [], &lambda {|vm|
+    vm.poke(self.to_s.rjust(Integer.foorth_coerce(vm.peek)).freeze);
+  })
 
   # ["  a  "] .lstrip ["a  "]; left strip
   String.create_shared_method('.lstrip', TosSpec, [],
