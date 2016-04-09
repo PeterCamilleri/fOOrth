@@ -30,7 +30,7 @@ module XfOOrth
   # [string] .each{{ ... }} [unspecified]
   String.create_shared_method('.each{{', NosSpec, [], &lambda { |vm|
     block, idx = vm.pop, 0
-    self.chars { |val| block.call(vm, val, idx); idx += 1 }
+    self.chars { |val| block.call(vm, val.freeze, idx); idx += 1 }
   })
 
   #Some comparison operators
