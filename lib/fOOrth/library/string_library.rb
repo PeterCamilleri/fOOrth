@@ -229,7 +229,7 @@ module XfOOrth
     &lambda {|vm| vm.poke(self + vm.peek.to_s); })
 
   # ["b", a] << ["ba"]; "ba" is the same object as "b"
-  String.create_shared_method('<<', NosSpec, [],
+  StringBuffer.create_shared_method('<<', NosSpec, [],
     &lambda {|vm| vm.poke(self << vm.peek.to_s); })
 
   # ["b", n] * ["bbb..."]

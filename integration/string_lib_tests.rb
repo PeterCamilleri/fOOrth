@@ -50,7 +50,14 @@ class StringLibraryTester < Minitest::Test
 
     foorth_equal('"A"  .mutable?', [false])
     foorth_equal('*"A" .mutable?', [true])
+  end
 
+  def test_that_strings_are_immutable
+    foorth_raises('"A" "B" <<')
+  end
+
+  def test_that_string_buffers_are_not
+    foorth_equal('*"A" "B" <<', ["AB"])
 
   end
 
