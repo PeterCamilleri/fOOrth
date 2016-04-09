@@ -117,7 +117,7 @@ module XfOOrth
       error "F50: Unable to locate file #{file_name}"
     end
 
-    vm.process_file(file_name)
+    vm.process_file(file_name.freeze)
 
     puts "Completed in #{Time.now - start_time} seconds"
   })
@@ -180,7 +180,7 @@ module XfOOrth
   #List the globals defined in fOOrth.
   VirtualMachine.create_shared_method(')globals', VmSpec, [], &lambda {|vm|
     $FOORTH_GLOBALS.keys.
-      select {|key| !($FOORTH_GLOBALS[key].has_tag?(:class))}.
+      select  {|key| !($FOORTH_GLOBALS[key].has_tag?(:class))}.
       collect {|key| "#{XfOOrth::SymbolMap.unmap(key)} (#{key.to_s})"}.
       foorth_pretty(vm)
   })

@@ -117,7 +117,7 @@ module XfOOrth
   # [w '123''abcdefgh'] .+left ['123cdefgh']    // Assumes w = 2
   String.create_shared_method('.+left', TosSpec, [], &lambda {|vm|
     ins = vm.pop.to_s
-    vm.poke(ins + self[(Integer.foorth_coerce(vm.peek))..-1])
+    vm.poke((ins + self[(Integer.foorth_coerce(vm.peek))..-1]).freeze)
   })
 
   # ['abc' 'abcdefgh'] .left? [boolean]

@@ -47,7 +47,7 @@ module XfOOrth
   #Get a string from the console.
   # [] accept"prompt" [string]; gets a string from the console.
   VirtualMachine.create_shared_method('accept"', VmSpec, [],
-    &lambda {|vm| poke(MiniReadline.readline(peek.to_s, true)); })
+    &lambda {|vm| poke(MiniReadline.readline(peek.to_s, true).freeze); })
 
   #Get a string from the console.
   # "prompt" [] .accept [string]; gets a string from the console.

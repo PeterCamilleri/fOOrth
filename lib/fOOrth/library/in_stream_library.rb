@@ -25,13 +25,13 @@ module XfOOrth
 
   # ["file_name", InStream] .open [an_instream]
   in_stream.create_exclusive_method('.open', TosSpec, [], &lambda {|vm|
-    file_name = vm.pop.to_s
+    file_name = vm.pop.to_s.freeze
     vm.push(XfOOrth_InStream.new(file_name))
   })
 
   in_stream.create_exclusive_method('.open{{', NosSpec, [], &lambda {|vm|
     block = vm.pop
-    file_name = vm.pop.to_s
+    file_name = vm.pop.to_s.freeze
     in_stream = XfOOrth_InStream.new(file_name)
 
     begin
@@ -71,7 +71,7 @@ module XfOOrth
   # [file_name InStream] .get_all [["line 1", "line 2", ... "line n"]]
   in_stream.create_exclusive_method('.get_all', TosSpec, [], &lambda {|vm|
     begin
-      file_name = vm.pop.to_s
+      file_name = vm.pop.to_s.freeze
       vm.push(IO.readlines(file_name).map{|line| line.chomp })
     rescue
       error "F50: Unable to open the file #{file_name} for reading all."

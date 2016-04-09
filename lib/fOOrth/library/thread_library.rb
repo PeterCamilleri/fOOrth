@@ -13,7 +13,7 @@ module XfOOrth
   # [name Thread]  .new{{ ... }} [a_thread]
   Thread.create_exclusive_method('.new{{', NosSpec, [], &lambda {|vm|
     block = vm.pop
-    name  = vm.pop.to_s
+    name  = vm.pop.to_s.freeze
     vm.push(block.do_thread_start(vm, name))
   })
 

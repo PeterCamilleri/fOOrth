@@ -13,7 +13,7 @@ class String
   #<br>Endemic Code Smells
   #* :reek:FeatureEnvy -- false positive
   def foorth_coerce(arg)
-    arg.to_s
+    arg.to_s.freeze
   rescue
     error "F40: Cannot coerce a #{arg.foorth_name} to an String instance"
   end

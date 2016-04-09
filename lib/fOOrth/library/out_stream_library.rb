@@ -28,14 +28,14 @@ module XfOOrth
 
   # ["file_name" OutStream] .create [an_outstream]
   out_stream.create_exclusive_method('.create', TosSpec, [], &lambda {|vm|
-    file_name = vm.pop.to_s
+    file_name = vm.pop.to_s.freeze
     vm.push(XfOOrth_OutStream.new(file_name, 'w'))
   })
 
   # ["file_name" OutStream] .create{{ ... }} []
   out_stream.create_exclusive_method('.create{{', TosSpec, [], &lambda {|vm|
     block = vm.pop
-    file_name = vm.pop.to_s
+    file_name = vm.pop.to_s.freeze
     out_stream = XfOOrth_OutStream.new(file_name, 'w')
 
     begin
@@ -48,7 +48,7 @@ module XfOOrth
   # ["file_name" OutStream] .append{{ ... }} []
   out_stream.create_exclusive_method('.append{{', TosSpec, [], &lambda {|vm|
     block = vm.pop
-    file_name = vm.pop.to_s
+    file_name = vm.pop.to_s.freeze
     out_stream = XfOOrth_OutStream.new(file_name, 'a')
 
     begin
@@ -60,7 +60,7 @@ module XfOOrth
 
   # ["file_name" OutStream] .append [an_outstream]
   out_stream.create_exclusive_method('.append', TosSpec, [], &lambda {|vm|
-    file_name = vm.pop.to_s
+    file_name = vm.pop.to_s.freeze
     vm.push(XfOOrth_OutStream.new(file_name, 'a'))
   })
 
@@ -119,7 +119,7 @@ module XfOOrth
 
   # [text_array "file_name" OutStream] .put_all []; Write the array to file_name
   out_stream.create_exclusive_method('.put_all', TosSpec, [], &lambda {|vm|
-    file_name = vm.pop.to_s
+    file_name = vm.pop.to_s.freeze
     file_source = vm.pop
     out_stream = XfOOrth_OutStream.new(file_name, 'w')
 
@@ -132,7 +132,7 @@ module XfOOrth
 
   # [text_array "file_name" OutStream] .append_all []; Append the array to file_name
   out_stream.create_exclusive_method('.append_all', TosSpec, [], &lambda {|vm|
-    file_name = vm.pop.to_s
+    file_name = vm.pop.to_s.freeze
     file_source = vm.pop
     out_stream = XfOOrth_OutStream.new(file_name, 'a')
 

@@ -474,7 +474,7 @@ module XfOOrth
       end
     end
 
-    vm.push(result + "]")
+    vm.push((result + "]").freeze)
   })
 
   # [ l 2 3 ... n ] .strmax [ widest ]
