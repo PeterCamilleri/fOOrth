@@ -111,7 +111,14 @@ module XfOOrth
   # [object_or_array] f"fmt_str" ['a formatted string']
   Object.create_shared_method('f"', NosSpec, [], &format_action)
 
-  parse_action = lambda {|vm| vm.poke(self.sscanf(vm.peek))}
+  parse_action = lambda do |vm|
+    begin
+      vm.poke(self.sscanf(vm.peek).map{|obj| obj.foorth_string_freeze} )
+    rescue => err
+      vm.data_stack.pop
+      error "F40: Parsing error: #{err.message}."
+    end
+  end
 
   # [a_str fmt_str] parse [result_array]
   String.create_shared_method('parse', NosSpec, [], &parse_action)

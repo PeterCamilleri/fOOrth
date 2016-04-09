@@ -279,6 +279,8 @@ class StringLibraryTester < Minitest::Test
     s = "\"'quote' 'silly' \\\"un quote\\\" 'a \\\\'' \" p\"%q %*q %q %q\"  "
     foorth_equal(s, [["quote", "un quote", "a '"]])
     foorth_equal('"a b c" p"%[a] %[b] %[c]"', [["a", "b", "c"]])
+
+    foorth_equal('"Hello World" p"%s %s" .map{{ v .mutable? }}', [[false, false]])
   end
 
 end

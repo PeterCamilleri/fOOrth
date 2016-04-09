@@ -58,6 +58,11 @@ class String
     self.freeze
   end
 
+  #Freeze only pure strings
+  def foorth_string_freeze
+    self.freeze
+  end
+
 end
 
 #The \StringBuffer class is the mutable variant of the String class.
@@ -77,6 +82,11 @@ class StringBuffer < String
   #A special patch for full_clone
   def full_clone(_arg=nil)
     self.clone
+  end
+
+  #Freeze only pure strings
+  def foorth_string_freeze
+    self
   end
 
 end
