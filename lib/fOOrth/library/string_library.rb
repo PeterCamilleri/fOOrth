@@ -1,17 +1,5 @@
 # coding: utf-8
 
-#The \StringBuffer class is the mutable variant of the String class.
-class StringBuffer < String
-
-  #Create a string buffer from an object. Make sure that object is a
-  #string and make sure that string is not frozen.
-  def initialize(text)
-    super(text.to_s.dup)
-  end
-
-end
-
-
 #* library/string_library.rb - String support for the fOOrth library.
 module XfOOrth
 

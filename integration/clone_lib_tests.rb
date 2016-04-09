@@ -21,14 +21,21 @@ class CloneLibraryTester < Minitest::Test
     foorth_equal("33 clone identical?", [true])
     foorth_equal("33 clone distinct?", [false])
 
-    foorth_equal('"33" clone identical?', [false])
-    foorth_equal('"33" clone distinct?', [true])
+    foorth_equal('"33" clone identical?', [true])
+    foorth_equal('"33" clone distinct?', [false])
 
-    foorth_equal('"33" dup .clone identical?', [false])
-    foorth_equal('"33" dup .clone distinct?', [true])
+    foorth_equal('*"33" clone identical?', [false])
+    foorth_equal('*"33" clone distinct?', [true])
+
+    foorth_equal('"33" dup .clone identical?', [true])
+    foorth_equal('"33" dup .clone distinct?', [false])
+
+    foorth_equal('*"33" dup .clone identical?', [false])
+    foorth_equal('*"33" dup .clone distinct?', [true])
 
     foorth_equal('[ "33" ] clone distinct?', [true])
-    foorth_equal('[ "33" ] clone @ swap @ distinct?', [true])
+    foorth_equal('[ "33" ] clone @ swap @ distinct?', [false])
+    foorth_equal('[ *"33" ] clone @ swap @ distinct?', [true])
 
   end
 
@@ -98,8 +105,11 @@ class CloneLibraryTester < Minitest::Test
     foorth_equal("33 copy", [33,33])
     foorth_equal("33 .copy", [33])
 
-    foorth_equal('"33" copy identical?', [false])
-    foorth_equal('"33" copy distinct?', [true])
+    foorth_equal('"33" copy identical?', [true])
+    foorth_equal('"33" copy distinct?', [false])
+
+    foorth_equal('*"33" copy identical?', [false])
+    foorth_equal('*"33" copy distinct?', [true])
 
     foorth_equal('[ "33" ] copy distinct?', [true])
     foorth_equal('[ "33" ] copy @ swap @ distinct?', [false])

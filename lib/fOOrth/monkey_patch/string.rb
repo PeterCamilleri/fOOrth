@@ -48,4 +48,35 @@ class String
     self.to_foorth_n.to_foorth_r
   end
 
+  #A special patch for safe_clone
+  def safe_clone
+    self.freeze
+  end
+
+  #A special patch for full_clone
+  def full_clone(_arg=nil)
+    self.freeze
+  end
+
+end
+
+#The \StringBuffer class is the mutable variant of the String class.
+class StringBuffer < String
+
+  #Create a string buffer from an object. Make sure that object is a
+  #string and make sure that string is not frozen.
+  def initialize(text)
+    super(text.to_s.dup)
+  end
+
+  #A special patch for safe_clone
+  def safe_clone
+    self.clone
+  end
+
+  #A special patch for full_clone
+  def full_clone(_arg=nil)
+    self.clone
+  end
+
 end
