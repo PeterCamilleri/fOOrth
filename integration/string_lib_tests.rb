@@ -58,7 +58,7 @@ class StringLibraryTester < Minitest::Test
 
   def test_that_string_buffers_are_not
     foorth_equal('*"A" "B" <<', ["AB"])
-
+    foorth_equal('*"A" "B" >>', ["BA"])
   end
 
   def test_file_loading
