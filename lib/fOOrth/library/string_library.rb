@@ -98,7 +98,7 @@ module XfOOrth
   #The shared block for string formatting.
   format_action = lambda do |vm|
     begin
-      vm.poke(vm.peek % self.in_array)
+      vm.poke((vm.peek % self.in_array).freeze)
     rescue => err
       vm.data_stack.pop
       error "F40: Formating error: #{err.message}."
