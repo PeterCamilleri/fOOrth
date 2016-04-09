@@ -17,7 +17,7 @@ class StringLibraryTester < Minitest::Test
   def test_string_classes
     foorth_equal('String ',            [String])
     foorth_equal('"A" .class ',        [String])
-    foorth_equal('"A" .to_*s .class',  [StringBuffer])
+    foorth_equal('"A" .to_s* .class',  [StringBuffer])
 
     foorth_equal('StringBuffer ',      [StringBuffer])
     foorth_equal('*"A" .class ',       [StringBuffer])
@@ -123,17 +123,46 @@ class StringLibraryTester < Minitest::Test
   def test_left_strip
     foorth_equal('" a " .lstrip ', ["a "])
 
+    foorth_equal('" a " .lstrip .mutable?', [false])
+    foorth_equal('" a " .lstrip .class', [String])
+
     foorth_equal('*" a " .lstrip ', ["a "])
+    foorth_equal('*" a " .lstrip .class', [String])
 
-
+    foorth_run('*" abc " val$: $tls1')
+    foorth_equal('$tls1', [" abc "])
+    foorth_equal('$tls1 .lstrip*',  [])
+    foorth_equal('$tls1 dup .class',  ["abc ", StringBuffer])
   end
 
   def test_center_strip
     foorth_equal('" a " .strip ', ["a"])
+
+    foorth_equal('" a " .strip .mutable?', [false])
+    foorth_equal('" a " .strip .class', [String])
+
+    foorth_equal('*" a " .strip ', ["a"])
+    foorth_equal('*" a " .strip .class', [String])
+
+    foorth_run('*" abc " val$: $tcs1')
+    foorth_equal('$tcs1', [" abc "])
+    foorth_equal('$tcs1 .strip*',  [])
+    foorth_equal('$tcs1 dup .class',  ["abc", StringBuffer])
   end
 
   def test_right_strip
     foorth_equal('" a " .rstrip ', [" a"])
+
+    foorth_equal('" a " .rstrip .mutable?', [false])
+    foorth_equal('" a " .rstrip .class', [String])
+
+    foorth_equal('*" a " .rstrip ', [" a"])
+    foorth_equal('*" a " .rstrip .class', [String])
+
+    foorth_run('*" abc " val$: $trs1')
+    foorth_equal('$trs1', [" abc "])
+    foorth_equal('$trs1 .rstrip*',  [])
+    foorth_equal('$trs1 dup .class',  [" abc", StringBuffer])
   end
 
   def test_formatted_strings

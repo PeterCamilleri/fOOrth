@@ -18,7 +18,7 @@ module XfOOrth
   })
 
   # Convert a string into a \StringBuffer.
-  String.create_shared_method('.to_*s', TosSpec, [], &lambda { |vm|
+  String.create_shared_method('.to_s*', TosSpec, [], &lambda { |vm|
     vm.push(StringBuffer.new(self))
   })
 
@@ -73,16 +73,29 @@ module XfOOrth
 
   # ["  a  "] .lstrip ["a  "]; left strip
   String.create_shared_method('.lstrip', TosSpec, [],
-    &lambda {|vm| vm.push(self.lstrip); })
+    &lambda {|vm| vm.push(self.to_s.lstrip.freeze); })
+
+  # [*"  a  "] .lstrip* []; left strip in place.
+  StringBuffer.create_shared_method('.lstrip*', TosSpec, [],
+    &lambda {|vm| self.lstrip! })
 
   # ["  a  "] .strip ["a"]; left and right strip
   String.create_shared_method('.strip', TosSpec, [],
-    &lambda {|vm| vm.push(self.strip); })
+    &lambda {|vm| vm.push(self.to_s.strip.freeze); })
+
+  # [*"  a  "] .strip* []; left and right strip in place
+  StringBuffer.create_shared_method('.strip*', TosSpec, [],
+    &lambda {|vm| self.strip! })
 
   # ["  a  "] .rstrip ["  a"]; right strip
   String.create_shared_method('.rstrip', TosSpec, [],
-    &lambda {|vm| vm.push(self.rstrip); })
+    &lambda {|vm| vm.push(self.to_s.rstrip.freeze); })
 
+  # [*"  a  "] .rstrip* []; right strip in place
+  StringBuffer.create_shared_method('.rstrip*', TosSpec, [],
+    &lambda {|vm| self.rstrip! })
+
+  #The shared block for string formatting.
   format_action = lambda do |vm|
     begin
       vm.poke(vm.peek % self.in_array)
