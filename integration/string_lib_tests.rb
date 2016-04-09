@@ -15,11 +15,13 @@ class StringLibraryTester < Minitest::Test
   include MinitestVisible
 
   def test_string_classes
-    foorth_equal('String ',       [String])
-    foorth_equal('"A" .class ',   [String])
+    foorth_equal('String ',            [String])
+    foorth_equal('"A" .class ',        [String])
+    foorth_equal('"A" .to_*s .class',  [StringBuffer])
 
-    foorth_equal('StringBuffer ', [StringBuffer])
-    foorth_equal('*"A" .class ',  [StringBuffer])
+    foorth_equal('StringBuffer ',      [StringBuffer])
+    foorth_equal('*"A" .class ',       [StringBuffer])
+    foorth_equal('*"A" .to_s .class ', [String])
   end
 
   def test_string_literals

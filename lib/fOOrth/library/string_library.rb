@@ -24,9 +24,14 @@ module XfOOrth
   # A no operation place holder for string literals
   VirtualMachine.create_shared_method('"', MacroSpec, [:macro, " "])
 
-  # StringBuffer literals.
+  # \StringBuffer literals.
   VirtualMachine.create_shared_method('*"', VmSpec, [], &lambda { |vm|
     push(StringBuffer.new(pop))
+  })
+
+  # Convert a string into a \StringBuffer.
+  String.create_shared_method('.to_*s', TosSpec, [], &lambda { |vm|
+    vm.push(StringBuffer.new(self))
   })
 
   #Is this mutable? StringBuffers are, Strings are not.
