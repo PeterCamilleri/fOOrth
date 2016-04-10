@@ -386,10 +386,30 @@ class StringLibraryTester < Minitest::Test
 
   def test_concatenation
     foorth_equal('"abc" 0     +',   ['abc0'])
-    foorth_equal('"abc" "def" + ',  ['abcdef'])
+    foorth_equal('"abc"* 0    +',   ['abc0'])
+    foorth_equal('"abc" 0     + .mutable?', [false])
+    foorth_equal('"abc"* 0    + .mutable?', [false])
+    foorth_equal('"abc" 0     + .class',  [String])
+    foorth_equal('"abc"* 0    + .class',  [String])
 
-    foorth_equal('"abc"* 0     <<',  ['abc0'])
-    foorth_equal('"abc"* "def" << ', ['abcdef'])
+    foorth_equal('"abc"  "def"  + ',  ['abcdef'])
+    foorth_equal('"abc"  "def"* + ',  ['abcdef'])
+    foorth_equal('"abc"* "def"  + ',  ['abcdef'])
+    foorth_equal('"abc"* "def"* + ',  ['abcdef'])
+
+    foorth_equal('"abc"  "def"  + .mutable?', [false])
+    foorth_equal('"abc"  "def"* + .mutable?', [false])
+    foorth_equal('"abc"* "def"  + .mutable?', [false])
+    foorth_equal('"abc"* "def"* + .mutable?', [false])
+
+    foorth_equal('"abc"  "def"  + .class',  [String])
+    foorth_equal('"abc"  "def"* + .class',  [String])
+    foorth_equal('"abc"* "def"  + .class',  [String])
+    foorth_equal('"abc"* "def"* + .class',  [String])
+
+    foorth_equal('"abc"* 0      <<',  ['abc0'])
+    foorth_equal('"abc"* "def"  << ', ['abcdef'])
+    foorth_equal('"abc"* "def"* << ', ['abcdef'])
 
     foorth_equal(' "abc" dup "def" +  distinct?', [true])
     foorth_equal('"abc"* dup "def" << distinct?', [false])

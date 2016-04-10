@@ -239,7 +239,7 @@ module XfOOrth
 
   # ["b", a] + ["ba"]; "ba" is a new object, distinct from "b"
   String.create_shared_method('+', NosSpec, [],
-    &lambda {|vm| vm.poke(self + vm.peek.to_s); })
+    &lambda {|vm| vm.poke((self + vm.peek.to_s).freeze) })
 
   # ["b"*, a] << ["ba"*]; "ba"* is the same object as "b"*
   StringBuffer.create_shared_method('<<', NosSpec, [],
