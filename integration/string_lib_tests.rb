@@ -442,7 +442,17 @@ class StringLibraryTester < Minitest::Test
   end
 
   def test_reversing
-    foorth_equal('"stressed" .reverse',  ['desserts'])
+    foorth_equal('"stressed"  .reverse ', ['desserts'])
+    foorth_equal('"stressed"* .reverse ', ['desserts'])
+    foorth_equal('"stressed"  .reverse .mutable?', [false])
+    foorth_equal('"stressed"* .reverse .mutable?', [false])
+    foorth_equal('"stressed"  .reverse .class',  [String])
+    foorth_equal('"stressed"* .reverse .class',  [String])
+
+    foorth_raises('"stressed" .reverse*')
+    foorth_equal('"stressed"* dup .reverse* ', ['desserts'])
+    foorth_equal('"stressed"* dup .reverse* .mutable?', [true])
+    foorth_equal('"stressed"* dup .reverse* .class', [StringBuffer])
   end
 
   def test_the_each

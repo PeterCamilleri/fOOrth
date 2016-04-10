@@ -277,7 +277,11 @@ module XfOOrth
 
   # ["stressed"] .reverse ["desserts"]
   String.create_shared_method('.reverse', TosSpec, [],
-    &lambda {|vm| vm.push(self.reverse); })
+    &lambda {|vm| vm.push(self.to_s.reverse.freeze); })
+
+  # ["stressed"*] .reverse* [] #Reverse the string in place.
+  StringBuffer.create_shared_method('.reverse*', TosSpec, [],
+    &lambda {|vm| self.reverse! })
 
   # ["abc\\ndef\\n123"] .lines [["abc", "def", "123"]]
   String.create_shared_method('.lines', TosSpec, [],
