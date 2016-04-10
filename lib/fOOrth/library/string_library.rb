@@ -149,14 +149,14 @@ module XfOOrth
   String.create_shared_method('.mid', TosSpec, [], &lambda {|vm|
     width = Integer.foorth_coerce(vm.pop)
     posn = Integer.foorth_coerce(vm.pop)
-    vm.push(self[posn...(posn+width)])
+    vm.push(self.to_s[posn...(posn+width)].freeze)
   })
 
   # [n w 'abcdefgh'] .-mid ['abgh']     // Assumes n = 2, w = 4
   String.create_shared_method('.-mid', TosSpec, [], &lambda {|vm|
     width = Integer.foorth_coerce(vm.pop)
     posn = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...posn] + self[(posn+width)..-1])
+    vm.push((self[0...posn] + self[(posn+width)..-1]).freeze)
   })
 
   # [n w "123" "abcdefgh"] .+mid ["ab123gh"] // Assumes n = 2, w = 4

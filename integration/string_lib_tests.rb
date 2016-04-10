@@ -238,7 +238,19 @@ class StringLibraryTester < Minitest::Test
 
   def test_mid_copy_paste_and_cut
     foorth_equal('2 4 "abcdefgh"       .mid  ',   ['cdef'])
+    foorth_equal('2 4 "abcdefgh"*      .mid  ',   ['cdef'])
+    foorth_equal('2 4 "abcdefgh"       .mid .mutable?', [false])
+    foorth_equal('2 4 "abcdefgh"*      .mid .mutable?', [false])
+    foorth_equal('2 4 "abcdefgh"       .mid .class',  [String])
+    foorth_equal('2 4 "abcdefgh"*      .mid .class',  [String])
+
     foorth_equal('2 4 "abcdefgh"       .-mid ',   ['abgh'])
+    foorth_equal('2 4 "abcdefgh"*      .-mid ',   ['abgh'])
+    foorth_equal('2 4 "abcdefgh"       .-mid .mutable?', [false])
+    foorth_equal('2 4 "abcdefgh"*      .-mid .mutable?', [false])
+    foorth_equal('2 4 "abcdefgh"       .-mid .class',  [String])
+    foorth_equal('2 4 "abcdefgh"*      .-mid .class',  [String])
+
     foorth_equal('2 4 "123" "abcdefgh" .+mid ',   ['ab123gh'])
     foorth_equal('2 0 "123" "abcdefgh" .+mid ',   ['ab123cdefgh'])
   end
