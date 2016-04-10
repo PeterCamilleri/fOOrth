@@ -295,8 +295,33 @@ class StringLibraryTester < Minitest::Test
 
   def test_midlr_copy_paste_and_cut
     foorth_equal('2 2 "abcdefgh"       .midlr  ', ['cdef'])
+    foorth_equal('2 2 "abcdefgh"*      .midlr  ', ['cdef'])
+    foorth_equal('2 2 "abcdefgh"       .midlr  .mutable?', [false])
+    foorth_equal('2 2 "abcdefgh"*      .midlr  .mutable?', [false])
+    foorth_equal('2 2 "abcdefgh"       .midlr  .class',  [String])
+    foorth_equal('2 2 "abcdefgh"*      .midlr  .class',  [String])
+
     foorth_equal('2 2 "abcdefgh"       .-midlr ', ['abgh'])
+    foorth_equal('2 2 "abcdefgh"*      .-midlr ', ['abgh'])
+    foorth_equal('2 2 "abcdefgh"       .-midlr .mutable?', [false])
+    foorth_equal('2 2 "abcdefgh"*      .-midlr .mutable?', [false])
+    foorth_equal('2 2 "abcdefgh"       .-midlr .class',  [String])
+    foorth_equal('2 2 "abcdefgh"*      .-midlr .class',  [String])
+
     foorth_equal('2 2 "123" "abcdefgh" .+midlr ', ['ab123gh'])
+    foorth_equal('2 2 "123" "abcdefgh"*.+midlr ', ['ab123gh'])
+    foorth_equal('2 2 "123"* "abcdefgh" .+midlr ', ['ab123gh'])
+    foorth_equal('2 2 "123"* "abcdefgh"*.+midlr ', ['ab123gh'])
+
+    foorth_equal('2 2 "123" "abcdefgh" .+midlr .mutable?', [false])
+    foorth_equal('2 2 "123" "abcdefgh"*.+midlr .mutable?', [false])
+    foorth_equal('2 2 "123"* "abcdefgh" .+midlr .mutable?', [false])
+    foorth_equal('2 2 "123"* "abcdefgh"*.+midlr .mutable?', [false])
+
+    foorth_equal('2 2 "123" "abcdefgh" .+midlr .class',  [String])
+    foorth_equal('2 2 "123" "abcdefgh"*.+midlr .class',  [String])
+    foorth_equal('2 2 "123"* "abcdefgh" .+midlr .class',  [String])
+    foorth_equal('2 2 "123"* "abcdefgh"*.+midlr .class',  [String])
   end
 
   def test_string_contains

@@ -182,14 +182,14 @@ module XfOOrth
   String.create_shared_method('.midlr', TosSpec, [], &lambda {|vm|
     right = Integer.foorth_coerce(vm.pop)
     left  = Integer.foorth_coerce(vm.pop)
-    vm.push(self[left...(0-right)])
+    vm.push(self.to_s[left...(0-right)].freeze)
   })
 
   # [l r 'abcdefgh'] .-midlr ['ah']     // Assumes l = 1, r = 1
   String.create_shared_method('.-midlr', TosSpec, [], &lambda {|vm|
     right = Integer.foorth_coerce(vm.pop)
     left  = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...left] + self[((0-right))..-1])
+    vm.push((self[0...left] + self[((0-right))..-1]).freeze)
   })
 
   # [l r "123" 'abcdefgh'] .+midlr ['a123h']     // Assumes l = 1, r = 1
@@ -197,7 +197,7 @@ module XfOOrth
     ins = vm.pop.to_s
     right = Integer.foorth_coerce(vm.pop)
     left  = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...left] + ins + self[((0-right))..-1])
+    vm.push((self[0...left] + ins + self[((0-right))..-1]).freeze)
   })
 
   #RIGHT Group
