@@ -20,8 +20,8 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('"A" .to_s* .class',  [StringBuffer])
 
     foorth_equal('StringBuffer ',      [StringBuffer])
-    foorth_equal('*"A" .class ',       [StringBuffer])
-    foorth_equal('*"A" .to_s .class ', [String])
+    foorth_equal('"A"* .class ',       [StringBuffer])
+    foorth_equal('"A"* .to_s .class ', [String])
   end
 
   def test_string_literals
@@ -51,7 +51,7 @@ class StringLibraryTester < Minitest::Test
     foorth_equal(' "a\\u5555b" ',  ["a\u5555b"])
 
     foorth_equal('"A"  .mutable?', [false])
-    foorth_equal('*"A" .mutable?', [true])
+    foorth_equal('"A"* .mutable?', [true])
   end
 
   def test_that_strings_are_immutable
@@ -59,8 +59,8 @@ class StringLibraryTester < Minitest::Test
   end
 
   def test_that_string_buffers_are_not
-    foorth_equal('*"A" "B" <<', ["AB"])
-    foorth_equal('*"A" "B" >>', ["BA"])
+    foorth_equal('"A"* "B" <<', ["AB"])
+    foorth_equal('"A"* "B" >>', ["BA"])
   end
 
   def test_file_loading
@@ -101,7 +101,7 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('5 "too long" .ljust ', ['too long'])
 
     foorth_equal('5 "a" .ljust .mutable?', [false])
-    foorth_equal('5 *"a" .ljust .class', [String])
+    foorth_equal('5 "a"* .ljust .class', [String])
   end
 
   def test_center_justification
@@ -109,7 +109,7 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('5 "too long" .cjust ', ['too long'])
 
     foorth_equal('5 "a" .cjust .mutable?', [false])
-    foorth_equal('5 *"a" .cjust .class', [String])
+    foorth_equal('5 "a"* .cjust .class', [String])
   end
 
   def test_right_justification
@@ -117,7 +117,7 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('5 "too long" .rjust ', ['too long'])
 
     foorth_equal('5 "a" .rjust .mutable?', [false])
-    foorth_equal('5 *"a" .rjust .class', [String])
+    foorth_equal('5 "a"* .rjust .class', [String])
   end
 
   def test_left_strip
@@ -126,10 +126,10 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('" a " .lstrip .mutable?', [false])
     foorth_equal('" a " .lstrip .class', [String])
 
-    foorth_equal('*" a " .lstrip ', ["a "])
-    foorth_equal('*" a " .lstrip .class', [String])
+    foorth_equal('" a "* .lstrip ', ["a "])
+    foorth_equal('" a "* .lstrip .class', [String])
 
-    foorth_run('*" abc " val$: $tls1')
+    foorth_run('" abc "* val$: $tls1')
     foorth_equal('$tls1', [" abc "])
     foorth_equal('$tls1 .lstrip*',  [])
     foorth_equal('$tls1 dup .class',  ["abc ", StringBuffer])
@@ -141,10 +141,10 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('" a " .strip .mutable?', [false])
     foorth_equal('" a " .strip .class', [String])
 
-    foorth_equal('*" a " .strip ', ["a"])
-    foorth_equal('*" a " .strip .class', [String])
+    foorth_equal('" a "* .strip ', ["a"])
+    foorth_equal('" a "* .strip .class', [String])
 
-    foorth_run('*" abc " val$: $tcs1')
+    foorth_run('" abc "* val$: $tcs1')
     foorth_equal('$tcs1', [" abc "])
     foorth_equal('$tcs1 .strip*',  [])
     foorth_equal('$tcs1 dup .class',  ["abc", StringBuffer])
@@ -156,10 +156,10 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('" a " .rstrip .mutable?', [false])
     foorth_equal('" a " .rstrip .class', [String])
 
-    foorth_equal('*" a " .rstrip ', [" a"])
-    foorth_equal('*" a " .rstrip .class', [String])
+    foorth_equal('" a "* .rstrip ', [" a"])
+    foorth_equal('" a "* .rstrip .class', [String])
 
-    foorth_run('*" abc " val$: $trs1')
+    foorth_run('" abc "* val$: $trs1')
     foorth_equal('$trs1', [" abc "])
     foorth_equal('$trs1 .rstrip*',  [])
     foorth_equal('$trs1 dup .class',  [" abc", StringBuffer])
@@ -174,66 +174,66 @@ class StringLibraryTester < Minitest::Test
 
   def test_left_copy_paste_and_cut
     foorth_equal('2 "abcdefgh"         .left  ',  ['ab'])
-    foorth_equal('2 *"abcdefgh"        .left  ',  ['ab'])
+    foorth_equal('2 "abcdefgh"*        .left  ',  ['ab'])
     foorth_equal('2 "abcdefgh"         .left  .mutable?', [false])
-    foorth_equal('2 *"abcdefgh"        .left  .mutable?', [false])
+    foorth_equal('2 "abcdefgh"*        .left  .mutable?', [false])
     foorth_equal('2 "abcdefgh"         .left  .class',  [String])
-    foorth_equal('2 *"abcdefgh"        .left  .class',  [String])
+    foorth_equal('2 "abcdefgh"*        .left  .class',  [String])
 
     foorth_equal('2 "123" "abcdefgh"   .+left ',  ['123cdefgh'])
-    foorth_equal('2 "123" *"abcdefgh"  .+left ',  ['123cdefgh'])
+    foorth_equal('2 "123" "abcdefgh"*  .+left ',  ['123cdefgh'])
     foorth_equal('2 "123" "abcdefgh"   .+left .mutable?', [false])
-    foorth_equal('2 "123" *"abcdefgh"  .+left .mutable?', [false])
+    foorth_equal('2 "123" "abcdefgh"*  .+left .mutable?', [false])
     foorth_equal('2 "123" "abcdefgh"   .+left .class',  [String])
-    foorth_equal('2 "123" *"abcdefgh"  .+left .class',  [String])
+    foorth_equal('2 "123" "abcdefgh"*  .+left .class',  [String])
 
     foorth_equal('2 "abcdefgh"         .-left ',  ['cdefgh'])
-    foorth_equal('2 *"abcdefgh"        .-left ',  ['cdefgh'])
+    foorth_equal('2 "abcdefgh"*        .-left ',  ['cdefgh'])
     foorth_equal('2 "abcdefgh"         .-left .mutable?', [false])
-    foorth_equal('2 *"abcdefgh"        .-left .mutable?', [false])
+    foorth_equal('2 "abcdefgh"*        .-left .mutable?', [false])
     foorth_equal('2 "abcdefgh"         .-left .class',  [String])
-    foorth_equal('2 *"abcdefgh"        .-left .class',  [String])
+    foorth_equal('2 "abcdefgh"*        .-left .class',  [String])
 
     foorth_equal('"abc" "abcdefgh"     .left? ',  [true])
     foorth_equal('"abx" "abcdefgh"     .left? ',  [false])
-    foorth_equal('"abc" *"abcdefgh"    .left? ',  [true])
-    foorth_equal('"abx" *"abcdefgh"    .left? ',  [false])
-    foorth_equal('*"abc" "abcdefgh"    .left? ',  [true])
-    foorth_equal('*"abx" "abcdefgh"    .left? ',  [false])
-    foorth_equal('*"abc" *"abcdefgh"   .left? ',  [true])
-    foorth_equal('*"abx" *"abcdefgh"   .left? ',  [false])
+    foorth_equal('"abc" "abcdefgh"*    .left? ',  [true])
+    foorth_equal('"abx" "abcdefgh"*    .left? ',  [false])
+    foorth_equal('"abc"* "abcdefgh"    .left? ',  [true])
+    foorth_equal('"abx"* "abcdefgh"    .left? ',  [false])
+    foorth_equal('"abc"* "abcdefgh"*   .left? ',  [true])
+    foorth_equal('"abx"* "abcdefgh"*   .left? ',  [false])
   end
 
   def test_right_copy_paste_and_cut
     foorth_equal('2 "abcdefgh"         .right  ', ['gh'])
-    foorth_equal('2 *"abcdefgh"        .right  ', ['gh'])
+    foorth_equal('2 "abcdefgh"*        .right  ', ['gh'])
     foorth_equal('2 "abcdefgh"         .right .mutable?', [false])
-    foorth_equal('2 *"abcdefgh"        .right .mutable?', [false])
+    foorth_equal('2 "abcdefgh"*        .right .mutable?', [false])
     foorth_equal('2 "abcdefgh"         .right .class',  [String])
-    foorth_equal('2 *"abcdefgh"        .right .class',  [String])
+    foorth_equal('2 "abcdefgh"*        .right .class',  [String])
 
     foorth_equal('2 "123" "abcdefgh"   .+right ', ['abcdef123'])
-    foorth_equal('2 "123" *"abcdefgh"  .+right ', ['abcdef123'])
+    foorth_equal('2 "123" "abcdefgh"*  .+right ', ['abcdef123'])
     foorth_equal('2 "123" "abcdefgh"   .+right .mutable?', [false])
-    foorth_equal('2 "123" *"abcdefgh"  .+right .mutable?', [false])
+    foorth_equal('2 "123" "abcdefgh"*  .+right .mutable?', [false])
     foorth_equal('2 "123" "abcdefgh"   .+right .class',  [String])
-    foorth_equal('2 "123" *"abcdefgh"  .+right .class',  [String])
+    foorth_equal('2 "123" "abcdefgh"*  .+right .class',  [String])
 
     foorth_equal('2 "abcdefgh"         .-right ', ['abcdef'])
-    foorth_equal('2 *"abcdefgh"        .-right ', ['abcdef'])
+    foorth_equal('2 "abcdefgh"*        .-right ', ['abcdef'])
     foorth_equal('2 "abcdefgh"         .-right .mutable?', [false])
-    foorth_equal('2 *"abcdefgh"        .-right .mutable?', [false])
+    foorth_equal('2 "abcdefgh"*        .-right .mutable?', [false])
     foorth_equal('2 "abcdefgh"         .-right .class',  [String])
-    foorth_equal('2 *"abcdefgh"        .-right .class',  [String])
+    foorth_equal('2 "abcdefgh"*        .-right .class',  [String])
 
     foorth_equal('"fgh" "abcdefgh"     .right? ', [true])
     foorth_equal('"fgx" "abcdefgh"     .right? ', [false])
-    foorth_equal('"fgh" *"abcdefgh"    .right? ', [true])
-    foorth_equal('"fgx" *"abcdefgh"    .right? ', [false])
-    foorth_equal('*"fgh" "abcdefgh"    .right? ', [true])
-    foorth_equal('*"fgx" "abcdefgh"    .right? ', [false])
-    foorth_equal('*"fgh" *"abcdefgh"   .right? ', [true])
-    foorth_equal('*"fgx" *"abcdefgh"   .right? ', [false])
+    foorth_equal('"fgh" "abcdefgh"*    .right? ', [true])
+    foorth_equal('"fgx" "abcdefgh"*    .right? ', [false])
+    foorth_equal('"fgh"* "abcdefgh"    .right? ', [true])
+    foorth_equal('"fgx"* "abcdefgh"    .right? ', [false])
+    foorth_equal('"fgh"* "abcdefgh"*   .right? ', [true])
+    foorth_equal('"fgx"* "abcdefgh"*   .right? ', [false])
   end
 
   def test_mid_copy_paste_and_cut
@@ -275,11 +275,11 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('"abc" 0     +',   ['abc0'])
     foorth_equal('"abc" "def" + ',  ['abcdef'])
 
-    foorth_equal('*"abc" 0     <<',  ['abc0'])
-    foorth_equal('*"abc" "def" << ', ['abcdef'])
+    foorth_equal('"abc"* 0     <<',  ['abc0'])
+    foorth_equal('"abc"* "def" << ', ['abcdef'])
 
     foorth_equal(' "abc" dup "def" +  distinct?', [true])
-    foorth_equal('*"abc" dup "def" << distinct?', [false])
+    foorth_equal('"abc"* dup "def" << distinct?', [false])
   end
 
   def test_case_changing

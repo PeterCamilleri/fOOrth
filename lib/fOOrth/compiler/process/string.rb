@@ -12,7 +12,14 @@ module XfOOrth
     #* word  - The text of the word.
     def string_parms(token, word)
       if word.end_with?('"')
-        token.add("vm.push(#{parser.get_string.foorth_embed}.freeze); ")
+        string_value = parser.get_string.foorth_embed
+
+        if parser.source.peek == '*'
+          parser.source.get
+          token.add("vm.push(StringBuffer.new(#{string_value})); ")
+        else
+          token.add("vm.push(#{string_value}.freeze); ")
+        end
       end
     end
 

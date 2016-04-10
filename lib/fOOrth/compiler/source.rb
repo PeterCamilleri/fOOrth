@@ -13,21 +13,23 @@ module XfOOrth
     def initialize
       reset_read_point
       @eof = false
+      @peek_buffer = nil
     end
 
     #Close the source.
     def close
       @eoln = true
       @eof = true
+      @peek_buffer = nil
     end
 
     #Get the next character of input data
     #<br>Returns:
     #* The next character or nil if none are available.
     def get
-      return nil if @eof
+      return nil if (@eof && !@peek_buffer)
 
-      read do
+      @peek_buffer || read do
         begin
           @read_step.next.rstrip
         rescue StopIteration
@@ -35,6 +37,15 @@ module XfOOrth
           nil
         end
       end
+    ensure
+      @peek_buffer = nil
+    end
+
+    #Peek ahead by one character.
+    #<br>Returns:
+    #* A peek at next character or nil if none are available.
+    def peek
+      @peek_buffer ||= get
     end
 
     #Has the source reached the end of the available data?

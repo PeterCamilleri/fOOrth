@@ -12,11 +12,6 @@ module XfOOrth
   # A no operation place holder for string literals
   VirtualMachine.create_shared_method('"', MacroSpec, [:macro, " "])
 
-  # \StringBuffer literals.
-  VirtualMachine.create_shared_method('*"', VmSpec, [], &lambda { |vm|
-    push(StringBuffer.new(pop))
-  })
-
   # Convert a string into a \StringBuffer.
   String.create_shared_method('.to_s*', TosSpec, [], &lambda { |vm|
     vm.push(StringBuffer.new(self))
@@ -75,7 +70,7 @@ module XfOOrth
   String.create_shared_method('.lstrip', TosSpec, [],
     &lambda {|vm| vm.push(self.to_s.lstrip.freeze); })
 
-  # [*"  a  "] .lstrip* []; left strip in place.
+  # ["  a  "*] .lstrip* []; left strip in place.
   StringBuffer.create_shared_method('.lstrip*', TosSpec, [],
     &lambda {|vm| self.lstrip! })
 
@@ -83,7 +78,7 @@ module XfOOrth
   String.create_shared_method('.strip', TosSpec, [],
     &lambda {|vm| vm.push(self.to_s.strip.freeze); })
 
-  # [*"  a  "] .strip* []; left and right strip in place
+  # ["  a  "*] .strip* []; left and right strip in place
   StringBuffer.create_shared_method('.strip*', TosSpec, [],
     &lambda {|vm| self.strip! })
 
@@ -91,7 +86,7 @@ module XfOOrth
   String.create_shared_method('.rstrip', TosSpec, [],
     &lambda {|vm| vm.push(self.to_s.rstrip.freeze); })
 
-  # [*"  a  "] .rstrip* []; right strip in place
+  # ["  a  "*] .rstrip* []; right strip in place
   StringBuffer.create_shared_method('.rstrip*', TosSpec, [],
     &lambda {|vm| self.rstrip! })
 
@@ -246,11 +241,11 @@ module XfOOrth
   String.create_shared_method('+', NosSpec, [],
     &lambda {|vm| vm.poke(self + vm.peek.to_s); })
 
-  # [*"b", a] << [*"ba"]; *"ba" is the same object as *"b"
+  # ["b"*, a] << ["ba"*]; "ba"* is the same object as "b"*
   StringBuffer.create_shared_method('<<', NosSpec, [],
     &lambda {|vm| vm.poke(self << vm.peek.to_s); })
 
-  # [*"b", a] >> [*"ab"]; *"ab" is the same object as *"b"
+  # ["b"*, a] >> ["ab"*]; "ab"* is the same object as "b"*
   StringBuffer.create_shared_method('>>', NosSpec, [],
     &lambda {|vm| vm.poke(self.prepend(vm.peek.to_s)); })
 
