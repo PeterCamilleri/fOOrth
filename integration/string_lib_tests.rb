@@ -325,13 +325,31 @@ class StringLibraryTester < Minitest::Test
   end
 
   def test_string_contains
-    foorth_equal('"cde" "abcdefgh"  .contains? ',   [true])
-    foorth_equal('"cdx" "abcdefgh"  .contains? ',   [false])
+    foorth_equal('"cde" "abcdefgh"   .contains? ',   [true])
+    foorth_equal('"cdx" "abcdefgh"   .contains? ',   [false])
+
+    foorth_equal('"cde" "abcdefgh"*  .contains? ',   [true])
+    foorth_equal('"cdx" "abcdefgh"*  .contains? ',   [false])
+
+    foorth_equal('"cde"* "abcdefgh"  .contains? ',   [true])
+    foorth_equal('"cdx"* "abcdefgh"  .contains? ',   [false])
+
+    foorth_equal('"cde"* "abcdefgh"* .contains? ',   [true])
+    foorth_equal('"cdx"* "abcdefgh"* .contains? ',   [false])
   end
 
   def test_string_posn
-    foorth_equal('"cde" "abcdefgh"      .posn ',   [2])
-    foorth_equal('"cdx" "abcdefgh"      .posn ',   [nil])
+    foorth_equal('"cde"  "abcdefgh"     .posn ',   [2])
+    foorth_equal('"cdx"  "abcdefgh"     .posn ',   [nil])
+
+    foorth_equal('"cde"  "abcdefgh"*    .posn ',   [2])
+    foorth_equal('"cdx"  "abcdefgh"*    .posn ',   [nil])
+
+    foorth_equal('"cde"* "abcdefgh"     .posn ',   [2])
+    foorth_equal('"cdx"* "abcdefgh"     .posn ',   [nil])
+
+    foorth_equal('"cde"* "abcdefgh"*    .posn ',   [2])
+    foorth_equal('"cdx"* "abcdefgh"*    .posn ',   [nil])
   end
 
   def test_replication
@@ -339,6 +357,31 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('"abc" 1 *',  ['abc'])
     foorth_equal('"abc" 2 *',  ['abcabc'])
     foorth_equal('"abc" 3 *',  ['abcabcabc'])
+
+    foorth_equal('"abc"* 0 *',  [''])
+    foorth_equal('"abc"* 1 *',  ['abc'])
+    foorth_equal('"abc"* 2 *',  ['abcabc'])
+    foorth_equal('"abc"* 3 *',  ['abcabcabc'])
+
+    foorth_equal('"abc" 0 * .mutable?', [false])
+    foorth_equal('"abc" 1 * .mutable?', [false])
+    foorth_equal('"abc" 2 * .mutable?', [false])
+    foorth_equal('"abc" 3 * .mutable?', [false])
+
+    foorth_equal('"abc"* 0 * .mutable?', [false])
+    foorth_equal('"abc"* 1 * .mutable?', [false])
+    foorth_equal('"abc"* 2 * .mutable?', [false])
+    foorth_equal('"abc"* 3 * .mutable?', [false])
+
+    foorth_equal('"abc" 0 * .class',  [String])
+    foorth_equal('"abc" 1 * .class',  [String])
+    foorth_equal('"abc" 2 * .class',  [String])
+    foorth_equal('"abc" 3 * .class',  [String])
+
+    foorth_equal('"abc"* 0 * .class',  [String])
+    foorth_equal('"abc"* 1 * .class',  [String])
+    foorth_equal('"abc"* 2 * .class',  [String])
+    foorth_equal('"abc"* 3 * .class',  [String])
   end
 
   def test_concatenation

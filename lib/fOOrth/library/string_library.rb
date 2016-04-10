@@ -252,7 +252,7 @@ module XfOOrth
   # ["b", n] * ["bbb..."]
   String.create_shared_method('*', NosSpec, [], &lambda {|vm|
     begin
-      vm.poke(self * Integer.foorth_coerce(vm.peek))
+      vm.poke((self.to_s * Integer.foorth_coerce(vm.peek)).freeze)
     rescue
       vm.data_stack.pop
       raise
