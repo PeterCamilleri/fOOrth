@@ -261,11 +261,19 @@ module XfOOrth
 
   # ["abCD"] .to_upper ["ABCD"]
   String.create_shared_method('.to_upper', TosSpec, [],
-    &lambda {|vm| vm.push(self.upcase); })
+    &lambda {|vm| vm.push(self.to_s.upcase.freeze) })
+
+  # ["abCD"*] .to_upper* [] #Convert to upper case in place.
+  StringBuffer.create_shared_method('.to_upper*', TosSpec, [],
+    &lambda {|vm| self.upcase! })
 
   # ["abCD"] .to_lower ["abcd"]
   String.create_shared_method('.to_lower', TosSpec, [],
-    &lambda {|vm| vm.push(self.downcase); })
+    &lambda {|vm| vm.push(self.to_s.downcase.freeze) })
+
+  # ["abCD"*] .to_lower* [] #Convert to lower case in place.
+  StringBuffer.create_shared_method('.to_lower*', TosSpec, [],
+    &lambda {|vm| self.downcase! })
 
   # ["stressed"] .reverse ["desserts"]
   String.create_shared_method('.reverse', TosSpec, [],

@@ -416,8 +416,29 @@ class StringLibraryTester < Minitest::Test
   end
 
   def test_case_changing
-    foorth_equal('"abcDEF" .to_upper',  ['ABCDEF'])
-    foorth_equal('"abcDEF" .to_lower',  ['abcdef'])
+    foorth_equal('"abcDEF"  .to_upper',  ['ABCDEF'])
+    foorth_equal('"abcDEF"* .to_upper',  ['ABCDEF'])
+    foorth_equal('"abcDEF"  .to_upper .mutable?', [false])
+    foorth_equal('"abcDEF"* .to_upper .mutable?', [false])
+    foorth_equal('"abcDEF"  .to_upper .class',  [String])
+    foorth_equal('"abcDEF"* .to_upper .class',  [String])
+
+    foorth_raises('"abcDEF" .to_upper*')
+    foorth_equal('"abcDEF"* dup .to_upper*', ['ABCDEF'])
+    foorth_equal('"abcDEF"* dup .to_upper* .mutable?', [true])
+    foorth_equal('"abcDEF"* dup .to_upper* .class', [StringBuffer])
+
+    foorth_equal('"abcDEF"  .to_lower',  ['abcdef'])
+    foorth_equal('"abcDEF"* .to_lower',  ['abcdef'])
+    foorth_equal('"abcDEF"  .to_lower .mutable?', [false])
+    foorth_equal('"abcDEF"* .to_lower .mutable?', [false])
+    foorth_equal('"abcDEF"  .to_lower .class',  [String])
+    foorth_equal('"abcDEF"* .to_lower .class',  [String])
+
+    foorth_raises('"abcDEF" .to_lower*')
+    foorth_equal('"abcDEF"* dup .to_lower*', ['abcdef'])
+    foorth_equal('"abcDEF"* dup .to_lower* .mutable?', [true])
+    foorth_equal('"abcDEF"* dup .to_lower* .class', [StringBuffer])
   end
 
   def test_reversing
