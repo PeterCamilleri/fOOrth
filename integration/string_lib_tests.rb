@@ -174,8 +174,26 @@ class StringLibraryTester < Minitest::Test
 
   def test_left_copy_paste_and_cut
     foorth_equal('2 "abcdefgh"         .left  ',  ['ab'])
+    foorth_equal('2 *"abcdefgh"        .left  ',  ['ab'])
+    foorth_equal('2 "abcdefgh"         .left  .mutable?',  [false])
+    foorth_equal('2 *"abcdefgh"        .left  .mutable?',  [false])
+    foorth_equal('2 "abcdefgh"         .left  .class',  [String])
+    foorth_equal('2 *"abcdefgh"        .left  .class',  [String])
+
     foorth_equal('2 "123" "abcdefgh"   .+left ',  ['123cdefgh'])
+    foorth_equal('2 "123" *"abcdefgh"  .+left ',  ['123cdefgh'])
+    foorth_equal('2 "123" "abcdefgh"   .+left .mutable?',  [false])
+    foorth_equal('2 "123" *"abcdefgh"  .+left .mutable?',  [false])
+    foorth_equal('2 "123" "abcdefgh"   .+left .class',  [String])
+    foorth_equal('2 "123" *"abcdefgh"  .+left .class',  [String])
+
     foorth_equal('2 "abcdefgh"         .-left ',  ['cdefgh'])
+    foorth_equal('2 *"abcdefgh"        .-left ',  ['cdefgh'])
+    foorth_equal('2 "abcdefgh"         .-left .mutable?',  [false])
+    foorth_equal('2 *"abcdefgh"        .-left .mutable?',  [false])
+    foorth_equal('2 "abcdefgh"         .-left .class',  [String])
+    foorth_equal('2 *"abcdefgh"        .-left .class',  [String])
+
     foorth_equal('"abc" "abcdefgh"     .left? ',  [true])
     foorth_equal('"abx" "abcdefgh"     .left? ',  [false])
   end

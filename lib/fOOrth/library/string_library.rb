@@ -131,11 +131,11 @@ module XfOOrth
 
   # [w 'abcdefgh'] .left ['ab']         // Assumes w = 2
   String.create_shared_method('.left', TosSpec, [],
-    &lambda {|vm| vm.poke(self[0...(Integer.foorth_coerce(vm.peek))]); })
+    &lambda {|vm| vm.poke(self.to_s[0...(Integer.foorth_coerce(vm.peek))].freeze); })
 
   # [w 'abcdefgh'] .-left ['cdefgh']    // Assumes w = 2
   String.create_shared_method('.-left', TosSpec, [],
-    &lambda {|vm| vm.poke(self[(Integer.foorth_coerce(vm.peek))..-1]); })
+    &lambda {|vm| vm.poke(self.to_s[(Integer.foorth_coerce(vm.peek))..-1].freeze); })
 
   # [w '123''abcdefgh'] .+left ['123cdefgh']    // Assumes w = 2
   String.create_shared_method('.+left', TosSpec, [], &lambda {|vm|
