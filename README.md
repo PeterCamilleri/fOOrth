@@ -11,7 +11,7 @@ compilers and languages with simplified grammars and syntax.
 
 While it is still very much a work in progress, you are invited to see The
 fOOrth Programming Language web site at:
-<br>** http://www.foorth.org/ **
+<br>http://www.foorth.org/
 <br>
 
 ## Usage
