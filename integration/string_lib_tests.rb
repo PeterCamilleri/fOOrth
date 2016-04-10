@@ -253,11 +253,44 @@ class StringLibraryTester < Minitest::Test
 
     foorth_equal('2 4 "123" "abcdefgh" .+mid ',   ['ab123gh'])
     foorth_equal('2 0 "123" "abcdefgh" .+mid ',   ['ab123cdefgh'])
+    foorth_equal('2 4 "123" "abcdefgh"* .+mid ',  ['ab123gh'])
+    foorth_equal('2 0 "123" "abcdefgh"* .+mid ',  ['ab123cdefgh'])
+    foorth_equal('2 4 "123"* "abcdefgh" .+mid ',  ['ab123gh'])
+    foorth_equal('2 0 "123"* "abcdefgh" .+mid ',  ['ab123cdefgh'])
+    foorth_equal('2 4 "123"* "abcdefgh"* .+mid ', ['ab123gh'])
+    foorth_equal('2 0 "123"* "abcdefgh"* .+mid ', ['ab123cdefgh'])
+
+    foorth_equal('2 4 "123" "abcdefgh" .+mid   .mutable?', [false])
+    foorth_equal('2 0 "123" "abcdefgh" .+mid   .mutable?', [false])
+    foorth_equal('2 4 "123" "abcdefgh"* .+mid  .mutable?', [false])
+    foorth_equal('2 0 "123" "abcdefgh"* .+mid  .mutable?', [false])
+    foorth_equal('2 4 "123"* "abcdefgh" .+mid  .mutable?', [false])
+    foorth_equal('2 0 "123"* "abcdefgh" .+mid  .mutable?', [false])
+    foorth_equal('2 4 "123"* "abcdefgh"* .+mid .mutable?', [false])
+    foorth_equal('2 0 "123"* "abcdefgh"* .+mid .mutable?', [false])
+
+    foorth_equal('2 4 "123" "abcdefgh" .+mid   .class',  [String])
+    foorth_equal('2 0 "123" "abcdefgh" .+mid   .class',  [String])
+    foorth_equal('2 4 "123" "abcdefgh"* .+mid  .class',  [String])
+    foorth_equal('2 0 "123" "abcdefgh"* .+mid  .class',  [String])
+    foorth_equal('2 4 "123"* "abcdefgh" .+mid  .class',  [String])
+    foorth_equal('2 0 "123"* "abcdefgh" .+mid  .class',  [String])
+    foorth_equal('2 4 "123"* "abcdefgh"* .+mid .class',  [String])
+    foorth_equal('2 0 "123"* "abcdefgh"* .+mid .class',  [String])
   end
 
   def test_mid_find
     foorth_equal('2 "cde" "abcdefgh"    .mid? ',   [true])
     foorth_equal('3 "cde" "abcdefgh"    .mid? ',   [false])
+
+    foorth_equal('2 "cde"* "abcdefgh"    .mid? ',   [true])
+    foorth_equal('3 "cde"* "abcdefgh"    .mid? ',   [false])
+
+    foorth_equal('2 "cde" "abcdefgh"*    .mid? ',   [true])
+    foorth_equal('3 "cde" "abcdefgh"*    .mid? ',   [false])
+
+    foorth_equal('2 "cde"* "abcdefgh"*    .mid? ',   [true])
+    foorth_equal('3 "cde"* "abcdefgh"*    .mid? ',   [false])
   end
 
   def test_midlr_copy_paste_and_cut

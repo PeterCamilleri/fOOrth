@@ -164,7 +164,7 @@ module XfOOrth
     ins = vm.pop.to_s
     width = Integer.foorth_coerce(vm.pop)
     posn = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...posn] + ins + self[(posn+width)..-1])
+    vm.push((self[0...posn] + ins + self[(posn+width)..-1]).freeze)
   })
 
   # [n 'cde' 'abcdefgh'] .mid? [true]      // Assumes n = 2
