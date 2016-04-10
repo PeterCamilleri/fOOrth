@@ -208,18 +208,20 @@ module XfOOrth
   #RIGHT Group
 
   # [w 'abcdefgh'] .right ['gh']        // Assumes w = 2
-  String.create_shared_method('.right', TosSpec, [],
-    &lambda {|vm| vm.poke(self[(0-(Integer.foorth_coerce(vm.peek)))..-1]); })
+  String.create_shared_method('.right', TosSpec, [], &lambda {|vm|
+    vm.poke(self.to_s[(0-(Integer.foorth_coerce(vm.peek)))..-1].freeze);
+  })
 
   # [w 'abcdefgh'] .-right ['abcdef']   // Assumes w = 2
-  String.create_shared_method('.-right', TosSpec, [],
-    &lambda {|vm| vm.poke(self[0...(0-(Integer.foorth_coerce(vm.peek)))]); })
+  String.create_shared_method('.-right', TosSpec, [], &lambda {|vm|
+    vm.poke(self.to_s[0...(0-(Integer.foorth_coerce(vm.peek)))].freeze);
+  })
 
   # [w "123" 'abcdefgh'] .+right ['abcdef123']   // Assumes w = 2
   String.create_shared_method('.+right', TosSpec, [], &lambda {|vm|
     ins = vm.pop.to_s
     width = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...(0-width)] + ins)
+    vm.push((self[0...(0-width)] + ins).freeze)
   })
 
   # ['fgh' 'abcdefgh'] .right? [boolean]
