@@ -63,6 +63,14 @@ class String
     self.freeze
   end
 
+  #Create an instance of a String.
+  #<br>Parameters:
+  #* vm - The current fOOrth virtual machine.
+  def self.create_foorth_instance(vm)
+    (obj = "".freeze).foorth_init(vm)
+    obj
+  end
+
 end
 
 #The \StringBuffer class is the mutable variant of the String class.
@@ -70,7 +78,7 @@ class StringBuffer < String
 
   #Create a string buffer from an object. Make sure that object is a
   #string and make sure that string is not frozen.
-  def initialize(text)
+  def initialize(text="")
     super(text)
   end
 
@@ -87,6 +95,14 @@ class StringBuffer < String
   #Freeze only pure strings
   def foorth_string_freeze
     self
+  end
+
+  #Create an instance of StringBuffer.
+  #<br>Parameters:
+  #* vm - The current fOOrth virtual machine.
+  def self.create_foorth_instance(vm)
+    (obj = self.new).foorth_init(vm)
+    obj
   end
 
 end

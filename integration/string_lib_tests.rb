@@ -22,6 +22,15 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('StringBuffer ',      [StringBuffer])
     foorth_equal('"A"* .class ',       [StringBuffer])
     foorth_equal('"A"* .to_s .class ', [String])
+
+    foorth_equal('String       .new ',  [""])
+    foorth_equal('StringBuffer .new ',  [""])
+
+    foorth_equal('String       .new .class',  [String])
+    foorth_equal('StringBuffer .new .class',  [StringBuffer])
+
+    foorth_equal('String       .new .mutable?', [false])
+    foorth_equal('StringBuffer .new .mutable?', [true])
   end
 
   def test_string_literals
