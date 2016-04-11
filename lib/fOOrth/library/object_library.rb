@@ -30,6 +30,16 @@ module XfOOrth
   Object.create_shared_method('.to_s', TosSpec, [],
     &lambda {|vm| vm.push(self.to_s.freeze)})
 
+  #Get the object as a string.
+  # [obj] .to_s ["obj as a string"]
+  Object.create_shared_method('.to_s*', TosSpec, [],
+    &lambda {|vm| vm.push(StringBuffer.new(self.to_s.dup))})
+
+  #Get the object as a string.
+  # [obj] .to_s ["obj as a string"]
+  String.create_shared_method('.to_s*', TosSpec, [],
+    &lambda {|vm| vm.push(StringBuffer.new(self.dup))})
+
   #Get the length of the object as a string.
   # [obj] .strlen [n]; the length of the object's to_s string
   Object.create_shared_method('.strlen', TosSpec, [],

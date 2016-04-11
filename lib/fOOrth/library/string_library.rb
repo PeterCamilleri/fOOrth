@@ -12,11 +12,6 @@ module XfOOrth
   # A no operation place holder for string literals
   VirtualMachine.create_shared_method('"', MacroSpec, [:macro, " "])
 
-  # Convert a string into a \StringBuffer.
-  String.create_shared_method('.to_s*', TosSpec, [], &lambda { |vm|
-    vm.push(StringBuffer.new(self))
-  })
-
   #Is this mutable? StringBuffers are, Strings are not.
   # [a] .mutable? [flag]
   String.create_shared_method('.mutable?', TosSpec, [],

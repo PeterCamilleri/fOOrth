@@ -71,7 +71,7 @@ class StringBuffer < String
   #Create a string buffer from an object. Make sure that object is a
   #string and make sure that string is not frozen.
   def initialize(text)
-    super(text.to_s.dup)
+    super(text)
   end
 
   #A special patch for safe_clone
