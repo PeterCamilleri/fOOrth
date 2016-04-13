@@ -7,14 +7,14 @@ class Class
   #<br>Decree!
   #* These are to be the only references to @_private_foorth_name!
   def foorth_name
-    @_private_foorth_name ||= name
+    @_private_foorth_name ||= name.freeze
   end
 
   #Set the foorth name of this class.
   #<br>Decree!
   #* These are to be the only references to @_private_foorth_name!
   def foorth_name=(new_name)
-    @_private_foorth_name = new_name
+    @_private_foorth_name = new_name.freeze
   end
 
   #Access/create the class's shared fOOrth dictionary.

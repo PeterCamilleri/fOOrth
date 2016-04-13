@@ -6,7 +6,7 @@ module XfOOrth
   #Get the VM as a string.
   # [vm] .to_s ["vm as a string"]
   VirtualMachine.create_shared_method('.to_s', TosSpec, [],
-    &lambda {|vm| vm.push(self.foorth_name)})
+    &lambda {|vm| vm.push(self.foorth_name.freeze)})
 
   #Create a macro to get at the current virtual machine instance.
   # [] vm [the_current_vm]

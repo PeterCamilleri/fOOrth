@@ -13,7 +13,7 @@ class String
   #<br>Endemic Code Smells
   #* :reek:FeatureEnvy -- false positive
   def foorth_coerce(arg)
-    arg.to_s
+    arg.to_s.freeze
   rescue
     error "F40: Cannot coerce a #{arg.foorth_name} to an String instance"
   end
@@ -46,6 +46,63 @@ class String
   #Convert this string to a rational. Return a number or nil on fail.
   def to_foorth_r
     self.to_foorth_n.to_foorth_r
+  end
+
+  #A special patch for safe_clone
+  def safe_clone
+    self.freeze
+  end
+
+  #A special patch for full_clone
+  def full_clone(_arg=nil)
+    self.freeze
+  end
+
+  #Freeze only pure strings
+  def foorth_string_freeze
+    self.freeze
+  end
+
+  #Create an instance of a String.
+  #<br>Parameters:
+  #* vm - The current fOOrth virtual machine.
+  def self.create_foorth_instance(vm)
+    (obj = "".freeze).foorth_init(vm)
+    obj
+  end
+
+end
+
+#The \StringBuffer class is the mutable variant of the String class.
+class StringBuffer < String
+
+  #Create a string buffer from an object. Make sure that object is a
+  #string and make sure that string is not frozen.
+  def initialize(text="")
+    super(text)
+  end
+
+  #A special patch for safe_clone
+  def safe_clone
+    self.clone
+  end
+
+  #A special patch for full_clone
+  def full_clone(_arg=nil)
+    self.clone
+  end
+
+  #Freeze only pure strings
+  def foorth_string_freeze
+    self
+  end
+
+  #Create an instance of StringBuffer.
+  #<br>Parameters:
+  #* vm - The current fOOrth virtual machine.
+  def self.create_foorth_instance(vm)
+    (obj = self.new).foorth_init(vm)
+    obj
   end
 
 end

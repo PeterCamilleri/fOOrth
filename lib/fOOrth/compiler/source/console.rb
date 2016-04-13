@@ -11,6 +11,8 @@ module XfOOrth
 
     #Initialize a new console command source.
     def initialize
+      @peek_buffer = nil
+
       reset_read_point
 
       auto_src = lambda { SymbolMap.forward_map.keys.sort  }
@@ -22,16 +24,30 @@ module XfOOrth
                                          eoi_detect: true)
     end
 
-    alias close reset_read_point
-    alias flush reset_read_point
+    #Close the console source.
+    def close
+      @peek_buffer = nil
+      reset_read_point
+    end
+
+    alias flush close
 
     #Get the next character of command text from the user.
     #<br>Returns
     #* The next character of user input as a string.
     def get
-      read do
+      @peek_buffer || read do
         @edit.readline(prompt: prompt).rstrip
       end
+    ensure
+      @peek_buffer = nil
+    end
+
+    #Peek ahead by one character.
+    #<br>Returns:
+    #* A peek at next character or nil if none are available.
+    def peek
+      @peek_buffer ||= get
     end
 
     #Has the scanning of the text reached the end of input?
