@@ -7,6 +7,13 @@ past, but continued to grow and develop with the times. Above all this project
 is the result of nearly 30 years of thought on the design of threaded
 compilers and languages with simplified grammars and syntax.
 
+## Community
+
+While it is still very much a work in progress, you are invited to see The
+fOOrth Programming Language web site at:
+<br>http://www.foorth.org/
+<br>
+
 ## Usage
 Adding fOOrth can be as simple as:
 
@@ -45,7 +52,7 @@ version of fOOrth is made available, expect to see portable document format
 
 #### Plan A
 
-1. Fork it
+1. Fork it ( https://github.com/PeterCamilleri/fOOrth/fork )
 2. Switch to the development branch ('git branch development')
 3. Create your feature branch ('git checkout -b my-new-feature')
 4. Commit your changes ('git commit -am "Add some feature"')
@@ -60,7 +67,4 @@ http://nvie.com/posts/a-successful-git-branching-model/
 #### Plan B
 
 Go to the GitHub repository and raise an issue calling attention to some
-aspect that could use some TLC or a suggestion or an idea. Apply labels
-to the issue that match the point you are trying to make. Then follow
-your issue and keep up-to-date as it is worked on. All input are greatly
-appreciated.
+aspect that could use some TLC or a suggestion or an idea.
