@@ -123,7 +123,7 @@ module XfOOrth
       result << (vm.pop || value.inspect) + " -> "
     end
 
-    vm.push(result + "}")
+    vm.push((result + "}").freeze)
   })
 
   #[a_hash] .to_h [a_hash]

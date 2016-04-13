@@ -28,6 +28,11 @@ class Object
     nil
   end
 
+  #Freeze only pure strings
+  def foorth_string_freeze
+    self
+  end
+
   #Fail with XfOOrthError argument error.
   def error(msg)
     fail XfOOrth::XfOOrthError, msg, caller

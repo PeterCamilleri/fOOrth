@@ -119,6 +119,10 @@ module XfOOrth
   Array.create_shared_method('<<', NosSpec, [],
     &lambda {|vm| vm.poke(self << vm.peek); })
 
+  # [ [ 3 1 2 ] n ] >> [ [ n 3 1 2 ] ]
+  Array.create_shared_method('>>', NosSpec, [],
+    &lambda {|vm| vm.poke(self.insert(0, vm.peek)); })
+
   # [[3 1 2] n] + [[3 1 2 n]]
   Array.create_shared_method('+', NosSpec, [],
     &lambda {|vm| vm.poke(self + vm.peek.in_array); })
@@ -474,7 +478,7 @@ module XfOOrth
       end
     end
 
-    vm.push(result + "]")
+    vm.push((result + "]").freeze)
   })
 
   # [ l 2 3 ... n ] .strmax [ widest ]

@@ -283,6 +283,8 @@ class ArrayLibraryTester < Minitest::Test
     foorth_equal('[ 9 3 5 ] [ 4 1 ] << ', [[9,3,5,[4,1]]])
     foorth_equal('[ 9 3 5 ] [ 4 1 ] << ', [[9,3,5,[4,1]]])
 
+    foorth_equal('[ 9 3 5 ] 0       >> ', [[0,9,3,5]])
+
     foorth_equal('[ 9 3 5 ] 0       + ', [[9,3,5,0]])
     foorth_equal('[ 9 3 5 ] [ 0 ]   + ', [[9,3,5,0]])
     foorth_equal('[ 9 3 5 ] { }     + ', [[9,3,5,{}]])

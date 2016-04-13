@@ -6,13 +6,21 @@ module XfOOrth
   #Connect the String class to the fOOrth class system.
   String.create_foorth_proxy
 
+  #Connect the StringBuffer class to the fOOrth class system.
+  StringBuffer.create_foorth_proxy
+
   # A no operation place holder for string literals
   VirtualMachine.create_shared_method('"', MacroSpec, [:macro, " "])
+
+  #Is this mutable? StringBuffers are, Strings are not.
+  # [a] .mutable? [flag]
+  String.create_shared_method('.mutable?', TosSpec, [],
+    &lambda {|vm| vm.push(!self.frozen?); })
 
   # [string] .each{{ ... }} [unspecified]
   String.create_shared_method('.each{{', NosSpec, [], &lambda { |vm|
     block, idx = vm.pop, 0
-    self.chars { |val| block.call(vm, val, idx); idx += 1 }
+    self.chars { |val| block.call(vm, val.freeze, idx); idx += 1 }
   })
 
   #Some comparison operators
@@ -39,32 +47,48 @@ module XfOOrth
 
   #Some string manipulation methods.
   # [n a] .ljust ['a    ']; left justify
-  String.create_shared_method('.ljust', TosSpec, [],
-    &lambda {|vm| vm.poke(self.ljust(Integer.foorth_coerce(vm.peek))); })
+  String.create_shared_method('.ljust', TosSpec, [], &lambda {|vm|
+    vm.poke(self.to_s.ljust(Integer.foorth_coerce(vm.peek)).freeze);
+  })
 
   # [n a] .cjust ['  a  ']; center justify
-  String.create_shared_method('.cjust', TosSpec, [],
-    &lambda {|vm| vm.poke(self.center(Integer.foorth_coerce(vm.peek))); })
+  String.create_shared_method('.cjust', TosSpec, [], &lambda {|vm|
+    vm.poke(self.to_s.center(Integer.foorth_coerce(vm.peek)).freeze);
+  })
 
   # [n a] .rjust ['    a']; right justify
-  String.create_shared_method('.rjust', TosSpec, [],
-    &lambda {|vm| vm.poke(self.rjust(Integer.foorth_coerce(vm.peek))); })
+  String.create_shared_method('.rjust', TosSpec, [], &lambda {|vm|
+    vm.poke(self.to_s.rjust(Integer.foorth_coerce(vm.peek)).freeze);
+  })
 
   # ["  a  "] .lstrip ["a  "]; left strip
   String.create_shared_method('.lstrip', TosSpec, [],
-    &lambda {|vm| vm.push(self.lstrip); })
+    &lambda {|vm| vm.push(self.to_s.lstrip.freeze); })
+
+  # ["  a  "*] .lstrip* []; left strip in place.
+  StringBuffer.create_shared_method('.lstrip*', TosSpec, [],
+    &lambda {|vm| self.lstrip! })
 
   # ["  a  "] .strip ["a"]; left and right strip
   String.create_shared_method('.strip', TosSpec, [],
-    &lambda {|vm| vm.push(self.strip); })
+    &lambda {|vm| vm.push(self.to_s.strip.freeze); })
+
+  # ["  a  "*] .strip* []; left and right strip in place
+  StringBuffer.create_shared_method('.strip*', TosSpec, [],
+    &lambda {|vm| self.strip! })
 
   # ["  a  "] .rstrip ["  a"]; right strip
   String.create_shared_method('.rstrip', TosSpec, [],
-    &lambda {|vm| vm.push(self.rstrip); })
+    &lambda {|vm| vm.push(self.to_s.rstrip.freeze); })
 
+  # ["  a  "*] .rstrip* []; right strip in place
+  StringBuffer.create_shared_method('.rstrip*', TosSpec, [],
+    &lambda {|vm| self.rstrip! })
+
+  #The shared block for string formatting.
   format_action = lambda do |vm|
     begin
-      vm.poke(vm.peek % self.in_array)
+      vm.poke((vm.peek % self.in_array).freeze)
     rescue => err
       vm.data_stack.pop
       error "F40: Formating error: #{err.message}."
@@ -77,7 +101,14 @@ module XfOOrth
   # [object_or_array] f"fmt_str" ['a formatted string']
   Object.create_shared_method('f"', NosSpec, [], &format_action)
 
-  parse_action = lambda {|vm| vm.poke(self.sscanf(vm.peek))}
+  parse_action = lambda do |vm|
+    begin
+      vm.poke(self.sscanf(vm.peek).map{|obj| obj.foorth_string_freeze} )
+    rescue => err
+      vm.data_stack.pop
+      error "F40: Parsing error: #{err.message}."
+    end
+  end
 
   # [a_str fmt_str] parse [result_array]
   String.create_shared_method('parse', NosSpec, [], &parse_action)
@@ -90,16 +121,16 @@ module XfOOrth
 
   # [w 'abcdefgh'] .left ['ab']         // Assumes w = 2
   String.create_shared_method('.left', TosSpec, [],
-    &lambda {|vm| vm.poke(self[0...(Integer.foorth_coerce(vm.peek))]); })
+    &lambda {|vm| vm.poke(self.to_s[0...(Integer.foorth_coerce(vm.peek))].freeze); })
 
   # [w 'abcdefgh'] .-left ['cdefgh']    // Assumes w = 2
   String.create_shared_method('.-left', TosSpec, [],
-    &lambda {|vm| vm.poke(self[(Integer.foorth_coerce(vm.peek))..-1]); })
+    &lambda {|vm| vm.poke(self.to_s[(Integer.foorth_coerce(vm.peek))..-1].freeze); })
 
   # [w '123''abcdefgh'] .+left ['123cdefgh']    // Assumes w = 2
   String.create_shared_method('.+left', TosSpec, [], &lambda {|vm|
     ins = vm.pop.to_s
-    vm.poke(ins + self[(Integer.foorth_coerce(vm.peek))..-1])
+    vm.poke((ins + self[(Integer.foorth_coerce(vm.peek))..-1]).freeze)
   })
 
   # ['abc' 'abcdefgh'] .left? [boolean]
@@ -113,14 +144,14 @@ module XfOOrth
   String.create_shared_method('.mid', TosSpec, [], &lambda {|vm|
     width = Integer.foorth_coerce(vm.pop)
     posn = Integer.foorth_coerce(vm.pop)
-    vm.push(self[posn...(posn+width)])
+    vm.push(self.to_s[posn...(posn+width)].freeze)
   })
 
   # [n w 'abcdefgh'] .-mid ['abgh']     // Assumes n = 2, w = 4
   String.create_shared_method('.-mid', TosSpec, [], &lambda {|vm|
     width = Integer.foorth_coerce(vm.pop)
     posn = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...posn] + self[(posn+width)..-1])
+    vm.push((self[0...posn] + self[(posn+width)..-1]).freeze)
   })
 
   # [n w "123" "abcdefgh"] .+mid ["ab123gh"] // Assumes n = 2, w = 4
@@ -128,7 +159,7 @@ module XfOOrth
     ins = vm.pop.to_s
     width = Integer.foorth_coerce(vm.pop)
     posn = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...posn] + ins + self[(posn+width)..-1])
+    vm.push((self[0...posn] + ins + self[(posn+width)..-1]).freeze)
   })
 
   # [n 'cde' 'abcdefgh'] .mid? [true]      // Assumes n = 2
@@ -146,14 +177,14 @@ module XfOOrth
   String.create_shared_method('.midlr', TosSpec, [], &lambda {|vm|
     right = Integer.foorth_coerce(vm.pop)
     left  = Integer.foorth_coerce(vm.pop)
-    vm.push(self[left...(0-right)])
+    vm.push(self.to_s[left...(0-right)].freeze)
   })
 
   # [l r 'abcdefgh'] .-midlr ['ah']     // Assumes l = 1, r = 1
   String.create_shared_method('.-midlr', TosSpec, [], &lambda {|vm|
     right = Integer.foorth_coerce(vm.pop)
     left  = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...left] + self[((0-right))..-1])
+    vm.push((self[0...left] + self[((0-right))..-1]).freeze)
   })
 
   # [l r "123" 'abcdefgh'] .+midlr ['a123h']     // Assumes l = 1, r = 1
@@ -161,24 +192,26 @@ module XfOOrth
     ins = vm.pop.to_s
     right = Integer.foorth_coerce(vm.pop)
     left  = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...left] + ins + self[((0-right))..-1])
+    vm.push((self[0...left] + ins + self[((0-right))..-1]).freeze)
   })
 
   #RIGHT Group
 
   # [w 'abcdefgh'] .right ['gh']        // Assumes w = 2
-  String.create_shared_method('.right', TosSpec, [],
-    &lambda {|vm| vm.poke(self[(0-(Integer.foorth_coerce(vm.peek)))..-1]); })
+  String.create_shared_method('.right', TosSpec, [], &lambda {|vm|
+    vm.poke(self.to_s[(0-(Integer.foorth_coerce(vm.peek)))..-1].freeze);
+  })
 
   # [w 'abcdefgh'] .-right ['abcdef']   // Assumes w = 2
-  String.create_shared_method('.-right', TosSpec, [],
-    &lambda {|vm| vm.poke(self[0...(0-(Integer.foorth_coerce(vm.peek)))]); })
+  String.create_shared_method('.-right', TosSpec, [], &lambda {|vm|
+    vm.poke(self.to_s[0...(0-(Integer.foorth_coerce(vm.peek)))].freeze);
+  })
 
   # [w "123" 'abcdefgh'] .+right ['abcdef123']   // Assumes w = 2
   String.create_shared_method('.+right', TosSpec, [], &lambda {|vm|
     ins = vm.pop.to_s
     width = Integer.foorth_coerce(vm.pop)
-    vm.push(self[0...(0-width)] + ins)
+    vm.push((self[0...(0-width)] + ins).freeze)
   })
 
   # ['fgh' 'abcdefgh'] .right? [boolean]
@@ -201,16 +234,20 @@ module XfOOrth
 
   # ["b", a] + ["ba"]; "ba" is a new object, distinct from "b"
   String.create_shared_method('+', NosSpec, [],
-    &lambda {|vm| vm.poke(self + vm.peek.to_s); })
+    &lambda {|vm| vm.poke((self + vm.peek.to_s).freeze) })
 
-  # ["b", a] << ["ba"]; "ba" is the same object as "b"
-  String.create_shared_method('<<', NosSpec, [],
+  # ["b"*, a] << ["ba"*]; "ba"* is the same object as "b"*
+  StringBuffer.create_shared_method('<<', NosSpec, [],
     &lambda {|vm| vm.poke(self << vm.peek.to_s); })
+
+  # ["b"*, a] >> ["ab"*]; "ab"* is the same object as "b"*
+  StringBuffer.create_shared_method('>>', NosSpec, [],
+    &lambda {|vm| vm.poke(self.prepend(vm.peek.to_s)); })
 
   # ["b", n] * ["bbb..."]
   String.create_shared_method('*', NosSpec, [], &lambda {|vm|
     begin
-      vm.poke(self * Integer.foorth_coerce(vm.peek))
+      vm.poke((self.to_s * Integer.foorth_coerce(vm.peek)).freeze)
     rescue
       vm.data_stack.pop
       raise
@@ -219,15 +256,27 @@ module XfOOrth
 
   # ["abCD"] .to_upper ["ABCD"]
   String.create_shared_method('.to_upper', TosSpec, [],
-    &lambda {|vm| vm.push(self.upcase); })
+    &lambda {|vm| vm.push(self.to_s.upcase.freeze) })
+
+  # ["abCD"*] .to_upper* [] #Convert to upper case in place.
+  StringBuffer.create_shared_method('.to_upper*', TosSpec, [],
+    &lambda {|vm| self.upcase! })
 
   # ["abCD"] .to_lower ["abcd"]
   String.create_shared_method('.to_lower', TosSpec, [],
-    &lambda {|vm| vm.push(self.downcase); })
+    &lambda {|vm| vm.push(self.to_s.downcase.freeze) })
+
+  # ["abCD"*] .to_lower* [] #Convert to lower case in place.
+  StringBuffer.create_shared_method('.to_lower*', TosSpec, [],
+    &lambda {|vm| self.downcase! })
 
   # ["stressed"] .reverse ["desserts"]
   String.create_shared_method('.reverse', TosSpec, [],
-    &lambda {|vm| vm.push(self.reverse); })
+    &lambda {|vm| vm.push(self.to_s.reverse.freeze); })
+
+  # ["stressed"*] .reverse* [] #Reverse the string in place.
+  StringBuffer.create_shared_method('.reverse*', TosSpec, [],
+    &lambda {|vm| self.reverse! })
 
   # ["abc\\ndef\\n123"] .lines [["abc", "def", "123"]]
   String.create_shared_method('.lines', TosSpec, [],

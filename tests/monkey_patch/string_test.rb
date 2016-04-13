@@ -46,8 +46,16 @@ class StringMonkeyPatchTester < Minitest::Test
   def test_to_rational
     assert_equal(Rational(1,2), '1/2'.to_foorth_r)
     assert_equal(nil, 'apple'.to_foorth_r)
-
   end
 
+  def test_clone_patches
+    s = "abc"
+    assert_equal(s.object_id, s.safe_clone.object_id)
+    assert_equal(s.object_id, s.full_clone.object_id)
+
+    b = StringBuffer.new('abc')
+    refute_equal(b.object_id, b.safe_clone.object_id)
+    refute_equal(b.object_id, b.full_clone.object_id)
+  end
 
 end
