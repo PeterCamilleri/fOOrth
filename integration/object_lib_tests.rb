@@ -35,4 +35,22 @@ class ObjectLibraryTester < Minitest::Test
     foorth_equal("4              .strlen", [1])
   end
 
+  def test_for_mutable
+    foorth_equal('"abc"  .mutable?', [false])
+    foorth_equal('"abc"* .mutable?', [true])
+
+    foorth_equal('42     .mutable?', [false])
+    foorth_equal('42.5   .mutable?', [false])
+    foorth_equal('42/5   .mutable?', [false])
+    foorth_equal('42+5i  .mutable?', [false])
+
+    foorth_equal('[ "abc" ] .mutable?', [true])
+
+    foorth_equal('true   .mutable?', [false])
+    foorth_equal('false  .mutable?', [false])
+    foorth_equal('nil    .mutable?', [false])
+
+    foorth_equal('Object .new .mutable?', [true])
+  end
+
 end
