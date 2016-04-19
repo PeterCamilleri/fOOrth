@@ -35,9 +35,13 @@ class ObjectLibraryTester < Minitest::Test
     foorth_equal("4              .strlen", [1])
   end
 
-  def test_for_mutable
+  def test_for_mutable_and_protect
     foorth_equal('"abc"  .mutable?', [false])
+    foorth_equal('"abc"  dup .protect .mutable?', [false])
+
     foorth_equal('"abc"* .mutable?', [true])
+    foorth_equal('"abc"* dup .protect .mutable?', [false])
+    foorth_raises('"abc"* dup .protect "a" <<', RuntimeError)
 
     foorth_equal('42     .mutable?', [false])
     foorth_equal('42.5   .mutable?', [false])
@@ -45,12 +49,13 @@ class ObjectLibraryTester < Minitest::Test
     foorth_equal('42+5i  .mutable?', [false])
 
     foorth_equal('[ "abc" ] .mutable?', [true])
+    foorth_equal('[ "abc" ] dup .protect .mutable?', [false])
 
     foorth_equal('true   .mutable?', [false])
     foorth_equal('false  .mutable?', [false])
     foorth_equal('nil    .mutable?', [false])
 
-    foorth_equal('Object .new .mutable?', [true])
+    foorth_equal('Object .new dup .protect .mutable?', [false])
   end
 
 end

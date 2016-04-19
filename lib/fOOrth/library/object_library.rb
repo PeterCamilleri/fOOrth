@@ -112,4 +112,8 @@ module XfOOrth
   NilClass.create_shared_method('.mutable?', TosSpec, [],
     &lambda {|vm| vm.push(false); })
 
+  #Protect this object from change!
+  # [a] .protect [] The object is protected against change.
+  Object.create_shared_method('.protect', TosSpec, [],
+    &lambda{|vm| self.freeze })
 end
