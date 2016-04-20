@@ -87,4 +87,38 @@ module XfOOrth
     end
   })
 
+  #Is this object mutable?
+  # [a] .mutable? [flag]
+  Object.create_shared_method('.mutable?', TosSpec, [],
+    &lambda {|vm| vm.push(!self.frozen?); })
+
+  #Is this number mutable? No!
+  # [a] .mutable? [false]
+  Numeric.create_shared_method('.mutable?', TosSpec, [],
+    &lambda {|vm| vm.push(false); })
+
+  #Is this boolean mutable? No!
+  # [a] .mutable? [false]
+  TrueClass.create_shared_method('.mutable?', TosSpec, [],
+    &lambda {|vm| vm.push(false); })
+
+  #Is this boolean mutable? No!
+  # [a] .mutable? [false]
+  FalseClass.create_shared_method('.mutable?', TosSpec, [],
+    &lambda {|vm| vm.push(false); })
+
+  #Is nil mutable? No!
+  # [a] .mutable? [false]
+  NilClass.create_shared_method('.mutable?', TosSpec, [],
+    &lambda {|vm| vm.push(false); })
+
+  #Protect this object from change!
+  # [a] .protect [] The object is protected against change.
+  Object.create_shared_method('.protect', TosSpec, [],
+    &lambda{|vm| self.freeze })
+
+  #Protect this object from change!
+  # [a] protect [a] The object is protected against change.
+  VirtualMachine.create_shared_method('protect', VmSpec, [],
+    &lambda{|vm| vm.poke(vm.peek.freeze) })
 end
