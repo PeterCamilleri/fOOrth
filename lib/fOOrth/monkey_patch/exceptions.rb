@@ -105,6 +105,20 @@ class SystemCallError
 
 end
 
+#Extensions to the RunTimeError to support fOOrth
+class RuntimeError
+
+  #Massage the messages a bit
+  def message
+    msg = super
+
+    msg["frozen"] && msg["frozen"] = "protected"
+
+    msg
+  end
+
+end
+
 # Extensions to Interrupt to support fOOrth.
 class Interrupt
 

@@ -49,14 +49,15 @@ class CloneLibraryTester < Minitest::Test
     foorth_run('$tscx1 .clone val$: $tscx2')
 
     foorth_equal('$tscx1 .clone_exclude', [["@b"]])
+    foorth_equal('$tscx2 .clone_exclude', [["@b"]])
 
     foorth_equal('$tscx1 .a', ["a"])
     foorth_equal('$tscx1 .b', ["b"])
     foorth_equal('$tscx2 .a', ["a"])
     foorth_equal('$tscx2 .b', ["b"])
 
-    foorth_run('$tscx1 .a "1" <<')
-    foorth_run('$tscx1 .b "1" <<')
+    foorth_equal('$tscx1 .a "1" << ', ["a1"])
+    foorth_equal('$tscx1 .b "1" << ', ["b1"])
 
     foorth_equal('$tscx1 .a', ["a1"])
     foorth_equal('$tscx1 .b', ["b1"])
