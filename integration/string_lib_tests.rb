@@ -72,6 +72,25 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('"A"* "B" >>', ["BA"])
   end
 
+  def test_some_additionelle_stuff
+    foorth_equal('"A"* .to_s .class    ', [String])
+
+    foorth_equal('"A"* .to_s .mutable? ', [false])
+
+    foorth_equal('"A"*      protect .class    ', [StringBuffer])
+    foorth_equal('"A"* dup .protect .class    ', [StringBuffer])
+
+    foorth_equal('"A"*      protect .mutable? ', [false])
+    foorth_equal('"A"* dup .protect .mutable? ', [false])
+
+    foorth_equal('"A"* .to_s* .class    ', [StringBuffer])
+    foorth_equal('"A"* .to_s* .mutable? ', [true])
+    foorth_equal('"A"* dup .to_s* distinct? ', [true])
+
+    foorth_equal('"A"* protect .to_s* .class ', [StringBuffer])
+    foorth_equal('"A"* protect .to_s* .mutable? ', [true])
+  end
+
   def test_file_loading
     foorth_equal('"integration/load_test_one.foorth" .load ', [42])
     foorth_equal('4 double ', [8])

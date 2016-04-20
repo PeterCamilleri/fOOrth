@@ -116,4 +116,9 @@ module XfOOrth
   # [a] .protect [] The object is protected against change.
   Object.create_shared_method('.protect', TosSpec, [],
     &lambda{|vm| self.freeze })
+
+  #Protect this object from change!
+  # [a] protect [a] The object is protected against change.
+  VirtualMachine.create_shared_method('protect', VmSpec, [],
+    &lambda{|vm| vm.poke(vm.peek.freeze) })
 end
