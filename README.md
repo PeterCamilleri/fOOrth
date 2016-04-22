@@ -41,12 +41,11 @@ where the string is fOOrth code to be executed, or for a file of code, use:
 ## Further Documentation
 
 The fOOrth Language System is documented in The fOOrth User Guide. This is
-currently only available in Open Office format, and is still also very much
-a work in progress. Please see The_fOOrth_User_Guide.odt in the docs folder.
+currently only available in Open Office and PDF formats. The guide tracks
+changes in the language fairly closely. The most current guide in PDF
+format may be found at the community web site above.
 
-Also for those who do not have or don't want Open Office: As each major
-version of fOOrth is made available, expect to see portable document format
-(pdf) versions of the guide. (In the docs folder in the repository)
+This code repo also has PDF formatted guides for majot revisions.
 
 ## Contributing
 
