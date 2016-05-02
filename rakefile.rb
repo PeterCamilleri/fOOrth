@@ -46,9 +46,10 @@ end
 desc "Fire up an IRB session with fOOrth preloaded."
 task :console do
   require 'irb'
-  require 'irb/completion'
+  $force_alias_read_line_module = true
+  require 'mini_readline'
   require './lib/fOOrth'
-  puts "Starting an IRB console for fOOrth."
+  puts "Starting an irbm console for fOOrth."
   ARGV.clear
   IRB.start
 end
