@@ -49,6 +49,10 @@ class CompilerModeTester < Minitest::Test
     vm.compiler_reset
 
     assert_raises(XfOOrth::XfOOrthError) { vm << "test" }
+    refute(vm.buffer_valid?)
+
+    vm.suspend_execute_mode("", "!")
+    assert(vm.buffer_valid?)
   end
 
 end

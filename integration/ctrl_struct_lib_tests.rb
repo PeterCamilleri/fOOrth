@@ -75,6 +75,12 @@ class CtrlStructLibraryTester < Minitest::Test
     foorth_equal('42 .with{{ {{ self }} .call }}', [42])
   end
 
+  def test_compile_suspend
+    foorth_equal(': tcs [[ 42 ]] ;', [42])
+
+    foorth_raises('[[ ]]')
+  end
+
   def test_for_unsupported_structures
     foorth_raises('4 .new{{  }}')
     foorth_raises('4 .each{{  }}')

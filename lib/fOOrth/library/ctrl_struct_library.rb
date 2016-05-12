@@ -113,4 +113,13 @@ module XfOOrth
     })
   })
 
+  #Support for the [[ ... ]] construct.
+  VirtualMachine.create_shared_method('[[', VmSpec, [:immediate], &lambda {|vm|
+    suspend_compile_mode('[[')
+
+    vm.context.create_local_method(']]', LocalSpec, [:immediate], &lambda {|vm|
+      resume_compile_mode('[[')
+    })
+  })
+
 end
