@@ -48,6 +48,8 @@ module XfOOrth
     def <<(text)
       dbg_puts "  Append=#{text.inspect}"
       @buffer << text
+    rescue NoMethodError
+      error "F14: The current mode does not allow code to be appended."
     end
 
     #Execute code from the interactive console.
