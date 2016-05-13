@@ -77,8 +77,10 @@ class CtrlStructLibraryTester < Minitest::Test
 
   def test_compile_suspend
     foorth_equal(': tcs [[ 42 ]] ;', [42])
-
     foorth_raises('[[ ]]')
+
+    foorth_equal(': tcs [[ 42 , ]] ; tcs', [42])
+    foorth_raises('42 ,')
   end
 
   def test_for_unsupported_structures

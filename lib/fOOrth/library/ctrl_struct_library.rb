@@ -122,4 +122,8 @@ module XfOOrth
     })
   })
 
+  VirtualMachine.create_shared_method(',', VmSpec, [], &lambda {|vm|
+    vm << "vm.push(#{vm.pop.foorth_embed}); "
+  })
+
 end
