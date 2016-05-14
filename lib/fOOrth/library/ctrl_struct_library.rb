@@ -126,4 +126,17 @@ module XfOOrth
     vm << "vm.push(#{vm.pop.foorth_embed}); "
   })
 
+  VirtualMachine.create_shared_method('asm"', VmSpec, [:immediate], &lambda {|vm|
+    code = vm.pop
+
+    if execute_mode?
+      @context.recvr.instance_exec(self, &eval("lambda {|vm| #{code} }"))
+    else
+      vm << code
+    end
+  })
+
+
+
+
 end
