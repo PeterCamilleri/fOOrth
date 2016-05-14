@@ -122,12 +122,12 @@ module XfOOrth
     })
   })
 
-  #Support for the , method.
+  #Support for the , method. Embed a value into the code stream.
   Object.create_shared_method(',', TosSpec, [], &lambda {|vm|
     vm << "vm.push(#{foorth_embed}); "
   })
 
-  #Support for the asm" method.
+  #Support for the asm" method. Perform some actions in assembly language.
   VirtualMachine.create_shared_method('asm"', VmSpec, [:immediate], &lambda {|vm|
     code = vm.pop
 
@@ -138,7 +138,12 @@ module XfOOrth
     end
   })
 
-  #Support for the .asm method.
+  #Support for the ,asm" method. Embed some actions in assembly language.
+  String.create_shared_method(',asm"', TosSpec, [], &lambda {|vm|
+    vm << self
+  })
+
+  #Support for the .asm method. Perform some actions in assembly language.
   String.create_shared_method('.asm', TosSpec, [], &lambda {|vm|
     vm.instance_exec(vm, &eval("lambda {|vm| #{self} }"))
   })
