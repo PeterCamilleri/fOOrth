@@ -122,10 +122,12 @@ module XfOOrth
     })
   })
 
+  #Support for the , method.
   VirtualMachine.create_shared_method(',', VmSpec, [], &lambda {|vm|
     vm << "vm.push(#{vm.pop.foorth_embed}); "
   })
 
+  #Support for the asm" method.
   VirtualMachine.create_shared_method('asm"', VmSpec, [:immediate], &lambda {|vm|
     code = vm.pop
 
