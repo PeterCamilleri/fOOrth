@@ -132,13 +132,15 @@ module XfOOrth
     code = vm.pop
 
     if execute_mode?
-      @context.recvr.instance_exec(self, &eval("lambda {|vm| #{code} }"))
+      vm.instance_exec(self, &eval("lambda {|vm| #{code} }"))
     else
       vm << code
     end
   })
 
-
-
+  #Support for the .asm method.
+  String.create_shared_method('.asm', TosSpec, [], &lambda {|vm|
+    vm.instance_exec(vm, &eval("lambda {|vm| #{self} }"))
+  })
 
 end

@@ -82,8 +82,11 @@ class CtrlStructLibraryTester < Minitest::Test
     foorth_equal(': tcs [[ 42 , ]] ; tcs', [42])
     foorth_raises('42 ,')
 
-    foorth_equal('asm" vm.push(42); " ', [42])
-    foorth_equal(': tcs asm" vm.push(42); " ; tcs', [42])
+    foorth_equal('asm" vm.push(42);" ', [42])
+    foorth_equal(': tcs asm" vm.push(42);" ; tcs', [42])
+
+    foorth_equal('"vm.push(42);" .asm ', [42])
+    foorth_equal(': tcs "vm.push(42);" .asm ; tcs', [42])
   end
 
   def test_for_unsupported_structures
