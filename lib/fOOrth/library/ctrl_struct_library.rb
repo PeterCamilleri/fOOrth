@@ -123,8 +123,8 @@ module XfOOrth
   })
 
   #Support for the , method.
-  VirtualMachine.create_shared_method(',', VmSpec, [], &lambda {|vm|
-    vm << "vm.push(#{vm.pop.foorth_embed}); "
+  Object.create_shared_method(',', TosSpec, [], &lambda {|vm|
+    vm << "vm.push(#{foorth_embed}); "
   })
 
   #Support for the asm" method.
