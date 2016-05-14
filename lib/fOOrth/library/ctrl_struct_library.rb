@@ -143,6 +143,11 @@ module XfOOrth
     vm << self
   })
 
+  #Support for the ,asm method. Embed some actions in assembly language.
+  String.create_shared_method(',asm', TosSpec, [], &lambda {|vm|
+    vm << self
+  })
+
   #Support for the .asm method. Perform some actions in assembly language.
   String.create_shared_method('.asm', TosSpec, [], &lambda {|vm|
     vm.instance_exec(vm, &eval("lambda {|vm| #{self} }"))
