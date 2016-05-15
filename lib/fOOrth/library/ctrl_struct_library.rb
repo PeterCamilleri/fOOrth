@@ -113,4 +113,48 @@ module XfOOrth
     })
   })
 
+  #Support for the [[ ... ]] construct.
+  VirtualMachine.create_shared_method('[[', VmSpec, [:immediate], &lambda {|vm|
+    suspend_buffered_mode('[[')
+
+    vm.context.create_local_method(']]', LocalSpec, [:immediate], &lambda {|vm|
+      resume_buffered_mode('[[')
+    })
+  })
+
+  #Support for the , method. Embed a value into the code stream.
+  Object.create_shared_method(',', TosSpec, [], &lambda {|vm|
+    vm << "vm.push(#{foorth_embed}); "
+  })
+
+  #Support for the asm" method. Perform some actions in assembly language.
+  #[] asm"asm_string" []
+  VirtualMachine.create_shared_method('asm"', VmSpec, [:immediate], &lambda {|vm|
+    code = vm.pop
+
+    if execute_mode?
+      vm.instance_exec(self, &eval("lambda {|vm| #{code} }"))
+    else
+      vm << code
+    end
+  })
+
+  #Support for the .asm method. Perform some actions in assembly language.
+  #[asm_string] .asm []
+  String.create_shared_method('.asm', TosSpec, [], &lambda {|vm|
+    vm.instance_exec(vm, &eval("lambda {|vm| #{self} }"))
+  })
+
+  #Support for the ,asm" method. Embed some actions in assembly language.
+  #[] ,asm"asm_string" []
+  String.create_shared_method(',asm"', TosSpec, [], &lambda {|vm|
+    vm << self
+  })
+
+  #Support for the ,asm method. Embed some actions in assembly language.
+  #[asm_string] ,asm []
+  String.create_shared_method(',asm', TosSpec, [], &lambda {|vm|
+    vm << self
+  })
+
 end

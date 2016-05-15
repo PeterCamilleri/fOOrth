@@ -8,4 +8,11 @@ class NilClass
     false
   end
 
+    #Convert this object to a form suitable for embedding in a source string.
+  #<br>Returns
+  #* An embeddable form of this object as a string.
+  def foorth_embed
+    'nil'
+  end
+
 end
