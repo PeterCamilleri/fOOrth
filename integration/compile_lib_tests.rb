@@ -187,4 +187,12 @@ class CompileLibraryTester < Minitest::Test
     foorth_equal('"integration/_FILE_test.foorth" .load ', [nm, 7, nm])
   end
 
+  def test_comments
+    foorth_equal('42 (foo (bar) etc) 33', [42, 33])
+
+    foorth_raises('(  (  )')
+
+    foorth_equal('42 // foo bar etc 33', [42])
+  end
+
 end

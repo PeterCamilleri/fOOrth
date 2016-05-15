@@ -31,8 +31,18 @@ module XfOOrth
     #<br>Note:
     #* Raises an XfOOrthError exception on an unterminated comment.
     def skip_over_comment
-      until @source.eoln?
-        return true if @source.get == ')'
+      vm = Thread.current[:vm]
+      vm.parens += 1
+
+      until @source.eof?
+        input = @source.get
+
+        if input == ')'
+          vm.parens -= 1
+          return true
+        elsif input == '('
+          skip_over_comment
+        end
       end
 
       error "F10: Unbalanced comment detected."
