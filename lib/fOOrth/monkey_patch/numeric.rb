@@ -6,7 +6,7 @@ class Numeric
   #<br>Returns
   #* An embeddable form of this number as a string.
   def foorth_embed
-    self.to_s.freeze
+    self.to_s
   end
 
   #Convert this number to a single character string.
