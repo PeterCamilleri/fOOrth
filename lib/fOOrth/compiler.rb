@@ -31,6 +31,9 @@ module XfOOrth
     #The level of quote nesting.
     attr_accessor :quotes
 
+    #The level of comment nesting.
+    attr_accessor :parens
+
     #Is a force compile in effect?
     attr_accessor :force
 
@@ -39,6 +42,7 @@ module XfOOrth
       @buffer = nil
       @parser = nil
       @quotes = 0
+      @parens = 0
       @force  = false
       @context = Context.new(nil, vm: self, mode: :execute)
       self
@@ -48,6 +52,13 @@ module XfOOrth
     def <<(text)
       dbg_puts "  Append=#{text.inspect}"
       @buffer << text
+    rescue NoMethodError
+      error "F14: The current mode does not allow code to be appended."
+    end
+
+    #Is the buffer valid?
+    def buffer_valid?
+      @buffer.is_a?(String)
     end
 
     #Execute code from the interactive console.

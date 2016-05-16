@@ -65,6 +65,10 @@ module XfOOrth
   Object.create_shared_method('.default{{',     NosSpec, [:stub])
   Object.create_shared_method('.new_default{{', NosSpec, [:stub])
 
+  #Embedding stubs.
+  Object.create_shared_method(',asm',           TosSpec, [:stub])
+  Object.create_shared_method(',asm"',          TosSpec, [:stub])
+
   #Define some "crossover" symbols.
   SymbolMap.add_entry('.is_class?',     "foorth_is_class?".to_sym)
   SymbolMap.add_entry('.to_s',          :to_foorth_s)

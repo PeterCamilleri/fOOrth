@@ -14,6 +14,24 @@ fOOrth Programming Language web site at:
 <br>http://www.foorth.org/
 <br>
 
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'fOOrth'
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install fOOrth
+
+The fOOrth gem itself is found at: ( https://rubygems.org/gems/fOOrth )
+
 ## Usage
 Adding fOOrth can be as simple as:
 
@@ -23,9 +41,13 @@ Adding fOOrth can be as simple as:
 This will launch an interactive fOOrth session. Alternatively this can be
 done with:
 
-    rake run
+    $ fOOrth
 
-Be sure to be in the folder that contains the rakefile in order for this
+or
+
+    $ rake run
+
+Be sure to be in the folder that contains the rakefile in order for the latter
 command to work.
 
 <br>If, instead, a non-interactive facility is required, use:

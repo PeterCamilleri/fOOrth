@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = raw_list
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.test_files    = spec.files.grep(%r{^(tests|integration)/})
   spec.require_paths = ["lib"]
   spec.executables   = ["fOOrth"]
 
@@ -36,5 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'full_clone'
   spec.add_runtime_dependency 'safe_clone'
   spec.add_runtime_dependency 'in_array'
-  spec.add_runtime_dependency 'mini_readline', ">= 0.4.2"
+  spec.add_runtime_dependency 'mini_readline', ">= 0.4.8"
 end

@@ -45,12 +45,7 @@ end
 
 desc "Fire up an IRB session with fOOrth preloaded."
 task :console do
-  require 'irb'
-  require 'irb/completion'
-  require './lib/fOOrth'
-  puts "Starting an IRB console for fOOrth."
-  ARGV.clear
-  IRB.start
+  system "ruby irbt.rb local"
 end
 
 desc "Run an Interactive fOOrth Session."

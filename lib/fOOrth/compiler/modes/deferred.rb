@@ -11,8 +11,10 @@ module XfOOrth
     #<br>Parameters:
     #* text - Some text to append to the buffer before proceeding.
     #* ctrl - The control symbol that started the deferral.
-    #<br>Note:
+    #<br>Notes:
     #* Adds a nested context level to be un-nested at a later point.
+    #* Enters deferred mode only if currently in execute mode. Otherwise
+    #  continues in the current mode.
     def suspend_execute_mode(text, ctrl)
       dbg_puts "  suspend_execute_mode"
       @context = Context.new(@context, ctrl: ctrl)

@@ -1,7 +1,7 @@
 # coding: utf-8
 
-#Extensions to the \FalseClass class required by the fOOrth language system.
-class FalseClass
+#Extensions to the \TrueClass class required by the fOOrth language system.
+class TrueClass
 
   #Convert this object to a fOOrth boolean.
   def to_foorth_b
@@ -12,7 +12,7 @@ class FalseClass
   #<br>Returns
   #* An embeddable form of this object as a string.
   def foorth_embed
-    'false'
+    'true'
   end
 
 end

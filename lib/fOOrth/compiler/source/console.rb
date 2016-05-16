@@ -72,7 +72,7 @@ module XfOOrth
         puts vm.pop
       end
 
-      '>' * vm.context.depth + '"' * vm.quotes
+      '>' * vm.context.depth + '"' * vm.quotes + '(' * vm.parens
     end
 
     #What is the source of this text?

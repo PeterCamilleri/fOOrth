@@ -42,4 +42,17 @@ class CompilerModeTester < Minitest::Test
     assert_raises(XfOOrth::XfOOrthError) { vm.unnest_mode("", ["{"]) }
   end
 
+  def test_vm_code_buffer
+    #Get the virtual machine.
+    vm = Thread.current[:vm]
+    vm.interpreter_reset
+    vm.compiler_reset
+
+    assert_raises(XfOOrth::XfOOrthError) { vm << "test" }
+    refute(vm.buffer_valid?)
+
+    vm.suspend_execute_mode("", "!")
+    assert(vm.buffer_valid?)
+  end
+
 end
