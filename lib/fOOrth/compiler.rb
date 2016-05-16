@@ -31,6 +31,9 @@ module XfOOrth
     #The level of quote nesting.
     attr_accessor :quotes
 
+    #The level of comment nesting.
+    attr_accessor :parens
+
     #Is a force compile in effect?
     attr_accessor :force
 
@@ -39,6 +42,7 @@ module XfOOrth
       @buffer = nil
       @parser = nil
       @quotes = 0
+      @parens = 0
       @force  = false
       @context = Context.new(nil, vm: self, mode: :execute)
       self
