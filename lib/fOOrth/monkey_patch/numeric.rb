@@ -13,7 +13,7 @@ class Numeric
   def to_foorth_c
     as_int = Integer.foorth_coerce(self)
 
-    if as_int < 0 || as_int > 1114111
+    if as_int < 0 || as_int > 1_114_111
       error "F40: Can't convert #{self} to a character."
     else
       [as_int].pack('U')
