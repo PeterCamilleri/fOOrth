@@ -14,7 +14,8 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   raw_list = `git ls-files`.split($/)
-  raw_list = raw_list.keep_if {|entry| !entry.start_with?("docs") }
+  raw_list = raw_list.reject {|entry| entry.start_with?("docs") ||
+                                      entry.start_with?("images")  }
 
   spec.files         = raw_list
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
