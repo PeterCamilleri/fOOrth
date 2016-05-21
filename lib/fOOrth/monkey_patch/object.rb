@@ -5,7 +5,7 @@ class Object
 
   #Raise a fOOrth language internal exception as this operation is not allowed.
   def foorth_embed
-    error "F40: Can't embed class #{self.class.to_s}"
+    error "F40: Can't embed class #{self.class.foorth_class_name}"
   end
 
   #Convert this object to a fOOrth boolean.
