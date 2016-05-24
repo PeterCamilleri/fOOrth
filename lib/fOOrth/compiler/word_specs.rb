@@ -107,7 +107,7 @@ module XfOOrth
   class ClassSpec < AbstractWordSpec
     #Generate the Ruby code for this fOOrth class.
     #<br>Parameters:
-    #* \new_class - The string that maps to the symbol.
+    #* \new_class - The class object being specified.
     #* _symbol - The symbol that the name maps to. Unused
     def build_builds_string(new_class, _symbol)
       @new_class = new_class
