@@ -45,7 +45,7 @@ module XfOOrth
     #<br>Returns:
     #* A peek at next character or nil if none are available.
     def peek
-      @peek_buffer ||= get unless @eoln
+      @peek_buffer ||= get unless eoln?
     end
 
     #Has the source reached the end of the available data?
