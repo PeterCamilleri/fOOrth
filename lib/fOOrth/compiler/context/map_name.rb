@@ -43,6 +43,7 @@ module XfOOrth
 
       when '$'
         do_global_target_map     ||
+        do_vm_target_map         ||
         spec_error
 
       when '#'
