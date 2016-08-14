@@ -8,12 +8,12 @@ module XfOOrth
     suspend_execute_mode('if vm.pop? then ', :if)
 
     context.create_local_method('else', LocalSpec, [:immediate], &lambda {|vm|
-      check_deferred_mode('else ', [:if])
+      vm.check_deferred_mode('else ', [:if])
       vm.context.remove_local_method('else')
     })
 
     context.create_local_method('then', LocalSpec, [:immediate],
-      &lambda {|vm| resume_execute_mode('end; ', [:if]) })
+      &lambda {|vm| vm.resume_execute_mode('end; ', [:if]) })
   })
 
   # [unspecified] switch ... end [unspecified]
@@ -27,7 +27,7 @@ module XfOOrth
       &lambda {|vm| vm << 'break if vm.pop?; ' })
 
     context.create_local_method('end', LocalSpec, [:immediate],
-      &lambda {|vm| resume_execute_mode('break; end; ', [:switch]) })
+      &lambda {|vm| vm.resume_execute_mode('break; end; ', [:switch]) })
   })
 
   # Looping constructs for fOOrth.
@@ -35,16 +35,16 @@ module XfOOrth
     suspend_execute_mode('begin ', :begin)
 
     context.create_local_method('while', LocalSpec, [:immediate],
-      &lambda {|vm| check_deferred_mode('break unless vm.pop?; ', [:begin]) })
+      &lambda {|vm| vm.check_deferred_mode('break unless vm.pop?; ', [:begin]) })
 
     context.create_local_method('until', LocalSpec, [:immediate],
-      &lambda {|vm| resume_execute_mode('end until vm.pop?; ', [:begin]) })
+      &lambda {|vm| vm.resume_execute_mode('end until vm.pop?; ', [:begin]) })
 
     context.create_local_method('again', LocalSpec, [:immediate],
-      &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
+      &lambda {|vm| vm.resume_execute_mode('end until false; ', [:begin]) })
 
     context.create_local_method('repeat', LocalSpec, [:immediate],
-      &lambda {|vm| resume_execute_mode('end until false; ', [:begin]) })
+      &lambda {|vm| vm.resume_execute_mode('end until false; ', [:begin]) })
   })
 
   # Support for the sanitized do loop constructs!
@@ -66,10 +66,10 @@ module XfOOrth
       [:macro, 'vm.push(jloop[2] - jloop[0]); '])
 
     context.create_local_method('loop', LocalSpec, [:immediate],
-      &lambda {|vm| resume_execute_mode('iloop[0] += 1}; ', [:do]) })
+      &lambda {|vm| vm.resume_execute_mode('iloop[0] += 1}; ', [:do]) })
 
     context.create_local_method('+loop', LocalSpec, [:immediate],
-      &lambda {|vm| resume_execute_mode('iloop[0] += vm.vm_do_increment}; ', [:do]) })
+      &lambda {|vm| vm.resume_execute_mode('iloop[0] += vm.vm_do_increment}; ', [:do]) })
   })
 
   #Support for the try ... catch ... finally ... end construct.
@@ -99,7 +99,7 @@ module XfOOrth
     })
 
     context.create_local_method('finally', LocalSpec, [:immediate], &lambda {|vm|
-      check_deferred_mode('ensure; ', [:try_block])
+      vm.check_deferred_mode('ensure; ', [:try_block])
 
       vm.context.remove_local_method('catch')
       vm.context.remove_local_method('finally')
@@ -118,7 +118,7 @@ module XfOOrth
     suspend_buffered_mode('[[')
 
     vm.context.create_local_method(']]', LocalSpec, [:immediate], &lambda {|vm|
-      resume_buffered_mode('[[')
+      vm.resume_buffered_mode('[[')
     })
   })
 
