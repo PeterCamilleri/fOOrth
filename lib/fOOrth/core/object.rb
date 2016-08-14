@@ -10,14 +10,16 @@ class Object
 
   #Access/create the object's exclusive fOOrth dictionary.
   #<br>Decree!
-  #* These are to be the only reference to @_private_foorth_exclusive!
+  #* This method and the next are to be the only references
+  #  to the @_private_foorth_exclusive variable.
   def foorth_exclusive
     @_private_foorth_exclusive ||= Hash.new
   end
 
   #Does this object have exclusive methods defined on it?
   #<br>Decree!
-  #* These are to be the only reference to @_private_foorth_exclusive!
+  #* This method and the previous are to be the only references
+  #  to the @_private_foorth_exclusive variable.
   def foorth_has_exclusive?
     instance_variable_defined?(:@_private_foorth_exclusive)
   end
