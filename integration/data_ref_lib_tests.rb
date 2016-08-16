@@ -43,31 +43,48 @@ class DataRefLibraryTester < Minitest::Test
 
   def test_shared_instance_variables
     foorth_run('class: TIV01')
-    foorth_run('TIV01 .: .init val@: @dder ;')
+    foorth_run('TIV01 .: .init val@: @dder  0 var@: @counter ;')
     foorth_run('TIV01 .: .add  @dder + ;')
+    foorth_run('TIV01 .: .count  @counter @ 1+ dup @counter ! ;')
 
     foorth_run('11 TIV01 .new  val$: $tiv01_01')
     foorth_equal('$tiv01_01 .class .name', ['TIV01'])
     foorth_equal('20 $tiv01_01 .add', [31])
+    foorth_equal('$tiv01_01 .count', [1])
+    foorth_equal('$tiv01_01 .count', [2])
+    foorth_equal('$tiv01_01 .count', [3])
 
     foorth_run('42 TIV01 .new  val$: $tiv01_02')
     foorth_equal('$tiv01_02 .class .name', ['TIV01'])
     foorth_equal('20 $tiv01_02 .add', [62])
+    foorth_equal('$tiv01_02 .count', [1])
+    foorth_equal('$tiv01_02 .count', [2])
+    foorth_equal('$tiv01_02 .count', [3])
+
+    foorth_equal('$tiv01_01 .count', [4])
   end
 
   def test_exclusive_instance_variables
     foorth_run('Object .new val$: $tiv02_01')
-    foorth_run('$tiv02_01 .:: .init val@: @dder ;')
+    foorth_run('$tiv02_01 .:: .init val@: @dder 0 var@: @counter ;')
     foorth_run('$tiv02_01 .:: .add @dder + ;')
+    foorth_run('$tiv02_01 .:: .count  @counter @ 1+ dup @counter ! ;')
 
     foorth_run('11 $tiv02_01 .init ')
     foorth_equal('20 $tiv02_01 .add', [31])
+    foorth_equal('$tiv02_01 .count', [1])
+    foorth_equal('$tiv02_01 .count', [2])
+    foorth_equal('$tiv02_01 .count', [3])
 
     foorth_run('$tiv02_01 .clone val$: $tiv02_02')
     foorth_run('42 $tiv02_02 .init ')
     foorth_equal('20 $tiv02_02 .add', [62])
+    foorth_equal('$tiv02_02 .count', [1])
+    foorth_equal('$tiv02_02 .count', [2])
+    foorth_equal('$tiv02_02 .count', [3])
 
     foorth_equal('20 $tiv02_01 .add', [31])
+    foorth_equal('$tiv02_01 .count', [4])
   end
 
 end
