@@ -32,25 +32,13 @@ module XfOOrth
   #The lambda used to define instance variables. fOOrth language definition is:
   # [n] var@: @iv [], @iv = [n]
   Shared_Var_Action = lambda { |vm|
-    name   = vm.parser.get_word()
-    error "F10: Invalid var name #{name}" unless /^@[a-z][a-z0-9_]*$/ =~ name
-    symbol = XfOOrth::SymbolMap.add_entry(name)
-    vm << "#{'@'+(symbol.to_s)} = [vm.pop]; "
+    var_name   = vm.parser.get_word()
+    error "F10: Invalid var name #{var_name}" unless /^@[a-z][a-z0-9_]*$/ =~ var_name
+    var_symbol = XfOOrth::SymbolMap.add_entry(var_name)
+    vm << "#{'@'+(var_symbol.to_s)} = [vm.pop]; "
 
     #Add a defn for the instance variable.
-    vm.context[:cls].create_shared_method(name, InstanceVarSpec, [])
-  }
-
-  #The lambda used to define instance values. fOOrth language definition is:
-  # [n] val@: @iv [], @iv = n
-  Shared_Val_Action = lambda { |vm|
-    name   = vm.parser.get_word()
-    error "F10: Invalid val name #{name}" unless /^@[a-z][a-z0-9_]*$/ =~ name
-    symbol = XfOOrth::SymbolMap.add_entry(name)
-    vm << "#{'@'+(symbol.to_s)} = vm.pop; "
-
-    #Add a defn for the instance variable.
-    vm.context[:cls].create_shared_method(name, InstanceVarSpec, [])
+    vm.context[:cls].create_shared_method(var_name, InstanceVarSpec, [])
   }
 
   #The lambda used to define instance variables. fOOrth language definition is:
