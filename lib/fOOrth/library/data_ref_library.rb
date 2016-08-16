@@ -29,42 +29,6 @@ module XfOOrth
       &lambda {|vm| vm << "vm.push(#{symbol}); "} )
   }
 
-  #The lambda used to define instance variables. fOOrth language definition is:
-  # [n] var@: @iv [], @iv = [n]
-  Shared_Var_Action = lambda { |vm|
-    var_name   = vm.parser.get_word()
-    error "F10: Invalid var name #{var_name}" unless /^@[a-z][a-z0-9_]*$/ =~ var_name
-    var_symbol = XfOOrth::SymbolMap.add_entry(var_name)
-    vm << "#{'@'+(var_symbol.to_s)} = [vm.pop]; "
-
-    #Add a defn for the instance variable.
-    vm.context[:cls].create_shared_method(var_name, InstanceVarSpec, [])
-  }
-
-  #The lambda used to define instance variables. fOOrth language definition is:
-  # [n] var@: @iv [], @iv = [n]
-  Exclusive_Var_Action = lambda { |vm|
-    name   = vm.parser.get_word()
-    error "F10: Invalid var name #{name}" unless /^@[a-z][a-z0-9_]*$/ =~ name
-    symbol = XfOOrth::SymbolMap.add_entry(name)
-    vm << "#{'@'+(symbol.to_s)} = [vm.pop]; "
-
-    #Add a defn for the instance variable.
-    vm.context[:obj].create_exclusive_method(name, InstanceVarSpec, [])
-  }
-
-  #The lambda used to define instance values. fOOrth language definition is:
-  # [n] val@: @iv [], @iv = n
-  Exclusive_Val_Action = lambda { |vm|
-    name   = vm.parser.get_word()
-    error "F10: Invalid val name #{name}" unless /^@[a-z][a-z0-9_]*$/ =~ name
-    symbol = XfOOrth::SymbolMap.add_entry(name)
-    vm << "#{'@'+(symbol.to_s)} = vm.pop; "
-
-    #Add a defn for the instance variable.
-    vm.context[:obj].create_exclusive_method(name, InstanceVarSpec, [])
-  }
-
   # Thread Variables
   # [n] var#: #tv [], Thread.current[#tv] = [n]
   VirtualMachine.create_shared_method('var#:', VmSpec, [], &lambda {|vm|

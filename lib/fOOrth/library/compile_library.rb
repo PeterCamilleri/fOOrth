@@ -69,7 +69,7 @@ module XfOOrth
 
       XfOOrth.add_common_compiler_locals(vm, '.:')
       vm.context.create_local_method('var@:', LocalSpec, [:immediate], &lambda {|vm|
-        var_name   = vm.parser.get_word()
+        var_name = vm.parser.get_word()
 
         unless /^@[a-z][a-z0-9_]*$/ =~ var_name
           error "F10: Invalid var name #{var_name}"
@@ -82,7 +82,7 @@ module XfOOrth
       })
 
       vm.context.create_local_method('val@:', LocalSpec, [:immediate], &lambda {|vm|
-        val_name   = vm.parser.get_word()
+        val_name = vm.parser.get_word()
 
         unless /^@[a-z][a-z0-9_]*$/ =~ val_name
           error "F10: Invalid val name #{val_name}"
@@ -116,8 +116,32 @@ module XfOOrth
       })
 
       XfOOrth.add_common_compiler_locals(vm, '.::')
-      vm.context.create_local_method('var@:', LocalSpec, [:immediate], &Exclusive_Var_Action)
-      vm.context.create_local_method('val@:', LocalSpec, [:immediate], &Exclusive_Val_Action)
+
+      vm.context.create_local_method('var@:', LocalSpec, [:immediate], &lambda {|vm|
+        var_name = vm.parser.get_word()
+
+        unless /^@[a-z][a-z0-9_]*$/ =~ var_name
+          error "F10: Invalid var name #{var_name}"
+        end
+
+        var_symbol = XfOOrth::SymbolMap.add_entry(var_name)
+        vm << "#{'@'+(var_symbol.to_s)} = [vm.pop]; "
+
+        vm.context[:obj].create_exclusive_method(var_name, InstanceVarSpec, [])
+      })
+
+      vm.context.create_local_method('val@:', LocalSpec, [:immediate], &lambda {|vm|
+        val_name = vm.parser.get_word()
+
+        unless /^@[a-z][a-z0-9_]*$/ =~ val_name
+          error "F10: Invalid val name #{val_name}"
+        end
+
+        val_symbol = XfOOrth::SymbolMap.add_entry(val_name)
+        vm << "#{'@'+(val_symbol.to_s)} = vm.pop; "
+
+        vm.context[:obj].create_exclusive_method(val_name, InstanceVarSpec, [])
+      })
     else
       delayed_compile_mode('.::')
     end
