@@ -55,4 +55,19 @@ class DataRefLibraryTester < Minitest::Test
     foorth_equal('20 $tiv01_02 .add', [62])
   end
 
+  def test_exclusive_instance_variables
+    foorth_run('Object .new val$: $tiv02_01')
+    foorth_run('$tiv02_01 .:: .init val@: @dder ;')
+    foorth_run('$tiv02_01 .:: .add @dder + ;')
+
+    foorth_run('11 $tiv02_01 .init ')
+    foorth_equal('20 $tiv02_01 .add', [31])
+
+    foorth_run('$tiv02_01 .clone val$: $tiv02_02')
+    foorth_run('42 $tiv02_02 .init ')
+    foorth_equal('20 $tiv02_02 .add', [62])
+
+    foorth_equal('20 $tiv02_01 .add', [31])
+  end
+
 end

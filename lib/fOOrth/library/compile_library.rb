@@ -93,6 +93,8 @@ module XfOOrth
       })
 
       XfOOrth.add_common_compiler_locals(vm, '.::')
+      vm.context.create_local_method('var@:', LocalSpec, [:immediate], &Exclusive_Var_Action)
+      vm.context.create_local_method('val@:', LocalSpec, [:immediate], &Exclusive_Val_Action)
     else
       delayed_compile_mode('.::')
     end
