@@ -68,35 +68,40 @@ module XfOOrth
       })
 
       XfOOrth.add_common_compiler_locals(vm, '.:')
-      vm.context.create_local_method('var@:', LocalSpec, [:immediate], &lambda {|vm|
-        var_name = vm.parser.get_word()
-
-        unless /^@[a-z][a-z0-9_]*$/ =~ var_name
-          error "F10: Invalid var name #{var_name}"
-        end
-
-        var_symbol = XfOOrth::SymbolMap.add_entry(var_name)
-        vm << "#{'@'+(var_symbol.to_s)} = [vm.pop]; "
-
-        vm.context[:cls].create_shared_method(var_name, InstanceVarSpec, [])
-      })
-
-      vm.context.create_local_method('val@:', LocalSpec, [:immediate], &lambda {|vm|
-        val_name = vm.parser.get_word()
-
-        unless /^@[a-z][a-z0-9_]*$/ =~ val_name
-          error "F10: Invalid val name #{val_name}"
-        end
-
-        val_symbol = XfOOrth::SymbolMap.add_entry(val_name)
-        vm << "#{'@'+(val_symbol.to_s)} = vm.pop; "
-
-        vm.context[:cls].create_shared_method(val_name, InstanceVarSpec, [])
-      })
+      XfOOrth.add_dot_colon_locals(vm)
     else
       delayed_compile_mode('.:')
     end
   })
+
+  # Add locals specific to a dot colon methods.
+  def self.add_dot_colon_locals(vm)
+    vm.context.create_local_method('var@:', LocalSpec, [:immediate], &lambda {|vm|
+      var_name = vm.parser.get_word()
+
+      unless /^@[a-z][a-z0-9_]*$/ =~ var_name
+        error "F10: Invalid var name #{var_name}"
+      end
+
+      var_symbol = XfOOrth::SymbolMap.add_entry(var_name)
+      vm << "#{'@'+(var_symbol.to_s)} = [vm.pop]; "
+
+      vm.context[:cls].create_shared_method(var_name, InstanceVarSpec, [])
+    })
+
+    vm.context.create_local_method('val@:', LocalSpec, [:immediate], &lambda {|vm|
+      val_name = vm.parser.get_word()
+
+      unless /^@[a-z][a-z0-9_]*$/ =~ val_name
+        error "F10: Invalid val name #{val_name}"
+      end
+
+      val_symbol = XfOOrth::SymbolMap.add_entry(val_name)
+      vm << "#{'@'+(val_symbol.to_s)} = vm.pop; "
+
+      vm.context[:cls].create_shared_method(val_name, InstanceVarSpec, [])
+    })
+  end
 
 
   # DOT COLON COLON =============================
@@ -116,37 +121,40 @@ module XfOOrth
       })
 
       XfOOrth.add_common_compiler_locals(vm, '.::')
-
-      vm.context.create_local_method('var@:', LocalSpec, [:immediate], &lambda {|vm|
-        var_name = vm.parser.get_word()
-
-        unless /^@[a-z][a-z0-9_]*$/ =~ var_name
-          error "F10: Invalid var name #{var_name}"
-        end
-
-        var_symbol = XfOOrth::SymbolMap.add_entry(var_name)
-        vm << "#{'@'+(var_symbol.to_s)} = [vm.pop]; "
-
-        vm.context[:obj].create_exclusive_method(var_name, InstanceVarSpec, [])
-      })
-
-      vm.context.create_local_method('val@:', LocalSpec, [:immediate], &lambda {|vm|
-        val_name = vm.parser.get_word()
-
-        unless /^@[a-z][a-z0-9_]*$/ =~ val_name
-          error "F10: Invalid val name #{val_name}"
-        end
-
-        val_symbol = XfOOrth::SymbolMap.add_entry(val_name)
-        vm << "#{'@'+(val_symbol.to_s)} = vm.pop; "
-
-        vm.context[:obj].create_exclusive_method(val_name, InstanceVarSpec, [])
-      })
+      XfOOrth.add_dot_colon_colon_locals(vm)
     else
       delayed_compile_mode('.::')
     end
   })
 
+  # Add locals specific to a dot colon colon methods.
+  def self.add_dot_colon_colon_locals(vm)
+    vm.context.create_local_method('var@:', LocalSpec, [:immediate], &lambda {|vm|
+      var_name = vm.parser.get_word()
+
+      unless /^@[a-z][a-z0-9_]*$/ =~ var_name
+        error "F10: Invalid var name #{var_name}"
+      end
+
+      var_symbol = XfOOrth::SymbolMap.add_entry(var_name)
+      vm << "#{'@'+(var_symbol.to_s)} = [vm.pop]; "
+
+      vm.context[:obj].create_exclusive_method(var_name, InstanceVarSpec, [])
+    })
+
+    vm.context.create_local_method('val@:', LocalSpec, [:immediate], &lambda {|vm|
+      val_name = vm.parser.get_word()
+
+      unless /^@[a-z][a-z0-9_]*$/ =~ val_name
+        error "F10: Invalid val name #{val_name}"
+      end
+
+      val_symbol = XfOOrth::SymbolMap.add_entry(val_name)
+      vm << "#{'@'+(val_symbol.to_s)} = vm.pop; "
+
+      vm.context[:obj].create_exclusive_method(val_name, InstanceVarSpec, [])
+    })
+  end
 
   # COMMON LOCAL DEFNS ==========================
 
