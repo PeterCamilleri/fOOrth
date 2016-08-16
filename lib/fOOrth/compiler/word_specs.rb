@@ -158,7 +158,7 @@ module XfOOrth
     #* _name  - The string that maps to the symbol. Unused
     #* symbol - The symbol that the name maps to.
     def build_builds_string(_name, symbol)
-      @builds = "vm.context[#{symbol.inspect}].does.call(vm); "
+      @builds = "instance_exec(vm, &vm.context[#{symbol.inspect}].does); "
     end
   end
 
