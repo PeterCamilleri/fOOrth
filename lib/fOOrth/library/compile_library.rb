@@ -74,6 +74,7 @@ module XfOOrth
     end
   })
 
+  #The procedure used for dot colon instance vars
   DC_VAR = lambda {|vm|
     var_name = vm.parser.get_word()
 
@@ -87,6 +88,7 @@ module XfOOrth
     vm.context[:cls].create_shared_method(var_name, InstanceVarSpec, [])
   }
 
+  #The procedure used for dot colon instance vals
   DC_VAL = lambda {|vm|
     val_name = vm.parser.get_word()
 
@@ -130,6 +132,7 @@ module XfOOrth
     end
   })
 
+  #The procedure used for dot colon colon instance vars
   DCC_VAR = lambda { |vm|
     var_name = vm.parser.get_word()
 
@@ -143,6 +146,7 @@ module XfOOrth
     vm.context[:obj].create_exclusive_method(var_name, InstanceVarSpec, [])
   }
 
+  #The procedure used for dot colon colon instance vals
   DCC_VAL = lambda {|vm|
     val_name = vm.parser.get_word()
 
