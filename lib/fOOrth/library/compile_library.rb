@@ -68,6 +68,8 @@ module XfOOrth
       })
 
       XfOOrth.add_common_compiler_locals(vm, '.:')
+      vm.context.create_local_method('var@:', LocalSpec, [:immediate], &Shared_Var_Action)
+      vm.context.create_local_method('val@:', LocalSpec, [:immediate], &Shared_Val_Action)
     else
       delayed_compile_mode('.:')
     end
@@ -111,10 +113,6 @@ module XfOOrth
     #Support for local data.
     context.create_local_method('var:', LocalSpec, [:immediate], &Local_Var_Action)
     context.create_local_method('val:', LocalSpec, [:immediate], &Local_Val_Action)
-
-    #Support for instance data.
-    context.create_local_method('var@:', LocalSpec, [:immediate], &Inst_Var_Action)
-    context.create_local_method('val@:', LocalSpec, [:immediate], &Inst_Val_Action)
 
     #Support for super methods.
     context.create_local_method('super', LocalSpec, [:immediate],

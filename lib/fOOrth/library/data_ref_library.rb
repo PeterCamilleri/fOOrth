@@ -31,26 +31,26 @@ module XfOOrth
 
   #The lambda used to define instance variables. fOOrth language definition is:
   # [n] var@: @iv [], @iv = [n]
-  Inst_Var_Action = lambda { |vm|
+  Shared_Var_Action = lambda { |vm|
     name   = vm.parser.get_word()
     error "F10: Invalid var name #{name}" unless /^@[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
     vm << "#{'@'+(symbol.to_s)} = [vm.pop]; "
 
     #Add a defn for the instance variable.
-    vm.context.recvr.create_shared_method(name, InstanceVarSpec, [])
+    vm.context[:cls].create_shared_method(name, InstanceVarSpec, [])
   }
 
   #The lambda used to define instance values. fOOrth language definition is:
   # [n] val@: @iv [], @iv = n
-  Inst_Val_Action = lambda { |vm|
+  Shared_Val_Action = lambda { |vm|
     name   = vm.parser.get_word()
     error "F10: Invalid val name #{name}" unless /^@[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
     vm << "#{'@'+(symbol.to_s)} = vm.pop; "
 
     #Add a defn for the instance variable.
-    vm.context.recvr.create_shared_method(name, InstanceVarSpec, [])
+    vm.context[:cls].create_shared_method(name, InstanceVarSpec, [])
   }
 
   # Thread Variables
