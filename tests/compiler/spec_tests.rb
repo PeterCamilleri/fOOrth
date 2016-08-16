@@ -95,7 +95,7 @@ class SpecTester < Minitest::Test
   def test_local_spec
     spec = XfOOrth::LocalSpec.new("fred", :freddy, [:foo])
 
-    assert_equal("vm.context[:freddy].does.call(vm); ", spec.builds)
+    assert_equal("instance_exec(vm, &vm.context[:freddy].does); ", spec.builds)
     assert_instance_of(Proc, spec.does)
     assert(spec.has_tag?(:foo))
     refute(spec.has_tag?(:bar))
