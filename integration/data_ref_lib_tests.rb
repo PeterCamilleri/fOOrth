@@ -40,4 +40,19 @@ class DataRefLibraryTester < Minitest::Test
     foorth_equal('10 val$: $test2',   [])
     foorth_equal('$test2',            [10])
   end
+
+  def test_shared_instance_variables
+    foorth_run('class: TIV01')
+    foorth_run('TIV01 .: .init val@: @dder ;')
+    foorth_run('TIV01 .: .add  @dder + ;')
+
+    foorth_run('11 TIV01 .new  val$: $tiv01_01')
+    foorth_equal('$tiv01_01 .class .name', ['TIV01'])
+    foorth_equal('20 $tiv01_01 .add', [31])
+
+    foorth_run('42 TIV01 .new  val$: $tiv01_02')
+    foorth_equal('$tiv01_02 .class .name', ['TIV01'])
+    foorth_equal('20 $tiv01_02 .add', [62])
+  end
+
 end
