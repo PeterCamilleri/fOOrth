@@ -30,6 +30,8 @@ module XfOOrth
     #* true
     #<br>Note:
     #* Raises an XfOOrthError exception on an unterminated comment.
+    #<br>Endemic Code Smells
+    #* :reek:DuplicateMethodCall
     def skip_over_comment
       vm = Thread.current[:vm]
       vm.parens += 1

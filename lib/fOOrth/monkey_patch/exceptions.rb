@@ -109,11 +109,11 @@ end
 class RuntimeError
 
   #Massage the messages a bit
+  #<br>Endemic Code Smells
+  #* :reek:FeatureEnvy
   def message
     msg = super
-
     msg["frozen"] && msg["frozen"] = "protected"
-
     msg
   end
 

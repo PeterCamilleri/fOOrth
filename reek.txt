@@ -1,18 +1,1 @@
-lib/fOOrth/compiler/parser/skip.rb -- 1 warning:
-  [35, 41]:DuplicateMethodCall: XfOOrth::Parser#skip_over_comment calls vm.parens 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-lib/fOOrth/compiler/process/string.rb -- 1 warning:
-  [17, 18]:DuplicateMethodCall: XfOOrth::VirtualMachine#string_parms calls parser.source 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-lib/fOOrth/library/compile_library.rb -- 10 warnings:
-  [132, 142, 145, 155]:DuplicateMethodCall: XfOOrth#self.add_dot_colon_colon_locals calls vm.context 4 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [142, 155]:DuplicateMethodCall: XfOOrth#self.add_dot_colon_colon_locals calls vm.context[:obj] 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [133, 146]:DuplicateMethodCall: XfOOrth#self.add_dot_colon_colon_locals calls vm.parser 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [133, 146]:DuplicateMethodCall: XfOOrth#self.add_dot_colon_colon_locals calls vm.parser.get_word() 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [79, 89, 92, 102]:DuplicateMethodCall: XfOOrth#self.add_dot_colon_locals calls vm.context 4 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [89, 102]:DuplicateMethodCall: XfOOrth#self.add_dot_colon_locals calls vm.context[:cls] 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [80, 93]:DuplicateMethodCall: XfOOrth#self.add_dot_colon_locals calls vm.parser 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [80, 93]:DuplicateMethodCall: XfOOrth#self.add_dot_colon_locals calls vm.parser.get_word() 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [131]:TooManyStatements: XfOOrth#self.add_dot_colon_colon_locals has approx 12 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
-  [78]:TooManyStatements: XfOOrth#self.add_dot_colon_locals has approx 12 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
-lib/fOOrth/monkey_patch/exceptions.rb -- 1 warning:
-  [115, 115]:FeatureEnvy: RuntimeError#message refers to msg more than self (maybe move it to another class?) [https://github.com/troessner/reek/blob/master/docs/Feature-Envy.md]
-13 total warnings
+0 total warnings
