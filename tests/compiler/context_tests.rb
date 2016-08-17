@@ -107,7 +107,7 @@ class ContextTester < Minitest::Test
 
     name = 'b'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    context[sym] = XfOOrth::VmSpec.new(name, sym)
+    context[sym] = XfOOrth::VmSpec.new(name, sym, [])
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::VmSpec))
   end
@@ -118,7 +118,7 @@ class ContextTester < Minitest::Test
 
     name = '.c'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::TosSpec.new(name, sym)
+    mk[sym] = XfOOrth::TosSpec.new(name, sym, [])
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::TosSpec))
   end
@@ -129,7 +129,7 @@ class ContextTester < Minitest::Test
 
     name = '.d'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::TosSpec.new(name, sym)
+    mk[sym] = XfOOrth::TosSpec.new(name, sym, [])
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::TosSpec))
   end
