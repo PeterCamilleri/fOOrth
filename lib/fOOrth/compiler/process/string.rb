@@ -18,9 +18,9 @@ module XfOOrth
 
         if source.peek == '*'
           source.get
-          token.add("vm.push(StringBuffer.new(#{string_value})); ")
+          token.add("vm.push(StringBuffer.new(#{string_value})); ", [:string])
         else
-          token.add("vm.push(#{string_value}.freeze); ")
+          token.add("vm.push(#{string_value}.freeze); ", [:string])
         end
       end
     end
