@@ -40,10 +40,25 @@ module XfOOrth
       end
     end
 
-    #Get the currently define method receiver
-    def recvr
-      self[:obj] || self[:cls] || self[:vm] || error("F90: No message receiver.")
+    #Get the current target.
+    def target
+      self[:obj] || self[:cls] || self[:vm] || no_target_error
     end
 
+    #Get the current target object.
+    def target_object
+      self[:obj] || no_target_error
+    end
+
+    #Get the current target class.
+    def target_class
+      self[:cls] || no_target_error
+    end
+
+    #Signal that no receiver was found in this context.
+    #This is an internal error indication.
+    def no_target_error
+      error("F90: No target found in context.")
+    end
   end
 end

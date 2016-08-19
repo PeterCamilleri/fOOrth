@@ -85,7 +85,7 @@ module XfOOrth
     var_symbol = XfOOrth::SymbolMap.add_entry(var_name)
     vm << "#{'@'+(var_symbol.to_s)} = [vm.pop]; "
 
-    vm.context[:cls].create_shared_method(var_name, InstanceVarSpec, [])
+    vm.context.target_class.create_shared_method(var_name, InstanceVarSpec, [])
   }
 
   #The procedure used for dot colon instance vals
@@ -99,7 +99,7 @@ module XfOOrth
     val_symbol = XfOOrth::SymbolMap.add_entry(val_name)
     vm << "#{'@'+(val_symbol.to_s)} = vm.pop; "
 
-    vm.context[:cls].create_shared_method(val_name, InstanceVarSpec, [])
+    vm.context.target_class.create_shared_method(val_name, InstanceVarSpec, [])
   }
 
   # Add locals specific to a dot colon methods.
@@ -143,7 +143,7 @@ module XfOOrth
     var_symbol = XfOOrth::SymbolMap.add_entry(var_name)
     vm << "#{'@'+(var_symbol.to_s)} = [vm.pop]; "
 
-    vm.context[:obj].create_exclusive_method(var_name, InstanceVarSpec, [])
+    vm.context.target_object.create_exclusive_method(var_name, InstanceVarSpec, [])
   }
 
   #The procedure used for dot colon colon instance vals
@@ -157,7 +157,7 @@ module XfOOrth
     val_symbol = XfOOrth::SymbolMap.add_entry(val_name)
     vm << "#{'@'+(val_symbol.to_s)} = vm.pop; "
 
-    vm.context[:obj].create_exclusive_method(val_name, InstanceVarSpec, [])
+    vm.context.target_object.create_exclusive_method(val_name, InstanceVarSpec, [])
   }
 
   # Add locals specific to a dot colon colon methods.

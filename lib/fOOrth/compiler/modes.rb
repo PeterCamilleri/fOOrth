@@ -17,7 +17,7 @@ module XfOOrth
     def process_text(text)
       if execute_mode?
         dbg_puts "  Code=#{text.inspect}"
-        @context.recvr.instance_exec(self, &eval("lambda {|vm| #{text} }"))
+        @context.target.instance_exec(self, &eval("lambda {|vm| #{text} }"))
       else
         self << text
       end

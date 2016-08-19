@@ -148,19 +148,16 @@ class ContextTester < Minitest::Test
 
   def test_the_locating_of_the_receiver
     context = XfOOrth::Context.new(nil, vm: 'vm_sample')
-    assert_equal('vm_sample', context.recvr)
+    assert_equal('vm_sample', context.target)
 
     context = XfOOrth::Context.new(context, cls: 'cls_sample')
-    assert_equal('cls_sample', context.recvr)
+    assert_equal('cls_sample', context.target)
 
     context = XfOOrth::Context.new(context, obj: 'obj_sample')
-    assert_equal('obj_sample', context.recvr)
+    assert_equal('obj_sample', context.target)
 
     context = XfOOrth::Context.new(nil)
-
-    assert_raises(XfOOrth::XfOOrthError) do
-      context.recvr
-    end
+    assert_raises(XfOOrth::XfOOrthError) { context.target }
   end
 
   def test_adding_and_removing_local_methods
