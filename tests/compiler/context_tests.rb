@@ -107,7 +107,7 @@ class ContextTester < Minitest::Test
 
     name = 'b'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    context[sym] = XfOOrth::VmSpec.new(name, sym)
+    context[sym] = XfOOrth::VmSpec.new(name, sym, [])
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::VmSpec))
   end
@@ -118,7 +118,7 @@ class ContextTester < Minitest::Test
 
     name = '.c'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::TosSpec.new(name, sym)
+    mk[sym] = XfOOrth::TosSpec.new(name, sym, [])
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::TosSpec))
   end
@@ -129,7 +129,7 @@ class ContextTester < Minitest::Test
 
     name = '.d'
     sym = XfOOrth::SymbolMap.add_entry(name)
-    mk[sym] = XfOOrth::TosSpec.new(name, sym)
+    mk[sym] = XfOOrth::TosSpec.new(name, sym, [])
     spec = context.map(name)
     assert(spec.is_a?(XfOOrth::TosSpec))
   end
@@ -148,19 +148,16 @@ class ContextTester < Minitest::Test
 
   def test_the_locating_of_the_receiver
     context = XfOOrth::Context.new(nil, vm: 'vm_sample')
-    assert_equal('vm_sample', context.recvr)
+    assert_equal('vm_sample', context.target)
 
     context = XfOOrth::Context.new(context, cls: 'cls_sample')
-    assert_equal('cls_sample', context.recvr)
+    assert_equal('cls_sample', context.target)
 
     context = XfOOrth::Context.new(context, obj: 'obj_sample')
-    assert_equal('obj_sample', context.recvr)
+    assert_equal('obj_sample', context.target)
 
     context = XfOOrth::Context.new(nil)
-
-    assert_raises(XfOOrth::XfOOrthError) do
-      context.recvr
-    end
+    assert_raises(XfOOrth::XfOOrthError) { context.target }
   end
 
   def test_adding_and_removing_local_methods

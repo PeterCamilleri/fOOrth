@@ -68,10 +68,45 @@ module XfOOrth
       })
 
       XfOOrth.add_common_compiler_locals(vm, '.:')
+      XfOOrth.add_dot_colon_locals(vm.context)
     else
       delayed_compile_mode('.:')
     end
   })
+
+  #The procedure used for dot colon instance vars
+  DC_VAR = lambda {|vm|
+    var_name = vm.parser.get_word()
+
+    unless /^@[a-z][a-z0-9_]*$/ =~ var_name
+      error "F10: Invalid var name #{var_name}"
+    end
+
+    var_symbol = XfOOrth::SymbolMap.add_entry(var_name)
+    vm << "#{'@'+(var_symbol.to_s)} = [vm.pop]; "
+
+    vm.context.target_class.create_shared_method(var_name, InstanceVarSpec, [])
+  }
+
+  #The procedure used for dot colon instance vals
+  DC_VAL = lambda {|vm|
+    val_name = vm.parser.get_word()
+
+    unless /^@[a-z][a-z0-9_]*$/ =~ val_name
+      error "F10: Invalid val name #{val_name}"
+    end
+
+    val_symbol = XfOOrth::SymbolMap.add_entry(val_name)
+    vm << "#{'@'+(val_symbol.to_s)} = vm.pop; "
+
+    vm.context.target_class.create_shared_method(val_name, InstanceVarSpec, [])
+  }
+
+  # Add locals specific to a dot colon methods.
+  def self.add_dot_colon_locals(context)
+    context.create_local_method('var@:', LocalSpec, [:immediate], &DC_VAR)
+    context.create_local_method('val@:', LocalSpec, [:immediate], &DC_VAL)
+  end
 
 
   # DOT COLON COLON =============================
@@ -91,11 +126,45 @@ module XfOOrth
       })
 
       XfOOrth.add_common_compiler_locals(vm, '.::')
+      XfOOrth.add_dot_colon_colon_locals(vm.context)
     else
       delayed_compile_mode('.::')
     end
   })
 
+  #The procedure used for dot colon colon instance vars
+  DCC_VAR = lambda { |vm|
+    var_name = vm.parser.get_word()
+
+    unless /^@[a-z][a-z0-9_]*$/ =~ var_name
+      error "F10: Invalid var name #{var_name}"
+    end
+
+    var_symbol = XfOOrth::SymbolMap.add_entry(var_name)
+    vm << "#{'@'+(var_symbol.to_s)} = [vm.pop]; "
+
+    vm.context.target_object.create_exclusive_method(var_name, InstanceVarSpec, [])
+  }
+
+  #The procedure used for dot colon colon instance vals
+  DCC_VAL = lambda {|vm|
+    val_name = vm.parser.get_word()
+
+    unless /^@[a-z][a-z0-9_]*$/ =~ val_name
+      error "F10: Invalid val name #{val_name}"
+    end
+
+    val_symbol = XfOOrth::SymbolMap.add_entry(val_name)
+    vm << "#{'@'+(val_symbol.to_s)} = vm.pop; "
+
+    vm.context.target_object.create_exclusive_method(val_name, InstanceVarSpec, [])
+  }
+
+  # Add locals specific to a dot colon colon methods.
+  def self.add_dot_colon_colon_locals(context)
+    context.create_local_method('var@:', LocalSpec, [:immediate], &DCC_VAR)
+    context.create_local_method('val@:', LocalSpec, [:immediate], &DCC_VAL)
+  end
 
   # COMMON LOCAL DEFNS ==========================
 
@@ -103,18 +172,12 @@ module XfOOrth
   #<br>Parameters:
   #* vm - The current virtual machine instance.
   #* ctrl - A list of valid start controls.
-  #<br>Endemic Code Smells
-  #* :reek:TooManyStatements
   def self.add_common_compiler_locals(vm, ctrl)
     context = vm.context
 
     #Support for local data.
     context.create_local_method('var:', LocalSpec, [:immediate], &Local_Var_Action)
     context.create_local_method('val:', LocalSpec, [:immediate], &Local_Val_Action)
-
-    #Support for instance data.
-    context.create_local_method('var@:', LocalSpec, [:immediate], &Inst_Var_Action)
-    context.create_local_method('val@:', LocalSpec, [:immediate], &Inst_Val_Action)
 
     #Support for super methods.
     context.create_local_method('super', LocalSpec, [:immediate],

@@ -26,32 +26,33 @@ module XfOOrth
       case @name[0]
       when '.'
         do_object_class_map      ||
-        do_vm_target_map         ||
+        do_target_vm_map         ||
         TosSpec.new(@name, @symbol, [:temp])
 
       when '~'
-        do_class_target_map      ||
-        do_object_target_map     ||
-        do_vm_target_map         ||
+        do_target_class_map      ||
+        do_target_object_map     ||
+        do_target_vm_map         ||
         SelfSpec.new(@name, @symbol, [:temp])
 
       when '@'
-        do_class_target_map      ||
-        do_object_target_map     ||
-        do_vm_target_map         ||
+        do_target_class_map      ||
+        do_target_object_map     ||
+        do_target_vm_map         ||
         spec_error
 
       when '$'
         do_global_target_map     ||
+        do_target_vm_map         ||
         spec_error
 
       when '#'
-        do_vm_target_map         ||
+        do_target_vm_map         ||
         spec_error
 
       else
         do_object_class_map      ||
-        do_vm_target_map         ||
+        do_target_vm_map         ||
         do_global_target_map     ||
         spec_error
       end
@@ -64,17 +65,17 @@ module XfOOrth
     end
 
     #Do a search of the :cls tag if it is specified.
-    def do_class_target_map
+    def do_target_class_map
       (tc = self[:cls]) && tc.map_foorth_shared(@symbol)
     end
 
     #Do a search of the :obj tag if it is specified.
-    def do_object_target_map
+    def do_target_object_map
       (to = self[:obj]) && to.map_foorth_exclusive(@symbol)
     end
 
     #Do a search of the :vm tag if it is specified.
-    def do_vm_target_map
+    def do_target_vm_map
       (vm = self[:vm])  && vm.map_foorth_exclusive(@symbol)
     end
 

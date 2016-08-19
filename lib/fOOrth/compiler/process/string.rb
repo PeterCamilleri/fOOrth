@@ -11,14 +11,16 @@ module XfOOrth
     #* token - The token to receive the generated code.
     #* word  - The text of the word.
     def string_parms(token, word)
+      source = parser.source
+
       if word.end_with?('"')
         string_value = parser.get_string.foorth_embed
 
-        if parser.source.peek == '*'
-          parser.source.get
-          token.add("vm.push(StringBuffer.new(#{string_value})); ")
+        if source.peek == '*'
+          source.get
+          token.add("vm.push(StringBuffer.new(#{string_value})); ", [:string])
         else
-          token.add("vm.push(#{string_value}.freeze); ")
+          token.add("vm.push(#{string_value}.freeze); ", [:string])
         end
       end
     end

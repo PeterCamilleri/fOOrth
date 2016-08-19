@@ -4,11 +4,11 @@
 module XfOOrth
 
   # Some comparison words.  See numeric_library.rb and string_library.rb
-  Object.create_shared_method('>',    NosSpec, [:stub])
-  Object.create_shared_method('<',    NosSpec, [:stub])
-  Object.create_shared_method('>=',   NosSpec, [:stub])
-  Object.create_shared_method('<=',   NosSpec, [:stub])
-  Object.create_shared_method('<=>',  NosSpec, [:stub])
+  Object.create_shared_method('>',      NosSpec, [:stub])
+  Object.create_shared_method('<',      NosSpec, [:stub])
+  Object.create_shared_method('>=',     NosSpec, [:stub])
+  Object.create_shared_method('<=',     NosSpec, [:stub])
+  Object.create_shared_method('<=>',    NosSpec, [:stub])
 
   # Some comparison with zero words.  See numeric_library.rb
   Object.create_shared_method('0=',     TosSpec, [:stub])
@@ -48,10 +48,10 @@ module XfOOrth
   Object.create_shared_method('@',      TosSpec, [:stub])
   Object.create_shared_method('!',      TosSpec, [:stub])
 
-  Object.create_shared_method('parse',     NosSpec, [:stub])
-  Object.create_shared_method('parse!',    NosSpec, [:stub])
-  Object.create_shared_method('p"',        NosSpec, [:stub])
-  Object.create_shared_method('p!"',       NosSpec, [:stub])
+  Object.create_shared_method('parse',  NosSpec, [:stub])
+  Object.create_shared_method('parse!', NosSpec, [:stub])
+  Object.create_shared_method('p"',     NosSpec, [:stub])
+  Object.create_shared_method('p!"',    NosSpec, [:stub])
 
   #Procedure literal stubs.
   Object.create_shared_method('.each{{',        NosSpec, [:stub])
@@ -66,11 +66,11 @@ module XfOOrth
   Object.create_shared_method('.new_default{{', NosSpec, [:stub])
 
   #Embedding stubs.
-  Object.create_shared_method(',asm',           TosSpec, [:stub])
-  Object.create_shared_method(',asm"',          TosSpec, [:stub])
+  Object.create_shared_method(',asm',   TosSpec, [:stub])
+  Object.create_shared_method(',asm"',  TosSpec, [:stub])
 
   #Define some "crossover" symbols.
-  SymbolMap.add_entry('.is_class?',     "foorth_is_class?".to_sym)
+  SymbolMap.add_entry('.is_class?',     :foorth_is_class?)
   SymbolMap.add_entry('.to_s',          :to_foorth_s)
   SymbolMap.add_entry('.strlen',        :foorth_strlen)
   SymbolMap.add_entry('.strmax',        :foorth_strmax)

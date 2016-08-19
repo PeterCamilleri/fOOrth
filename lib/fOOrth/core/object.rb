@@ -5,19 +5,21 @@ class Object
 
   #Get the foorth name of this object.
   def foorth_name
-    "#{self.class.foorth_name} instance"
+    "#{self.class.foorth_name} instance".freeze
   end
 
   #Access/create the object's exclusive fOOrth dictionary.
   #<br>Decree!
-  #* These are to be the only reference to @_private_foorth_exclusive!
+  #* This method and the next are to be the only references
+  #  to the @_private_foorth_exclusive variable.
   def foorth_exclusive
     @_private_foorth_exclusive ||= Hash.new
   end
 
   #Does this object have exclusive methods defined on it?
   #<br>Decree!
-  #* These are to be the only reference to @_private_foorth_exclusive!
+  #* This method and the previous are to be the only references
+  #  to the @_private_foorth_exclusive variable.
   def foorth_has_exclusive?
     instance_variable_defined?(:@_private_foorth_exclusive)
   end
@@ -58,7 +60,9 @@ class Object
   #* block - Any block that might have passed to the method.
   #<br>Note:
   #* Since stubs for Object class do not create methods, an attempt is made
-  #  to execute the stub if the symbol maps and is in the Object class.
+  #  to execute the stub if the symbol maps and is in the Object class. This
+  #  ensures that the case specific stub code is used rather than the generic
+  #  code in this method.
   def method_missing(symbol, *args, &block)
     if (name = XfOOrth::SymbolMap.unmap(symbol))
       if (stub_spec = Object.foorth_shared[symbol])

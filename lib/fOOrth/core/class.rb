@@ -10,6 +10,11 @@ class Class
     @_private_foorth_name ||= name.freeze
   end
 
+  #Get the name of the class or a safe default.
+  def foorth_class_name
+    self.foorth_name || "AnonymousClass<#{self.object_id}>".freeze
+  end
+
   #Set the foorth name of this class.
   #<br>Decree!
   #* These are to be the only references to @_private_foorth_name!

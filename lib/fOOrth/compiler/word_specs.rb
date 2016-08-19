@@ -21,13 +21,16 @@ module XfOOrth
     #* name - The string that maps to the symbol.
     #* symbol - The symbol that the name maps to.
     #* tags - A an array of tags.
-    #<br>These may include:
+    #<br>These include:
+    #* :class - This spec defines a class.
     #* :immediate - The word is executed, even in compile modes.
-    #* :macro - Identifies the spec as a macro spec to assist debugging.
+    #* :macro - This spec defines an in-line macro.
     #* :stub - The word is a place holder in the hierarchy.
+    #* :temp - A temporary spec used during compilation.
+    #* none - Nothing special here. Move along, move along.
     #<br>Endemic Code Smells
     #* :reek:ControlParameter -- false positive
-    def initialize(name, symbol, tags=[], &block)
+    def initialize(name, symbol, tags, &block)
       @tags = tags
       @does = block || get_stub_action(name, symbol)
       build_builds_string(name, symbol)
@@ -40,7 +43,7 @@ module XfOOrth
       end
     end
 
-    #Look up an tag of interest.
+    #Look up a tag of interest.
     def has_tag?(tag)
       @tags.include?(tag)
     end
@@ -93,8 +96,8 @@ module XfOOrth
     #Get the default action if none is specified.
     def get_stub_action(name, symbol)
       lambda do |vm|
-        #NOS methods can leave an extra bit of mess on the stack which must
-        #be cleaned up at this time or it will cause further problems.
+        #NOS methods leave an extra item on the stack which must
+        #be removed at this time.
         vm.data_stack.pop
 
         error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol.inspect})."
@@ -107,7 +110,7 @@ module XfOOrth
   class ClassSpec < AbstractWordSpec
     #Generate the Ruby code for this fOOrth class.
     #<br>Parameters:
-    #* \new_class - The string that maps to the symbol.
+    #* \new_class - The class object being specified.
     #* _symbol - The symbol that the name maps to. Unused
     def build_builds_string(new_class, _symbol)
       @new_class = new_class
@@ -158,7 +161,7 @@ module XfOOrth
     #* _name  - The string that maps to the symbol. Unused
     #* symbol - The symbol that the name maps to.
     def build_builds_string(_name, symbol)
-      @builds = "vm.context[#{symbol.inspect}].does.call(vm); "
+      @builds = "instance_exec(vm, &vm.context[#{symbol.inspect}].does); "
     end
   end
 

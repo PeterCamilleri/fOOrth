@@ -47,7 +47,7 @@ module XfOOrth
     #<br>Returns:
     #* A peek at next character or nil if none are available.
     def peek
-      @peek_buffer ||= get
+      @peek_buffer ||= get unless eoln?
     end
 
     #Has the scanning of the text reached the end of input?

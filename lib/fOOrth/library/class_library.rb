@@ -11,7 +11,7 @@ module XfOOrth
   #Get the class as a string.
   # [cls] .to_s ["cls as a string"]
   Class.create_shared_method('.to_s', TosSpec, [], &lambda {|vm|
-    vm.push(self.foorth_name || "AnonymousClass<#{self.object_id}>".freeze)
+    vm.push(self.foorth_class_name)
   })
 
   #The .parent_class method. Retrieves the parent class of a class.

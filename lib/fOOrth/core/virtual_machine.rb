@@ -19,7 +19,7 @@ module XfOOrth
       #Create a new fOOrth subclass of this class. This is not allowed for the
       #VirtualMachine class so this stub merely raises an exception.
       def create_foorth_subclass(_name)
-        error "F13: Forbidden operation: (VirtualMachine.create_foorth_subclass)."
+        error "F13: Forbidden operation: VirtualMachine .class: "
       end
 
     end
