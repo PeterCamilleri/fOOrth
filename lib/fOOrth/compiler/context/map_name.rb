@@ -22,41 +22,22 @@ module XfOOrth
 
     #Do a search of dictionaries based on the syntax of the name.
     def do_map_name
-      self[@symbol]              ||
+      self[@symbol]        ||
+      do_target_class_map  ||
+      do_target_object_map ||
+      do_target_vm_map     ||
+      do_object_class_map  ||
+      do_global_map        ||
       case @name[0]
       when '.'
-        do_object_class_map      ||
-        do_target_vm_map         ||
         TosSpec.new(@name, @symbol, [:temp])
 
       when '~'
-        do_target_class_map      ||
-        do_target_object_map     ||
-        do_target_vm_map         ||
         SelfSpec.new(@name, @symbol, [:temp])
 
-      when '@'
-        do_target_class_map      ||
-        do_target_object_map     ||
-        do_target_vm_map         ||
-        spec_error
-
-      when '$'
-        do_global_target_map     ||
-        do_target_vm_map         ||
-        spec_error
-
-      when '#'
-        do_target_vm_map         ||
-        spec_error
-
       else
-        do_object_class_map      ||
-        do_target_vm_map         ||
-        do_global_target_map     ||
         spec_error
       end
-
     end
 
     #Do a search of the Object class for the item.
@@ -80,7 +61,7 @@ module XfOOrth
     end
 
     #Do a search of the globals.
-    def do_global_target_map
+    def do_global_map
       $FOORTH_GLOBALS[@symbol]
     end
 
