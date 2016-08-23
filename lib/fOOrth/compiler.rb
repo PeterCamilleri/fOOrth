@@ -34,14 +34,10 @@ module XfOOrth
     #The level of comment nesting.
     attr_accessor :parens
 
-    #Is a force compile in effect?
-    attr_accessor :force
-
     #Return the compiler to a known state.
     def compiler_reset
       @buffer = @parser = @cast = nil
       @quotes = @parens = 0
-      @force  = false
       @context = Context.new(nil, vm: self, mode: :execute)
       self
     end
