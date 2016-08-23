@@ -35,11 +35,10 @@ module XfOOrth
       dbg_puts token.to_s
       code = token.code
 
-      if execute_mode? || ((token.has_tag?(:immediate)) && (!@force))
+      if execute_mode? || token.has_tag?(:immediate)
         @context.target.instance_exec(self, &eval("lambda {|vm| #{code} }"))
       else
         @buffer << code
-        @force = false
       end
     end
 
