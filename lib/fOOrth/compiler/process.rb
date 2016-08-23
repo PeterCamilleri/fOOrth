@@ -38,7 +38,7 @@ module XfOOrth
       if execute_mode? || token.has_tag?(:immediate)
         @context.target.instance_exec(self, &eval("lambda {|vm| #{code} }"))
       else
-        @buffer << code
+        self << code
       end
     end
 
