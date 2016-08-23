@@ -39,10 +39,8 @@ module XfOOrth
 
     #Return the compiler to a known state.
     def compiler_reset
-      @buffer = nil
-      @parser = nil
-      @quotes = 0
-      @parens = 0
+      @buffer = @parser = @cast = nil
+      @quotes = @parens = 0
       @force  = false
       @context = Context.new(nil, vm: self, mode: :execute)
       self
