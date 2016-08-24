@@ -198,8 +198,10 @@ module XfOOrth
       &lambda {|vm| vm << 'super(vm); ' })
 
     #The standard end-compile adapter word: ';' semi-colon.
-    context.create_local_method(';', LocalSpec, [:immediate],
-      &lambda {|vm| vm.end_compile_mode([ctrl]) })
+    context.create_local_method(';', LocalSpec, [:immediate], &lambda {|vm|
+      vm.clear_cast
+      vm.end_compile_mode([ctrl])
+    })
   end
 
   #Determine the type of method being created. This only applies to non-vm

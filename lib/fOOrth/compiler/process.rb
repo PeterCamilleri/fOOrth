@@ -18,8 +18,11 @@ module XfOOrth
     #* source - A source object. Typically a Console, StringSource or FileSource.
     def process(source)
       save, @parser, start_depth = @parser, Parser.new(source), @context.depth
+
       due_process
       @context.check_depth(start_depth)
+      verify_casts_cleared
+
       @parser = save
     end
 

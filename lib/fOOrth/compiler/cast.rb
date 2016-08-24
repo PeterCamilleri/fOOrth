@@ -24,6 +24,11 @@ module XfOOrth
       end
     end
 
+    #Make sure there are no dangling casts.
+    def verify_casts_cleared
+      error "F12: Dangling methods casts detected." if @cast
+    end
+
     #Get the method cast and clear it.
     def get_cast
       @cast
