@@ -74,7 +74,7 @@ module XfOOrth
       error "F13: The target of .: must be a class" unless target.is_a?(Class)
 
       name   = vm.parser.get_word()
-      type   = XfOOrth.name_to_type(name)
+      type   = XfOOrth.name_to_type(name, get_cast)
       XfOOrth.validate_type(vm, type, name)
       XfOOrth.validate_string_method(type, target, name)
 
@@ -132,7 +132,7 @@ module XfOOrth
     if execute_mode?
       target = vm.pop
       name   = vm.parser.get_word()
-      type   = XfOOrth.name_to_type(name)
+      type   = XfOOrth.name_to_type(name, get_cast)
       XfOOrth.validate_type(vm, type, name)
       XfOOrth.validate_string_method(type, target.class, name)
 
@@ -212,8 +212,8 @@ module XfOOrth
   #*name - The name of the method to be created.
   #<Returns>
   #* The class of the spec to be used for this method.
-  def self.name_to_type(name)
-    case name[0]
+  def self.name_to_type(name, cast_spec=nil)
+    normal_spec = case name[0]
     when '.'
       TosSpec
 
@@ -226,6 +226,8 @@ module XfOOrth
     else
       NosSpec
     end
+
+    cast_spec || normal_spec
   end
 
   #Compare the new method's spec against the specs of other methods of the
@@ -236,7 +238,7 @@ module XfOOrth
   #*type - The class of the method to be created.
   #*name - The name of the method to be created.
   def self.validate_type(vm, type, name)
-    if (spec = vm.context.map(name))
+    if (spec = vm.context.map(name, false))
       if spec.class != type
         error "F90: Spec type mismatch #{spec.foorth_name} vs #{type.foorth_name}"
       end

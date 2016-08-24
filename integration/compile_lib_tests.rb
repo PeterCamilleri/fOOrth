@@ -228,6 +228,12 @@ class CompileLibraryTester < Minitest::Test
     foorth_raises("'~ :  foo ; ")
     foorth_raises("'~ !: foo ; ")
 
+    foorth_equal("Integer    .: .riff self swap -  ; 10 5 .riff", [-5])
+    foorth_equal("Integer '* .: .diff self swap -  ; 10 5 .diff", [5])
+
+    foorth_equal("Integer    .: minus self swap -  ; 10 5 minus", [5])
+    foorth_equal("Integer '. .: rinus self swap -  ; 10 5 rinus", [-5])
+
   end
 
 end
