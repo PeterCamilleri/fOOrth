@@ -195,4 +195,24 @@ class CompileLibraryTester < Minitest::Test
     foorth_equal('42 // foo bar etc 33', [42])
   end
 
+  def test_method_casting
+    foorth_equal('    asm"vm.push(vm.get_cast)" ', [nil] )
+    foorth_equal('\'. asm"vm.push(vm.get_cast)" ', [XfOOrth::TosSpec] )
+    foorth_equal('\'+ asm"vm.push(vm.get_cast)" ', [XfOOrth::NosSpec] )
+    foorth_equal('\'~ asm"vm.push(vm.get_cast)" ', [XfOOrth::SelfSpec] )
+
+    foorth_raises('\'. \'. ')
+    foorth_raises('\'. \'+ ')
+    foorth_raises('\'. \'~ ')
+
+    foorth_raises('\'+ \'. ')
+    foorth_raises('\'+ \'+ ')
+    foorth_raises('\'+ \'~ ')
+
+    foorth_raises('\'~ \'. ')
+    foorth_raises('\'~ \'+ ')
+    foorth_raises('\'~ \'~ ')
+
+  end
+
 end

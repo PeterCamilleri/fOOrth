@@ -25,9 +25,8 @@ module XfOOrth
     end
 
     #Get the method cast and clear it.
-    def get_cast(allowed)
-      verify_cast(allowed)
-      (_, @cast = @cast, nil)[0]
+    def get_cast
+      @cast
     end
 
   end

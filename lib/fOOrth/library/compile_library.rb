@@ -3,6 +3,20 @@
 #* library/compile_library.rb - The compile support fOOrth library.
 module XfOOrth
 
+  # METHOD CASTING ==============================
+
+  #TosSpec method cast.
+  VirtualMachine.create_shared_method("'.", VmSpec, [],
+    &lambda {|vm| vm.set_cast(TosSpec) })
+
+  #NosSpec method cast.
+  VirtualMachine.create_shared_method("'+", VmSpec, [],
+    &lambda {|vm| vm.set_cast(NosSpec) })
+
+  #SelfSpec method cast.
+  VirtualMachine.create_shared_method("'~", VmSpec, [],
+    &lambda {|vm| vm.set_cast(SelfSpec) })
+
   # COLON =======================================
 
   #The classic colon definition that creates a word in the Virtual Machine class.
