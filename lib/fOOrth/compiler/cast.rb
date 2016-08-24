@@ -20,13 +20,13 @@ module XfOOrth
     #Verify the method cast
     def verify_cast(allowed)
       if @cast && !allowed.include?(@cast)
-        error "F13: Cast of #{@cast.class} not allowed."
+        error "F13: Cast of #{@cast} not allowed."
       end
     end
 
     #Make sure there are no dangling casts.
     def verify_casts_cleared
-      error "F12: Dangling methods casts detected." if @cast
+      error "F12: Dangling method cast detected." if @cast
     end
 
     #Get the method cast and clear it.
