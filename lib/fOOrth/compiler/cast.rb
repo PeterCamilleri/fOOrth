@@ -20,7 +20,7 @@ module XfOOrth
     #Verify the method cast
     def verify_cast(allowed)
       if @cast && !allowed.include?(@cast)
-        fail "F13: Cast of #{@cast.class} not allowed."
+        error "F13: Cast of #{@cast.class} not allowed."
       end
     end
 

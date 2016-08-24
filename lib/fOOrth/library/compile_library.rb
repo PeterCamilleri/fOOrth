@@ -23,6 +23,7 @@ module XfOOrth
   # [] : <name> <stuff omitted> ; []; creates <name> on the VirtualMachine
   VirtualMachine.create_shared_method(':', VmSpec, [:immediate],  &lambda {|vm|
     if execute_mode?
+      verify_cast([VmSpec])
       target = VirtualMachine
       name   = vm.parser.get_word()
       type   = VmSpec
@@ -46,6 +47,7 @@ module XfOOrth
   # [] !: <name> <stuff omitted> ; []; creates <name> on the VirtualMachine
   VirtualMachine.create_shared_method('!:', VmSpec, [:immediate],  &lambda {|vm|
     if execute_mode?
+      verify_cast([VmSpec])
       target = VirtualMachine
       name   = vm.parser.get_word()
       type   = VmSpec

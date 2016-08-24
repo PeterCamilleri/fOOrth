@@ -219,6 +219,15 @@ class CompileLibraryTester < Minitest::Test
 
     foorth_equal('Object \'. .: .test ; asm"vm.push(vm.get_cast)" ', [nil] )
 
+    foorth_raises("'. :  foo ; ")
+    foorth_raises("'. !: foo ; ")
+
+    foorth_raises("'* :  foo ; ")
+    foorth_raises("'* !: foo ; ")
+
+    foorth_raises("'~ :  foo ; ")
+    foorth_raises("'~ !: foo ; ")
+
   end
 
 end
