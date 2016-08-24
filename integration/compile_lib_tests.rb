@@ -198,19 +198,19 @@ class CompileLibraryTester < Minitest::Test
   def test_method_casting
     foorth_equal('    asm"vm.push(vm.get_cast)" ', [nil] )
     foorth_equal('\'. asm"vm.push(vm.get_cast)" ', [XfOOrth::TosSpec] )
-    foorth_equal('\'+ asm"vm.push(vm.get_cast)" ', [XfOOrth::NosSpec] )
+    foorth_equal('\'* asm"vm.push(vm.get_cast)" ', [XfOOrth::NosSpec] )
     foorth_equal('\'~ asm"vm.push(vm.get_cast)" ', [XfOOrth::SelfSpec] )
 
     foorth_raises('\'. \'. ')
-    foorth_raises('\'. \'+ ')
+    foorth_raises('\'. \'* ')
     foorth_raises('\'. \'~ ')
 
-    foorth_raises('\'+ \'. ')
-    foorth_raises('\'+ \'+ ')
-    foorth_raises('\'+ \'~ ')
+    foorth_raises('\'* \'. ')
+    foorth_raises('\'* \'* ')
+    foorth_raises('\'* \'~ ')
 
     foorth_raises('\'~ \'. ')
-    foorth_raises('\'~ \'+ ')
+    foorth_raises('\'~ \'* ')
     foorth_raises('\'~ \'~ ')
 
   end

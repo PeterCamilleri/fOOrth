@@ -10,7 +10,7 @@ module XfOOrth
     &lambda {|vm| vm.set_cast(TosSpec) })
 
   #NosSpec method cast.
-  VirtualMachine.create_shared_method("'+", VmSpec, [],
+  VirtualMachine.create_shared_method("'*", VmSpec, [],
     &lambda {|vm| vm.set_cast(NosSpec) })
 
   #SelfSpec method cast.
