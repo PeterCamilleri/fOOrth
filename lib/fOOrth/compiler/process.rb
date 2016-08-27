@@ -18,8 +18,11 @@ module XfOOrth
     #* source - A source object. Typically a Console, StringSource or FileSource.
     def process(source)
       save, @parser, start_depth = @parser, Parser.new(source), @context.depth
+
       due_process
       @context.check_depth(start_depth)
+      verify_casts_cleared
+
       @parser = save
     end
 
@@ -35,11 +38,10 @@ module XfOOrth
       dbg_puts token.to_s
       code = token.code
 
-      if execute_mode? || ((token.has_tag?(:immediate)) && (!@force))
+      if execute_mode? || token.has_tag?(:immediate)
         @context.target.instance_exec(self, &eval("lambda {|vm| #{code} }"))
       else
-        @buffer << code
-        @force = false
+        self << code
       end
     end
 

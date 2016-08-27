@@ -17,7 +17,6 @@ module XfOOrth
            "\n  Quotes  = #{@quotes}"             \
            "\n  Debug   = #{@debug}"              \
            "\n  Show    = #{@show_stack}"         \
-           "\n  Force   = #{@force}"              \
            "\n  Start   = #{@start_time}"         \
            "\n  Source  = #{source && source.source_name}"  \
            "\n  Buffer  = #{source && source.read_buffer.inspect}"

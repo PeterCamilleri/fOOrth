@@ -3,12 +3,27 @@
 #* library/compile_library.rb - The compile support fOOrth library.
 module XfOOrth
 
+  # METHOD CASTING ==============================
+
+  #TosSpec method cast.
+  VirtualMachine.create_shared_method("'.", VmSpec, [],
+    &lambda {|vm| vm.set_cast(TosSpec) })
+
+  #NosSpec method cast.
+  VirtualMachine.create_shared_method("'*", VmSpec, [],
+    &lambda {|vm| vm.set_cast(NosSpec) })
+
+  #SelfSpec method cast.
+  VirtualMachine.create_shared_method("'~", VmSpec, [],
+    &lambda {|vm| vm.set_cast(SelfSpec) })
+
   # COLON =======================================
 
   #The classic colon definition that creates a word in the Virtual Machine class.
   # [] : <name> <stuff omitted> ; []; creates <name> on the VirtualMachine
   VirtualMachine.create_shared_method(':', VmSpec, [:immediate],  &lambda {|vm|
     if execute_mode?
+      verify_cast([VmSpec])
       target = VirtualMachine
       name   = vm.parser.get_word()
       type   = VmSpec
@@ -32,6 +47,7 @@ module XfOOrth
   # [] !: <name> <stuff omitted> ; []; creates <name> on the VirtualMachine
   VirtualMachine.create_shared_method('!:', VmSpec, [:immediate],  &lambda {|vm|
     if execute_mode?
+      verify_cast([VmSpec])
       target = VirtualMachine
       name   = vm.parser.get_word()
       type   = VmSpec
@@ -58,7 +74,7 @@ module XfOOrth
       error "F13: The target of .: must be a class" unless target.is_a?(Class)
 
       name   = vm.parser.get_word()
-      type   = XfOOrth.name_to_type(name)
+      type   = XfOOrth.name_to_type(name, get_cast)
       XfOOrth.validate_type(vm, type, name)
       XfOOrth.validate_string_method(type, target, name)
 
@@ -116,7 +132,7 @@ module XfOOrth
     if execute_mode?
       target = vm.pop
       name   = vm.parser.get_word()
-      type   = XfOOrth.name_to_type(name)
+      type   = XfOOrth.name_to_type(name, get_cast)
       XfOOrth.validate_type(vm, type, name)
       XfOOrth.validate_string_method(type, target.class, name)
 
@@ -184,8 +200,10 @@ module XfOOrth
       &lambda {|vm| vm << 'super(vm); ' })
 
     #The standard end-compile adapter word: ';' semi-colon.
-    context.create_local_method(';', LocalSpec, [:immediate],
-      &lambda {|vm| vm.end_compile_mode([ctrl]) })
+    context.create_local_method(';', LocalSpec, [:immediate], &lambda {|vm|
+      vm.clear_cast
+      vm.end_compile_mode([ctrl])
+    })
   end
 
   #Determine the type of method being created. This only applies to non-vm
@@ -194,8 +212,8 @@ module XfOOrth
   #*name - The name of the method to be created.
   #<Returns>
   #* The class of the spec to be used for this method.
-  def self.name_to_type(name)
-    case name[0]
+  def self.name_to_type(name, cast_spec=nil)
+    normal_spec = case name[0]
     when '.'
       TosSpec
 
@@ -208,6 +226,8 @@ module XfOOrth
     else
       NosSpec
     end
+
+    cast_spec || normal_spec
   end
 
   #Compare the new method's spec against the specs of other methods of the
@@ -218,7 +238,7 @@ module XfOOrth
   #*type - The class of the method to be created.
   #*name - The name of the method to be created.
   def self.validate_type(vm, type, name)
-    if (spec = vm.context.map(name))
+    if (spec = vm.context.map(name, false))
       if spec.class != type
         error "F90: Spec type mismatch #{spec.foorth_name} vs #{type.foorth_name}"
       end

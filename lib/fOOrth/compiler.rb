@@ -5,6 +5,7 @@ require_relative 'compiler/parser'
 require_relative 'compiler/token'
 require_relative 'compiler/modes'
 require_relative 'compiler/word_specs'
+require_relative 'compiler/cast'
 require_relative 'compiler/context'
 require_relative 'compiler/process'
 
@@ -34,16 +35,11 @@ module XfOOrth
     #The level of comment nesting.
     attr_accessor :parens
 
-    #Is a force compile in effect?
-    attr_accessor :force
-
     #Return the compiler to a known state.
     def compiler_reset
-      @buffer = nil
-      @parser = nil
-      @quotes = 0
-      @parens = 0
-      @force  = false
+      @buffer = @parser = nil
+      @quotes = @parens = 0
+      clear_cast
       @context = Context.new(nil, vm: self, mode: :execute)
       self
     end
