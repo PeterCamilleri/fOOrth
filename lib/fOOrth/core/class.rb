@@ -7,7 +7,7 @@ class Class
   #<br>Decree!
   #* These are to be the only references to @_private_foorth_name!
   def foorth_name
-    @_private_foorth_name ||= name.freeze
+    @_private_foorth_name ||= name.gsub(/.*::/, '').freeze
   end
 
   #Get the name of the class or a safe default.
