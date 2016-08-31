@@ -170,8 +170,6 @@ module XfOOrth
   })
 
   VirtualMachine.create_shared_method(')threads', VmSpec, [], &lambda {|vm|
-    Thread.list.
-      collect {|thrd| "#{thrd} vm = <#{thrd[:vm].name}>" }.
-      foorth_pretty(vm)
+    puts Thread.list.map {|thread| "#{thread} vm = <#{thread[:vm].name}>"}
   })
 end
