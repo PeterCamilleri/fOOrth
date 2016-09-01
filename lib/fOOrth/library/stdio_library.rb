@@ -1,5 +1,9 @@
 # coding: utf-8
 
+#Load up some pretty printing support.
+require_relative 'pretty/pretty_columns'
+require_relative 'pretty/pretty_bullets'
+
 #* library/stdio_library.rb - The standard I/O fOOrth library.
 module XfOOrth
 
@@ -53,4 +57,29 @@ module XfOOrth
   # "prompt" [] .accept [string]; gets a string from the console.
   String.create_shared_method('.accept', TosSpec, [],
     &lambda{|vm|  vm.push(MiniReadline.readline(self, true))})
+
+  $fcpl = 80 #fOOrth Character Per Line
+  $flpp = 25 #fOOrth Lines Per Page
+
+  #Show the page length.
+  VirtualMachine.create_shared_method(')pl', MacroSpec,
+    [:macro, 'puts "Page Length = #{$flpp}"; '])
+
+  #Set the page length.
+  VirtualMachine.create_shared_method(')set_pl', MacroSpec,
+    [:macro, 'puts "New Page Length = #{$flpp = vm.pop}"; '])
+
+  #Show the page width.
+  VirtualMachine.create_shared_method(')pw', MacroSpec,
+    [:macro, 'puts "Page Length = #{$fcpl}"; '])
+
+  #Set the page width.
+  VirtualMachine.create_shared_method(')set_pw', MacroSpec,
+    [:macro, 'puts "New Page Length = #{$fcpl = vm.pop}"; '])
+
+  # [ l 2 3 ... n ] .pp []; pretty print the array!
+  Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
+    self.puts_foorth_columnized($flpp, $fcpl)
+  })
+
 end
