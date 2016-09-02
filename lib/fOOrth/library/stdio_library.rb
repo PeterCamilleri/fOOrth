@@ -79,7 +79,7 @@ module XfOOrth
 
   # [ l 2 3 ... n ] .pp []; pretty print the array!
   Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
-    self.puts_foorth_columnized($flpp, $fcpl)
+    puts_foorth_columnized($flpp, $fcpl)
   })
 
 end
