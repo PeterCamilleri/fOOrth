@@ -109,7 +109,7 @@ module XfOOrth
   #List the methods defined for this object.
   Object.create_shared_method(')methods', TosSpec, [], &lambda {|vm|
     if foorth_has_exclusive?
-      puts 'Exclusive Methods = '
+      puts '#{foorth_name} Exclusive Methods = '
       foorth_exclusive.extract_method_names.sort.foorth_columns(vm)
     end
 
@@ -144,31 +144,33 @@ module XfOOrth
 
   #List the classes defined in fOOrth.
   VirtualMachine.create_shared_method(')classes', VmSpec, [], &lambda {|vm|
-    $FOORTH_GLOBALS.values.
-      select {|entry| entry.has_tag?(:class)}.
-      collect {|spec| spec.new_class.foorth_name}.
-      sort.
-      foorth_columns(vm)
+    $FOORTH_GLOBALS.values
+      .select {|entry| entry.has_tag?(:class)}
+      .collect {|spec| spec.new_class.foorth_name}
+      .sort
+      .foorth_columns(vm)
   })
 
   #List the globals defined in fOOrth.
   VirtualMachine.create_shared_method(')globals', VmSpec, [], &lambda {|vm|
-    $FOORTH_GLOBALS.keys.
-      select  {|key| !($FOORTH_GLOBALS[key].has_tag?(:class))}.
-      collect {|key| "#{XfOOrth::SymbolMap.unmap(key)} (#{key.to_s})"}.
-      foorth_columns(vm)
+    $FOORTH_GLOBALS.keys
+      .select  {|key| !($FOORTH_GLOBALS[key].has_tag?(:class))}
+      .collect {|key| "#{XfOOrth::SymbolMap.unmap(key)} (#{key.to_s})"}
+      .foorth_columns(vm)
   })
 
   #List the virtual machine methods
   #List the methods defined for this object.
   VirtualMachine.create_shared_method(')words', VmSpec, [], &lambda {|vm|
     if vm.foorth_has_exclusive?
-      puts 'Exclusive Methods = '
+      puts "#{foorth_name} Exclusive Methods = "
       vm.foorth_exclusive.extract_method_names.sort.foorth_columns(vm)
     end
 
-    puts "#{vm.class.foorth_name} Shared Methods = "
-    vm.class.foorth_shared.extract_method_names.sort.foorth_columns(vm)
+    my_class = vm.class
+
+    puts "#{my_class.foorth_name} Shared Methods = "
+    my_class.foorth_shared.extract_method_names.sort.foorth_columns(vm)
   })
 
   VirtualMachine.create_shared_method(')threads', VmSpec, [], &lambda {|vm|

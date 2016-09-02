@@ -43,21 +43,30 @@ module XfOOrth
       result = []
       input  = item.split(' ').each
       temp   = key.ljust(len = @key_length)
+      pass_one = true
 
       loop do
         word = ' ' + input.next
 
-        if (len += word.length) >= @page_width
+        while len >= @page_width
+          result << temp.slice!(0, @page_width - 1)
+          temp = (' ' * @key_length) + ' ' + temp
+          len  = temp.length
+        end
+
+        if ((len += word.length) >= @page_width) && !pass_one
           result << temp
           temp = (' ' * @key_length) + word
           len  = temp.length
         else
           temp << word
+          pass_one = false
         end
       end
 
       result << temp
     end
+
   end
 
 end

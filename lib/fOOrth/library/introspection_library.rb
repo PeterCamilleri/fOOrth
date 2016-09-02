@@ -1,5 +1,10 @@
 # coding: utf-8
 
+require_relative 'introspection/symbol_map'
+require_relative 'introspection/class'
+require_relative 'introspection/object'
+require_relative 'introspection/word_specs'
+
 #* library/introspection_library.rb - The fOOrth introspection library.
 module XfOOrth
 
@@ -29,6 +34,57 @@ module XfOOrth
   VirtualMachine.create_shared_method(')unmap"', VmSpec, [], &lambda {|vm|
     str = vm.pop.to_s
     puts "#{str} <= #{(SymbolMap.unmap(str.to_sym).to_s)}"
+  })
+
+  #Get information on a method.
+  Class.create_shared_method('.method_info', TosSpec, [], &lambda{|vm|
+    symbol, info = SymbolMap.map_info(name = vm.pop)
+    results = [["Name", name], info]
+    found   = false
+
+    if symbol
+      spec, info = map_foorth_shared_info(symbol)
+
+      if spec && !spec.has_tag?(:stub)
+        results.concat(info)
+        results.concat(spec.get_info)
+        found = true
+      end
+
+      spec, info = map_foorth_exclusive_info(symbol)
+
+      if spec && !spec.has_tag?(:stub)
+        results << ["", ""] if found
+        results.concat(info)
+        results.concat(spec.get_info)
+        found = true
+      end
+
+      results << ["Scope", "not found."] unless found
+    end
+
+    vm.push(results)
+  })
+
+  #Get information on a method.
+  Object.create_shared_method('.method_info', TosSpec, [], &lambda{|vm|
+    symbol, info = SymbolMap.map_info(name = vm.pop)
+    results = [["Name", name], info]
+    found   = false
+
+    if symbol
+      spec, info = map_foorth_exclusive_info(symbol)
+
+      if spec && !spec.has_tag?(:stub)
+        results.concat(info)
+        results.concat(spec.get_info)
+        found = true
+      end
+
+      results << ["Scope", "not found."] unless found
+    end
+
+    vm.push(results)
   })
 
 end
