@@ -82,4 +82,19 @@ module XfOOrth
     puts_foorth_columnized($flpp, $fcpl)
   })
 
+  #An alias for the .pp method.
+  Array.create_shared_method('.print_columns', TosSpec, [], &lambda {|vm|
+    puts_foorth_columnized($flpp, $fcpl)
+  })
+
+  #[["1" "stuff"] ["two" stuff] .print_bullets; pretty print bullet points.
+  Array.create_shared_method('.print_bullets', TosSpec, [], &lambda {|vm|
+    puts_foorth_bullets($fcpl)
+  })
+
+  #{ "1" "stuff" -> "two" stuff -> } .print_bullets; pretty print bullet points.
+  Hash.create_shared_method('.print_bullets', TosSpec, [], &lambda {|vm|
+    puts_foorth_bullets($fcpl)
+  })
+
 end
