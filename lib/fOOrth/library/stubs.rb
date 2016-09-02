@@ -75,6 +75,7 @@ module XfOOrth
   SymbolMap.add_entry('.strlen',        :foorth_strlen)
   SymbolMap.add_entry('.strmax',        :foorth_strmax)
   SymbolMap.add_entry('.strmax2',       :foorth_strmax2)
-  SymbolMap.add_entry('.pp',            :foorth_pretty)
+  SymbolMap.add_entry('.pp',            :foorth_columns)
+  SymbolMap.add_entry('.print_bullets', :foorth_bullets)
   SymbolMap.add_entry('.load',          :foorth_load_file)
 end

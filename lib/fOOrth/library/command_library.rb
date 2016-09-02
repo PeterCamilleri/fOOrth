@@ -102,41 +102,43 @@ module XfOOrth
   VirtualMachine.create_shared_method(')entries', VmSpec, [], &lambda {|vm|
     entries = SymbolMap.forward_map.keys.sort
     puts 'Symbol Map Entries = '
-    entries.foorth_pretty(vm)
+    entries.foorth_columns(vm)
     puts
   })
 
   #List the methods defined for this object.
   Object.create_shared_method(')methods', TosSpec, [], &lambda {|vm|
-    if self.foorth_has_exclusive?
+    if foorth_has_exclusive?
       puts 'Exclusive Methods = '
-      self.foorth_exclusive.extract_method_names.sort.foorth_pretty(vm)
+      foorth_exclusive.extract_method_names.sort.foorth_columns(vm)
     end
 
-    puts "#{self.class.foorth_name} Shared Methods = "
-    self.class.foorth_shared.extract_method_names.sort.foorth_pretty(vm)
+    my_class = self.class
+
+    puts "#{my_class.foorth_name} Shared Methods = "
+    my_class.foorth_shared.extract_method_names.sort.foorth_columns(vm)
   })
 
   #List the methods defined for this class.
   Class.create_shared_method(')methods', TosSpec, [], &lambda {|vm|
-    if self.foorth_has_exclusive?
-      puts "#{self.foorth_name} Class Methods = "
-      self.foorth_exclusive.extract_method_names.sort.foorth_pretty(vm)
+    if foorth_has_exclusive?
+      puts "#{foorth_name} Class Methods = "
+      foorth_exclusive.extract_method_names.sort.foorth_columns(vm)
     end
 
-    puts "#{self.foorth_name} Shared Methods = "
-    self.foorth_shared.extract_method_names.sort.foorth_pretty(vm)
+    puts "#{foorth_name} Shared Methods = "
+    foorth_shared.extract_method_names.sort.foorth_columns(vm)
   })
 
   #List the stubs defined for this class.
   Class.create_shared_method(')stubs', TosSpec, [], &lambda {|vm|
-    if self.foorth_has_exclusive?
-      puts "#{self.foorth_name} Class Stubs = "
-      self.foorth_exclusive.extract_method_names(:stubs).sort.foorth_pretty(vm)
+    if foorth_has_exclusive?
+      puts "#{foorth_name} Class Stubs = "
+      foorth_exclusive.extract_method_names(:stubs).sort.foorth_columns(vm)
     end
 
-    puts "#{self.foorth_name} Shared Stubs = "
-    self.foorth_shared.extract_method_names(:stubs).sort.foorth_pretty(vm)
+    puts "#{foorth_name} Shared Stubs = "
+    foorth_shared.extract_method_names(:stubs).sort.foorth_columns(vm)
   })
 
 
@@ -146,7 +148,7 @@ module XfOOrth
       select {|entry| entry.has_tag?(:class)}.
       collect {|spec| spec.new_class.foorth_name}.
       sort.
-      foorth_pretty(vm)
+      foorth_columns(vm)
   })
 
   #List the globals defined in fOOrth.
@@ -154,7 +156,7 @@ module XfOOrth
     $FOORTH_GLOBALS.keys.
       select  {|key| !($FOORTH_GLOBALS[key].has_tag?(:class))}.
       collect {|key| "#{XfOOrth::SymbolMap.unmap(key)} (#{key.to_s})"}.
-      foorth_pretty(vm)
+      foorth_columns(vm)
   })
 
   #List the virtual machine methods
@@ -162,11 +164,11 @@ module XfOOrth
   VirtualMachine.create_shared_method(')words', VmSpec, [], &lambda {|vm|
     if vm.foorth_has_exclusive?
       puts 'Exclusive Methods = '
-      vm.foorth_exclusive.extract_method_names.sort.foorth_pretty(vm)
+      vm.foorth_exclusive.extract_method_names.sort.foorth_columns(vm)
     end
 
     puts "#{vm.class.foorth_name} Shared Methods = "
-    vm.class.foorth_shared.extract_method_names.sort.foorth_pretty(vm)
+    vm.class.foorth_shared.extract_method_names.sort.foorth_columns(vm)
   })
 
   VirtualMachine.create_shared_method(')threads', VmSpec, [], &lambda {|vm|
