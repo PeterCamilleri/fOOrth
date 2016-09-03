@@ -66,6 +66,12 @@ module XfOOrth
     vm.push(results)
   })
 
+  #The user level command for the above.
+  Class.create_shared_method(')method_info"', NosSpec, [], &lambda{|vm|
+    foorth_method_info(vm)
+    (vm.pop).puts_foorth_bullets($fcpl)
+  })
+
   #Get information on a method.
   Object.create_shared_method('.method_info', TosSpec, [], &lambda{|vm|
     symbol, info = SymbolMap.map_info(name = vm.pop)
@@ -85,6 +91,12 @@ module XfOOrth
     end
 
     vm.push(results)
+  })
+
+  #The user level command for the above.
+  Object.create_shared_method(')method_info"', NosSpec, [], &lambda{|vm|
+    foorth_method_info(vm)
+    (vm.pop).puts_foorth_bullets($fcpl)
   })
 
 end

@@ -78,4 +78,5 @@ module XfOOrth
   SymbolMap.add_entry('.pp',            :foorth_columns)
   SymbolMap.add_entry('.print_bullets', :foorth_bullets)
   SymbolMap.add_entry('.load',          :foorth_load_file)
+  SymbolMap.add_entry('.method_info',   :foorth_method_info)
 end
