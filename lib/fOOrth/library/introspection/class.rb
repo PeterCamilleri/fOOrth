@@ -4,10 +4,10 @@
 class Class
 
   #Get information about the mapping of the symbol.
-  def map_foorth_shared_info(symbol)
+  def map_foorth_shared_info(symbol, shallow=nil)
     if (spec = foorth_shared[symbol])
-      [spec, [["Scope", "Shared"], ["Class", foorth_class_name]]]
-    elsif (sc = superclass)
+      [spec, [["Class", foorth_class_name], ["Scope", "Shared"]]]
+    elsif (sc = superclass) && !shallow
       sc.map_foorth_shared_info(symbol)
     else
       [nil, nil]

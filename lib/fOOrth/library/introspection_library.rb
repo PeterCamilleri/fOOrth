@@ -69,7 +69,7 @@ module XfOOrth
   #The user level command for the above.
   Class.create_shared_method(')method_info"', NosSpec, [], &lambda{|vm|
     foorth_method_info(vm)
-    (vm.pop).puts_foorth_bullets($fcpl)
+    vm.pop.puts_foorth_bullets($fcpl)
   })
 
   #Get information on a method.
@@ -96,8 +96,51 @@ module XfOOrth
   #The user level command for the above.
   Object.create_shared_method(')method_info"', NosSpec, [], &lambda{|vm|
     foorth_method_info(vm)
-    (vm.pop).puts_foorth_bullets($fcpl)
+    vm.pop.puts_foorth_bullets($fcpl)
+  })
+
+  #Scan all classes for information about a method.
+  String.create_shared_method('.method_scan', TosSpec, [], &lambda{|vm|
+    symbol, info = SymbolMap.map_info(self)
+    results = [["Name", self], info]
+    found   = false
+
+    if symbol
+
+    $FOORTH_GLOBALS.values
+      .select {|entry| entry.has_tag?(:class)}
+      .collect {|spec| spec.new_class}
+      .sort {|a,b| a.foorth_name <=> b.foorth_name}
+      .each do |klass|
+        spec, info = klass.map_foorth_shared_info(symbol, :shallow)
+
+        if spec
+          results << ["", ""]
+          results.concat(info)
+          results.concat(spec.get_info)
+          found = true
+        end
+
+        spec, info = klass.map_foorth_exclusive_info(symbol, :shallow)
+
+        if spec
+          results << ["", ""]
+          results.concat(info)
+          results.concat(spec.get_info)
+          found = true
+        end
+      end
+
+      results << ["Scope", "not found in any class."] unless found
+    end
+
+    vm.push(results)
+  })
+
+  #The user level command for the above.
+  String.create_shared_method(')method_scan"', TosSpec, [], &lambda{|vm|
+    foorth_method_scan(vm)
+    vm.pop.puts_foorth_bullets($fcpl)
   })
 
 end
-

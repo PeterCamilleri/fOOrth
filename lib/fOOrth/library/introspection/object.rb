@@ -4,11 +4,13 @@
 class Object
 
   #Map the symbol to a specification or nil if there is no mapping.
-  def map_foorth_exclusive_info(symbol)
+  def map_foorth_exclusive_info(symbol, shallow=nil)
     if (foorth_has_exclusive? && (spec = foorth_exclusive[symbol]))
-      [spec, [["Scope", "Exclusive"], ["Object", foorth_name]]]
-    else
+      [spec, [["Object", foorth_name], ["Scope", "Exclusive"]]]
+    elsif !shallow
       self.class.map_foorth_shared_info(symbol)
+    else
+      [nil, nil]
     end
   end
 
