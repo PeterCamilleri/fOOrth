@@ -1,11 +1,9 @@
 # coding: utf-8
 
-require 'thread'
-
-#* library/queue_library.rb - The Queue support fOOrth library.
+#* library/stack_library.rb - The Stack support fOOrth library.
 module XfOOrth
 
-  #Connect the Queue class to the fOOrth class system.
+  #Connect the Stack class to the fOOrth class system.
   stack = Object.create_foorth_subclass('Stack').new_class
 
   #Uses the default implementation of the .new method.
