@@ -69,7 +69,7 @@ module XfOOrth
   #The user level command for the above.
   Class.create_shared_method(')method_info"', NosSpec, [], &lambda{|vm|
     foorth_method_info(vm)
-    vm.pop.puts_foorth_bullets($fcpl)
+    vm.pop.foorth_bullets(vm)
   })
 
   #Get information on a method.
@@ -96,7 +96,7 @@ module XfOOrth
   #The user level command for the above.
   Object.create_shared_method(')method_info"', NosSpec, [], &lambda{|vm|
     foorth_method_info(vm)
-    vm.pop.puts_foorth_bullets($fcpl)
+    vm.pop.foorth_bullets(vm)
   })
 
   #Scan all classes for information about a method.
@@ -140,7 +140,7 @@ module XfOOrth
   #The user level command for the above.
   String.create_shared_method(')method_scan"', TosSpec, [], &lambda{|vm|
     foorth_method_scan(vm)
-    vm.pop.puts_foorth_bullets($fcpl)
+    vm.pop.foorth_bullets(vm)
   })
 
 end
