@@ -4,17 +4,18 @@ require_relative 'introspection/symbol_map'
 require_relative 'introspection/class'
 require_relative 'introspection/object'
 require_relative 'introspection/word_specs'
+require_relative 'introspection/context'
 
 #* library/introspection_library.rb - The fOOrth introspection library.
 module XfOOrth
 
   #Dump the context.
   VirtualMachine.create_shared_method(')context', VmSpec, [],
-    &lambda {|vm| vm.context.debug_dump(vm) })
+    &lambda {|vm| vm.context.get_info.foorth_bullets(vm) })
 
   #Dump the context right NOW!.
   VirtualMachine.create_shared_method(')context!', VmSpec, [:immediate],
-    &lambda {|vm| vm.context.debug_dump(vm) })
+    &lambda {|vm| vm.context.get_info.foorth_bullets(vm) })
 
   #Dump the virtual machine.
   VirtualMachine.create_shared_method(')vm', VmSpec, [],
