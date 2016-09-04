@@ -144,4 +144,13 @@ module XfOOrth
     vm.pop.foorth_bullets(vm)
   })
 
+  Class.create_shared_method('.lineage', TosSpec, [], &lambda{|vm|
+    vm.push(lineage.freeze)
+  })
+
+  Class.create_shared_method(')lineage', TosSpec, [], &lambda{|vm|
+    puts lineage
+  })
+
+
 end

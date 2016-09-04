@@ -66,9 +66,12 @@ module XfOOrth
   Object.create_shared_method('.new_default{{', NosSpec, [:stub])
 
   #Embedding stubs.
-  Object.create_shared_method(',asm',           TosSpec, [:stub])
-  Object.create_shared_method(',asm"',          TosSpec, [:stub])
-  Object.create_shared_method(')method_scan"',  TosSpec, [:stub])
+  Object.create_shared_method(',asm',   TosSpec, [:stub])
+  Object.create_shared_method(',asm"',  TosSpec, [:stub])
+
+  #Command stubs
+  Object.create_shared_method(')method_scan"', TosSpec, [:stub])
+  Object.create_shared_method(')lineage',      TosSpec, [:stub])
 
   #Define some "crossover" symbols.
   SymbolMap.add_entry('.is_class?',      :foorth_is_class?)

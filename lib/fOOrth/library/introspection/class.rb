@@ -14,5 +14,14 @@ class Class
     end
   end
 
-end
+  #Get the lineage of this class.
+  def lineage
+    #Ugly hack, sorry!
+    if [Object, Module].include?(self)
+      "Object"
+    else
+      foorth_class_name + " < " + superclass.lineage
+    end
+  end
 
+end
