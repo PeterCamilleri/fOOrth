@@ -19,18 +19,19 @@ class Object
     results = [["Type", foorth_name]]
 
     unless (vars = instance_variables).empty?
-      results.concat([["", ""], ["Data", ""]])
+      results.concat([["", ""], ["Data", "Instance"], ["", ""]])
 
       vars.sort.each do |name|
-        results << [name, instance_variable_get(name)]
+        var_name = XfOOrth::SymbolMap.unmap(name[1..-1].to_sym) || name
+        results << [var_name, instance_variable_get(name)]
       end
     end
 
     if foorth_has_exclusive?
-      results.concat([["", ""], ["Exclusive", ""]])
+      results.concat([["", ""], ["Methods", "Exclusive"]])
 
       foorth_exclusive.extract_method_names.sort.each do |name|
-        symbol, info = SymbolMap.map_info(name)
+        symbol, info = XfOOrth::SymbolMap.map_info(name)
         results.concat([["", ""], ["Name", name], info])
         spec, info = map_foorth_exclusive_info(symbol, :shallow)
         results.concat(info).concat(spec.get_info)

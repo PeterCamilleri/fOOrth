@@ -145,7 +145,7 @@ module XfOOrth
     results = [["Lineage", lineage]]
 
     if foorth_has_exclusive?
-      results.concat([["", ""], ["Class", ""]])
+      results.concat([["", ""], ["Methods", "Class"]])
 
       foorth_exclusive.extract_method_names.sort.each do |name|
         symbol, info = SymbolMap.map_info(name)
@@ -156,7 +156,7 @@ module XfOOrth
     end
 
     unless foorth_shared.empty?
-      results.concat([["", ""], ["Shared", ""]])
+      results.concat([["", ""], ["Methods", "Shared"]])
 
       foorth_shared.extract_method_names.sort.each do |name|
         symbol, info = SymbolMap.map_info(name)
