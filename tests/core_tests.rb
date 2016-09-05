@@ -103,7 +103,7 @@ class CoreTester < Minitest::Test
     symbol = XfOOrth::SymbolMap.map('MyClass')
 
     assert($FOORTH_GLOBALS[symbol])
-    assert_equal('XfOOrth::ClassSpec instance', new_class.foorth_name)
+    assert_equal('ClassSpec instance', new_class.foorth_name)
     assert_equal(XfOOrth::XfOOrth_MyClass, new_class.new_class)
     assert_equal(XfOOrth::XfOOrth_MyClass, $FOORTH_GLOBALS[symbol].new_class)
 
