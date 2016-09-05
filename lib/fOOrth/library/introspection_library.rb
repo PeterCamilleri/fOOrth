@@ -47,18 +47,14 @@ module XfOOrth
       spec, info = map_foorth_shared_info(symbol)
 
       if spec && !spec.has_tag?(:stub)
-        results << ["", ""]
-        results.concat(info)
-        results.concat(spec.get_info)
+        (results << ["", ""]).concat(info).concat(spec.get_info)
         found = true
       end
 
       spec, info = map_foorth_exclusive_info(symbol)
 
       if spec && !spec.has_tag?(:stub)
-        results << ["", ""]
-        results.concat(info)
-        results.concat(spec.get_info)
+        (results << ["", ""]).concat(info).concat(spec.get_info)
         found = true
       end
 
@@ -84,9 +80,7 @@ module XfOOrth
       spec, info = map_foorth_exclusive_info(symbol)
 
       if spec && !spec.has_tag?(:stub)
-        results << ["", ""]
-        results.concat(info)
-        results.concat(spec.get_info)
+        (results << ["", ""]).concat(info).concat(spec.get_info)
         found = true
       end
 
@@ -109,32 +103,27 @@ module XfOOrth
     found   = false
 
     if symbol
+      $FOORTH_GLOBALS.values
+        .select {|entry| entry.has_tag?(:class)}
+        .collect {|spec| spec.new_class}
+        .sort {|a,b| a.foorth_name <=> b.foorth_name}
+        .each do |klass|
+          spec, info = klass.map_foorth_shared_info(symbol, :shallow)
 
-    $FOORTH_GLOBALS.values
-      .select {|entry| entry.has_tag?(:class)}
-      .collect {|spec| spec.new_class}
-      .sort {|a,b| a.foorth_name <=> b.foorth_name}
-      .each do |klass|
-        spec, info = klass.map_foorth_shared_info(symbol, :shallow)
+          if spec
+            (results << ["", ""]).concat(info).concat(spec.get_info)
+            found = true
+          end
 
-        if spec
-          results << ["", ""]
-          results.concat(info)
-          results.concat(spec.get_info)
-          found = true
+          spec, info = klass.map_foorth_exclusive_info(symbol, :shallow)
+
+          if spec
+            (results << ["", ""]).concat(info).concat(spec.get_info)
+            found = true
+          end
         end
 
-        spec, info = klass.map_foorth_exclusive_info(symbol, :shallow)
-
-        if spec
-          results << ["", ""]
-          results.concat(info)
-          results.concat(spec.get_info)
-          found = true
-        end
-      end
-
-      results << ["Scope", "not found in any class."] unless found
+        results << ["Scope", "not found in any class."] unless found
     end
 
     vm.push(results)
@@ -165,10 +154,9 @@ module XfOOrth
 
       foorth_exclusive.extract_method_names.sort.each do |name|
         symbol, info = SymbolMap.map_info(name)
-        results.concat([["", ""], ["Name", name]], info)
+        results.concat([["", ""], ["Name", name], info])
         spec, info = map_foorth_exclusive_info(symbol, :shallow)
-        results.concat(info)
-        results.concat(spec.get_info)
+        results.concat(info).concat(spec.get_info)
       end
     end
 
@@ -177,10 +165,9 @@ module XfOOrth
 
       foorth_shared.extract_method_names.sort.each do |name|
         symbol, info = SymbolMap.map_info(name)
-        results.concat([["", ""], ["Name", name]], info)
+        results.concat([["", ""], ["Name", name], info])
         spec, info = map_foorth_shared_info(symbol, :shallow)
-        results.concat(info)
-        results.concat(spec.get_info)
+        results.concat(info).concat(spec.get_info)
       end
     end
 
