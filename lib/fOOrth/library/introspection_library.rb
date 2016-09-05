@@ -5,6 +5,7 @@ require_relative 'introspection/class'
 require_relative 'introspection/object'
 require_relative 'introspection/word_specs'
 require_relative 'introspection/context'
+require_relative 'introspection/vm'
 
 #* library/introspection_library.rb - The fOOrth introspection library.
 module XfOOrth
@@ -17,13 +18,17 @@ module XfOOrth
   VirtualMachine.create_shared_method(')context!', VmSpec, [:immediate],
     &lambda {|vm| vm.context.get_info.foorth_bullets(vm) })
 
+  # [vm] .dump []
+  VirtualMachine.create_shared_method('.dump', TosSpec, [],
+    &lambda {|vm| get_info.foorth_bullets(vm) })
+
   #Dump the virtual machine.
   VirtualMachine.create_shared_method(')vm', VmSpec, [],
-    &lambda {|vm| vm.debug_dump })
+    &lambda {|vm| get_info.foorth_bullets(vm) })
 
   #Dump the virtual machine right NOW!
   VirtualMachine.create_shared_method(')vm!', VmSpec, [:immediate],
-    &lambda {|vm| vm.debug_dump })
+    &lambda {|vm| get_info.foorth_bullets(vm) })
 
   #Map a symbol entry
   VirtualMachine.create_shared_method(')map"', VmSpec, [], &lambda {|vm|
@@ -102,29 +107,19 @@ module XfOOrth
     results = [["Name", self], info]
     found   = false
 
-    if symbol
-      $FOORTH_GLOBALS.values
-        .select {|entry| entry.has_tag?(:class)}
-        .collect {|spec| spec.new_class}
-        .sort {|a,b| a.foorth_name <=> b.foorth_name}
-        .each do |klass|
-          spec, info = klass.map_foorth_shared_info(symbol, :shallow)
+    symbol && $FOORTH_GLOBALS.values
+      .select {|entry| entry.has_tag?(:class)}
+      .collect {|spec| spec.new_class}
+      .sort {|a,b| a.foorth_name <=> b.foorth_name}
+      .each do |klass|
+        spec, info = klass.map_foorth_shared_info(symbol, :shallow)
+        found |= spec && (results << ["", ""]).concat(info).concat(spec.get_info)
 
-          if spec
-            (results << ["", ""]).concat(info).concat(spec.get_info)
-            found = true
-          end
+        spec, info = klass.map_foorth_exclusive_info(symbol, :shallow)
+        found |= spec && (results << ["", ""]).concat(info).concat(spec.get_info)
+      end
 
-          spec, info = klass.map_foorth_exclusive_info(symbol, :shallow)
-
-          if spec
-            (results << ["", ""]).concat(info).concat(spec.get_info)
-            found = true
-          end
-        end
-
-        results << ["Scope", "not found in any class."] unless found
-    end
+    results << ["Scope", "not found in any class."] if symbol && !found
 
     vm.push(results)
   })
