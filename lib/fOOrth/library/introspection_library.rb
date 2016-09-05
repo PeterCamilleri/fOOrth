@@ -167,7 +167,7 @@ module XfOOrth
         results << ["Name", name]
         symbol, info = SymbolMap.map_info(name)
         results.concat(info)
-        spec, info = map_foorth_shared_info(symbol, :shallow)
+        spec, info = map_foorth_exclusive_info(symbol, :shallow)
         results.concat(info)
         results.concat(spec.get_info)
       end
