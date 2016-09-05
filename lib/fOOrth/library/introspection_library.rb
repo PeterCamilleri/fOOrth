@@ -47,6 +47,7 @@ module XfOOrth
       spec, info = map_foorth_shared_info(symbol)
 
       if spec && !spec.has_tag?(:stub)
+        results << ["", ""]
         results.concat(info)
         results.concat(spec.get_info)
         found = true
@@ -55,7 +56,7 @@ module XfOOrth
       spec, info = map_foorth_exclusive_info(symbol)
 
       if spec && !spec.has_tag?(:stub)
-        results << ["", ""] if found
+        results << ["", ""]
         results.concat(info)
         results.concat(spec.get_info)
         found = true
@@ -83,6 +84,7 @@ module XfOOrth
       spec, info = map_foorth_exclusive_info(symbol)
 
       if spec && !spec.has_tag?(:stub)
+        results << ["", ""]
         results.concat(info)
         results.concat(spec.get_info)
         found = true
@@ -159,30 +161,27 @@ module XfOOrth
     results = [["Lineage", lineage]]
 
     if foorth_has_exclusive?
-      results << ["", ""]
-      results << ["Class", ""]
+      results.concat([["", ""], ["Class", ""]])
 
       foorth_exclusive.extract_method_names.sort.each do |name|
-        results << ["", ""]
-        results << ["Name", name]
         symbol, info = SymbolMap.map_info(name)
-        results.concat(info)
+        results.concat([["", ""], ["Name", name]], info)
         spec, info = map_foorth_exclusive_info(symbol, :shallow)
         results.concat(info)
         results.concat(spec.get_info)
       end
     end
 
-    results << ["", ""]
-    results << ["Shared", ""]
-    foorth_shared.extract_method_names.sort.each do |name|
-      results << ["", ""]
-      results << ["Name", name]
-      symbol, info = SymbolMap.map_info(name)
-      results << info
-      spec, info = map_foorth_shared_info(symbol, :shallow)
-      results.concat(info)
-      results.concat(spec.get_info)
+    unless foorth_shared.empty?
+      results.concat([["", ""], ["Shared", ""]])
+
+      foorth_shared.extract_method_names.sort.each do |name|
+        symbol, info = SymbolMap.map_info(name)
+        results.concat([["", ""], ["Name", name]], info)
+        spec, info = map_foorth_shared_info(symbol, :shallow)
+        results.concat(info)
+        results.concat(spec.get_info)
+      end
     end
 
     vm.push(results)
