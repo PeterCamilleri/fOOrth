@@ -144,13 +144,54 @@ module XfOOrth
     vm.pop.foorth_bullets(vm)
   })
 
+  #Get this class's lineage in a string.
   Class.create_shared_method('.lineage', TosSpec, [], &lambda{|vm|
     vm.push(lineage.freeze)
   })
 
+  #The user level command for the above.
   Class.create_shared_method(')lineage', TosSpec, [], &lambda{|vm|
     puts lineage
   })
 
+  #Scan a class for stuff.
+  Class.create_shared_method('.class_scan', TosSpec, [], &lambda{|vm|
+    results = [["Lineage", lineage]]
+
+    if foorth_has_exclusive?
+      results << ["", ""]
+      results << ["Class", ""]
+
+      foorth_exclusive.extract_method_names.sort.each do |name|
+        results << ["", ""]
+        results << ["Name", name]
+        symbol, info = SymbolMap.map_info(name)
+        results.concat(info)
+        spec, info = map_foorth_shared_info(symbol, :shallow)
+        results.concat(info)
+        results.concat(spec.get_info)
+      end
+    end
+
+    results << ["", ""]
+    results << ["Shared", ""]
+    foorth_shared.extract_method_names.sort.each do |name|
+      results << ["", ""]
+      results << ["Name", name]
+      symbol, info = SymbolMap.map_info(name)
+      results << info
+      spec, info = map_foorth_shared_info(symbol, :shallow)
+      results.concat(info)
+      results.concat(spec.get_info)
+    end
+
+    vm.push(results)
+  })
+
+  #The user level command for the above.
+  Class.create_shared_method(')class_scan', TosSpec, [], &lambda{|vm|
+    foorth_class_scan(vm)
+    vm.pop.foorth_bullets(vm)
+  })
 
 end
