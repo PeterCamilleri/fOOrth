@@ -175,4 +175,15 @@ module XfOOrth
     vm.pop.foorth_bullets(vm)
   })
 
+  #Scan an object for stuff.
+  Object.create_shared_method('.object_scan', TosSpec, [], &lambda{|vm|
+    vm.push(get_info)
+  })
+
+  #The user level command for the above.
+  Object.create_shared_method(')object_scan', TosSpec, [], &lambda{|vm|
+    get_info.foorth_bullets(vm)
+  })
+
+
 end

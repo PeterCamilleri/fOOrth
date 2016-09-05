@@ -72,6 +72,7 @@ module XfOOrth
   #Command stubs
   Object.create_shared_method(')method_scan"', TosSpec, [:stub])
   Object.create_shared_method(')class_scan',   TosSpec, [:stub])
+  Object.create_shared_method(')object_scan',  TosSpec, [:stub])
   Object.create_shared_method(')lineage',      TosSpec, [:stub])
 
   #Define some "crossover" symbols.

@@ -14,4 +14,30 @@ class Object
     end
   end
 
+  #Get introspection info.
+  def get_info
+    results = [["Type", foorth_name]]
+
+    unless (vars = instance_variables).empty?
+      results.concat([["", ""], ["Data", ""]])
+
+      vars.sort.each do |name|
+        results << [name, instance_variable_get(name)]
+      end
+    end
+
+    if foorth_has_exclusive?
+      results.concat([["", ""], ["Exclusive", ""]])
+
+      foorth_exclusive.extract_method_names.sort.each do |name|
+        symbol, info = SymbolMap.map_info(name)
+        results.concat([["", ""], ["Name", name], info])
+        spec, info = map_foorth_exclusive_info(symbol, :shallow)
+        results.concat(info).concat(spec.get_info)
+      end
+    end
+
+    results
+  end
+
 end
