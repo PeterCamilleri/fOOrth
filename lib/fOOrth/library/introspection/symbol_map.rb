@@ -9,8 +9,8 @@ module XfOOrth
     #Get mapping info for a method name.
     def self.map_info(name)
       symbol = map(name)
-      info = ["Mapping", symbol ? symbol.to_s : "not found."]
-      [symbol, info]
+      target = symbol ? symbol.to_s : "not found."
+      [symbol,  [["Name", name], ["Mapping", target]]]
     end
 
   end

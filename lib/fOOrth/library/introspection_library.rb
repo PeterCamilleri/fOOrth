@@ -44,9 +44,8 @@ module XfOOrth
 
   #Get information on a method.
   Class.create_shared_method('.method_info', TosSpec, [], &lambda{|vm|
-    symbol, info = SymbolMap.map_info(name = vm.pop)
-    results = [["Name", name], info]
-    found   = false
+    symbol, results = SymbolMap.map_info(vm.pop)
+    found = false
 
     if symbol
       spec, info = map_foorth_shared_info(symbol)
@@ -77,9 +76,8 @@ module XfOOrth
 
   #Get information on a method.
   Object.create_shared_method('.method_info', TosSpec, [], &lambda{|vm|
-    symbol, info = SymbolMap.map_info(name = vm.pop)
-    results = [["Name", name], info]
-    found   = false
+    symbol, results = SymbolMap.map_info(vm.pop)
+    found = false
 
     if symbol
       spec, info = map_foorth_exclusive_info(symbol)
@@ -103,9 +101,8 @@ module XfOOrth
 
   #Scan all classes for information about a method.
   String.create_shared_method('.method_scan', TosSpec, [], &lambda{|vm|
-    symbol, info = SymbolMap.map_info(self)
-    results = [["Name", self], info]
-    found   = false
+    symbol, results = SymbolMap.map_info(self)
+    found = false
 
     symbol && $FOORTH_GLOBALS.values
       .select {|entry| entry.has_tag?(:class)}
@@ -149,7 +146,8 @@ module XfOOrth
 
       foorth_exclusive.extract_method_names.sort.each do |name|
         symbol, info = SymbolMap.map_info(name)
-        results.concat([["", ""], ["Name", name], info])
+        (results << ["", ""]).concat(info)
+
         spec, info = map_foorth_exclusive_info(symbol, :shallow)
         results.concat(info).concat(spec.get_info)
       end
@@ -160,7 +158,8 @@ module XfOOrth
 
       foorth_shared.extract_method_names.sort.each do |name|
         symbol, info = SymbolMap.map_info(name)
-        results.concat([["", ""], ["Name", name], info])
+        (results << ["", ""]).concat(info)
+
         spec, info = map_foorth_shared_info(symbol, :shallow)
         results.concat(info).concat(spec.get_info)
       end
