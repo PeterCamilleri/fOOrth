@@ -71,11 +71,11 @@ module XfOOrth
 
   #Show the page width.
   VirtualMachine.create_shared_method(')pw', MacroSpec,
-    [:macro, 'puts "Page Length = #{$fcpl}"; '])
+    [:macro, 'puts "Page Width = #{$fcpl}"; '])
 
   #Set the page width.
   VirtualMachine.create_shared_method(')set_pw', MacroSpec,
-    [:macro, 'puts "New Page Length = #{$fcpl = vm.pop}"; '])
+    [:macro, 'puts "New Page Width = #{$fcpl = vm.pop}"; '])
 
   # [ l 2 3 ... n ] .pp []; pretty print the array!
   Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
