@@ -3,6 +3,7 @@
 require_relative 'introspection/symbol_map'
 require_relative 'introspection/class'
 require_relative 'introspection/object'
+require_relative 'introspection/string'
 require_relative 'introspection/word_specs'
 require_relative 'introspection/context'
 require_relative 'introspection/vm'
@@ -18,7 +19,7 @@ module XfOOrth
   VirtualMachine.create_shared_method(')context!', VmSpec, [:immediate],
     &lambda {|vm| vm.context.get_info.foorth_bullets(vm) })
 
-  # [vm] .dump []
+  #Dump the virtual machine.
   VirtualMachine.create_shared_method('.dump', TosSpec, [],
     &lambda {|vm| get_info.foorth_bullets(vm) })
 
@@ -43,146 +44,35 @@ module XfOOrth
   })
 
   #Get information on a method.
-  Class.create_shared_method('.method_info', TosSpec, [], &lambda{|vm|
-    symbol, results = SymbolMap.map_info(vm.pop)
-    found = false
-
-    if symbol
-      spec, info = map_foorth_shared_info(symbol)
-
-      if spec && !spec.has_tag?(:stub)
-        (results << ["", ""]).concat(info).concat(spec.get_info)
-        found = true
-      end
-
-      spec, info = map_foorth_exclusive_info(symbol)
-
-      if spec && !spec.has_tag?(:stub)
-        (results << ["", ""]).concat(info).concat(spec.get_info)
-        found = true
-      end
-
-      results << ["Scope", "not found."] unless found
-    end
-
-    vm.push(results)
-  })
-
-  #The user level command for the above.
-  Class.create_shared_method(')method_info"', NosSpec, [], &lambda{|vm|
-    foorth_method_info(vm)
-    vm.pop.foorth_bullets(vm)
-  })
+  Object.create_shared_method('.method_info', TosSpec, [],
+    &lambda{|vm| vm.push(foorth_method_info(vm.pop)) })
 
   #Get information on a method.
-  Object.create_shared_method('.method_info', TosSpec, [], &lambda{|vm|
-    symbol, results = SymbolMap.map_info(vm.pop)
-    found = false
-
-    if symbol
-      spec, info = map_foorth_exclusive_info(symbol)
-
-      if spec && !spec.has_tag?(:stub)
-        (results << ["", ""]).concat(info).concat(spec.get_info)
-        found = true
-      end
-
-      results << ["Scope", "not found."] unless found
-    end
-
-    vm.push(results)
-  })
-
-  #The user level command for the above.
-  Object.create_shared_method(')method_info"', NosSpec, [], &lambda{|vm|
-    foorth_method_info(vm)
-    vm.pop.foorth_bullets(vm)
-  })
+  Object.create_shared_method(')method_info"', NosSpec, [],
+    &lambda{|vm| foorth_method_info(vm.pop).foorth_bullets(vm) })
 
   #Scan all classes for information about a method.
-  String.create_shared_method('.method_scan', TosSpec, [], &lambda{|vm|
-    symbol, results = SymbolMap.map_info(self)
-    found = false
+  String.create_shared_method('.method_scan', TosSpec, [],
+    &lambda{|vm| vm.push(foorth_method_scan) })
 
-    symbol && $FOORTH_GLOBALS.values
-      .select {|entry| entry.has_tag?(:class)}
-      .collect {|spec| spec.new_class}
-      .sort {|a,b| a.foorth_name <=> b.foorth_name}
-      .each do |klass|
-        spec, info = klass.map_foorth_shared_info(symbol, :shallow)
-        found |= spec && (results << ["", ""]).concat(info).concat(spec.get_info)
-
-        spec, info = klass.map_foorth_exclusive_info(symbol, :shallow)
-        found |= spec && (results << ["", ""]).concat(info).concat(spec.get_info)
-      end
-
-    results << ["Scope", "not found in any class."] if symbol && !found
-
-    vm.push(results)
-  })
-
-  #The user level command for the above.
-  String.create_shared_method(')method_scan"', TosSpec, [], &lambda{|vm|
-    foorth_method_scan(vm)
-    vm.pop.foorth_bullets(vm)
-  })
+  #Scan all classes for information about a method.
+  String.create_shared_method(')method_scan"', TosSpec, [],
+    &lambda{|vm| foorth_method_scan.foorth_bullets(vm) })
 
   #Get this class's lineage in a string.
-  Class.create_shared_method('.lineage', TosSpec, [], &lambda{|vm|
-    vm.push(lineage.freeze)
-  })
+  Object.create_shared_method('.lineage', TosSpec, [],
+    &lambda{|vm| vm.push(lineage.freeze) })
 
-  #The user level command for the above.
-  Class.create_shared_method(')lineage', TosSpec, [], &lambda{|vm|
-    puts lineage
-  })
-
-  #Scan a class for stuff.
-  Class.create_shared_method('.class_scan', TosSpec, [], &lambda{|vm|
-    results = [["Lineage", lineage]]
-
-    if foorth_has_exclusive?
-      results.concat([["", ""], ["Methods", "Class"]])
-
-      foorth_exclusive.extract_method_names.sort.each do |name|
-        symbol, info = SymbolMap.map_info(name)
-        (results << ["", ""]).concat(info)
-
-        spec, info = map_foorth_exclusive_info(symbol, :shallow)
-        results.concat(info).concat(spec.get_info)
-      end
-    end
-
-    unless foorth_shared.empty?
-      results.concat([["", ""], ["Methods", "Shared"]])
-
-      foorth_shared.extract_method_names.sort.each do |name|
-        symbol, info = SymbolMap.map_info(name)
-        (results << ["", ""]).concat(info)
-
-        spec, info = map_foorth_shared_info(symbol, :shallow)
-        results.concat(info).concat(spec.get_info)
-      end
-    end
-
-    vm.push(results)
-  })
-
-  #The user level command for the above.
-  Class.create_shared_method(')class_scan', TosSpec, [], &lambda{|vm|
-    foorth_class_scan(vm)
-    vm.pop.foorth_bullets(vm)
-  })
+  #Print this class's lineage.
+  Object.create_shared_method(')lineage', TosSpec, [],
+    &lambda{|vm| puts lineage })
 
   #Scan an object for stuff.
-  Object.create_shared_method('.object_scan', TosSpec, [], &lambda{|vm|
-    vm.push(get_info)
-  })
+  Object.create_shared_method('.scan', TosSpec, [],
+    &lambda{|vm| vm.push(get_info) })
 
-  #The user level command for the above.
-  Object.create_shared_method(')object_scan', TosSpec, [], &lambda{|vm|
-    get_info.foorth_bullets(vm)
-  })
-
+  #Scan an object for stuff.
+  Object.create_shared_method(')scan', TosSpec, [],
+    &lambda{|vm| get_info.foorth_bullets(vm) })
 
 end

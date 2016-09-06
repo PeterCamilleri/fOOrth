@@ -41,4 +41,29 @@ class Object
     results
   end
 
+  #Investigate a method of this object.
+  def foorth_method_info(name)
+    symbol, results = XfOOrth::SymbolMap.map_info(name)
+    found = false
+
+    if symbol
+      spec, info = map_foorth_exclusive_info(symbol)
+
+      if spec && !spec.has_tag?(:stub)
+        (results << ["", ""]).concat(info).concat(spec.get_info)
+        found = true
+      end
+
+      results << ["Scope", "not found."] unless found
+    end
+
+    results
+  end
+
+  #Get the lineage of this object.
+  def lineage
+    foorth_name + " < " + self.class.lineage
+  end
+
+
 end

@@ -71,9 +71,6 @@ module XfOOrth
 
   #Command stubs
   Object.create_shared_method(')method_scan"', TosSpec, [:stub])
-  Object.create_shared_method(')class_scan',   TosSpec, [:stub])
-  Object.create_shared_method(')object_scan',  TosSpec, [:stub])
-  Object.create_shared_method(')lineage',      TosSpec, [:stub])
 
   #Define some "crossover" symbols.
   SymbolMap.add_entry('.is_class?',      :foorth_is_class?)
@@ -84,7 +81,4 @@ module XfOOrth
   SymbolMap.add_entry('.print_columns',  :foorth_columns)
   SymbolMap.add_entry('.print_bullets',  :foorth_bullets)
   SymbolMap.add_entry('.load',           :foorth_load_file)
-  SymbolMap.add_entry('.method_info',    :foorth_method_info)
-  SymbolMap.add_entry('.method_scan',    :foorth_method_scan)
-  SymbolMap.add_entry('.class_scan',     :foorth_class_scan)
 end

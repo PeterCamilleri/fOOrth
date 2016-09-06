@@ -24,4 +24,61 @@ class Class
     end
   end
 
+  #Investigate a method of this class.
+  def foorth_method_info(name)
+    symbol, results = XfOOrth::SymbolMap.map_info(name)
+    found = false
+
+    if symbol
+      spec, info = map_foorth_shared_info(symbol)
+
+      if spec && !spec.has_tag?(:stub)
+        (results << ["", ""]).concat(info).concat(spec.get_info)
+        found = true
+      end
+
+      spec, info = map_foorth_exclusive_info(symbol)
+
+      if spec && !spec.has_tag?(:stub)
+        (results << ["", ""]).concat(info).concat(spec.get_info)
+        found = true
+      end
+
+      results << ["Scope", "not found."] unless found
+    end
+
+    results
+  end
+
+  #Get introspection info.
+  def get_info
+    results = [["Lineage", lineage]]
+
+    if foorth_has_exclusive?
+      results.concat([["", ""], ["Methods", "Class"]])
+
+      foorth_exclusive.extract_method_names.sort.each do |name|
+        symbol, info = XfOOrth::SymbolMap.map_info(name)
+        (results << ["", ""]).concat(info)
+
+        spec, info = map_foorth_exclusive_info(symbol, :shallow)
+        results.concat(info).concat(spec.get_info)
+      end
+    end
+
+    unless foorth_shared.empty?
+      results.concat([["", ""], ["Methods", "Shared"]])
+
+      foorth_shared.extract_method_names.sort.each do |name|
+        symbol, info = XfOOrth::SymbolMap.map_info(name)
+        (results << ["", ""]).concat(info)
+
+        spec, info = map_foorth_shared_info(symbol, :shallow)
+        results.concat(info).concat(spec.get_info)
+      end
+    end
+
+    results
+  end
+
 end
