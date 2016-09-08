@@ -13,9 +13,16 @@ module XfOOrth
     #Add an item to this page.
     #<br>Returns
     #* The number if items that did not fit in the page.
-    def add(raw_bullet = "*", raw_item)
-      bullet = raw_bullet.to_s
-      item = raw_item.to_s
+    def add(raw_bullet = "*", *raw_item)
+
+      if raw_item.empty?
+        bullet = "*"
+        item = raw_bullet.to_s
+      else
+        bullet = raw_bullet.to_s
+        item = raw_item.join(' ')
+      end
+
       @bullet_data << [bullet, item]
     end
 
