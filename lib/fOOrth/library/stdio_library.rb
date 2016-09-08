@@ -82,14 +82,29 @@ module XfOOrth
     puts_foorth_columnized($flpp, $fcpl)
   })
 
+  # [ l 2 3 ... n ] .format_columns []; format to strings with columns.
+  Array.create_shared_method('.format_columns', TosSpec, [], &lambda {|vm|
+    vm.push(foorth_columnize($flpp, $fcpl).map {|page| page << ""}.flatten[0...-1])
+  })
+
   # [ l 2 3 ... n ] .print_columns []; pretty print columns.
   Array.create_shared_method('.print_columns', TosSpec, [], &lambda {|vm|
     puts_foorth_columnized($flpp, $fcpl)
   })
 
+  #[["1" "stuff"] ["two" stuff] .format_bullets; format to strings with bullets.
+  Array.create_shared_method('.format_bullets', TosSpec, [], &lambda {|vm|
+    vm.push(foorth_bulletize($fcpl))
+  })
+
   #[["1" "stuff"] ["two" stuff] .print_bullets; pretty print bullet points.
   Array.create_shared_method('.print_bullets', TosSpec, [], &lambda {|vm|
     puts_foorth_bullets($fcpl)
+  })
+
+  #{ "1" "stuff" -> "two" "stuff" -> } .format_bullets; format to strings with bullets.
+  Hash.create_shared_method('.format_bullets', TosSpec, [], &lambda {|vm|
+    vm.push(foorth_bulletize($fcpl))
   })
 
   #{ "1" "stuff" -> "two" "stuff" -> } .print_bullets; pretty print bullet points.
