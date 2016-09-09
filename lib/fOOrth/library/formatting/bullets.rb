@@ -113,7 +113,7 @@ class Hash
     builder = XfOOrth::BulletPoints.new(page_width)
 
     self.each do |key, value|
-      builder.add(key, value)
+      builder.add(key, *value.in_array)
     end
 
     builder.render
