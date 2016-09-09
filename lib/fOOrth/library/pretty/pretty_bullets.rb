@@ -16,14 +16,16 @@ module XfOOrth
     def add(raw_bullet = "*", *raw_item)
 
       if raw_item.empty?
-        bullet = "*"
-        item = raw_bullet.to_s
+        bullet = ["*"]
+        items = raw_bullet.in_array
       else
-        bullet = raw_bullet.to_s
-        item = raw_item.join(' ')
+        bullet = raw_bullet.in_array
+        items = raw_item.in_array
       end
 
-      @bullet_data << [bullet, item]
+      items.each_index do |index|
+        @bullet_data << [(bullet[index] || "").to_s, items[index].to_s]
+      end
     end
 
     #Render the page as an array of strings.
