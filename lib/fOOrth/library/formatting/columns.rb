@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* library/pretty/pretty_columns.rb - Print out data in columns.
+#* library/formatting/columns.rb - Print out data in columns.
 module XfOOrth
 
   #A class to display data in columns.

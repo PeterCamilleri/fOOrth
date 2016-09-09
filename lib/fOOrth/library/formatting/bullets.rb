@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* library/pretty/pretty_bullets.rb - Print out bullet points.
+#* library/formatting/bullets.rb - Print out bullet points.
 module XfOOrth
 
   #A class to display data in bullet points.
