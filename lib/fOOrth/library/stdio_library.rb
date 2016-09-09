@@ -1,8 +1,8 @@
 # coding: utf-8
 
 #Load up some pretty printing support.
-require_relative 'pretty/pretty_columns'
-require_relative 'pretty/pretty_bullets'
+require_relative 'formatting/columns'
+require_relative 'formatting/bullets'
 
 #* library/stdio_library.rb - The standard I/O fOOrth library.
 module XfOOrth
