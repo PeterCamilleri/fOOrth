@@ -114,7 +114,7 @@ end
 #Support for displaying an array in neat columns.
 class Array
   #Print out the array with efficient columns.
-  def puts_foorth_columnized(page_length = 50, page_width = 80)
+  def puts_foorth_columnized(page_length, page_width)
     foorth_columnize(page_length, page_width).each do |page|
       puts page
       puts

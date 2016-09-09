@@ -58,58 +58,67 @@ module XfOOrth
   String.create_shared_method('.accept', TosSpec, [],
     &lambda{|vm|  vm.push(MiniReadline.readline(self, true))})
 
-  $fcpl = 80 #fOOrth Character Per Line
-  $flpp = 25 #fOOrth Lines Per Page
+  symbol = :lines_per_page
+  SymbolMap.add_entry('$lines_per_page', symbol)
+  $lines_per_page = [25]
+  $FOORTH_GLOBALS[symbol] = GlobalVarSpec.new('$lines_per_page', symbol, [])
+
+  symbol = :chars_per_line
+  $chars_per_line = [80]
+  SymbolMap.add_entry('$chars_per_line', :chars_per_line)
+  $FOORTH_GLOBALS[symbol] = GlobalVarSpec.new('$chars_per_line', symbol, [])
 
   #Show the page length.
   VirtualMachine.create_shared_method(')pl', MacroSpec,
-    [:macro, 'puts "Page Length = #{$flpp}"; '])
+    [:macro, 'puts "Page Length = #{$lines_per_page[0]}"; '])
 
   #Set the page length.
   VirtualMachine.create_shared_method(')set_pl', MacroSpec,
-    [:macro, 'puts "New Page Length = #{$flpp = vm.pop}"; '])
+    [:macro, 'puts "New Page Length = #{$lines_per_page[0] = vm.pop}"; '])
 
   #Show the page width.
   VirtualMachine.create_shared_method(')pw', MacroSpec,
-    [:macro, 'puts "Page Width = #{$fcpl}"; '])
+    [:macro, 'puts "Page Width = #{$chars_per_line[0]}"; '])
 
   #Set the page width.
   VirtualMachine.create_shared_method(')set_pw', MacroSpec,
-    [:macro, 'puts "New Page Width = #{$fcpl = vm.pop}"; '])
+    [:macro, 'puts "New Page Width = #{$chars_per_line[0] = vm.pop}"; '])
 
   # [ l 2 3 ... n ] .pp []; pretty print the array!
   Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
-    puts_foorth_columnized($flpp, $fcpl)
+    puts_foorth_columnized($lines_per_page[0], $chars_per_line[0])
   })
 
   # [ l 2 3 ... n ] .format_columns []; format to strings with columns.
   Array.create_shared_method('.format_columns', TosSpec, [], &lambda {|vm|
-    vm.push(foorth_columnize($flpp, $fcpl).map {|page| page << ""}.flatten[0...-1])
+    vm.push(foorth_columnize($lines_per_page[0], $chars_per_line[0])
+      .map {|page| page << ""}
+      .flatten[0...-1])
   })
 
   # [ l 2 3 ... n ] .print_columns []; pretty print columns.
   Array.create_shared_method('.print_columns', TosSpec, [], &lambda {|vm|
-    puts_foorth_columnized($flpp, $fcpl)
+    puts_foorth_columnized($lines_per_page[0], $chars_per_line[0])
   })
 
   #[["1" "stuff"] ["two" stuff] .format_bullets; format to strings with bullets.
   Array.create_shared_method('.format_bullets', TosSpec, [], &lambda {|vm|
-    vm.push(foorth_bulletize($fcpl))
+    vm.push(foorth_bulletize($chars_per_line[0]))
   })
 
   #[["1" "stuff"] ["two" stuff] .print_bullets; pretty print bullet points.
   Array.create_shared_method('.print_bullets', TosSpec, [], &lambda {|vm|
-    puts_foorth_bullets($fcpl)
+    puts_foorth_bullets($chars_per_line[0])
   })
 
   #{ "1" "stuff" -> "two" "stuff" -> } .format_bullets; format to strings with bullets.
   Hash.create_shared_method('.format_bullets', TosSpec, [], &lambda {|vm|
-    vm.push(foorth_bulletize($fcpl))
+    vm.push(foorth_bulletize($chars_per_line[0]))
   })
 
   #{ "1" "stuff" -> "two" "stuff" -> } .print_bullets; pretty print bullet points.
   Hash.create_shared_method('.print_bullets', TosSpec, [], &lambda {|vm|
-    puts_foorth_bullets($fcpl)
+    puts_foorth_bullets($chars_per_line[0])
   })
 
 end

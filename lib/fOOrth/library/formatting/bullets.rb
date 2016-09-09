@@ -82,7 +82,7 @@ end
 
 class Array
   #Print out the array as bullet points.
-  def puts_foorth_bullets(page_width = 80)
+  def puts_foorth_bullets(page_width)
     puts foorth_bulletize(page_width)
   end
 
@@ -102,7 +102,7 @@ end
 
 class Hash
   #Print out the hash as bullet points.
-  def puts_foorth_bullets(page_width = 80)
+  def puts_foorth_bullets(page_width)
     puts foorth_bulletize(page_width)
   end
 
