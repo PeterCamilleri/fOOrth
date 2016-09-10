@@ -23,7 +23,7 @@ module XfOOrth
       end
 
       names = instance_variables.map do |sym|
-        if (name = XfOOrth::SymbolMap.unmap(name[1..-1].to_sym))
+        if (name = XfOOrth::SymbolMap.unmap(sym.to_s[1..-1].to_sym))
           [name, sym]
         end
       end
