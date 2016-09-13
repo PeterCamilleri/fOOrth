@@ -35,7 +35,7 @@ module XfOOrth
       (0...rows).each do |column_index|
         results << @page_data.each_with_index.map do |column, index|
           column[column_index].to_s.ljust(widths[index])
-        end.join(" ")
+        end.join(" ").freeze
       end
 
       @page_data = []

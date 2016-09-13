@@ -30,7 +30,7 @@ class Object
     if foorth_has_exclusive?
       results.concat([["", ""], ["Methods", "Exclusive"]])
 
-      foorth_exclusive.extract_method_names.sort.each do |name|
+      foorth_exclusive.extract_method_names(:all).sort.each do |name|
         symbol, info = XfOOrth::SymbolMap.map_info(name)
         results.concat([["", ""], ["Name", name], info])
         spec, info = map_foorth_exclusive_info(symbol, :shallow)

@@ -57,7 +57,7 @@ class Class
     if foorth_has_exclusive?
       results.concat([["", ""], ["Methods", "Class"]])
 
-      foorth_exclusive.extract_method_names.sort.each do |name|
+      foorth_exclusive.extract_method_names(:all).sort.each do |name|
         symbol, info = XfOOrth::SymbolMap.map_info(name)
         (results << ["", ""]).concat(info)
 
@@ -69,7 +69,7 @@ class Class
     unless foorth_shared.empty?
       results.concat([["", ""], ["Methods", "Shared"]])
 
-      foorth_shared.extract_method_names.sort.each do |name|
+      foorth_shared.extract_method_names(:all).sort.each do |name|
         symbol, info = XfOOrth::SymbolMap.map_info(name)
         (results << ["", ""]).concat(info)
 
