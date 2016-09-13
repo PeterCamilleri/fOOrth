@@ -18,12 +18,6 @@ module XfOOrth
       if debug
         puts "Data Stack Contents: #{data_stack.inspect}"
 
-        if @context
-          @context.debug_dump(self)
-        else
-          puts "Error: No context is available!"
-        end
-
         puts "\nInternal Backtrace Dump:"
         puts
         puts exception.backtrace

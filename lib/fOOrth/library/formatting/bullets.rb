@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* library/pretty/pretty_bullets.rb - Print out bullet points.
+#* library/formatting/bullets.rb - Print out bullet points.
 module XfOOrth
 
   #A class to display data in bullet points.
@@ -13,10 +13,19 @@ module XfOOrth
     #Add an item to this page.
     #<br>Returns
     #* The number if items that did not fit in the page.
-    def add(raw_bullet = "*", raw_item)
-      bullet = raw_bullet.to_s
-      item = raw_item.to_s
-      @bullet_data << [bullet, item]
+    def add(raw_bullet = "*", *raw_item)
+
+      if raw_item.empty?
+        bullet = ["*"]
+        items = raw_bullet.in_array
+      else
+        bullet = raw_bullet.in_array
+        items = raw_item.in_array
+      end
+
+      items.each_index do |index|
+        @bullet_data << [(bullet[index] || "").to_s, items[index].to_s]
+      end
     end
 
     #Render the page as an array of strings.
@@ -43,28 +52,37 @@ module XfOOrth
       result = []
       input  = item.split(' ').each
       temp   = key.ljust(len = @key_length)
+      pass_one = true
 
       loop do
         word = ' ' + input.next
 
-        if (len += word.length) >= @page_width
+        while len >= @page_width
+          result << temp.slice!(0, @page_width - 1)
+          temp = (' ' * @key_length) + ' ' + temp
+          len  = temp.length
+        end
+
+        if ((len += word.length) >= @page_width) && !pass_one
           result << temp
           temp = (' ' * @key_length) + word
           len  = temp.length
         else
           temp << word
+          pass_one = false
         end
       end
 
       result << temp
     end
+
   end
 
 end
 
 class Array
   #Print out the array as bullet points.
-  def puts_foorth_bullets(page_width = 80)
+  def puts_foorth_bullets(page_width)
     puts foorth_bulletize(page_width)
   end
 
@@ -84,7 +102,7 @@ end
 
 class Hash
   #Print out the hash as bullet points.
-  def puts_foorth_bullets(page_width = 80)
+  def puts_foorth_bullets(page_width)
     puts foorth_bulletize(page_width)
   end
 
@@ -95,7 +113,7 @@ class Hash
     builder = XfOOrth::BulletPoints.new(page_width)
 
     self.each do |key, value|
-      builder.add(key, value)
+      builder.add(key, *value.in_array)
     end
 
     builder.render

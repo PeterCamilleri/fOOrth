@@ -470,7 +470,7 @@ module XfOOrth
     result = "[ "
 
     self.each do |value|
-      if value.is_a?(String)
+      if value.is_a?(String) || value.nil?
         result << value.inspect + " "
       else
         value.to_foorth_s(vm)

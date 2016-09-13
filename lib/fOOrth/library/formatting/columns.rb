@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* library/pretty/pretty_columns.rb - Print out data in columns.
+#* library/formatting/columns.rb - Print out data in columns.
 module XfOOrth
 
   #A class to display data in columns.
@@ -35,7 +35,7 @@ module XfOOrth
       (0...rows).each do |column_index|
         results << @page_data.each_with_index.map do |column, index|
           column[column_index].to_s.ljust(widths[index])
-        end.join(" ")
+        end.join(" ").freeze
       end
 
       @page_data = []
@@ -114,7 +114,7 @@ end
 #Support for displaying an array in neat columns.
 class Array
   #Print out the array with efficient columns.
-  def puts_foorth_columnized(page_length = 50, page_width = 80)
+  def puts_foorth_columnized(page_length, page_width)
     foorth_columnize(page_length, page_width).each do |page|
       puts page
       puts
