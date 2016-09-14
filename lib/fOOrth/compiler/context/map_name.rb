@@ -11,9 +11,9 @@ module XfOOrth
     #* name - The string to be mapped.
     #<br>Returns:
     #* The specification that corresponds to the name or nil if none found.
-    def map(name)
+    def map(name, allow_defaults=:allow)
       if (@symbol = SymbolMap.map(@name = name))
-        do_map_name
+        do_map_name(allow_defaults)
       end
     end
 
@@ -21,42 +21,23 @@ module XfOOrth
     private
 
     #Do a search of dictionaries based on the syntax of the name.
-    def do_map_name
-      self[@symbol]              ||
-      case @name[0]
+    def do_map_name(allow_defaults)
+      self[@symbol]        ||
+      do_target_class_map  ||
+      do_target_object_map ||
+      do_target_vm_map     ||
+      do_object_class_map  ||
+      do_global_map        ||
+      (allow_defaults && case @name[0]
       when '.'
-        do_object_class_map      ||
-        do_target_vm_map         ||
         TosSpec.new(@name, @symbol, [:temp])
 
       when '~'
-        do_target_class_map      ||
-        do_target_object_map     ||
-        do_target_vm_map         ||
         SelfSpec.new(@name, @symbol, [:temp])
 
-      when '@'
-        do_target_class_map      ||
-        do_target_object_map     ||
-        do_target_vm_map         ||
-        spec_error
-
-      when '$'
-        do_global_target_map     ||
-        do_target_vm_map         ||
-        spec_error
-
-      when '#'
-        do_target_vm_map         ||
-        spec_error
-
       else
-        do_object_class_map      ||
-        do_target_vm_map         ||
-        do_global_target_map     ||
         spec_error
-      end
-
+      end)
     end
 
     #Do a search of the Object class for the item.
@@ -80,7 +61,7 @@ module XfOOrth
     end
 
     #Do a search of the globals.
-    def do_global_target_map
+    def do_global_map
       $FOORTH_GLOBALS[@symbol]
     end
 

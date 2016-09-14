@@ -195,4 +195,45 @@ class CompileLibraryTester < Minitest::Test
     foorth_equal('42 // foo bar etc 33', [42])
   end
 
+  def test_method_casting
+    foorth_equal('    asm"vm.push(vm.get_cast)" ', [nil] )
+    foorth_equal('\'. asm"vm.push(vm.get_cast); vm.clear_cast" ', [XfOOrth::TosSpec] )
+    foorth_equal('\'* asm"vm.push(vm.get_cast); vm.clear_cast" ', [XfOOrth::NosSpec] )
+    foorth_equal('\'~ asm"vm.push(vm.get_cast); vm.clear_cast" ', [XfOOrth::SelfSpec] )
+
+    foorth_raises('\'. ')
+    foorth_raises('\'* ')
+    foorth_raises('\'~ ')
+
+    foorth_raises('\'. \'. ')
+    foorth_raises('\'. \'* ')
+    foorth_raises('\'. \'~ ')
+
+    foorth_raises('\'* \'. ')
+    foorth_raises('\'* \'* ')
+    foorth_raises('\'* \'~ ')
+
+    foorth_raises('\'~ \'. ')
+    foorth_raises('\'~ \'* ')
+    foorth_raises('\'~ \'~ ')
+
+    foorth_equal('Object \'. .: .test ; asm"vm.push(vm.get_cast)" ', [nil] )
+
+    foorth_raises("'. :  foo ; ")
+    foorth_raises("'. !: foo ; ")
+
+    foorth_raises("'* :  foo ; ")
+    foorth_raises("'* !: foo ; ")
+
+    foorth_raises("'~ :  foo ; ")
+    foorth_raises("'~ !: foo ; ")
+
+    foorth_equal("Integer    .: .riff self swap -  ; 10 5 .riff", [-5])
+    foorth_equal("Integer '* .: .diff self swap -  ; 10 5 .diff", [5])
+
+    foorth_equal("Integer    .: minus self swap -  ; 10 5 minus", [5])
+    foorth_equal("Integer '. .: rinus self swap -  ; 10 5 rinus", [-5])
+
+  end
+
 end

@@ -15,11 +15,7 @@ module XfOOrth
 
   # [vm] .vm_name ['name']
   VirtualMachine.create_shared_method('.vm_name', TosSpec, [],
-    &lambda {|vm| vm.push(self.name); })
-
-  # [vm] .dump []
-  VirtualMachine.create_shared_method('.dump', TosSpec, [],
-    &lambda {|vm| self.debug_dump; })
+    &lambda {|vm| vm.push(self.name) })
 
   # Some stack manipulation words.
   # [a] drop []

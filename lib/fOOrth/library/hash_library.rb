@@ -197,7 +197,8 @@ class Hash
   #A helper method to extract non-stub method names from a method hash.
   def extract_method_names(search_type = :no_stubs)
     search_value = (search_type == :stubs)
-    mkeys = self.keys.select {|key| search_value == self[key].has_tag?(:stub)  }
+    get_all = (search_type == :all)
+    mkeys = self.keys.select {|key| get_all || search_value == self[key].has_tag?(:stub)  }
     mkeys.collect {|key| XfOOrth::SymbolMap.unmap(key) || '?error?' }
   end
 end
