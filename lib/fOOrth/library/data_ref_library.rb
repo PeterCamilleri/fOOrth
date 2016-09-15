@@ -35,13 +35,7 @@ module XfOOrth
     name   = vm.parser.get_word()
     error "F10: Invalid var name #{name}" unless /^#[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
-
-    if execute_mode?
-      vm.data[symbol] = [vm.pop]
-    else
-      vm << "vm.data[#{symbol.inspect}] = [vm.pop]; "
-    end
-
+    process_text("vm.data[#{symbol.inspect}] = [vm.pop]; ")
     vm.create_exclusive_method(name, ThreadVarSpec, [])
   })
 
@@ -51,13 +45,7 @@ module XfOOrth
     name   = vm.parser.get_word()
     error "F10: Invalid val name #{name}" unless /^#[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
-
-    if execute_mode?
-      vm.data[symbol] = vm.pop
-    else
-      vm << "vm.data[#{symbol.inspect}] = vm.pop; "
-    end
-
+    process_text("vm.data[#{symbol.inspect}] = vm.pop; ")
     vm.create_exclusive_method(name, ThreadVarSpec, [])
   })
 
@@ -67,13 +55,7 @@ module XfOOrth
     name   = vm.parser.get_word()
     error "F10: Invalid var name #{name}" unless /^\$[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
-
-    if execute_mode?
-      eval "#{'$' + symbol.to_s} = [vm.pop]"
-    else
-      vm << "#{'$' + symbol.to_s} = [vm.pop]; "
-    end
-
+    process_text("#{'$' + symbol.to_s} = [vm.pop]; ")
     $FOORTH_GLOBALS[symbol] = GlobalVarSpec.new(name, symbol, [])
   })
 
@@ -83,13 +65,7 @@ module XfOOrth
     name   = vm.parser.get_word()
     error "F10: Invalid val name #{name}" unless /^\$[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
-
-    if execute_mode?
-      eval "#{'$' + symbol.to_s} = vm.pop"
-    else
-      vm << "#{'$' + symbol.to_s} = vm.pop; "
-    end
-
+    process_text("#{'$' + symbol.to_s} = vm.pop; ")
     $FOORTH_GLOBALS[symbol] = GlobalVarSpec.new(name, symbol, [])
   })
 
