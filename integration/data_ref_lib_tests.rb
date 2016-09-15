@@ -22,6 +22,16 @@ class DataRefLibraryTester < Minitest::Test
 
     foorth_equal('10 val#: #test2',   [])
     foorth_equal('#test2',            [10])
+
+    foorth_run(': test_tv3 42 val#: #ttv3 ; ')
+    foorth_equal('#ttv3',             [nil])
+    foorth_run('test_tv3')
+    foorth_equal('#ttv3',             [42])
+
+    foorth_run(': test_tv5 42 var#: #ttv5 ; ')
+    foorth_raises('#ttv5 #')
+    foorth_run('test_tv5')
+    foorth_equal('#ttv5 @',           [42])
   end
 
   def test_thread_vars_some_more
@@ -39,6 +49,16 @@ class DataRefLibraryTester < Minitest::Test
 
     foorth_equal('10 val$: $test2',   [])
     foorth_equal('$test2',            [10])
+
+    foorth_run(': test_gv4 69 val$: $tgv4 ; ')
+    foorth_equal('$tgv4',             [nil])
+    foorth_run('test_gv4')
+    foorth_equal('$tgv4',             [69])
+
+    foorth_run(': test_gv6 69 var$: $tgv6 ; ')
+    foorth_raises('$tgv6 @')
+    foorth_run('test_gv6')
+    foorth_equal('$tgv6 @',           [69])
   end
 
   def test_shared_instance_variables
