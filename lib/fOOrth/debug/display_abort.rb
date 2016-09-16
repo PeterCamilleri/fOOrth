@@ -4,8 +4,6 @@
 module XfOOrth
 
   #* debug/display_abort.rb - Display diagnostic information on an error.
-  #<br>Endemic Code Smells
-  #* :reek:TooManyStatements
   class VirtualMachine
 
     #Display the diagnostic data required for a language abort error.

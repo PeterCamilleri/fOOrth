@@ -31,45 +31,41 @@ module XfOOrth
 
   # Thread Variables
   # [n] var#: #tv [], Thread.current[#tv] = [n]
-  VirtualMachine.create_shared_method('var#:', VmSpec, [], &lambda {|vm|
+  VirtualMachine.create_shared_method('var#:', VmSpec, [:immediate], &lambda {|vm|
     name   = vm.parser.get_word()
     error "F10: Invalid var name #{name}" unless /^#[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
-    @data[symbol] = [vm.pop]
-
+    process_text("vm.data[#{symbol.inspect}] = [vm.pop]; ")
     vm.create_exclusive_method(name, ThreadVarSpec, [])
   })
 
   # Thread values.
   # [n] val#: #tv [], Thread.current[#tv] = n
-  VirtualMachine.create_shared_method('val#:', VmSpec, [], &lambda {|vm|
+  VirtualMachine.create_shared_method('val#:', VmSpec, [:immediate], &lambda {|vm|
     name   = vm.parser.get_word()
     error "F10: Invalid val name #{name}" unless /^#[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
-    @data[symbol] = vm.pop
-
+    process_text("vm.data[#{symbol.inspect}] = vm.pop; ")
     vm.create_exclusive_method(name, ThreadVarSpec, [])
   })
 
   # Global Variables
   # [n] var$: $gv [], $gv = [n]
-  VirtualMachine.create_shared_method('var$:', VmSpec, [], &lambda {|vm|
+  VirtualMachine.create_shared_method('var$:', VmSpec, [:immediate], &lambda {|vm|
     name   = vm.parser.get_word()
     error "F10: Invalid var name #{name}" unless /^\$[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
-    eval "#{'$' + symbol.to_s} = [vm.pop]"
-
+    process_text("#{'$' + symbol.to_s} = [vm.pop]; ")
     $FOORTH_GLOBALS[symbol] = GlobalVarSpec.new(name, symbol, [])
   })
 
   # Global Values
   # [n] val$: $gv [], $gv = n
-  VirtualMachine.create_shared_method('val$:', VmSpec, [], &lambda {|vm|
+  VirtualMachine.create_shared_method('val$:', VmSpec, [:immediate], &lambda {|vm|
     name   = vm.parser.get_word()
     error "F10: Invalid val name #{name}" unless /^\$[a-z][a-z0-9_]*$/ =~ name
     symbol = XfOOrth::SymbolMap.add_entry(name)
-    eval "#{'$' + symbol.to_s} = vm.pop"
-
+    process_text("#{'$' + symbol.to_s} = vm.pop; ")
     $FOORTH_GLOBALS[symbol] = GlobalVarSpec.new(name, symbol, [])
   })
 
