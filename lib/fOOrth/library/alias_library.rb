@@ -29,7 +29,7 @@ module XfOOrth
       old_symbol = XfOOrth::SymbolMap.map(old_name)
       error "F10: ?#{old_name}?" unless old_symbol
       old_spec = target.map_foorth_shared(old_symbol)
-      error "F20: The class #{target.foorth_name} does not understand #{old_name}" unless old_spec
+      f20_error(target, old_name, old_symbol) unless old_spec
 
       target.create_shared_method(new_name,
                                   get_alias_type(old_spec, new_name),
@@ -44,7 +44,7 @@ module XfOOrth
       old_symbol = XfOOrth::SymbolMap.map(old_name)
       error "F10: ?#{old_name}?" unless old_symbol
       old_spec = target.map_foorth_exclusive(old_symbol)
-      error "F20: The class #{target.foorth_name} does not understand #{old_name}" unless old_spec
+      f20_error(target, old_name, old_symbol) unless old_spec
 
       target.create_exclusive_method(new_name,
                                      get_alias_type(old_spec, new_name),
