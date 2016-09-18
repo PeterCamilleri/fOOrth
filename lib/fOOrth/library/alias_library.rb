@@ -26,6 +26,16 @@ module XfOOrth
       old_spec = target.map_foorth_shared(old_symbol)
       error "F20: The class #{target.foorth_name} does not understand #{old_name}" unless old_spec
 
+      target.create_shared_method(new_name,
+                                  get_alias_type(old_spec, new_name),
+                                  [],
+                                  &old_spec.does)
+    end
+
+    private
+
+    #Get the type of the aliased method.
+    def get_alias_type(old_spec, new_name)
       old_type = old_spec.class
       new_type = XfOOrth.name_to_type(new_name, get_cast)
       old_spec_name = old_type.foorth_name
@@ -39,7 +49,7 @@ module XfOOrth
         error "F13: A #{old_spec_name} method may not be aliased as a #{new_spec_name}"
       end
 
-      target.create_shared_method(new_name, new_type, [], &old_spec.does)
+      new_type
     end
 
   end
