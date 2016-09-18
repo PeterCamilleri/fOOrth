@@ -31,8 +31,10 @@ module XfOOrth
       old_name, target = pop, VirtualMachine
 
       old_symbol = get_old_symbol(old_name)
-      old_spec   = target.map_foorth_shared(old_symbol)
-      f20_error(target, old_name, old_symbol) unless old_spec
+
+      unless (old_spec = target.map_foorth_shared(old_symbol))
+        f20_error(target, old_name, old_symbol)
+      end
 
       target.create_shared_method(new_name,
                                   old_spec.class,
@@ -46,8 +48,10 @@ module XfOOrth
       error "F13: The target of .alias: must be a class" unless target.is_a?(Class)
 
       old_symbol = get_old_symbol(old_name)
-      old_spec   = target.map_foorth_shared(old_symbol)
-      f20_error(target, old_name, old_symbol) unless old_spec
+
+      unless (old_spec = target.map_foorth_shared(old_symbol))
+        f20_error(target, old_name, old_symbol)
+      end
 
       target.create_shared_method(new_name,
                                   get_alias_type(old_spec, new_name),
@@ -61,8 +65,10 @@ module XfOOrth
       old_name, target = popm(2)
 
       old_symbol = get_old_symbol(old_name)
-      old_spec   = target.map_foorth_exclusive(old_symbol)
-      f20_error(target, old_name, old_symbol) unless old_spec
+
+      unless (old_spec = target.map_foorth_exclusive(old_symbol))
+        f20_error(target, old_name, old_symbol)
+      end
 
       target.create_exclusive_method(new_name,
                                      get_alias_type(old_spec, new_name),
@@ -79,6 +85,8 @@ module XfOOrth
       error "F10: ?#{old_name}?" unless old_symbol
       old_symbol
     end
+
+
 
     #Get the type of the aliased method.
     def get_alias_type(old_spec, new_name)
