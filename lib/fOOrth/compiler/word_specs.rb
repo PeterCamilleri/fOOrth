@@ -175,7 +175,7 @@ module XfOOrth
     #* The last entry in the tags array is expected to be a string
     #  with the text of the command macro.
     def build_builds_string(_name, _symbol)
-      @builds = @tags.pop
+      @builds = @tags[-1]
     end
   end
 end

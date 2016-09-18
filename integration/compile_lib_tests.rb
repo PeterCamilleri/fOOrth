@@ -269,6 +269,9 @@ class CompileLibraryTester < Minitest::Test
     foorth_raises('"+" Numeric .alias: .add')
     foorth_run('"-" Numeric \'* .alias: .sub')
     foorth_equal('11 4 .sub', [7])
+
+    foorth_run('"dup" alias: doop')
+    foorth_equal('11 doop', [11, 11])
   end
 
 end

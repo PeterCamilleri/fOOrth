@@ -3,6 +3,11 @@
 #* library/alias_library.rb - Support for method aliasing in fOOrth.
 module XfOOrth
 
+  VirtualMachine.create_shared_method('alias:', VmSpec, [:immediate],  &lambda {|vm|
+    new_name = vm.parser.get_word()
+    vm.process_text("vm.create_word_alias(#{new_name.inspect}); ")
+  })
+
   VirtualMachine.create_shared_method('.alias:', VmSpec, [:immediate],  &lambda {|vm|
     new_name = vm.parser.get_word()
     vm.process_text("vm.create_shared_alias(#{new_name.inspect}); ")
@@ -21,18 +26,32 @@ module XfOOrth
       NosSpec  => [NosSpec]
     }
 
+    #Create a virtual machine word method alias.
+    def create_word_alias(new_name)
+      old_name, target = pop, VirtualMachine
+
+      old_symbol = get_old_symbol(old_name)
+      old_spec   = target.map_foorth_shared(old_symbol)
+      f20_error(target, old_name, old_symbol) unless old_spec
+
+      target.create_shared_method(new_name,
+                                  old_spec.class,
+                                  old_spec.tags,
+                                  &old_spec.does)
+    end
+
     #Create a shared method alias
     def create_shared_alias(new_name)
       old_name, target = popm(2)
       error "F13: The target of .alias: must be a class" unless target.is_a?(Class)
 
       old_symbol = get_old_symbol(old_name)
-      old_spec = target.map_foorth_shared(old_symbol)
+      old_spec   = target.map_foorth_shared(old_symbol)
       f20_error(target, old_name, old_symbol) unless old_spec
 
       target.create_shared_method(new_name,
                                   get_alias_type(old_spec, new_name),
-                                  [],
+                                  old_spec.tags,
                                   &old_spec.does)
       clear_cast
     end
@@ -42,12 +61,12 @@ module XfOOrth
       old_name, target = popm(2)
 
       old_symbol = get_old_symbol(old_name)
-      old_spec = target.map_foorth_exclusive(old_symbol)
+      old_spec   = target.map_foorth_exclusive(old_symbol)
       f20_error(target, old_name, old_symbol) unless old_spec
 
       target.create_exclusive_method(new_name,
                                      get_alias_type(old_spec, new_name),
-                                     [],
+                                     old_spec.tags,
                                      &old_spec.does)
       clear_cast
     end
