@@ -237,25 +237,34 @@ class CompileLibraryTester < Minitest::Test
   def test_method_aliasing
     foorth_run('class: TestAlias')
     foorth_run('TestAlias .: .method_name 42 ;')
-    foorth_run('TestAlias .new val$: $test_aliasing')
+    foorth_run('TestAlias .new val$: $test_aliasing_one')
+    foorth_run('TestAlias .new val$: $test_aliasing_two')
 
-    foorth_equal('$test_aliasing .method_name', [42])
-    foorth_raises('$test_aliasing .alias_name')
-    foorth_raises('$test_aliasing .with {{ ~other_name }}')
+    foorth_equal('$test_aliasing_one .method_name', [42])
+    foorth_raises('$test_aliasing_one .alias_name')
+    foorth_raises('$test_aliasing_one .with {{ ~other_name }}')
 
     foorth_run('".method_name" TestAlias .alias: .alias_name')
 
-    foorth_equal('$test_aliasing .method_name', [42])
-    foorth_equal('$test_aliasing .alias_name', [42])
-    foorth_raises('$test_aliasing .with {{ ~other_name }}')
+    foorth_equal('$test_aliasing_one .method_name', [42])
+    foorth_equal('$test_aliasing_one .alias_name', [42])
+    foorth_raises('$test_aliasing_one .with {{ ~other_name }}')
 
     foorth_run('".method_name" TestAlias .alias: ~other_name')
 
-    foorth_equal('$test_aliasing .method_name', [42])
-    foorth_equal('$test_aliasing .alias_name', [42])
-    foorth_equal('$test_aliasing .with{{ ~other_name }}', [42])
+    foorth_equal('$test_aliasing_one .method_name', [42])
+    foorth_equal('$test_aliasing_one .alias_name', [42])
+    foorth_equal('$test_aliasing_one .with{{ ~other_name }}', [42])
 
     foorth_raises('".method_name" TestAlias .alias: ++++')
+
+    foorth_run('$test_aliasing_two .:: .method_name 69 ;')
+    foorth_equal('$test_aliasing_one .method_name', [42])
+    foorth_equal('$test_aliasing_two .method_name', [69])
+
+    foorth_run('".method_name" $test_aliasing_two .alias:: .crazy')
+    foorth_equal('$test_aliasing_two .crazy', [69])
+    foorth_raises('$test_aliasing_one .crazy')
   end
 
 end

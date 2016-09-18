@@ -8,6 +8,11 @@ module XfOOrth
     vm.process_text("vm.create_shared_alias(#{new_name.inspect}); ")
   })
 
+  VirtualMachine.create_shared_method('.alias::', VmSpec, [:immediate],  &lambda {|vm|
+    new_name = vm.parser.get_word()
+    vm.process_text("vm.create_exclusive_alias(#{new_name.inspect}); ")
+  })
+
   # Alias support methods in the VirtualMachine class.
   class VirtualMachine
     ALLOWED_ALIAS_TYPES = {
@@ -30,6 +35,21 @@ module XfOOrth
                                   get_alias_type(old_spec, new_name),
                                   [],
                                   &old_spec.does)
+    end
+
+    #Create an exclusive method alias
+    def create_exclusive_alias(new_name)
+      old_name, target = popm(2)
+
+      old_symbol = XfOOrth::SymbolMap.map(old_name)
+      error "F10: ?#{old_name}?" unless old_symbol
+      old_spec = target.map_foorth_exclusive(old_symbol)
+      error "F20: The class #{target.foorth_name} does not understand #{old_name}" unless old_spec
+
+      target.create_exclusive_method(new_name,
+                                     get_alias_type(old_spec, new_name),
+                                     [],
+                                     &old_spec.does)
     end
 
     private
