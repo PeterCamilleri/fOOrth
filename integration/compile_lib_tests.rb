@@ -265,6 +265,10 @@ class CompileLibraryTester < Minitest::Test
     foorth_run('".method_name" $test_aliasing_two .alias:: .crazy')
     foorth_equal('$test_aliasing_two .crazy', [69])
     foorth_raises('$test_aliasing_one .crazy')
+
+    foorth_raises('"+" Numeric .alias: .add')
+    foorth_run('"-" Numeric \'* .alias: .sub')
+    foorth_equal('11 4 .sub', [7])
   end
 
 end
