@@ -38,6 +38,13 @@ class Object
     fail XfOOrth::XfOOrthError, msg, caller
   end
 
+  #A helper macro for method not understood errors.
+  def f20_error(recvr, name, symbol)
+    fail XfOOrth::XfOOrthError,
+         "F20: A #{recvr.foorth_name} does not understand #{name} (#{symbol.inspect}).",
+         caller
+  end
+
   #Argument coercion methods. These are stubs.
 
   #Coerce the argument to match my type. Stub

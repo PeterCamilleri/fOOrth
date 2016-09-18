@@ -39,7 +39,7 @@ module XfOOrth
     #Get the default action if none is specified.
     def get_stub_action(name, symbol)
       lambda do |*_any|
-        error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol.inspect})."
+        f20_error(self, name, symbol)
       end
     end
 
@@ -100,7 +100,7 @@ module XfOOrth
         #be removed at this time.
         vm.data_stack.pop
 
-        error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol.inspect})."
+        f20_error(self, name, symbol)
       end
     end
 
@@ -175,7 +175,7 @@ module XfOOrth
     #* The last entry in the tags array is expected to be a string
     #  with the text of the command macro.
     def build_builds_string(_name, _symbol)
-      @builds = @tags.pop
+      @builds = @tags[-1]
     end
   end
 end

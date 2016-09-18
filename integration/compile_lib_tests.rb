@@ -112,7 +112,6 @@ class CompileLibraryTester < Minitest::Test
 
     foorth_equal('Object .: .lvt6 val: lv lv 10  * ;' , [])
     foorth_equal('10 Object .new .lvt6 ' , [100])
-
   end
 
   def test_exclusive_methods
@@ -233,7 +232,46 @@ class CompileLibraryTester < Minitest::Test
 
     foorth_equal("Integer    .: minus self swap -  ; 10 5 minus", [5])
     foorth_equal("Integer '. .: rinus self swap -  ; 10 5 rinus", [-5])
+  end
 
+  def test_method_aliasing
+    foorth_run('class: TestAlias')
+    foorth_run('TestAlias .: .method_name 42 ;')
+    foorth_run('TestAlias .new val$: $test_aliasing_one')
+    foorth_run('TestAlias .new val$: $test_aliasing_two')
+
+    foorth_equal('$test_aliasing_one .method_name', [42])
+    foorth_raises('$test_aliasing_one .alias_name')
+    foorth_raises('$test_aliasing_one .with {{ ~other_name }}')
+
+    foorth_run('".method_name" TestAlias .alias: .alias_name')
+
+    foorth_equal('$test_aliasing_one .method_name', [42])
+    foorth_equal('$test_aliasing_one .alias_name', [42])
+    foorth_raises('$test_aliasing_one .with {{ ~other_name }}')
+
+    foorth_run('".method_name" TestAlias .alias: ~other_name')
+
+    foorth_equal('$test_aliasing_one .method_name', [42])
+    foorth_equal('$test_aliasing_one .alias_name', [42])
+    foorth_equal('$test_aliasing_one .with{{ ~other_name }}', [42])
+
+    foorth_raises('".method_name" TestAlias .alias: ++++')
+
+    foorth_run('$test_aliasing_two .:: .method_name 69 ;')
+    foorth_equal('$test_aliasing_one .method_name', [42])
+    foorth_equal('$test_aliasing_two .method_name', [69])
+
+    foorth_run('".method_name" $test_aliasing_two .alias:: .crazy')
+    foorth_equal('$test_aliasing_two .crazy', [69])
+    foorth_raises('$test_aliasing_one .crazy')
+
+    foorth_raises('"+" Numeric .alias: .add')
+    foorth_run('"-" Numeric \'* .alias: .sub')
+    foorth_equal('11 4 .sub', [7])
+
+    foorth_run('"dup" alias: doop')
+    foorth_equal('11 doop', [11, 11])
   end
 
 end
