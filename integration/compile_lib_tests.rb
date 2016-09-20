@@ -274,4 +274,32 @@ class CompileLibraryTester < Minitest::Test
     foorth_equal('11 doop', [11, 11])
   end
 
+  def test_method_stubs
+    foorth_run('class: TestStubs')
+    foorth_equal('TestStubs .new .to_i', [nil])
+
+    foorth_run('TestStubs .stub: .to_i')
+    foorth_raises('TestStubs .new .to_i')
+
+    foorth_run('TestStubs .new val$: $test_stubs_one')
+    foorth_run('TestStubs .new val$: $test_stubs_two')
+
+    foorth_run('$test_stubs_two .stub:: .to_r')
+
+    foorth_equal('$test_stubs_one .to_r', [nil])
+    foorth_raises('$test_stubs_two .to_r')
+
+    foorth_run('"dup" alias: dupe')
+    foorth_equal('3 dup ', [3,3])
+    foorth_equal('3 dupe', [3,3])
+
+    foorth_run('stub: dup')
+
+    foorth_raises('3 dup ')
+    foorth_equal('3 dupe', [3,3])
+
+    foorth_run('"dupe" alias: dup')
+  end
+
+
 end
