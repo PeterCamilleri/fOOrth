@@ -3,19 +3,22 @@
 #* library/alias_library.rb - Support for method aliasing in fOOrth.
 module XfOOrth
 
-  VirtualMachine.create_shared_method('alias:', VmSpec, [:immediate], &lambda {|vm|
+  VirtualMachine.create_shared_method('alias:', VmSpec, [:immediate],
+  &lambda {|vm|
     new_name = vm.parser.get_word()
-    vm.process_text("vm.create_word_alias(#{new_name.inspect}); ")
+    process_text("vm.create_word_alias(#{new_name.inspect}); ")
   })
 
-  VirtualMachine.create_shared_method('.alias:', VmSpec, [:immediate], &lambda {|vm|
+  VirtualMachine.create_shared_method('.alias:', VmSpec, [:immediate],
+  &lambda {|vm|
     new_name = vm.parser.get_word()
-    vm.process_text("vm.create_shared_alias(#{new_name.inspect}); ")
+    process_text("vm.create_shared_alias(#{new_name.inspect}); ")
   })
 
-  VirtualMachine.create_shared_method('.alias::', VmSpec, [:immediate], &lambda {|vm|
+  VirtualMachine.create_shared_method('.alias::', VmSpec, [:immediate],
+  &lambda {|vm|
     new_name = vm.parser.get_word()
-    vm.process_text("vm.create_exclusive_alias(#{new_name.inspect}); ")
+    process_text("vm.create_exclusive_alias(#{new_name.inspect}); ")
   })
 
   # Alias support methods in the VirtualMachine class.
@@ -85,8 +88,6 @@ module XfOOrth
       error "F10: ?#{old_name}?" unless old_symbol
       old_symbol
     end
-
-
 
     #Get the type of the aliased method.
     def get_alias_type(old_spec, new_name)
