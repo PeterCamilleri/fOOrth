@@ -3,15 +3,4 @@ lib/fOOrth/compiler/context/map_name.rb -- 1 warning:
 lib/fOOrth/library/compile_library.rb -- 2 warnings:
   [230]:ControlParameter: XfOOrth#self.name_to_type is controlled by argument cast_spec [https://github.com/troessner/reek/blob/master/docs/Control-Parameter.md]
   [191]:TooManyStatements: XfOOrth#self.add_common_compiler_locals has approx 8 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
-lib/fOOrth/library/introspection/string.rb -- 10 warnings:
-  [17, 20]:DuplicateMethodCall: String#foorth_method_scan calls (results << ["", ""]).concat(info) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [17, 20]:DuplicateMethodCall: String#foorth_method_scan calls (results << ["", ""]).concat(info).concat(spec.get_info) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [17, 20]:DuplicateMethodCall: String#foorth_method_scan calls results << ["", ""] 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [17, 20]:DuplicateMethodCall: String#foorth_method_scan calls spec.get_info 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [17, 20, 23]:FeatureEnvy: String#foorth_method_scan refers to found more than self (maybe move it to another class?) [https://github.com/troessner/reek/blob/master/docs/Feature-Envy.md]
-  [17, 20, 23]:FeatureEnvy: String#foorth_method_scan refers to results more than self (maybe move it to another class?) [https://github.com/troessner/reek/blob/master/docs/Feature-Envy.md]
-  [13, 17, 20]:FeatureEnvy: String#foorth_method_scan refers to spec more than self (maybe move it to another class?) [https://github.com/troessner/reek/blob/master/docs/Feature-Envy.md]
-  [7]:TooManyStatements: String#foorth_method_scan has approx 12 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
-  [14]:UncommunicativeVariableName: String#foorth_method_scan has the variable name 'a' [https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md]
-  [14]:UncommunicativeVariableName: String#foorth_method_scan has the variable name 'b' [https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md]
-13 total warnings
+3 total warnings
