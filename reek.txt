@@ -3,17 +3,6 @@ lib/fOOrth/compiler/context/map_name.rb -- 1 warning:
 lib/fOOrth/library/compile_library.rb -- 2 warnings:
   [230]:ControlParameter: XfOOrth#self.name_to_type is controlled by argument cast_spec [https://github.com/troessner/reek/blob/master/docs/Control-Parameter.md]
   [191]:TooManyStatements: XfOOrth#self.add_common_compiler_locals has approx 8 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
-lib/fOOrth/library/formatting/bullets.rb -- 10 warnings:
-  [20, 22]:DuplicateMethodCall: XfOOrth::BulletPoints#add calls raw_bullet.in_array 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [62, 68]:DuplicateMethodCall: XfOOrth::BulletPoints#render_bullet calls ' ' * @key_length 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [67, 76]:DuplicateMethodCall: XfOOrth::BulletPoints#render_bullet calls result << temp 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [63, 69]:DuplicateMethodCall: XfOOrth::BulletPoints#render_bullet calls temp.length 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [26, 27]:FeatureEnvy: XfOOrth::BulletPoints#add refers to items more than self (maybe move it to another class?) [https://github.com/troessner/reek/blob/master/docs/Feature-Envy.md]
-  [20, 22]:FeatureEnvy: XfOOrth::BulletPoints#add refers to raw_bullet more than self (maybe move it to another class?) [https://github.com/troessner/reek/blob/master/docs/Feature-Envy.md]
-  [18, 23]:FeatureEnvy: XfOOrth::BulletPoints#add refers to raw_item more than self (maybe move it to another class?) [https://github.com/troessner/reek/blob/master/docs/Feature-Envy.md]
-  [83]:IrresponsibleModule: Array has no descriptive comment [https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md]
-  [103]:IrresponsibleModule: Hash has no descriptive comment [https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md]
-  [51]:TooManyStatements: XfOOrth::BulletPoints#render_bullet has approx 15 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
 lib/fOOrth/library/formatting/columns.rb -- 2 warnings:
   [36]:NestedIterators: XfOOrth::ColumnizedPage#render contains iterators nested 2 deep [https://github.com/troessner/reek/blob/master/docs/Nested-Iterators.md]
   [31]:TooManyStatements: XfOOrth::ColumnizedPage#render has approx 8 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
@@ -56,4 +45,4 @@ lib/fOOrth/library/introspection/vm.rb -- 3 warnings:
   [10]:TooManyStatements: XfOOrth::VirtualMachine#get_info has approx 22 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
   [47]:UncommunicativeVariableName: XfOOrth::VirtualMachine#get_info has the variable name 'a' [https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md]
   [47]:UncommunicativeVariableName: XfOOrth::VirtualMachine#get_info has the variable name 'b' [https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md]
-49 total warnings
+39 total warnings

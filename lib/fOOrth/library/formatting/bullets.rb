@@ -13,13 +13,15 @@ module XfOOrth
     #Add an item to this page.
     #<br>Returns
     #* The number if items that did not fit in the page.
+    #<br>Endemic Code Smells
+    #* :reek:FeatureEnvy
     def add(raw_bullet = "*", *raw_item)
 
       if raw_item.empty?
         bullet = ["*"]
         items = raw_bullet.in_array
       else
-        bullet = raw_bullet.in_array
+        bullet = [raw_bullet]
         items = raw_item.in_array
       end
 
@@ -48,24 +50,25 @@ module XfOOrth
     end
 
     #Render one bullet point.
+    #<br>Endemic Code Smells
+    #* :reek:DuplicateMethodCall :reek:TooManyStatements
     def render_bullet(key, item)
-      result = []
+      result, pass_one = [], true
       input  = item.split(' ').each
       temp   = key.ljust(len = @key_length)
-      pass_one = true
 
       loop do
         word = ' ' + input.next
 
         while len >= @page_width
           result << temp.slice!(0, @page_width - 1)
-          temp = (' ' * @key_length) + ' ' + temp
+          temp = blank_key + ' ' + temp
           len  = temp.length
         end
 
         if ((len += word.length) >= @page_width) && !pass_one
           result << temp
-          temp = (' ' * @key_length) + word
+          temp = blank_key + word
           len  = temp.length
         else
           temp << word
@@ -76,10 +79,16 @@ module XfOOrth
       result << temp
     end
 
+    #Generate a blank bullet key
+    def blank_key
+      ' ' * @key_length
+    end
+
   end
 
 end
 
+#Bullet point support in the Array class.
 class Array
   #Print out the array as bullet points.
   def puts_foorth_bullets(page_width)
@@ -100,6 +109,7 @@ class Array
   end
 end
 
+#Bullet point support in the Hash class.
 class Hash
   #Print out the hash as bullet points.
   def puts_foorth_bullets(page_width)
