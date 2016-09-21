@@ -5,20 +5,20 @@ module XfOOrth
 
   VirtualMachine.create_shared_method('alias:', VmSpec, [:immediate],
   &lambda {|vm|
-    new_name = vm.parser.get_word()
-    process_text("vm.create_word_alias(#{new_name.inspect}); ")
+    new_name = parser.get_word().inspect
+    process_text("vm.create_word_alias(#{new_name}); ")
   })
 
   VirtualMachine.create_shared_method('.alias:', VmSpec, [:immediate],
   &lambda {|vm|
-    new_name = vm.parser.get_word()
-    process_text("vm.create_shared_alias(#{new_name.inspect}); ")
+    new_name = parser.get_word().inspect
+    process_text("vm.create_shared_alias(#{new_name}); ")
   })
 
   VirtualMachine.create_shared_method('.alias::', VmSpec, [:immediate],
   &lambda {|vm|
-    new_name = vm.parser.get_word()
-    process_text("vm.create_exclusive_alias(#{new_name.inspect}); ")
+    new_name = parser.get_word().inspect
+    process_text("vm.create_exclusive_alias(#{new_name}); ")
   })
 
   # Alias support methods in the VirtualMachine class.

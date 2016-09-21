@@ -4,20 +4,20 @@
 module XfOOrth
   VirtualMachine.create_shared_method('stub:', VmSpec, [:immediate],
   &lambda {|vm|
-    name = vm.parser.get_word()
-    process_text("vm.class.create_shared_method(#{name.inspect}, VmSpec, [:stub]); ")
+    name = parser.get_word().inspect
+    process_text("vm.class.create_shared_method(#{name}, VmSpec, [:stub]); ")
   })
 
   VirtualMachine.create_shared_method('.stub:', VmSpec, [:immediate],
   &lambda {|vm|
-    name = vm.parser.get_word()
-    process_text("vm.create_shared_stub(#{name.inspect}); ")
+    name = parser.get_word().inspect
+    process_text("vm.create_shared_stub(#{name}); ")
   })
 
   VirtualMachine.create_shared_method('.stub::', VmSpec, [:immediate],
   &lambda {|vm|
-    name = vm.parser.get_word()
-    process_text("vm.create_exclusive_stub(#{name.inspect}); ")
+    name = parser.get_word().inspect
+    process_text("vm.create_exclusive_stub(#{name}); ")
   })
 
   # Stub support methods in the VirtualMachine class.
