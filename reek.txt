@@ -3,22 +3,6 @@ lib/fOOrth/compiler/context/map_name.rb -- 1 warning:
 lib/fOOrth/library/compile_library.rb -- 2 warnings:
   [230]:ControlParameter: XfOOrth#self.name_to_type is controlled by argument cast_spec [https://github.com/troessner/reek/blob/master/docs/Control-Parameter.md]
   [191]:TooManyStatements: XfOOrth#self.add_common_compiler_locals has approx 8 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
-lib/fOOrth/library/introspection/class.rb -- 15 warnings:
-  [35, 42]:DuplicateMethodCall: Class#foorth_method_info calls !spec.has_tag?(:stub) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [36, 43]:DuplicateMethodCall: Class#foorth_method_info calls (results << ["", ""]).concat(info) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [36, 43]:DuplicateMethodCall: Class#foorth_method_info calls (results << ["", ""]).concat(info).concat(spec.get_info) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [36, 43]:DuplicateMethodCall: Class#foorth_method_info calls results << ["", ""] 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [36, 43]:DuplicateMethodCall: Class#foorth_method_info calls spec.get_info 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [35, 42]:DuplicateMethodCall: Class#foorth_method_info calls spec.has_tag?(:stub) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [62, 74]:DuplicateMethodCall: Class#get_info calls (results << ["", ""]).concat(info) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [61, 73]:DuplicateMethodCall: Class#get_info calls XfOOrth::SymbolMap.map_info(name) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [62, 74]:DuplicateMethodCall: Class#get_info calls results << ["", ""] 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [65, 77]:DuplicateMethodCall: Class#get_info calls results.concat(info) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [65, 77]:DuplicateMethodCall: Class#get_info calls results.concat(info).concat(spec.get_info) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [65, 77]:DuplicateMethodCall: Class#get_info calls spec.get_info 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
-  [35, 36, 42, 43]:FeatureEnvy: Class#foorth_method_info refers to spec more than self (maybe move it to another class?) [https://github.com/troessner/reek/blob/master/docs/Feature-Envy.md]
-  [28]:TooManyStatements: Class#foorth_method_info has approx 10 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
-  [54]:TooManyStatements: Class#get_info has approx 14 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
 lib/fOOrth/library/introspection/context.rb -- 3 warnings:
   [14, 28]:DuplicateMethodCall: XfOOrth::Context#get_info calls results << ["", ""] 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
   [14, 17, 18, 19, 21, 22, 28, 29]:FeatureEnvy: XfOOrth::Context#get_info refers to results more than self (maybe move it to another class?) [https://github.com/troessner/reek/blob/master/docs/Feature-Envy.md]
@@ -42,4 +26,4 @@ lib/fOOrth/library/introspection/vm.rb -- 3 warnings:
   [10]:TooManyStatements: XfOOrth::VirtualMachine#get_info has approx 22 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
   [47]:UncommunicativeVariableName: XfOOrth::VirtualMachine#get_info has the variable name 'a' [https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md]
   [47]:UncommunicativeVariableName: XfOOrth::VirtualMachine#get_info has the variable name 'b' [https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md]
-37 total warnings
+22 total warnings
