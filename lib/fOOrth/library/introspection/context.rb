@@ -7,6 +7,8 @@ module XfOOrth
   class Context
 
     #Get introspection info.
+    #<br>Endemic Code Smells
+    #* :reek:FeatureEnvy :reek:TooManyStatements
     def get_info
       results = [["Level", depth]]
 
@@ -25,8 +27,7 @@ module XfOOrth
       end
 
       if (prev = self.previous)
-        results << ["", ""]
-        results.concat(prev.get_info)
+        results.concat([["", ""]]).concat(prev.get_info)
       end
 
       results
