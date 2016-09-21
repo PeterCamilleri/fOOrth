@@ -34,7 +34,7 @@ class Class
         found = true
       end
 
-      if scrape_method_info(results, *map_foorth_exclusive_info(symbol))
+      if scrape_method_info(results, *map_foorth_exclusive_info(symbol, "Class"))
         found = true
       end
 
@@ -48,7 +48,7 @@ class Class
   def get_info
     results = [["Lineage", lineage]]
 
-    get_exclusive_method_info(results)
+    get_exclusive_method_info(results, "Class")
     get_shared_method_info(results)
 
     results
@@ -78,21 +78,6 @@ class Class
         (results << ["", ""]).concat(info)
 
         spec, info = map_foorth_shared_info(symbol, :shallow)
-        results.concat(info).concat(spec.get_info)
-      end
-    end
-  end
-
-  #Get exclusive method info
-  def get_exclusive_method_info(results)
-    if foorth_has_exclusive?
-      results.concat([["", ""], ["Methods", "Class"]])
-
-      foorth_exclusive.extract_method_names(:all).sort.each do |name|
-        symbol, info = XfOOrth::SymbolMap.map_info(name)
-        (results << ["", ""]).concat(info)
-
-        spec, info = map_foorth_exclusive_info(symbol, :shallow)
         results.concat(info).concat(spec.get_info)
       end
     end

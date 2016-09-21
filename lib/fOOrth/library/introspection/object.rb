@@ -17,26 +17,8 @@ class Object
   #Get introspection info.
   def get_info
     results = [["Type", foorth_name]]
-
-    unless (vars = instance_variables).empty?
-      results.concat([["", ""], ["Data", "Instance"], ["", ""]])
-
-      vars.sort.each do |name|
-        var_name = XfOOrth::SymbolMap.unmap(name[1..-1].to_sym) || name
-        results << [var_name, instance_variable_get(name)]
-      end
-    end
-
-    if foorth_has_exclusive?
-      results.concat([["", ""], ["Methods", "Exclusive"]])
-
-      foorth_exclusive.extract_method_names(:all).sort.each do |name|
-        symbol, info = XfOOrth::SymbolMap.map_info(name)
-        results.concat([["", ""], ["Name", name], info])
-        spec, info = map_foorth_exclusive_info(symbol, :shallow)
-        results.concat(info).concat(spec.get_info)
-      end
-    end
+    get_instance_variable_info(results)
+    get_exclusive_method_info(results, "Exclusive")
 
     results
   end
@@ -64,6 +46,44 @@ class Object
   def lineage
     foorth_name + " < " + self.class.lineage
   end
+
+  private
+
+  #Get information about instance variables
+  def get_instance_variable_info(results)
+    names = instance_variables.map do |sym|
+      if (name = XfOOrth::SymbolMap.unmap(sym.to_s[1..-1].to_sym))
+        [name, sym]
+      end
+    end
+    .compact
+    .sort {|first, second| first[0] <=> second[0] }
+
+    unless names.empty?
+      results.concat([["", ""], ["Data", "Instance"], ["", ""]])
+
+      names.each do |name, sym|
+        results << [name, instance_variable_get(sym)]
+      end
+    end
+  end
+
+
+  #Get exclusive method info
+  def get_exclusive_method_info(results, designation)
+    if foorth_has_exclusive?
+      results.concat([["", ""], ["Methods", designation]])
+
+      foorth_exclusive.extract_method_names(:all).sort.each do |name|
+        symbol, info = XfOOrth::SymbolMap.map_info(name)
+        (results << ["", ""]).concat(info)
+
+        spec, info = map_foorth_exclusive_info(symbol, :shallow)
+        results.concat(info).concat(spec.get_info)
+      end
+    end
+  end
+
 
 
 end
