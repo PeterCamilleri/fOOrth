@@ -3,9 +3,6 @@ lib/fOOrth/compiler/context/map_name.rb -- 1 warning:
 lib/fOOrth/library/compile_library.rb -- 2 warnings:
   [230]:ControlParameter: XfOOrth#self.name_to_type is controlled by argument cast_spec [https://github.com/troessner/reek/blob/master/docs/Control-Parameter.md]
   [191]:TooManyStatements: XfOOrth#self.add_common_compiler_locals has approx 8 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
-lib/fOOrth/library/formatting/columns.rb -- 2 warnings:
-  [36]:NestedIterators: XfOOrth::ColumnizedPage#render contains iterators nested 2 deep [https://github.com/troessner/reek/blob/master/docs/Nested-Iterators.md]
-  [31]:TooManyStatements: XfOOrth::ColumnizedPage#render has approx 8 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
 lib/fOOrth/library/introspection/class.rb -- 15 warnings:
   [35, 42]:DuplicateMethodCall: Class#foorth_method_info calls !spec.has_tag?(:stub) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
   [36, 43]:DuplicateMethodCall: Class#foorth_method_info calls (results << ["", ""]).concat(info) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
@@ -45,4 +42,4 @@ lib/fOOrth/library/introspection/vm.rb -- 3 warnings:
   [10]:TooManyStatements: XfOOrth::VirtualMachine#get_info has approx 22 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
   [47]:UncommunicativeVariableName: XfOOrth::VirtualMachine#get_info has the variable name 'a' [https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md]
   [47]:UncommunicativeVariableName: XfOOrth::VirtualMachine#get_info has the variable name 'b' [https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md]
-39 total warnings
+37 total warnings
