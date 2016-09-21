@@ -31,13 +31,9 @@ module XfOOrth
 
     #Create a virtual machine word method alias.
     def create_word_alias(new_name)
-      old_name, target = pop, VirtualMachine
+      old_name, target = pop, self.class
 
-      old_symbol = get_old_symbol(old_name)
-
-      unless (old_spec = target.map_foorth_shared(old_symbol))
-        f20_error(target, old_name, old_symbol)
-      end
+      old_spec = get_old_shared_spec(target, old_name)
 
       target.create_shared_method(new_name,
                                   old_spec.class,
@@ -48,13 +44,12 @@ module XfOOrth
     #Create a shared method alias
     def create_shared_alias(new_name)
       old_name, target = popm(2)
-      error "F13: The target of .alias: must be a class" unless target.is_a?(Class)
 
-      old_symbol = get_old_symbol(old_name)
-
-      unless (old_spec = target.map_foorth_shared(old_symbol))
-        f20_error(target, old_name, old_symbol)
+      unless target.is_a?(Class)
+        error "F13: The target of .alias: must be a class"
       end
+
+      old_spec = get_old_shared_spec(target, old_name)
 
       target.create_shared_method(new_name,
                                   get_alias_type(old_spec, new_name),
@@ -67,11 +62,7 @@ module XfOOrth
     def create_exclusive_alias(new_name)
       old_name, target = popm(2)
 
-      old_symbol = get_old_symbol(old_name)
-
-      unless (old_spec = target.map_foorth_exclusive(old_symbol))
-        f20_error(target, old_name, old_symbol)
-      end
+      old_spec = get_old_exclusive_spec(target, old_name)
 
       target.create_exclusive_method(new_name,
                                      get_alias_type(old_spec, new_name),
@@ -81,6 +72,28 @@ module XfOOrth
     end
 
     private
+
+    #Get the shared specification of the original method.
+    def get_old_shared_spec(target, old_name)
+      old_symbol = get_old_symbol(old_name)
+
+      unless (old_spec = target.map_foorth_shared(old_symbol))
+        f20_error(target, old_name, old_symbol)
+      end
+
+      old_spec
+    end
+
+    #Get the exclusive specification of the original method.
+    def get_old_exclusive_spec(target, old_name)
+      old_symbol = get_old_symbol(old_name)
+
+      unless (old_spec = target.map_foorth_exclusive(old_symbol))
+        f20_error(target, old_name, old_symbol)
+      end
+
+      old_spec
+    end
 
     #Get the symbol of the old method.
     def get_old_symbol(old_name)
@@ -93,14 +106,14 @@ module XfOOrth
     def get_alias_type(old_spec, new_name)
       old_type = old_spec.class
       new_type = XfOOrth.name_to_type(new_name, get_cast)
-      old_spec_name, new_spec_name = old_type.foorth_name, new_type.foorth_name
+      old_desc, new_desc = old_type.foorth_name, new_type.foorth_name
 
       unless (allowed = ALLOWED_ALIAS_TYPES[old_type])
-        error "F13: A #{old_spec_name} method may not be aliased."
+        error "F13: A #{old_desc} method may not be aliased."
       end
 
       unless allowed.include?(new_type)
-        error "F13: A #{old_spec_name} method may not be aliased as a #{new_spec_name}"
+        error "F13: A #{old_desc} method may not be aliased as a #{new_desc}"
       end
 
       XfOOrth.validate_type(self, new_type, new_name)
