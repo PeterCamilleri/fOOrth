@@ -24,6 +24,8 @@ class Object
   end
 
   #Investigate a method of this object.
+  #<br>Endemic Code Smells
+  #* :reek:FeatureEnvy
   def foorth_method_info(name)
     symbol, results = XfOOrth::SymbolMap.map_info(name)
     found = false

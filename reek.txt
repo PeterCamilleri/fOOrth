@@ -7,9 +7,6 @@ lib/fOOrth/library/introspection/context.rb -- 3 warnings:
   [14, 28]:DuplicateMethodCall: XfOOrth::Context#get_info calls results << ["", ""] 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
   [14, 17, 18, 19, 21, 22, 28, 29]:FeatureEnvy: XfOOrth::Context#get_info refers to results more than self (maybe move it to another class?) [https://github.com/troessner/reek/blob/master/docs/Feature-Envy.md]
   [10]:TooManyStatements: XfOOrth::Context#get_info has approx 11 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
-lib/fOOrth/library/introspection/object.rb -- 2 warnings:
-  [35, 39]:FeatureEnvy: Object#foorth_method_info refers to results more than self (maybe move it to another class?) [https://github.com/troessner/reek/blob/master/docs/Feature-Envy.md]
-  [34, 35]:FeatureEnvy: Object#foorth_method_info refers to spec more than self (maybe move it to another class?) [https://github.com/troessner/reek/blob/master/docs/Feature-Envy.md]
 lib/fOOrth/library/introspection/string.rb -- 10 warnings:
   [17, 20]:DuplicateMethodCall: String#foorth_method_scan calls (results << ["", ""]).concat(info) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
   [17, 20]:DuplicateMethodCall: String#foorth_method_scan calls (results << ["", ""]).concat(info).concat(spec.get_info) 2 times [https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md]
@@ -21,4 +18,4 @@ lib/fOOrth/library/introspection/string.rb -- 10 warnings:
   [7]:TooManyStatements: String#foorth_method_scan has approx 12 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
   [14]:UncommunicativeVariableName: String#foorth_method_scan has the variable name 'a' [https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md]
   [14]:UncommunicativeVariableName: String#foorth_method_scan has the variable name 'b' [https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md]
-18 total warnings
+16 total warnings
