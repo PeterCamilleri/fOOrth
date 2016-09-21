@@ -1,6 +1,3 @@
 lib/fOOrth/compiler/context/map_name.rb -- 1 warning:
   [31]:ControlParameter: XfOOrth::Context#do_map_name is controlled by argument allow_defaults [https://github.com/troessner/reek/blob/master/docs/Control-Parameter.md]
-lib/fOOrth/library/compile_library.rb -- 2 warnings:
-  [230]:ControlParameter: XfOOrth#self.name_to_type is controlled by argument cast_spec [https://github.com/troessner/reek/blob/master/docs/Control-Parameter.md]
-  [191]:TooManyStatements: XfOOrth#self.add_common_compiler_locals has approx 8 statements [https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md]
-3 total warnings
+1 total warning

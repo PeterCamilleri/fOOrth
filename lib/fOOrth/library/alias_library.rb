@@ -105,7 +105,7 @@ module XfOOrth
     #Get the type of the aliased method.
     def get_alias_type(old_spec, new_name)
       old_type = old_spec.class
-      new_type = XfOOrth.name_to_type(new_name, get_cast)
+      new_type = XfOOrth.name_to_type(new_name, self)
       old_desc, new_desc = old_type.foorth_name, new_type.foorth_name
 
       unless (allowed = ALLOWED_ALIAS_TYPES[old_type])

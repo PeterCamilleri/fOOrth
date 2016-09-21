@@ -29,7 +29,7 @@ module XfOOrth
         error "F13: The target of .stub: must be a class"
       end
 
-      type = XfOOrth.name_to_type(name, get_cast)
+      type = XfOOrth.name_to_type(name, self)
       XfOOrth.validate_type(self, type, name)
       target.create_shared_method(name, type, [:stub])
       clear_cast
@@ -38,7 +38,7 @@ module XfOOrth
     #Create an exclusive method stub
     def create_exclusive_stub(name)
       target = pop
-      type = XfOOrth.name_to_type(name, get_cast)
+      type = XfOOrth.name_to_type(name, self)
       XfOOrth.validate_type(self, type, name)
       target.create_exclusive_method(name, type, [:stub])
       clear_cast
