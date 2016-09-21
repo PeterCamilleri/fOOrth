@@ -68,7 +68,7 @@ class Object
       if (stub_spec = Object.foorth_shared[symbol])
         self.instance_exec(*args, &stub_spec.does)
       else
-        error "F20: A #{self.foorth_name} does not understand #{name} (#{symbol})."
+        f20_error(self, name, symbol)
       end
     else
       super

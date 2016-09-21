@@ -11,9 +11,30 @@ module XfOOrth
     #* name - The string to be mapped.
     #<br>Returns:
     #* The specification that corresponds to the name or nil if none found.
-    def map(name, allow_defaults=:allow)
+    def map_with_defaults(name)
       if (@symbol = SymbolMap.map(@name = name))
-        do_map_name(allow_defaults)
+        do_map_name ||
+          case @name[0]
+          when '.'
+            TosSpec.new(@name, @symbol, [:temp])
+
+          when '~'
+            SelfSpec.new(@name, @symbol, [:temp])
+
+          else
+            spec_error
+          end
+      end
+    end
+
+    #Map a name to a specification.
+    #<br>Parameters:
+    #* name - The string to be mapped.
+    #<br>Returns:
+    #* The specification that corresponds to the name or nil if none found.
+    def map_without_defaults(name)
+      if (@symbol = SymbolMap.map(@name = name))
+        do_map_name
       end
     end
 
@@ -21,23 +42,13 @@ module XfOOrth
     private
 
     #Do a search of dictionaries based on the syntax of the name.
-    def do_map_name(allow_defaults)
+    def do_map_name
       self[@symbol]        ||
       do_target_class_map  ||
       do_target_object_map ||
       do_target_vm_map     ||
       do_object_class_map  ||
-      do_global_map        ||
-      (allow_defaults && case @name[0]
-      when '.'
-        TosSpec.new(@name, @symbol, [:temp])
-
-      when '~'
-        SelfSpec.new(@name, @symbol, [:temp])
-
-      else
-        spec_error
-      end)
+      do_global_map
     end
 
     #Do a search of the Object class for the item.

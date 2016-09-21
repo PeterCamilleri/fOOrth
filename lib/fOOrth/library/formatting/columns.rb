@@ -28,6 +28,8 @@ module XfOOrth
     end
 
     #Render the page as an array of strings.
+    #<br>Endemic Code Smells
+    #* :reek:NestedIterators :reek:TooManyStatements
     def render
       results = []
       widths  = @page_data.map {|column| column.foorth_column_width}

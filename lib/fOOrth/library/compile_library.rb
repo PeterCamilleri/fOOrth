@@ -74,7 +74,7 @@ module XfOOrth
       error "F13: The target of .: must be a class" unless target.is_a?(Class)
 
       name   = vm.parser.get_word()
-      type   = XfOOrth.name_to_type(name, get_cast)
+      type   = XfOOrth.name_to_type(name, self)
       XfOOrth.validate_type(vm, type, name)
       XfOOrth.validate_string_method(type, target, name)
 
@@ -132,7 +132,7 @@ module XfOOrth
     if execute_mode?
       target = vm.pop
       name   = vm.parser.get_word()
-      type   = XfOOrth.name_to_type(name, get_cast)
+      type   = XfOOrth.name_to_type(name, self)
       XfOOrth.validate_type(vm, type, name)
       XfOOrth.validate_string_method(type, target.class, name)
 
@@ -188,6 +188,8 @@ module XfOOrth
   #<br>Parameters:
   #* vm - The current virtual machine instance.
   #* ctrl - A list of valid start controls.
+  #<br>Endemic Code Smells
+  #* :reek:TooManyStatements
   def self.add_common_compiler_locals(vm, ctrl)
     context = vm.context
 
@@ -212,7 +214,7 @@ module XfOOrth
   #*name - The name of the method to be created.
   #<Returns>
   #* The class of the spec to be used for this method.
-  def self.name_to_type(name, cast_spec=nil)
+  def self.name_to_type(name, vm)
     normal_spec = case name[0]
     when '.'
       TosSpec
@@ -227,7 +229,7 @@ module XfOOrth
       NosSpec
     end
 
-    cast_spec || normal_spec
+    vm.get_cast || normal_spec
   end
 
   #Compare the new method's spec against the specs of other methods of the
@@ -238,7 +240,7 @@ module XfOOrth
   #*type - The class of the method to be created.
   #*name - The name of the method to be created.
   def self.validate_type(vm, type, name)
-    if (spec = vm.context.map(name, false))
+    if (spec = vm.context.map_without_defaults(name))
       if spec.class != type
         error "F90: Spec type mismatch #{spec.foorth_name} vs #{type.foorth_name}"
       end

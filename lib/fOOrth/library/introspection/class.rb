@@ -30,17 +30,11 @@ class Class
     found = false
 
     if symbol
-      spec, info = map_foorth_shared_info(symbol)
-
-      if spec && !spec.has_tag?(:stub)
-        (results << ["", ""]).concat(info).concat(spec.get_info)
+      if scrape_method_info(results, *map_foorth_shared_info(symbol))
         found = true
       end
 
-      spec, info = map_foorth_exclusive_info(symbol)
-
-      if spec && !spec.has_tag?(:stub)
-        (results << ["", ""]).concat(info).concat(spec.get_info)
+      if scrape_method_info(results, *map_foorth_exclusive_info(symbol, "Class"))
         found = true
       end
 
@@ -54,18 +48,28 @@ class Class
   def get_info
     results = [["Lineage", lineage]]
 
-    if foorth_has_exclusive?
-      results.concat([["", ""], ["Methods", "Class"]])
+    get_exclusive_method_info(results, "Class")
+    get_shared_method_info(results)
 
-      foorth_exclusive.extract_method_names(:all).sort.each do |name|
-        symbol, info = XfOOrth::SymbolMap.map_info(name)
-        (results << ["", ""]).concat(info)
+    results
+  end
 
-        spec, info = map_foorth_exclusive_info(symbol, :shallow)
-        results.concat(info).concat(spec.get_info)
-      end
+  private
+
+  #Get method information
+  #<br>Endemic Code Smells
+  #* :reek:UtilityFunction
+  def scrape_method_info(results, spec, info)
+    if spec && !spec.has_tag?(:stub)
+      (results << ["", ""]).concat(info).concat(spec.get_info)
+      true
+    else
+      false
     end
+  end
 
+  #Get shared method info
+  def get_shared_method_info(results)
     unless foorth_shared.empty?
       results.concat([["", ""], ["Methods", "Shared"]])
 
@@ -77,8 +81,6 @@ class Class
         results.concat(info).concat(spec.get_info)
       end
     end
-
-    results
   end
 
 end

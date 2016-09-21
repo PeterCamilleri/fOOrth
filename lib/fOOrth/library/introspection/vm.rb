@@ -8,6 +8,18 @@ module XfOOrth
 
     #Get introspection info.
     def get_info
+      results = get_basic_vm_info
+      get_instance_variable_info(results)
+      get_vm_thread_data_info(results)
+      get_exclusive_method_info(results, "Exclusive")
+
+      results
+    end
+
+    private
+
+    #Get the vm basic stuff first.
+    def get_basic_vm_info
       results = [["Name",    foorth_name],
                  ["Ruby",    self.to_s],
                  ["Stack",   @data_stack.inspect],
@@ -22,47 +34,23 @@ module XfOOrth
         results << ["Buffer", source.read_buffer.inspect]
       end
 
-      names = instance_variables.map do |sym|
-        if (name = XfOOrth::SymbolMap.unmap(sym.to_s[1..-1].to_sym))
-          [name, sym]
-        end
-      end
+      results
+    end
 
-      names.compact!
-
-      unless names.empty?
-        results.concat([["", ""], ["Data", "Instance"], ["", ""]])
-
-        names.each do |name, sym|
-          results << [name, instance_variable_get(sym)]
-        end
-      end
-
+    #Get the thread data info.
+    def get_vm_thread_data_info(results)
       unless @data.empty?
         results.concat([["", ""], ["Data", "Thread"], ["", ""]])
 
         @data
           .keys
           .map{|symbol| [SymbolMap.unmap(symbol), symbol]}
-          .sort{|a,b| a[0] <=> b[0]}
+          .sort{|first, second| first[0] <=> second[0]}
           .map{|name, symbol| [name, @data[symbol]]}
           .each do |name, value|
             results << [name, value.inspect]
           end
       end
-
-      if foorth_has_exclusive?
-        results.concat([["", ""], ["Methods", "Exclusive"]])
-
-        foorth_exclusive.extract_method_names(:all).sort.each do |name|
-          symbol, info = SymbolMap.map_info(name)
-          results.concat([["", ""], ["Name", name], info])
-          spec, info = map_foorth_exclusive_info(symbol, :shallow)
-          results.concat(info).concat(spec.get_info)
-        end
-      end
-
-      results
     end
 
   end
