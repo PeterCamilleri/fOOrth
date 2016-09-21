@@ -11,7 +11,7 @@ module XfOOrth
     #* token - The token to receive the generated code.
     #* word  - The text of the word.
     def generate_code(token, word)
-      if (spec = @context.map(word))
+      if (spec = @context.map_with_defaults(word))
         token.add(spec.builds, spec.tags)
       elsif (value = word.to_foorth_n)
         token.add("vm.push(#{value.foorth_embed}); ", [:numeric])

@@ -1,3 +1,1 @@
-lib/fOOrth/compiler/context/map_name.rb -- 1 warning:
-  [31]:ControlParameter: XfOOrth::Context#do_map_name is controlled by argument allow_defaults [https://github.com/troessner/reek/blob/master/docs/Control-Parameter.md]
-1 total warning
+0 total warnings

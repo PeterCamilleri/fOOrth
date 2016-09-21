@@ -240,7 +240,7 @@ module XfOOrth
   #*type - The class of the method to be created.
   #*name - The name of the method to be created.
   def self.validate_type(vm, type, name)
-    if (spec = vm.context.map(name, false))
+    if (spec = vm.context.map_without_defaults(name))
       if spec.class != type
         error "F90: Spec type mismatch #{spec.foorth_name} vs #{type.foorth_name}"
       end
