@@ -5,6 +5,7 @@ require_relative 'formatting/nil'
 require_relative 'formatting/object'
 require_relative 'formatting/string'
 require_relative 'formatting/array'
+require_relative 'formatting/hash'
 require_relative 'formatting/columns'
 require_relative 'formatting/bullets'
 
@@ -105,7 +106,7 @@ module XfOOrth
 
   #[["1" "stuff"] ["two" stuff] .format_bullets; format to strings with bullets.
   Array.create_shared_method('.format_bullets', TosSpec, [], &lambda {|vm|
-    vm.push(foorth_bulletize($chars_per_line[0]))
+    vm.push(foorth_format_bullets($chars_per_line[0]))
   })
 
   #[["1" "stuff"] ["two" stuff] .print_bullets; pretty print bullet points.
@@ -115,7 +116,7 @@ module XfOOrth
 
   #{ "1" "stuff" -> "two" "stuff" -> } .format_bullets; format to strings with bullets.
   Hash.create_shared_method('.format_bullets', TosSpec, [], &lambda {|vm|
-    vm.push(foorth_bulletize($chars_per_line[0]))
+    vm.push(foorth_format_bullets($chars_per_line[0]))
   })
 
   #{ "1" "stuff" -> "two" "stuff" -> } .print_bullets; pretty print bullet points.

@@ -86,9 +86,20 @@ class StdioLibraryTester < Minitest::Test
        "          4 9 14 19 24 29 34 39 44 49 54 59 64 69 74 79 84 89 94 99\n" +
        "pie       3.141592653589793"
 
-    assert_equal(result, data.foorth_bulletize(80).join("\n"))
+    assert_equal(result, data.foorth_format_bullets(80))
 
-    assert_equal("", [].foorth_bulletize(80))
+    assert_equal("", [].foorth_format_bullets(80))
+
+
+    data =
+      {"key_largo" => "/long_folder_name_one/long_folder_name_two/long_folder_name_three/fine_descriptive_name",
+       "key_west"  => "Semper ubi sub ubi. Semper ubi sub ubi. Semper ubi sub ubi. Semper ubi sub ubi. ",
+       "counting"  => Array.new(100) {|i| i},
+       "pie"       => Math::PI
+      }
+
+    assert_equal(result, data.foorth_format_bullets(80))
+
   end
 
 end

@@ -13,8 +13,8 @@ class Array
   end
 
   #Convert the array to strings with efficient columns.
-  #<br>
-  #* An array of strings
+  #<br>Returns
+  #* A string.
   def format_foorth_columns(page_length, page_width)
     format_foorth_pages(page_length, page_width)
       .map {|page| page << ""}
@@ -23,8 +23,8 @@ class Array
   end
 
   #Convert the array to strings with efficient columns.
-  #<br>
-  #* An array of arrays of strings
+  #<br>Returns
+  #* An array of pages (arrays of strings)
   def format_foorth_pages(page_length, page_width)
     index, pages, limit = 0, [], self.length
     builder = XfOOrth::ColumnizedPage.new(page_length, page_width)
@@ -38,7 +38,7 @@ class Array
   end
 
   #Convert the array to a bullet point description.
-  #<br>
+  #<br>Returns
   #* An array of strings.
   def format_description(page_width)
     format_foorth_pages(false, page_width)[0] || []
@@ -56,13 +56,13 @@ class Array
 
   #Print out the array as bullet points.
   def puts_foorth_bullets
-    puts foorth_bulletize
+    puts foorth_format_bullets
   end
 
   #Convert the array to strings with bullet points.
-  #<br>
-  #* An array of strings
-  def foorth_bulletize(page_width)
+  #<br>Returns
+  #* A string
+  def foorth_format_bullets(page_width)
     return "" if empty?
 
     builder = XfOOrth::BulletPoints.new(page_width)
@@ -71,7 +71,7 @@ class Array
       builder.add(*pair)
     end
 
-    builder.render
+    builder.render.join("\n")
   end
 
 end
