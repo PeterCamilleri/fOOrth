@@ -102,4 +102,10 @@ class StdioLibraryTester < Minitest::Test
 
   end
 
+  def test_formatting_some_more
+    foorth_run('5 $chars_per_line !')
+    foorth_equal('[ 1 2 3 4 5 ] .format_columns', ["1 4\n2 5\n3  "])
+    foorth_run('80 $chars_per_line !')
+  end
+
 end

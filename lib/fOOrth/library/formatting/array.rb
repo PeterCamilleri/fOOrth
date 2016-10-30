@@ -22,6 +22,15 @@ class Array
       .join("\n")
   end
 
+  #Get the widest element of an array.
+  #<br>Returns
+  #* The width of the widest string in the array.
+  def foorth_column_width
+    (self.max_by {|item| item.length}).length
+  end
+
+  private
+
   #Convert the array to strings with efficient columns.
   #<br>Returns
   #* An array of pages (arrays of strings)
@@ -37,22 +46,9 @@ class Array
     pages
   end
 
-  #Convert the array to a bullet point description.
-  #<br>Returns
-  #* An array of strings.
-  def format_description(page_width)
-    format_foorth_pages(false, page_width)[0] || []
-  end
-
-  #Get the widest element of an array.
-  #<br>Returns
-  #* The width of the widest string in the array.
-  def foorth_column_width
-    (self.max_by {|item| item.length}).length
-  end
-
-
   # Bullets ========================================================
+
+  public
 
   #Print out the array as bullet points.
   def puts_foorth_bullets
@@ -74,5 +70,11 @@ class Array
     builder.render.join("\n")
   end
 
-end
+  #Convert the array to a bullet point description.
+  #<br>Returns
+  #* An array of strings.
+  def format_description(page_width)
+    format_foorth_pages(false, page_width)[0] || []
+  end
 
+end
