@@ -1,6 +1,7 @@
 # coding: utf-8
 
 #Load up some pretty printing support.
+require_relative 'formatting/nil'
 require_relative 'formatting/object'
 require_relative 'formatting/string'
 require_relative 'formatting/array'
@@ -94,9 +95,7 @@ module XfOOrth
 
   # [ l 2 3 ... n ] .format_columns []; format to strings with columns.
   Array.create_shared_method('.format_columns', TosSpec, [], &lambda {|vm|
-    vm.push(foorth_columnize($lines_per_page[0], $chars_per_line[0])
-      .map {|page| page << ""}
-      .flatten[0...-1])
+    vm.push(format_foorth_columns($lines_per_page[0], $chars_per_line[0]))
   })
 
   # [ l 2 3 ... n ] .print_columns []; pretty print columns.

@@ -7,15 +7,25 @@ class Array
 
   #Print out the array with efficient columns.
   def puts_foorth_columns(page_length, page_width)
-    format_foorth_columns(page_length, page_width).each do |page|
+    format_foorth_pages(page_length, page_width).each do |page|
       puts page, ""
     end
   end
 
   #Convert the array to strings with efficient columns.
   #<br>
-  #* An array of arrays of strings
+  #* An array of strings
   def format_foorth_columns(page_length, page_width)
+    format_foorth_pages(page_length, page_width)
+      .map {|page| page << ""}
+      .flatten[0...-1]
+      .join("\n")
+  end
+
+  #Convert the array to strings with efficient columns.
+  #<br>
+  #* An array of arrays of strings
+  def format_foorth_pages(page_length, page_width)
     index, pages, limit = 0, [], self.length
     builder = XfOOrth::ColumnizedPage.new(page_length, page_width)
 
@@ -31,7 +41,7 @@ class Array
   #<br>
   #* An array of strings.
   def format_description(page_width)
-    format_foorth_columns(false, page_width)[0]
+    format_foorth_pages(false, page_width)[0] || []
   end
 
   #Get the widest element of an array.
@@ -55,7 +65,7 @@ class Array
   def foorth_bulletize(page_width)
     return "" if empty?
 
-    builder = Mysh::BulletPoints.new(page_width)
+    builder = XfOOrth::BulletPoints.new(page_width)
 
     self.each do |pair|
       builder.add(*pair)
