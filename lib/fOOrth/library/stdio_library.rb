@@ -68,7 +68,7 @@ module XfOOrth
 
   symbol = :chars_per_line
   $chars_per_line = [80]
-  SymbolMap.add_entry('$chars_per_line', :chars_per_line)
+  SymbolMap.add_entry('$chars_per_line', symbol)
   $FOORTH_GLOBALS[symbol] = GlobalVarSpec.new('$chars_per_line', symbol, [])
 
   #Show the page length.
