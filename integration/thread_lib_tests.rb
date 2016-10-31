@@ -78,7 +78,7 @@ class ThreadLibraryTester < Minitest::Test
     foorth_run('""* val$: $tmtx_str')
     foorth_run(code)
 
-    100000.times do
+    10.times do
       foorth_equal('""* val$: $tmtx_str test_mutex_one', ["@"*10])
     end
 
