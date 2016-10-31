@@ -71,13 +71,21 @@ class ThreadLibraryTester < Minitest::Test
     foorth_run('$tmtx .lock $tmtx .unlock ')
     foorth_equal('$tmtx .do{{ 3 4 + }}', [7])
 
-    foorth_run('""* val$: $tmtx_str')
-    foorth_equal('{{ $tmtx .do{{ 0 10 do $tmtx_str "@" << loop }} }} ' +
-                 '.start drop $tmtx .do{{ $tmtx_str }} ', ["@"*10])
+    code = '{{ $tmtx .do{{ 0 10 do $tmtx_str "@" << loop }} }} .start drop ' +
+           'begin $tmtx .do{{ $tmtx_str }} "" = while again $tmtx_str'
 
-    foorth_run('""* val$: $tmtx_str')
-    foorth_equal('{{ Mutex .do{{ 0 10 do $tmtx_str "@" << loop }} }} ' +
-                 '.start drop Mutex .do{{ $tmtx_str }} ', ["@"*10])
+    10.times do
+      foorth_run('""* val$: $tmtx_str')
+      foorth_equal(code, ["@"*10])
+    end
+
+    code = '{{ Mutex .do{{ 0 10 do $tmtx_str "@" << loop }} }} .start drop ' +
+           'begin Mutex .do{{ $tmtx_str }} "" = while again $tmtx_str'
+
+    10.times do
+      foorth_run('""* val$: $tmtx_str')
+      foorth_equal(code, ["@"*10])
+    end
   end
 
 end
