@@ -78,9 +78,8 @@ class ThreadLibraryTester < Minitest::Test
     foorth_run('""* val$: $tmtx_str')
     foorth_run(code)
 
-    10.times do
-      foorth_run('""* val$: $tmtx_str')
-      foorth_equal('test_mutex_one', ["@"*10])
+    100000.times do
+      foorth_equal('""* val$: $tmtx_str test_mutex_one', ["@"*10])
     end
 
     code = '{{ Mutex .do{{ 0 10 do $tmtx_str "@" << loop }} }} .start drop ' +
