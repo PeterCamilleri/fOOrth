@@ -22,7 +22,7 @@ class Hash
       builder.add(*pair)
     end
 
-    builder.render.join("\n")
+    builder.render.join("\n").freeze
   end
 
 end

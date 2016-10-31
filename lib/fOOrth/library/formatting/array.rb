@@ -20,6 +20,7 @@ class Array
       .map {|page| page << ""}
       .flatten[0...-1]
       .join("\n")
+      .freeze
   end
 
   #Get the widest element of an array.
@@ -67,7 +68,7 @@ class Array
       builder.add(*pair)
     end
 
-    builder.render.join("\n")
+    builder.render.join("\n").freeze
   end
 
   #Convert the array to a bullet point description.
