@@ -1,6 +1,6 @@
 # coding: utf-8
 
-#* library/formatting/columns.rb - Print out data in columns.
+#* library/formatting/bullets.rb - Print out data in neat columns.
 module XfOOrth
 
   #A class to display data in columns.
@@ -18,8 +18,8 @@ module XfOOrth
       item = raw_item.to_s
       fail "Item too large to fit." unless item.length < @page_width
 
-      if (slot = find_next_column)
-        @page_data[slot] << item
+      if (column = find_next_column)
+        @page_data[column] << item
       else
         @page_data << [item]
       end
@@ -28,23 +28,28 @@ module XfOOrth
     end
 
     #Render the page as an array of strings.
-    #<br>Endemic Code Smells
-    #* :reek:NestedIterators :reek:TooManyStatements
     def render
-      results = []
-      widths  = @page_data.map {|column| column.foorth_column_width}
+      results, column_widths = [], get_column_widths
 
-      (0...rows).each do |column_index|
-        results << @page_data.each_with_index.map do |column, index|
-          column[column_index].to_s.ljust(widths[index])
-        end.join(" ").freeze
-      end
+      rows.times { |row_index| results << render_row(row_index, column_widths)}
 
-      @page_data = []
+      @page_data.clear
       results
     end
 
     private
+
+    #Get the widths of all columns
+    def get_column_widths
+      @page_data.map {|column| column.foorth_column_width}
+    end
+
+    #Render a single row of data.
+    def render_row(row_index, widths)
+      @page_data.each_with_index.map do |column, index|
+        column[row_index].to_s.ljust(widths[index])
+      end.join(" ")
+    end
 
     #Make sure the page fits within its boundaries.
     #<br>Returns
@@ -76,6 +81,8 @@ module XfOOrth
       if empty?
         0
       else
+        #The starting point, @page_data.length-1, represents the spaces needed
+        #between the columns. So N columns means N-1 spaces.
         @page_data.inject(@page_data.length-1) do |sum, column|
           sum + column.foorth_column_width
         end
@@ -111,36 +118,5 @@ module XfOOrth
     end
   end
 
-end
-
-#Support for displaying an array in neat columns.
-class Array
-  #Print out the array with efficient columns.
-  def puts_foorth_columnized(page_length, page_width)
-    foorth_columnize(page_length, page_width).each do |page|
-      puts page
-      puts
-    end
-  end
-
-  #Convert the array to strings with efficient columns.
-  #<br>
-  #* An array of arrays of strings
-  def foorth_columnize(page_length, page_width)
-    index, pages, limit = 0, [], self.length
-    builder = XfOOrth::ColumnizedPage.new(page_length, page_width)
-
-    while index < limit
-      index += 1 - (left_over = builder.add(self[index]))
-      pages << builder.render if (left_over > 0) || (index == limit)
-    end
-
-    pages
-  end
-
-  #Get the widest element of an array.
-  def foorth_column_width
-    (self.max_by {|item| item.length}).length
-  end
 end
 
