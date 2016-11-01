@@ -1,7 +1,6 @@
 # coding: utf-8
 # A Simple Interactive Ruby Environment
 
-$no_alias_read_line_module = true
 require 'mini_readline'
 require 'pp'
 

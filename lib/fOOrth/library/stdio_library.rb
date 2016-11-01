@@ -1,6 +1,11 @@
 # coding: utf-8
 
 #Load up some pretty printing support.
+require_relative 'formatting/nil'
+require_relative 'formatting/object'
+require_relative 'formatting/string'
+require_relative 'formatting/array'
+require_relative 'formatting/hash'
 require_relative 'formatting/columns'
 require_relative 'formatting/bullets'
 
@@ -65,7 +70,7 @@ module XfOOrth
 
   symbol = :chars_per_line
   $chars_per_line = [80]
-  SymbolMap.add_entry('$chars_per_line', :chars_per_line)
+  SymbolMap.add_entry('$chars_per_line', symbol)
   $FOORTH_GLOBALS[symbol] = GlobalVarSpec.new('$chars_per_line', symbol, [])
 
   #Show the page length.
@@ -86,24 +91,22 @@ module XfOOrth
 
   # [ l 2 3 ... n ] .pp []; pretty print the array!
   Array.create_shared_method('.pp', TosSpec, [], &lambda {|vm|
-    puts_foorth_columnized($lines_per_page[0], $chars_per_line[0])
+    puts_foorth_columns($lines_per_page[0], $chars_per_line[0])
   })
 
   # [ l 2 3 ... n ] .format_columns []; format to strings with columns.
   Array.create_shared_method('.format_columns', TosSpec, [], &lambda {|vm|
-    vm.push(foorth_columnize($lines_per_page[0], $chars_per_line[0])
-      .map {|page| page << ""}
-      .flatten[0...-1])
+    vm.push(format_foorth_columns($lines_per_page[0], $chars_per_line[0]))
   })
 
   # [ l 2 3 ... n ] .print_columns []; pretty print columns.
   Array.create_shared_method('.print_columns', TosSpec, [], &lambda {|vm|
-    puts_foorth_columnized($lines_per_page[0], $chars_per_line[0])
+    puts_foorth_columns($lines_per_page[0], $chars_per_line[0])
   })
 
   #[["1" "stuff"] ["two" stuff] .format_bullets; format to strings with bullets.
   Array.create_shared_method('.format_bullets', TosSpec, [], &lambda {|vm|
-    vm.push(foorth_bulletize($chars_per_line[0]))
+    vm.push(foorth_format_bullets($chars_per_line[0]))
   })
 
   #[["1" "stuff"] ["two" stuff] .print_bullets; pretty print bullet points.
@@ -113,7 +116,7 @@ module XfOOrth
 
   #{ "1" "stuff" -> "two" "stuff" -> } .format_bullets; format to strings with bullets.
   Hash.create_shared_method('.format_bullets', TosSpec, [], &lambda {|vm|
-    vm.push(foorth_bulletize($chars_per_line[0]))
+    vm.push(foorth_format_bullets($chars_per_line[0]))
   })
 
   #{ "1" "stuff" -> "two" "stuff" -> } .print_bullets; pretty print bullet points.
