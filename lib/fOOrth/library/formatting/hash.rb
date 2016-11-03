@@ -6,8 +6,8 @@ class Hash
   # Bullets ========================================================
 
   #Print out the array as bullet points.
-  def puts_foorth_bullets
-    puts foorth_format_bullets
+  def puts_foorth_bullets(page_width)
+    puts foorth_format_bullets(page_width)
   end
 
   #Convert the array to strings with bullet points.

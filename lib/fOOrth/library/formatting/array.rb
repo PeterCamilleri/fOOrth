@@ -52,8 +52,8 @@ class Array
   public
 
   #Print out the array as bullet points.
-  def puts_foorth_bullets
-    puts foorth_format_bullets
+  def puts_foorth_bullets(page_width)
+    puts foorth_format_bullets(page_width)
   end
 
   #Convert the array to strings with bullet points.
@@ -65,7 +65,7 @@ class Array
     builder = XfOOrth::BulletPoints.new(page_width)
 
     self.each do |pair|
-      builder.add(*pair)
+      builder.add(*pair.prepare_bullet_data)
     end
 
     builder.render.join("\n").freeze
@@ -76,6 +76,15 @@ class Array
   #* An array of strings.
   def format_description(page_width)
     format_foorth_pages(false, page_width)[0] || []
+  end
+
+  #Get data ready for being in a bullet point.
+  def prepare_bullet_data
+    if length < 2
+      ["*", self[0]]
+    else
+      self
+    end
   end
 
 end
