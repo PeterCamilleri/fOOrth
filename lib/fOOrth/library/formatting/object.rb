@@ -8,6 +8,11 @@ class Object
     self.to_s.format_description(max_width)
   end
 
+  #Get data ready for being in a bullet point.
+  def prepare_bullet_data
+    ["*", self]
+  end
+
 end
 
 
