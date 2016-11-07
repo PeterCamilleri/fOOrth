@@ -211,21 +211,33 @@ module XfOOrth
 
   # ['fgh' 'abcdefgh'] .right? [boolean]
   String.create_shared_method('.right?', TosSpec, [],
-    &lambda {|vm| vm.poke(self.end_with?(vm.peek)); })
+    &lambda {|vm| vm.poke(self.end_with?(vm.peek)) })
 
   #Other String Methods
 
   # ['cde' 'abcdefgh'] .contains? [boolean]
   String.create_shared_method('.contains?', TosSpec, [],
-    &lambda {|vm| vm.poke(self.index(vm.peek).to_foorth_b); })
+    &lambda {|vm| vm.poke(self.index(vm.peek).to_foorth_b) })
 
   # ['cde' 'abcdefgh'] .posn [position or nil]
   String.create_shared_method('.posn', TosSpec, [],
-    &lambda {|vm| vm.poke(self.index(vm.peek)); })
+    &lambda {|vm| vm.poke(self.index(vm.peek)) })
 
   # ["a"] .length [n]
   String.create_shared_method('.length', TosSpec, [],
     &lambda {|vm| vm.push(self.length); })
+
+  # ["a"] .empty? [a_boolean]
+  String.create_shared_method('.empty?', TosSpec, [],
+    &lambda {|vm| vm.push(self.empty?) })
+
+  # ["a"] .present? [a_boolean]
+  String.create_shared_method('.present?', TosSpec, [],
+    &lambda {|vm| vm.push(!self.empty?) })
+
+  # ["a"] .clear! [a_boolean]
+  StringBuffer.create_shared_method('.clear!', TosSpec, [],
+    &lambda {|vm| self.clear })
 
   # ["b", a] + ["ba"]; "ba" is a new object, distinct from "b"
   String.create_shared_method('+', NosSpec, [],
@@ -237,7 +249,7 @@ module XfOOrth
 
   # ["b"*, a] >> ["ab"*]; "ab"* is the same object as "b"*
   StringBuffer.create_shared_method('>>', NosSpec, [],
-    &lambda {|vm| vm.poke(self.prepend(vm.peek.to_s)); })
+    &lambda {|vm| vm.poke(self.prepend(vm.peek.to_s)) })
 
   # ["b", n] * ["bbb..."]
   String.create_shared_method('*', NosSpec, [], &lambda {|vm|
@@ -267,7 +279,7 @@ module XfOOrth
 
   # ["stressed"] .reverse ["desserts"]
   String.create_shared_method('.reverse', TosSpec, [],
-    &lambda {|vm| vm.push(self.to_s.reverse.freeze); })
+    &lambda {|vm| vm.push(self.to_s.reverse.freeze) })
 
   # ["stressed"*] .reverse* [] #Reverse the string in place.
   StringBuffer.create_shared_method('.reverse*', TosSpec, [],

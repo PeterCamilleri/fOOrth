@@ -523,4 +523,15 @@ class StringLibraryTester < Minitest::Test
     foorth_equal('"Hello World" p"%s %s" .map{{ v .mutable? }}', [[false, false]])
   end
 
+  def test_string_emptiness
+    foorth_equal('""  .empty?',     [true])
+    foorth_equal('"1" .empty?',     [false])
+
+    foorth_equal('""  .present?',   [false])
+    foorth_equal('"1" .present?',   [true])
+
+    foorth_equal('"1"* dup .clear!', [""])
+  end
+
+
 end

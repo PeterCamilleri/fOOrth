@@ -42,8 +42,9 @@ class QueueLibraryTester < Minitest::Test
 
     foorth_equal('5 $q .push', [])
     foorth_equal('$q .empty?', [false])
+    foorth_equal('$q .present?', [true])
     foorth_equal('$q .length', [1])
-    foorth_equal('$q .clear',  [])
+    foorth_equal('$q .clear!',  [])
     foorth_equal('$q .empty?', [true])
     foorth_equal('$q .length', [0])
 
