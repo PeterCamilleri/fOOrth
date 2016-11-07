@@ -116,5 +116,14 @@ class HashLibraryTester < Minitest::Test
     foorth_equal('{ 0 2 -> 1 4 -> 2 6 -> 3 8 -> } .select{{ v 2/ 1 and 0= }}', [{1=>4, 3=>8}])
   end
 
+  def test_hash_emptiness
+    foorth_equal('{          } .empty?',     [true])
+    foorth_equal('{ 1 "a" -> } .empty?',     [false])
+
+    foorth_equal('{          } .present?',   [false])
+    foorth_equal('{ 1 "a" -> } .present?',   [true])
+
+    foorth_equal('{ 1 "a" -> } dup .clear!', [{}])
+  end
 
 end
