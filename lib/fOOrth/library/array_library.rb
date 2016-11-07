@@ -45,7 +45,7 @@ module XfOOrth
   # [array] .map{{ ... }} [mapped_array]
   Array.create_shared_method('.map{{', NosSpec, [], &lambda { |vm|
     idx, block = 0, vm.pop
-    vm.push(self.map { |val| block.call(vm, val, idx); idx += 1; vm.pop})
+    vm.push(self.map{|val| block.call(vm, val, idx); idx += 1; vm.pop})
   })
 
   # [array] .select{{ ... }} [selected_array]
@@ -92,40 +92,48 @@ module XfOOrth
   # [ v i a ] .[]! []; a[i]=v
   Array.create_shared_method('.[]!', TosSpec, [], &lambda {|vm|
     value, index = vm.popm(2)
-    self[Integer.foorth_coerce(index)] = value;
+    self[Integer.foorth_coerce(index)] = value
   })
 
   # [ [ 1 2 3 ] ] .reverse [ [ 3 2 1 ] ]
   Array.create_shared_method('.reverse', TosSpec, [],
-    &lambda {|vm| vm.push(self.reverse); })
+    &lambda {|vm| vm.push(self.reverse) })
 
   # [ [ 3 1 2 ] ] .sort [ [ 1 2 3 ] ]
   Array.create_shared_method('.sort', TosSpec, [],
-    &lambda {|vm| vm.push(self.sort {|va,vb| va <=> va.foorth_coerce(vb)}); })
+    &lambda {|vm| vm.push(self.sort {|va,vb| va <=> va.foorth_coerce(vb)}) })
 
   # [ [ 1 2 3 ] ] .shuffle  [ [ x y z ] ]
   Array.create_shared_method('.shuffle', TosSpec, [],
-    &lambda {|vm| vm.push(self.shuffle); })
+    &lambda {|vm| vm.push(self.shuffle) })
 
   # [ [ 3 1 2 ] ] .length [ 3 ]
   Array.create_shared_method('.length', TosSpec, [],
-    &lambda {|vm| vm.push(self.length); })
+    &lambda {|vm| vm.push(self.length) })
 
   # [ an_array ] .empty? [ a_boolean ]
   Array.create_shared_method('.empty?', TosSpec, [],
-    &lambda {|vm| vm.push(self.empty?); })
+    &lambda {|vm| vm.push(self.empty?) })
+
+  # [ an_array ] .present? [ a_boolean ]
+  Array.create_shared_method('.present?', TosSpec, [],
+    &lambda {|vm| vm.push(!self.empty?) })
+
+  # [ an_array ] .clear! [ ]; The array contents are removed.
+  Array.create_shared_method('.clear!', TosSpec, [],
+    &lambda {|vm| self.clear})
 
   # [ [ 3 1 2 ] n ] << [ [ 3 1 2 n ] ]
   Array.create_shared_method('<<', NosSpec, [],
-    &lambda {|vm| vm.poke(self << vm.peek); })
+    &lambda {|vm| vm.poke(self << vm.peek) })
 
   # [ [ 3 1 2 ] n ] >> [ [ n 3 1 2 ] ]
   Array.create_shared_method('>>', NosSpec, [],
-    &lambda {|vm| vm.poke(self.insert(0, vm.peek)); })
+    &lambda {|vm| vm.poke(self.insert(0, vm.peek)) })
 
   # [[3 1 2] n] + [[3 1 2 n]]
   Array.create_shared_method('+', NosSpec, [],
-    &lambda {|vm| vm.poke(self + vm.peek.in_array); })
+    &lambda {|vm| vm.poke(self + vm.peek.in_array) })
 
 
   # The LEFT group
@@ -134,7 +142,7 @@ module XfOOrth
     begin
       width = Integer.foorth_coerce(vm.peek)
       error "F41: Invalid width: #{width} in .left" if width < 0
-      vm.poke(self.first(width));
+      vm.poke(self.first(width))
     rescue
       vm.data_stack.pop
       raise
@@ -146,7 +154,7 @@ module XfOOrth
     begin
       width = Integer.foorth_coerce(vm.peek)
       error "F41: Invalid width: #{width} in .-left" if width < 0
-      vm.poke(self[width..-1]);
+      vm.poke(self[width..-1])
     rescue
       vm.data_stack.pop
       raise
@@ -173,7 +181,7 @@ module XfOOrth
       error "F41: Invalid width: #{width} in .^left" if width < 0
 
       vm.poke(self[width..-1])
-      vm.push(self.first(width));
+      vm.push(self.first(width))
     rescue
       vm.data_stack.pop
       raise
@@ -199,7 +207,7 @@ module XfOOrth
     begin
       width = Integer.foorth_coerce(vm.peek)
       error "F41: Invalid width: #{width} in .-right" if width < 0
-      vm.poke(self[0...(0-width)]);
+      vm.poke(self[0...(0-width)])
     rescue
       vm.data_stack.pop
       raise
@@ -226,7 +234,7 @@ module XfOOrth
       error "F41: Invalid width: #{width} in .^right" if width < 0
 
       vm.poke(self[0...(0-width)])
-      vm.push(self.last(width));
+      vm.push(self.last(width))
     rescue
       vm.data_stack.pop
       raise
@@ -358,7 +366,7 @@ module XfOOrth
   #[ [ 1 2 3 ] ] .pop_left [ [ 2 3 ] 1 ]
   Array.create_shared_method('.pop_left', TosSpec, [], &lambda{|vm|
     error "F31: Array underflow error on .pop_left" if self.empty?
-    vm.push(self[1..-1]);
+    vm.push(self[1..-1])
     vm.push(self.first)
   })
 
@@ -381,7 +389,7 @@ module XfOOrth
   #[ [ 1 2 3 ] ] .peek_left [ [ 1 2 3 ] 1 ]
   Array.create_shared_method('.peek_left', TosSpec, [], &lambda{|vm|
     error "F31: Array underflow error on .peek_left" if self.empty?
-    vm.push(self);
+    vm.push(self)
     vm.push(self.first)
   })
 
@@ -396,7 +404,7 @@ module XfOOrth
   #[ [ 1 2 3 ] ] .pop_right [ [ 1 2 ] 3 ]
   Array.create_shared_method('.pop_right', TosSpec, [], &lambda{|vm|
     error "F31: Array underflow error on .pop_right" if self.empty?
-    vm.push(self[0...-1]);
+    vm.push(self[0...-1])
     vm.push(self.last)
   })
 
@@ -419,7 +427,7 @@ module XfOOrth
   #[ [ 1 2 3 ] ] .peek_right [ [ 1 2 3 ] 3 ]
   Array.create_shared_method('.peek_right', TosSpec, [], &lambda{|vm|
     error "F31: Array underflow error on .peek_right" if self.empty?
-    vm.push(self);
+    vm.push(self)
     vm.push(self.last)
   })
 

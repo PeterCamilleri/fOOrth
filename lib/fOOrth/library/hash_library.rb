@@ -70,27 +70,35 @@ module XfOOrth
 
   # [i h] .[]@ [h[i]]
   Hash.create_shared_method('.[]@', TosSpec, [],
-    &lambda {|vm| vm.poke(self[vm.peek]); })
+    &lambda {|vm| vm.poke(self[vm.peek]) })
 
   # [v i h] .[]! []; h[i]=v
   Hash.create_shared_method('.[]!', TosSpec, [],
-    &lambda {|vm| value, index = vm.popm(2); self[index] = value; })
+    &lambda {|vm| value, index = vm.popm(2); self[index] = value })
 
   # [{"a"=>1, "b"=>2}] .length [2]]
   Hash.create_shared_method('.length', TosSpec, [],
-    &lambda {|vm| vm.push(self.length); })
+    &lambda {|vm| vm.push(self.length) })
 
   # [a_hash] .empty? [a_boolean]]
   Hash.create_shared_method('.empty?', TosSpec, [],
-    &lambda {|vm| vm.push(self.empty?); })
+    &lambda {|vm| vm.push(self.empty?) })
+
+  # [a_hash] .present? [a_boolean]]
+  Hash.create_shared_method('.present?', TosSpec, [],
+    &lambda {|vm| vm.push(!self.empty?) })
+
+  # [a_hash] .clear! []]
+  Hash.create_shared_method('.clear!', TosSpec, [],
+    &lambda {|vm| self.clear })
 
   # [h] .keys [[keys]]
   Hash.create_shared_method('.keys', TosSpec, [],
-    &lambda {|vm| vm.push(self.keys); })
+    &lambda {|vm| vm.push(self.keys) })
 
   # [h] .values [[values]]
   Hash.create_shared_method('.values', TosSpec, [],
-    &lambda {|vm| vm.push(self.values); })
+    &lambda {|vm| vm.push(self.values) })
 
   # [h] .strmax2 [widest_key widest_value]
   Hash.create_shared_method('.strmax2', TosSpec, [], &lambda {|vm|
