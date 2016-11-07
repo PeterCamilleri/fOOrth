@@ -14,7 +14,7 @@ module XfOOrth
   })
 
   #Clear the Stack object.
-  stack.create_shared_method('.clear', TosSpec, [], &lambda {|vm|
+  stack.create_shared_method('.clear!', TosSpec, [], &lambda {|vm|
     @data.clear
   })
 
@@ -44,6 +44,11 @@ module XfOOrth
   #[stack] .empty? [a_boolean]
   stack.create_shared_method('.empty?', TosSpec, [], &lambda {|vm|
     vm.push(@data.empty?)
+  })
+
+  #[stack] .present? [a_boolean]
+  stack.create_shared_method('.present?', TosSpec, [], &lambda {|vm|
+    vm.push(!@data.empty?)
   })
 
   #[stack] .length [an_integer]

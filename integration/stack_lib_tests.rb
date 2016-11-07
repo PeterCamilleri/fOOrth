@@ -60,8 +60,9 @@ class StackLibraryTester < Minitest::Test
     foorth_run('42 $s .push')
     foorth_equal('$s .empty?', [false])
     foorth_equal('$s .peek', [42])
+    foorth_equal('$s .present?', [true])
 
-    foorth_run('$s .clear')
+    foorth_run('$s .clear!')
 
     foorth_equal('$s .empty?', [true])
     foorth_raises('$s .peek')
