@@ -34,13 +34,18 @@ module XfOOrth
     vm.push(self.empty?)
   })
 
+  # [queue] .present? [a_boolean]
+  Queue.create_shared_method('.present?', TosSpec, [], &lambda {|vm|
+    vm.push(!self.empty?)
+  })
+
   # [queue] .length [an_integer]
   Queue.create_shared_method('.length', TosSpec, [], &lambda {|vm|
     vm.push(self.length)
   })
 
   # [queue] .clear []
-  Queue.create_shared_method('.clear', TosSpec, [], &lambda {|vm|
+  Queue.create_shared_method('.clear!', TosSpec, [], &lambda {|vm|
     self.clear
   })
 
