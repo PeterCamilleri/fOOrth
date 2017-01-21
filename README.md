@@ -67,7 +67,7 @@ currently only available in Open Office and PDF formats. The guide tracks
 changes in the language fairly closely. The most current guide in PDF
 format may be found at the community web site above.
 
-This code repo also has PDF formatted guides for majot revisions.
+This code repo also has PDF formatted guides for major revisions.
 
 ## Contributing
 
