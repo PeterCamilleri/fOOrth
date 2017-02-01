@@ -330,7 +330,7 @@ module XfOOrth
 
   # [a_string] .shell []
   String.create_shared_method('.shell', TosSpec, [], &lambda {|vm|
-    system(self)
+    system(self.chomp + "\n")
   })
 
   # [a_string] .shell_out [a_string]
