@@ -9,7 +9,7 @@ module XfOOrth
 
   #Execute a command to the shell.
   VirtualMachine.create_shared_method(')"', MacroSpec,
-    [:macro, "system(vm.pop()); "])
+    [:macro, "system(vm.pop().to_s.chomp + \"\n\"); "])
 
   #Enter debug mode. Warning! This is really verbose!
   VirtualMachine.create_shared_method(')debug', MacroSpec,
