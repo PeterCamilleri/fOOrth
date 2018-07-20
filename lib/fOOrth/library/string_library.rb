@@ -231,6 +231,9 @@ module XfOOrth
   String.create_shared_method('+', NosSpec, [],
     &lambda {|vm| vm.poke((self + vm.peek.to_s).freeze) })
 
+  # ["b", a] << [error]; Bug patch. Not fully understood.
+  String.create_shared_method('<<', NosSpec, [:stub])
+
   # ["b"*, a] << ["ba"*]; "ba"* is the same object as "b"*
   StringBuffer.create_shared_method('<<', NosSpec, [],
     &lambda {|vm| vm.poke(self << vm.peek.to_s); })
