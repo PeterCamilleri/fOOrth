@@ -69,6 +69,26 @@ format may be found at the community web site above.
 
 This code repo also has PDF formatted guides for major revisions.
 
+### If you get stuck.
+
+The fOOrth language REPL has several commands inspired by the APL interpreter 
+of the old PDP-10 system I used so many years ago. The commands take the form
+of )command. That's a right paren then the command name. Some useful ones
+to know are:
+
+    )"shell command"   -- execute the specified command in the shell.
+    )classes           -- list the system classes.
+    )globals           -- list any global variables.
+    )load"filename"    -- load the fOOrth file called filename.
+    )irb               -- launch an interactive irb debug session.
+    )quit              -- exit fOOrth.
+    )time              -- display the current time.
+    )show              -- after each command show the contents of the data stack.
+    )noshow            -- don't do that.
+    )version           -- display current language version info.
+    )words             -- list all defined method names.
+    
+
 ## Contributing
 
 #### Plan A
