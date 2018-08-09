@@ -9,7 +9,7 @@ module XfOOrth
   # [Mutex] .do{{ ... }} [] (Releases a lock on the mutex)
   Mutex.create_exclusive_method('.do{{', NosSpec, [], &lambda {|vm|
     block = vm.pop
-    @foorth_shared_mutex.synchronize { block.call(vm, nil, nil) }
+    foorth_shared_mutex.synchronize { block.call(vm, nil, nil) }
   })
 
   # [a_mutex] .lock [] (Acquires a lock on the mutex)
@@ -32,5 +32,7 @@ end
 
 # Create a shared mutex instance.
 class Mutex
-  @foorth_shared_mutex = Mutex.new
+  def self.foorth_shared_mutex
+    @foorth_shared_mutex ||= Mutex.new
+  end
 end
