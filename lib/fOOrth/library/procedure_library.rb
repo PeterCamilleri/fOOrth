@@ -6,7 +6,11 @@ module XfOOrth
   #Connect the Proc class to the fOOrth class system.
   Proc.create_foorth_proxy('Procedure')
 
-  # A no operation place holder for procedure literals
+  # A no operation place holder for procedure literals. This may seem odd but
+  # works because any word ending in '{{' is assumed to have a procedure literal
+  # attached to it. This is handled in compiler/process/procedure.rb. This code
+  # handles compiling the procedure and pushing a reference to it on the stack.
+  # Once this is done, this word need do nothing further so is a no-op.
   VirtualMachine.create_shared_method('{{', MacroSpec, [:macro, " "])
 
   # [procedure] .call [unspecified]
