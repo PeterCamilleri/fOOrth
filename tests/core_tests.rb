@@ -44,7 +44,7 @@ class CoreTester < Minitest::Test
     assert_equal(spec, Object.map_foorth_shared(:a_test_one))
     assert_equal(spec, Class.map_foorth_shared(:a_test_one))
     assert_equal(spec, Object.foorth_shared[:a_test_one])
-    assert_equal(nil,  Class.foorth_shared[:a_test_one])
+    assert_nil(Class.foorth_shared[:a_test_one])
   end
 
   def test_that_exclusive_methods_can_be_defined
@@ -65,8 +65,8 @@ class CoreTester < Minitest::Test
     assert_equal(9686668, vm.pop)
     assert_equal(spec, obj.map_foorth_exclusive(:a_test_two))
     assert_equal(spec, obj.foorth_exclusive[:a_test_two])
-    assert_equal(nil, Object.map_foorth_shared(:a_test_two))
-    assert_equal(nil, Class.map_foorth_shared(:a_test_two))
+    assert_nil(Object.map_foorth_shared(:a_test_two))
+    assert_nil(Class.map_foorth_shared(:a_test_two))
   end
 
   def test_class_naming

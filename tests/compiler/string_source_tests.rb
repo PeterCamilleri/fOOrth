@@ -33,7 +33,7 @@ class StringSourceTester < Minitest::Test
     assert(source.eoln?)
     refute(source.eof?)
 
-    assert_equal(source.get, nil)
+    assert_nil(source.get)
     assert(source.eoln?)
     assert(source.eof?)
   end
@@ -67,7 +67,7 @@ class StringSourceTester < Minitest::Test
     assert(source.eoln?)
     refute(source.eof?)
 
-    assert_equal(source.get, nil)
+    assert_nil(source.get)
     assert(source.eoln?)
     assert(source.eof?)
   end
@@ -101,7 +101,7 @@ class StringSourceTester < Minitest::Test
     assert(source.eoln?)
     refute(source.eof?)
 
-    assert_equal(source.get, nil)
+    assert_nil(source.get)
     assert(source.eoln?)
     assert(source.eof?)
   end
@@ -120,7 +120,7 @@ class StringSourceTester < Minitest::Test
     assert(source.eoln?)
     assert(source.eof?)
 
-    assert_equal(source.get, nil)
+    assert_nil(source.get)
     assert(source.eoln?)
     assert(source.eof?)
   end

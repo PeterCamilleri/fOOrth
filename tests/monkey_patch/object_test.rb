@@ -32,13 +32,13 @@ class ObjectMonkeyPatchTester < Minitest::Test
   #Test for conversion to a number.
   def test_to_number
     obj = Object.new
-    assert_equal(obj.to_foorth_n, nil)
+    assert_nil(obj.to_foorth_n)
   end
 
   #Test for conversion to a rational.
   def test_to_rational
     obj = Object.new
-    assert_equal(obj.to_foorth_r, nil)
+    assert_nil(obj.to_foorth_r)
   end
 
   #Test the quick fail raise in fOOrth.

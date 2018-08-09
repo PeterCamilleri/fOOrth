@@ -58,13 +58,13 @@ class ContextTester < Minitest::Test
     assert_equal(context.depth, 1)
 
     context = context.previous
-    assert_equal(context, nil)
+    assert_nil(context)
   end
 
   def test_the_nesting_of_scopes
     context = XfOOrth::Context.new(nil, stuff: 'buy')
-    assert_equal(context[:foo], nil)
-    assert_equal(context[:jelly], nil)
+    assert_nil(context[:foo])
+    assert_nil(context[:jelly])
     assert_equal(context[:stuff], 'buy')
     context[:foo] = 1
     context[:jelly] = 'donut'
@@ -170,7 +170,7 @@ class ContextTester < Minitest::Test
 
     context.remove_local_method(name)
 
-    assert_equal(nil, context[sym])
+    assert_nil(context[sym])
 
   end
 

@@ -23,7 +23,7 @@ class StringMonkeyPatchTester < Minitest::Test
   def test_to_character
     assert_equal('ABC'.to_foorth_c, 'A')
     assert_equal('A'.to_foorth_c,   'A')
-    assert_equal(''.to_foorth_c,    nil)
+    assert_nil(''.to_foorth_c)
   end
 
   #Test converting to a number.
@@ -39,13 +39,13 @@ class StringMonkeyPatchTester < Minitest::Test
     assert_equal('+2i'.to_foorth_n, Complex(0,2))
     assert_equal('+1-2i'.to_foorth_n, Complex(1,-2))
 
-    assert_equal('fubar'.to_foorth_n, nil)
-    assert_equal('2cats'.to_foorth_n, nil)
+    assert_nil('fubar'.to_foorth_n)
+    assert_nil('2cats'.to_foorth_n)
   end
 
   def test_to_rational
     assert_equal(Rational(1,2), '1/2'.to_foorth_r)
-    assert_equal(nil, 'apple'.to_foorth_r)
+    assert_nil('apple'.to_foorth_r)
   end
 
   def test_clone_patches

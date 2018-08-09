@@ -22,7 +22,7 @@ class ParserTester < Minitest::Test
     assert_equal(parser.get_word_raw, '3')
     assert_equal(parser.get_word_raw, '+')
     assert_equal(parser.get_word_raw, '.')
-    assert_equal(parser.get_word_raw, nil)
+    assert_nil(parser.get_word_raw)
   end
 
   #Test parsing strings.
@@ -67,7 +67,7 @@ class ParserTester < Minitest::Test
     parser.skip_over_comment
     assert_equal(parser.get_word_raw, '+')
     assert_equal(parser.get_word_raw, '.')
-    assert_equal(parser.get_word_raw, nil)
+    assert_nil(parser.get_word_raw)
   end
 
   #Test parsing ill-nested comments.
@@ -97,7 +97,7 @@ class ParserTester < Minitest::Test
     parser.skip_to_eoln
     assert_equal(parser.get_word_raw, '+')
     assert_equal(parser.get_word_raw, '.')
-    assert_equal(parser.get_word_raw, nil)
+    assert_nil(parser.get_word_raw)
   end
 
   #Test parsing of words.
@@ -110,7 +110,7 @@ class ParserTester < Minitest::Test
     assert_equal(parser.get_word, '2')
     assert_equal(parser.get_word, '+')
     assert_equal(parser.get_word, '.')
-    assert_equal(parser.get_word, nil)
+    assert_nil(parser.get_word)
   end
 
 end
