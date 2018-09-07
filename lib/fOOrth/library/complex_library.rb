@@ -7,15 +7,17 @@ module XfOOrth
   Complex.create_foorth_proxy
 
   #Some complex stubs.
-  Complex.create_shared_method('mod',    NosSpec, [:stub])
-  Complex.create_shared_method('.ceil',  TosSpec, [:stub])
-  Complex.create_shared_method('.floor', TosSpec, [:stub])
-  Complex.create_shared_method('.round', TosSpec, [:stub])
-  Complex.create_shared_method('<',      NosSpec, [:stub])
-  Complex.create_shared_method('>',      NosSpec, [:stub])
-  Complex.create_shared_method('<=',     NosSpec, [:stub])
-  Complex.create_shared_method('>=',     NosSpec, [:stub])
-  Complex.create_shared_method('<=>',    NosSpec, [:stub])
+  Complex.create_shared_method('mod',          NosSpec, [:stub])
+  Complex.create_shared_method('.ceil',        TosSpec, [:stub])
+  Complex.create_shared_method('.floor',       TosSpec, [:stub])
+  Complex.create_shared_method('.round',       TosSpec, [:stub])
+  Complex.create_shared_method('<',            NosSpec, [:stub])
+  Complex.create_shared_method('>',            NosSpec, [:stub])
+  Complex.create_shared_method('<=',           NosSpec, [:stub])
+  Complex.create_shared_method('>=',           NosSpec, [:stub])
+  Complex.create_shared_method('<=>',          NosSpec, [:stub])
+  Complex.create_shared_method('.numerator',   TosSpec, [:stub])
+  Complex.create_shared_method('.denominator', TosSpec, [:stub])
 
 
   #Some conversion words.

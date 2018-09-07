@@ -146,6 +146,11 @@ class NumericLibraryTester < Minitest::Test
     foorth_equal(' 3/2 .numerator',   [3])
     foorth_equal(' 3/2 .denominator', [2])
 
+    foorth_equal(' 0.1 .numerator',   [1])
+    foorth_equal(' 0.1 .denominator', [10])
+
+    foorth_raises(' 1+1i .numerator')
+    foorth_raises(' 1+1i .denominator')
   end
 
   def test_some_bitwise_ops

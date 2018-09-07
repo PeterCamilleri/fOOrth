@@ -9,7 +9,6 @@ module XfOOrth
 
   #Connect the Numeric classes to the fOOrth class system.
   Numeric.create_foorth_proxy
-  Float.create_foorth_proxy
 
   # Some conversion words.
   # [a] .to_n [Number or nil]
@@ -25,26 +24,6 @@ module XfOOrth
       error "F40: Cannot convert a #{self.foorth_name} to a Numeric instance"
     end
   })
-
-  # [a] .to_f [Float or nil]
-  Object.create_shared_method('.to_f', TosSpec, [], &lambda {|vm|
-    begin
-      vm.push(Float(self))
-    rescue
-      vm.push(nil)
-    end
-  })
-
-  # [num_digits a_number] .round_to [a_float]
-  Numeric.create_shared_method('.round_to', TosSpec, [], &lambda {|vm|
-    value = Float.foorth_coerce(self)
-    digits = Integer.foorth_coerce(vm.pop)
-    vm.push(value.round(digits))
-  })
-
-  # [a] .to_f! [Float]
-  Object.create_shared_method('.to_f!', TosSpec, [],
-    &lambda {|vm| vm.push(Float.foorth_coerce(self)) })
 
   # Some comparison words.
   # [b,a] > if b > a then [true] else [false]
