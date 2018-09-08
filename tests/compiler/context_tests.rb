@@ -108,6 +108,8 @@ class ContextTester < Minitest::Test
     c3 = XfOOrth::Context.new(c2, ctrl: :loop)
 
     assert_equal(c1, c3.get_context_by_ctrl(:procedure))
+    assert_equal(c2, c3.get_context_by_ctrl(:if))
+    assert_equal(c3, c3.get_context_by_ctrl(:loop))
     assert_raises(XfOOrth::XfOOrthError) { c3.get_context_by_ctrl(:wrong) }
   end
 
