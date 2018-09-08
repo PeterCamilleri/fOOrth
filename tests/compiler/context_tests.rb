@@ -102,6 +102,13 @@ class ContextTester < Minitest::Test
     assert_equal(context[:stuff], 'buy')
   end
 
+  def test_getting_context_with_a_specific_tag
+    c1 = XfOOrth::Context.new(nil, stuff: 'buy')
+
+
+
+  end
+
   def test_the_local_mapping_of_symbols
     context = XfOOrth::Context.new(nil)
 

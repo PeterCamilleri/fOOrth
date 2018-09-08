@@ -38,7 +38,7 @@ module XfOOrth
       current = self[symbol]
 
       unless expect.include?(current)
-        error "F10: Found a #{current.inspect}, excpected #{expect}"
+        error "F10: Found a #{current.inspect}, expected #{expect}"
       end
 
       true
