@@ -44,7 +44,8 @@ class ProcedureLibraryTester < Minitest::Test
   end
 
   def test_instance_data
-    foorth_run('42 Object .new .with{{ val@: @test self var$: $test_instance_data }}')
-
+    foorth_run('42 Object .new .with{{ val@: @test self val$: $t_i_d_1 }}')
+    foorth_run('$t_i_d_1  .:: .mulby @test * ; ')
+    foorth_equal('2 $t_i_d_1 .mulby', [84])
   end
 end
