@@ -47,5 +47,13 @@ class ProcedureLibraryTester < Minitest::Test
     foorth_run('42 Object .new .with{{ val@: @test self val$: $t_i_d_1 }}')
     foorth_run('$t_i_d_1  .:: .mulby @test * ; ')
     foorth_equal('2 $t_i_d_1 .mulby', [84])
+
+    foorth_run('99 $t_i_d_1 .with{{ var@: @boot }} ')
+    foorth_run('$t_i_d_1  .:: .addby @boot @ + ; ')
+    foorth_equal('2 $t_i_d_1 .addby', [101])
+
+    foorth_run('$t_i_d_1 .:: .set_boot @boot ! ;')
+    foorth_run('56 $t_i_d_1 .set_boot')
+    foorth_equal('2 $t_i_d_1 .addby', [58])
   end
 end
