@@ -55,5 +55,8 @@ class ProcedureLibraryTester < Minitest::Test
     foorth_run('$t_i_d_1 .:: .set_boot @boot ! ;')
     foorth_run('56 $t_i_d_1 .set_boot')
     foorth_equal('2 $t_i_d_1 .addby', [58])
+
+    foorth_run('128 $t_i_d_1 .set_boot')
+    foorth_equal('64 $t_i_d_1 .addby', [192])
   end
 end
