@@ -43,4 +43,8 @@ class ProcedureLibraryTester < Minitest::Test
     foorth_equal('{{ 42 var: a a @ }} .call', [42])
   end
 
+  def test_instance_data
+    foorth_run('42 Object .new .with{{ val@: @test self var$: $test_instance_data }}')
+
+  end
 end
