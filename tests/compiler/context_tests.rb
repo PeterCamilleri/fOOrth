@@ -103,10 +103,12 @@ class ContextTester < Minitest::Test
   end
 
   def test_getting_context_with_a_specific_tag
-    c1 = XfOOrth::Context.new(nil, stuff: 'buy')
+    c1 = XfOOrth::Context.new(nil, ctrl: :procedure)
+    c2 = XfOOrth::Context.new(c1, ctrl: :if)
+    c3 = XfOOrth::Context.new(c2, ctrl: :loop)
 
-
-
+    assert_equal(c1, c3.get_context_by_ctrl(:procedure))
+    assert_raises(XfOOrth::XfOOrthError) { c3.get_context_by_ctrl(:wrong) }
   end
 
   def test_the_local_mapping_of_symbols
