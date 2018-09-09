@@ -26,6 +26,18 @@ module XfOOrth
       @data.merge!(new_data)
     end
 
+    #Get the context with the specified type.
+    def get_context_by_ctrl(ctrl_type)
+      result = self
+
+      while result
+        return result if result[:ctrl] == ctrl_type
+        result = result.previous
+      end
+
+      error "F92: Unable to locate a context for #{ctrl_type.inspect}"
+    end
+
     #Validate a current data value.
     #<br>Parameters:
     #* symbol - The symbol of the value to be tested.
@@ -38,7 +50,7 @@ module XfOOrth
       current = self[symbol]
 
       unless expect.include?(current)
-        error "F10: Found a #{current.inspect}, excpected #{expect}"
+        error "F10: Found a #{current.inspect}, expected #{expect}"
       end
 
       true

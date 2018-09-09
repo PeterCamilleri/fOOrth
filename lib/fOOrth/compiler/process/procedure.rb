@@ -32,6 +32,42 @@ module XfOOrth
       (_, @buffer = @buffer, save)[0]
     end
 
+    #The procedure used for procedure instance values
+    PROC_VAL = lambda {|vm|
+      context = vm.context.get_context_by_ctrl(:procedure)
+      val_name = vm.parser.get_word()
+
+      unless /^@[a-z][a-z0-9_]*$/ =~ val_name
+        error "F10: Invalid val name #{val_name}"
+      end
+
+      val_symbol = XfOOrth::SymbolMap.add_entry(val_name)
+      vm << "#{'@'+(val_symbol.to_s)} = vm.pop; "
+      vm << "self.create_exclusive_method(#{val_name.inspect}, InstanceVarSpec, []); "
+
+      context.create_local_method(val_name, LocalSpec, [:immediate], &lambda {|nvm|
+        nvm << "vm.push(#{'@'+(val_symbol.to_s)}); "
+      })
+    }
+
+    #The procedure used for procedure instance variables
+    PROC_VAR = lambda {|vm|
+      context = vm.context.get_context_by_ctrl(:procedure)
+      var_name = vm.parser.get_word()
+
+      unless /^@[a-z][a-z0-9_]*$/ =~ var_name
+        error "F10: Invalid val name #{var_name}"
+      end
+
+      var_symbol = XfOOrth::SymbolMap.add_entry(var_name)
+      vm << "#{'@'+(var_symbol.to_s)} = [vm.pop]; "
+      vm << "self.create_exclusive_method(#{var_name.inspect}, InstanceVarSpec, []); "
+
+      context.create_local_method(var_name, LocalSpec, [:immediate], &lambda {|nvm|
+        nvm << "vm.push(#{'@'+(var_symbol.to_s)}); "
+      })
+    }
+
     #Handle the opening of a procedure literal.
     def open_procedure_literal
       suspend_execute_mode("vm.push(lambda {|vm, val=nil, idx=nil| ", :procedure)
@@ -43,6 +79,10 @@ module XfOOrth
       #Support for local data.
       context.create_local_method('var:', LocalSpec, [:immediate], &Local_Var_Action)
       context.create_local_method('val:', LocalSpec, [:immediate], &Local_Val_Action)
+
+      #Support for procedure instance data.
+      context.create_local_method('var@:', LocalSpec, [:immediate], &PROC_VAR)
+      context.create_local_method('val@:', LocalSpec, [:immediate], &PROC_VAL)
 
       context.create_local_method('}}', MacroSpec, [:macro, :end,     "}); "])
     end
