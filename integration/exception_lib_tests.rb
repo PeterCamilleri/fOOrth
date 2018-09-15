@@ -83,4 +83,8 @@ class ExceptionLibraryTester < Minitest::Test
 
   end
 
+  def test_a_frozen_exception
+    foorth_equal('try [ 1 ] protect 4 << catch error end', ["E11: can't modify protected Array"])
+  end
+
 end

@@ -108,13 +108,9 @@ end
 #Extensions to the RunTimeError to support fOOrth
 class RuntimeError
 
-  #Massage the messages a bit
-  #<br>Endemic Code Smells
-  #* :reek:FeatureEnvy
+  #Massage the messages a bit.
   def message
-    msg = super
-    msg["frozen"] && msg["frozen"] = "protected"
-    msg
+    super.gsub(/frozen/, "protected")
   end
 
 end

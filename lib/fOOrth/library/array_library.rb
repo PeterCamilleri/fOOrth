@@ -124,12 +124,24 @@ module XfOOrth
     &lambda {|vm| self.clear})
 
   # [ [ 3 1 2 ] n ] << [ [ 3 1 2 n ] ]
-  Array.create_shared_method('<<', NosSpec, [],
-    &lambda {|vm| vm.poke(self << vm.peek) })
+  Array.create_shared_method('<<', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self << vm.peek)
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [ [ 3 1 2 ] n ] >> [ [ n 3 1 2 ] ]
-  Array.create_shared_method('>>', NosSpec, [],
-    &lambda {|vm| vm.poke(self.insert(0, vm.peek)) })
+  Array.create_shared_method('>>', NosSpec, [], &lambda {|vm|
+    begin
+      vm.poke(self.insert(0, vm.peek))
+    rescue
+      vm.data_stack.pop
+      raise
+    end
+  })
 
   # [[3 1 2] n] + [[3 1 2 n]]
   Array.create_shared_method('+', NosSpec, [],
